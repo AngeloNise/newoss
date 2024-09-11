@@ -1,0 +1,56 @@
+/* Style the content container */
+.content-container {
+    margin: 20px auto;
+    max-width: 800px;
+    margin-top: 300px;
+    margin-bottom: 350px;
+    text-align: center;
+    background-color: #f0f0f0; /* Light gray background */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Style the heading */
+.content-container h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Style the activity question */
+.activity-question p {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* Style the activity buttons */
+.activity-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between buttons */
+    margin-bottom: 20px;
+}
+
+.activity-buttons .button {
+    background-color: #800000; /* Maroon color */
+    color: #fff; /* White text */
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
+
+.activity-buttons .button:hover {
+    background-color: #a00000; /* Darker maroon on hover */
+}
+
+/* Style the note */
+.note {
+    margin-top: 20px;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: rgb(199, 0, 0); /* Dark gray text */
+    text-align: left;
+}
+
+

@@ -1,0 +1,57 @@
+/* Styles for the table in the preevaldoc view */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    color: #333;
+    margin-left: 14%;
+    margin-right: 1%;
+    margin-top: 4%;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Styling for links */
+a.file-link {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+a.view-link {
+    background-color: #ffc107;
+    border: 1px solid #ffc107;
+    color: #333;
+}
+
+a.view-link:hover {
+    background-color: #e0a800;
+}
+
+a.download-link {
+    background-color: #28a745;
+    border: 1px solid #28a745;
+    color: #fff;
+}
+
+a.download-link:hover {
+    background-color: #218838;
+}
