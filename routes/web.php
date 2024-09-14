@@ -11,6 +11,7 @@ use App\Http\Controllers\preeval\FRAStatusController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\AnnexAController;
 
 // GUEST
 Route::get('/', function () {
@@ -105,6 +106,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('preevalstatus/{id}', [FRADocController::class, 'show'])->name('preevalstatus.show');
     Route::get('preevaldoc', [FRADocController::class, 'display'])->name('preevaldoc');
 
+    Route::post('annexas', [AnnexAController::class, 'store']);
     Route::get('/Account-Settings', [AccountSettingsController::class, 'index'])->name('accset');
     Route::post('/Account-Settings', [AccountSettingsController::class, 'update'])->name('accset.update');
 

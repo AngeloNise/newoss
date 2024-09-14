@@ -1,7 +1,7 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="fra-container">
-    <form action="<?php echo e(url('uploaddocument')); ?>" method="POST">
+    <form action="<?php echo e(url('annexas')); ?>" method="POST">
     <?php echo csrf_field(); ?>
         <h2>FUND RAISING ACTIVITY APPLICATION (Annex-A)</h2>
         <div class="fill-up-container">
@@ -69,16 +69,26 @@
             </div>
 
             <h3>2. Budget Expenses</h3>
-            <div class="split">
-                <div class="fra-group">
-                    <label for="total_budget_expenses">EXPENDITURES + AMOUNT</label>
-                    <input type="text" id="total_budget_expenses" name="total_budget_expenses" class="form-control" placeholder="Venue Rental + ₱1500">
+            <div id="budget-container">
+                <div class="split">
+                    <div class="fra-group">
+                        <label for="expenditures">a. EXPENDITURES</label>
+                        <input type="text" id="expenditures" name="expenditures[]" class="form-control">
+                    </div>
+            
+                    <div class="fra-group">
+                        <label for="amount">AMOUNT</label>
+                        <input type="text" id="amount" name="amount[]" class="form-control">
+                    </div>
                 </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="add-budget">Add</button>
+            </div>                  
 
-                <div class="fra-group">
-                    <label for="total_budget_expenses_php">Total Budgeted Expenses</label>
-                    <input type="text" id="total_budget_expenses_php" name="total_budget_expenses_php" class="form-control" placeholder="Php">
-                </div>
+            <div class="fra-group">
+                <label for="total_budget_expenses_php">Total Budgeted Expenses</label>
+                <input type="text" id="total_budget_expenses_php" name="total_budget_expenses_php" class="form-control" placeholder="Php">
             </div>
 
             <div class="fra-group">

@@ -17,33 +17,33 @@
                 event.preventDefault();
             }
         }
-
+    
         document.addEventListener("DOMContentLoaded", function() {
-
-        var dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-
-        dropdownToggles.forEach(function(toggle) {
-            toggle.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent the default anchor behavior
-                var targetId = this.getAttribute('data-target');
-                var dropdown = document.getElementById(targetId);
-
-                if (dropdown) {
-                    // Toggle the visibility of the dropdown
-                    if (dropdown.style.display === 'block') {
-                        dropdown.style.display = 'none';
-                    } else {
-                        // Close any open dropdowns
-                        document.querySelectorAll('.dropdown').forEach(function(dd) {
-                            dd.style.display = 'none';
-                        });
-                        dropdown.style.display = 'block';
+            // Existing functionality for dropdowns and alerts
+            var dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    
+            dropdownToggles.forEach(function(toggle) {
+                toggle.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default anchor behavior
+                    var targetId = this.getAttribute('data-target');
+                    var dropdown = document.getElementById(targetId);
+    
+                    if (dropdown) {
+                        // Toggle the visibility of the dropdown
+                        if (dropdown.style.display === 'block') {
+                            dropdown.style.display = 'none';
+                        } else {
+                            // Close any open dropdowns
+                            document.querySelectorAll('.dropdown').forEach(function(dd) {
+                                dd.style.display = 'none';
+                            });
+                            dropdown.style.display = 'block';
+                        }
                     }
-                }
+                });
             });
-        });
-
-        const alertBox = document.querySelector('.alert');
+    
+            const alertBox = document.querySelector('.alert');
             if (alertBox) {
                 setTimeout(() => {
                     alertBox.style.opacity = '0';
@@ -52,17 +52,44 @@
                     }, 500);
                 }, 3000);
             }
+    
+            // New functionality for dynamically adding fields
+            const addButton = document.getElementById('add-budget');
+            const container = document.getElementById('budget-container');
+            let index = container.querySelectorAll('.split').length; // Start with the number of existing fields
+    
+            if (addButton) {
+                addButton.addEventListener('click', function() {
+                    const newFields = document.createElement('div');
+                    newFields.classList.add('split');
+                    newFields.innerHTML = `
+                        <div class="fra-group">
+                            <input type="text" id="expenditures_${index}" name="expenditures[]" class="form-control">
+                        </div>
+                        <div class="fra-group">
+                            <input type="text" id="amount_${index}" name="amount[]" class="form-control">
+                        </div>
+                    `;
+                    
+                    // Append the new fields to the container
+                    container.appendChild(newFields);
+                    index++;
+                });
+            }
+    
+            // File input validation
+            document.querySelector('form').addEventListener('submit', function(event) {
+                let inputs = document.querySelectorAll('input[type="file"]');
+                let hasFile = Array.from(inputs).some(input => input.files.length > 0);
+    
+                if (!hasFile) {
+                    event.preventDefault();
+                    alert('Please add at least one document.');
+                }
+            });
         });
-        document.querySelector('form').addEventListener('submit', function(event) {
-        let inputs = document.querySelectorAll('input[type="file"]');
-        let hasFile = Array.from(inputs).some(input => input.files.length > 0);
-
-        if (!hasFile) {
-            event.preventDefault();
-            alert('Please add at least one document.');
-        }
-    });
     </script>
+    
 </head>
 <header>
     <div class="nav-item dropdown">
