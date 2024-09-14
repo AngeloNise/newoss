@@ -1,120 +1,115 @@
-body {
-    background-color: #f8f8f8;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
-    color: #555555;
+/* Improved Styles for Fund Raising Activity Form */
+.fra-container {
+    width: 50%;
+    margin: 4% 0;
+    margin-left: 28%;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.sb{
-    background-color: #721425;
-    color: #ffffff;
-    width: 13%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-}
-
-.link-container{
-    background-color: #721425;
-    color: #ffffff;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.link-container p {
+.fra-container h2 {
     text-align: center;
-    color: white;
-    font-weight: bold;
-    font-size: 19px;
-    text-shadow: 1px 1px 2px rgb(36, 29, 27);
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 24px;
 }
 
-.link-container ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 30%;
-    width: 100%;
+.fra-group {
+    margin-bottom: 25px;
 }
 
-.link-container ul li {
-    margin: 10px 0;
-}
-
-.link-container ul li a {
-    color: #ffffff;
-    text-decoration: none;
+.fra-group label {
     display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #34495e;
+    font-size: 14px;
+}
+
+.fra-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.fra-group input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+}
+
+/* CSS for Horizontal Alignment of Label and Input */
+.split {
+    display: flex;
+    align-items: center; /* Vertically centers items within the container */
+    gap: 20px; /* Space between label and input */
+    margin-bottom: 20px; /* Space below each split group */
+}
+
+.split .fra-group {
+    flex: 1; /* Allows the elements to grow and shrink as needed */
+}
+
+.split h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.split label {
+    display: block;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 5px;
+}
+
+.split input {
+    width: 100%;
     padding: 10px;
-    border-radius: 5px;
+    font-size: 16px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.split input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+}
+
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
     text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-.link-container ul li a:hover {
-    background-color: #a83232;
+.btn-primary {
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
 }
 
-.sb svg{
-    fill:#ffffff;
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: scale(1.03);
 }
 
-#sidebar{
-    display: none;
-}
-
-.close{
-    display: none;
-}
-
-.open {
-    display: none;
-}
-
-@media(max-width: 811px){
-    .link-container{
-        flex-direction: column;
-        align-items: flex-start;
-
-        position: fixed;
-        top: 0;
-        left: -100%;
-        z-index: 10;
-        width: 175px;
-        background-color: #721425;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: 0.5s ease-out;
-    }
-    .link-container ul a{
-        box-sizing:border-box;
-        height: auto;
-        width: 100%;
-        padding: 20px 30px;
-        justify-content: flex-start;
-    }
-    .open, .close{
-        padding: 20px;
-        display: block;
-        justify-content: flex-end;
-    }
-    #sidebar:checked ~ .link-container{
-        left: 0;
-    }
-    #sidebar:checked ~ #overlay{
-        height: 100%;
-        width: 100%;
-        position: fixed;
-        top: 3%;
-        right: 0;
-        z-index: 9;
-    }
+.btn-primary:active {
+    background-color: #1f6d8d;
+    transform: scale(0.98);
 }

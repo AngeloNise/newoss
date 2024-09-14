@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/orgs/fraeval.css">
     <link rel="stylesheet" href="/css/orgs/preeval.css">
     <link rel="stylesheet" href="/css/orgs/accset.css">
+    <link rel="stylesheet" href="/css/test.css">
     <script>
         function confirmDownload(event) {
             var userConfirmed = confirm("Are you sure you want to download this file?");

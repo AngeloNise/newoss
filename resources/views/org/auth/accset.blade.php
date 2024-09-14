@@ -25,34 +25,34 @@
 
     </div>
 
-    <div class="form-container">
+    <div class="form-container-accset">
         <form action="{{ route('accset.update') }}" method="POST">
             @csrf
     
             <div class="form-layout">
                 <!-- Left Column -->
                 <div class="form-left">
-                    <div class="form-group">
+                    <div class="form-accset">
                         <label for="name" class="form-label">President Name:</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}" required>
                     </div>
     
-                    <div class="form-group">
+                    <div class="form-accset">
                         <input type="text" class="form-control" id="organization" name="organization" value="{{ old('name_of_organization', $user->name_of_organization) }}" placeholder="Organization Name" required>
                     </div>
                 </div>
     
                 <!-- Right Column -->
                 <div class="form-right">
-                    <div class="form-group">
+                    <div class="form-accset">
                         <input type="password" class="form-control" id="old_password" name="old_password" placeholder="Enter old password" required>
                     </div>
     
-                    <div class="form-group">
+                    <div class="form-accset">
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password">
                     </div>
     
-                    <div class="form-group">
+                    <div class="form-accset">
                         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm new password">
                     </div>
                 </div>

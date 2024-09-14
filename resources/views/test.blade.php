@@ -1,33 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Office of the Student Services</title>
-    <link rel="stylesheet" href="/css/test.css">
-</head>
-<div class="sb">
-    <input type="checkbox" id="sidebar">
-    <label for="sidebar" class="open">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
-    </label>
+@extends('layout.orglayout')
+@section('content')
+<div class="fra-container">
+    <form action="{{ url('uploaddocument') }}" method="POST">
+    @csrf
+        <h2>FUND RAISING ACTIVITY APPLICATION (Annex-A)</h2>
+        <div class="fill-up-container">
+            <div class="fra-group">
+                <label for="name_of_project">Name of Project</label>
+                <input type="text" id="name_of_project" name="name_of_project" class="form-control">
+            </div>
     
-    <label id="overlay" for="sidebar"></label>
+            <div class="fra-group">
+                <label for="date_duration">Date/Duration</label>
+                <input type="text" id="date_duration" name="date_duration" class="form-control">
+            </div>
+    
+            <div class="fra-group">
+                <label for="requesting_organization">Requesting Organization</label>
+                <input type="text" id="requesting_organization" name="requesting_organization" class="form-control">
+            </div>
+    
+            <div class="fra-group">
+                <label for="college_branch">College/Branch/Campus</label>
+                <input type="text" id="college_branch" name="college_branch" class="form-control">
+            </div>
+    
+            <div class="fra-group">
+                <label for="representative">Name of Representative</label>
+                <input type="text" id="representative" name="representative" class="form-control">
+            </div>
+    
+            <div class="fra-group">
+                <label for="address_contact">Address/Contact No.</label>
+                <input type="text" id="address_contact" name="address_contact" class="form-control">
+            </div>
+    
+            <div class="fra-group">
+                <label for="objectives">Objectives</label>
+                <input type="text" id="objectives" name="objectives" class="form-control">
+            </div>
 
-    <div class="link-container">
-        <label for="sidebar" class="close">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-        </label>
-        <ul>
-            <li><a href="{{ url('/Dashboard-Admin') }}">Dashboard</a></li>
-            <li><a href="{{ url('/Organization-Account-Management') }}">Organization Account Management</a></li>
-            <li><a href="{{ url('/Application-Admin') }}">Application</a></li>
-            <li><a href="{{ url('/Post-Report') }}">Post Report</a></li>
-            <li><a href="{{ url('/Pre-Evaluation-Document') }}">Pre Evaluation Documents</a></li>
-            <!--<li><a href="#">Log-Out</a></li>-->
-        </ul>            
-    </div>   
-</div>  
-    @yield('content')
-</body>
-</html>
+            <h2>Project Estimates</h2>
+            <h3>1. Estimate Income</h3>
+            <div class="fra-group">
+                <label for="estimate_income">a. Number of tickets/items to be sold</label>
+                <input type="text" id="estimate_income" name="estimate_income" class="form-control">
+                <h5>(Tickets are to be registered at the Office of Student Services)</h5>
+            </div>
+
+            <div class="fra-group">
+                <label for="price_ticket">b. Price per ticket/item</label>
+                <input type="text" id="price_ticket" name="price_ticket" class="form-control">
+            </div>
+
+            <div class="fra-group">
+                <label for="total_estimate_ticket">c. Total estimated tickets/items sales (a x b)</label>
+                <input type="text" id="total_estimate_ticket" name="total_estimate_ticket" class="form-control">
+            </div>
+
+            <div class="fra-group">
+                <label for="other_income">d. Other Income</label>
+                <input type="text" id="other_income" name="other_income" class="form-control">
+            </div>
+
+            <div class="fra-group">
+                <label for="total_estimated_income">e.Total estimated Income (c + d)</label>
+                <input type="text" id="total_estimated_income" name="total_estimated_income" class="form-control">
+            </div>
+
+            <h3>2. Budget Expenses</h3>
+            <div class="split">
+                <div class="fra-group">
+                    <label for="total_budget_expenses">EXPENDITURES + AMOUNT</label>
+                    <input type="text" id="total_budget_expenses" name="total_budget_expenses" class="form-control" placeholder="Venue Rental + ₱1500">
+                </div>
+
+                <div class="fra-group">
+                    <label for="total_budget_expenses_php">Total Budgeted Expenses</label>
+                    <input type="text" id="total_budget_expenses_php" name="total_budget_expenses_php" class="form-control" placeholder="Php">
+                </div>
+            </div>
+
+            <div class="fra-group">
+                <label for="total_estimated_proceeds">3. Total Estimated Proceeds (1e-2a)</label>
+                <input type="text" id="total_estimated_proceeds" name="total_estimated_proceeds" class="form-control" placeholder="Php">
+            </div>
+
+            <div class="fra-group">
+                <label for="utilization_plan">4. Proceeds Utilization Plan/Budget Proposal</label>
+                <input type="text" id="utilization_plan" name="utilization_plan" class="form-control">
+            </div>
+
+            <div class="fra-group">
+                <label for="solicitation">5. Solicitation/Lists of Donors</label>
+                <input type="text" id="solicitation" name="solicitation" class="form-control">
+            </div>
+
+            <div class="fra-group">
+                <label for="coordinator">6. Lists of Officials/Coordinator</label>
+                <input type="text" id="coordinator" name="coordinator" class="form-control">
+            </div>
+
+            <div class="fra-group">
+                <label for="participants">7. Lists of Participants</label>
+                <input type="text" id="participants" name="participants" class="form-control">
+            </div>
+
+            <h3>Additional Information</h3>
+        <div class="split">
+            <div class="fra-group">
+                <label for="president">President of Organization</label>
+                <input type="text" id="president" name="president" class="form-control">
+            </div>
+
+            <div class="fra-group">
+                <label for="treasurer">Treasurer/ Representative</label>
+                <input type="text" id="treasurer" name="treasurer" class="form-control">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+@endsection

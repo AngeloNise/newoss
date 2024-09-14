@@ -37,7 +37,7 @@
     color: #6c757d;
 }
 
-.form-container {
+.form-container-accset {
     margin: 0;
     background-color: #e9ecef;
     padding: 40px;
@@ -63,18 +63,18 @@
 }
 
 /* Form Group Styles */
-.form-group {
+.form-accset {
     margin-bottom: 20px; /* Space between form groups */
     display: flex;
     flex-direction: column; /* Stack items vertically */
 }
 
-.form-group div {
+.form-accset div {
     margin-bottom: 15px; /* Space between inputs */
 }
 
 /* Label Styles */
-.form-group .form-label {
+.form-accset .form-label {
     display: block;
     font-weight: 600;
     color: #495057;
@@ -82,7 +82,7 @@
 }
 
 /* Input Styles */
-.form-group .form-control {
+.form-accset .form-control {
     width: 100%;
     padding: 12px;
     font-size: 14px;
@@ -92,19 +92,19 @@
     transition: border-color 0.3s ease-in-out;
 }
 
-.form-group .form-control:focus {
+.form-accset .form-control:focus {
     border-color: #80bdff;
     outline: 0;
     box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
 }
 
 /* Handle cases for stacked inputs */
-.form-group .form-control + .form-control {
+.form-accset .form-control + .form-control {
     margin-top: 10px; /* Add space between stacked inputs */
 }
 
 /* Input Placeholder Styles */
-.form-group .form-control::placeholder {
+.form-accset .form-control::placeholder {
     color: #6c757d; /* Placeholder text color */
 }
 
