@@ -17,8 +17,8 @@
 @endif
 <div class="annexes">
     <h1>Fill-up the Forms below</h1>
-    <a href="{{ url('/Annex-A') }}" class="button">Fund Raising Activity</a>
-    <a href="{{ url('/Annex-B') }}" class="button">In-Campus Activity</a>
-    <a href="{{ url('/Annex-C') }}" class="button">Off-Campus Activity</a>
+    <a href="{{ url('/Annex-A') }}" class="button">Annex-A</a>
+    <a href="{{ url('/Annex-B') }}" class="button">Annex-B</a>
+    <a href="{{ url('/Annex-C') }}" class="button">Annex-C</a>
 </div>
 @endsection

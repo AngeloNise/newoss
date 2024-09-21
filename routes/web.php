@@ -96,6 +96,10 @@ Route::middleware(['auth'])->group(function () {
         return view('/org/auth/incampus');
     });
 
+    Route::get('/Annex-A', function () {
+        return view('/org/auth/fraeval/annex-a');
+    });
+
     Route::get('/Fund-Raising', [FRAController::class,'preevalfra']);
     Route::post('/uploaddocument', [FRAController::class,'store']);
     Route::get('/faculty/Pre-Evaluation-Status', [FRAStatusController::class, 'display'])->name('preevalstatus');

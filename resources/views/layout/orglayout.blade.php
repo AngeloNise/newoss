@@ -9,15 +9,9 @@
     <link rel="stylesheet" href="/css/orgs/fraeval.css">
     <link rel="stylesheet" href="/css/orgs/preeval.css">
     <link rel="stylesheet" href="/css/orgs/accset.css">
+    <link rel="stylesheet" href="/css/orgs/fraeval/annexa.css">
     <link rel="stylesheet" href="/css/test.css">
-    <script>
-        function confirmDownload(event) {
-            var userConfirmed = confirm("Are you sure you want to download this file?");
-            if (!userConfirmed) {
-                event.preventDefault();
-            }
-        }
-    
+    <script>    
         document.addEventListener("DOMContentLoaded", function() {
             // Existing functionality for dropdowns and alerts
             var dropdownToggles = document.querySelectorAll('.dropdown-toggle');
@@ -56,24 +50,44 @@
             // New functionality for dynamically adding fields
             const addButton = document.getElementById('add-budget');
             const container = document.getElementById('budget-container');
-            let index = container.querySelectorAll('.split').length; // Start with the number of existing fields
-    
+            let index = container.querySelectorAll('.split').length;
+
+            const addButton1 = document.getElementById('add-other-income');
+            const container1 = document.getElementById('add-income');
+            let index1 = container1.querySelectorAll('.other-income').length; // Changed to index1
+
             if (addButton) {
                 addButton.addEventListener('click', function() {
                     const newFields = document.createElement('div');
                     newFields.classList.add('split');
                     newFields.innerHTML = `
                         <div class="fra-group">
-                            <input type="text" id="expenditures_${index}" name="expenditures[]" class="form-control">
+                            <input type="text" id="expenditures_${index}" name="expenditures[]" class="form-control" placeholder="EXPENDITURES">
                         </div>
                         <div class="fra-group">
-                            <input type="text" id="amount_${index}" name="amount[]" class="form-control">
+                            <input type="text" id="amount_${index}" name="amount[]" class="form-control" placeholder="AMOUNT">
                         </div>
                     `;
                     
                     // Append the new fields to the container
                     container.appendChild(newFields);
                     index++;
+                });
+            }
+
+            if (addButton1) {
+                addButton1.addEventListener('click', function() {
+                    const newFields = document.createElement('div');
+                    newFields.classList.add('other-income');
+                    newFields.innerHTML = `
+                        <div class="fra-group">
+                            <input type="text" id="other_income_${index1}" name="other_income[]" class="form-control" placeholder="OTHER INCOME">
+                        </div>
+                    `;
+                    
+                    // Append the new fields to the container
+                    container1.appendChild(newFields);
+                    index1++; // Increment the correct index
                 });
             }
     
