@@ -9,101 +9,13 @@
     <link rel="stylesheet" href="/css/orgs/fraeval.css">
     <link rel="stylesheet" href="/css/orgs/preeval.css">
     <link rel="stylesheet" href="/css/orgs/accset.css">
+    <link rel="stylesheet" href="/css/orgs/fraeval/allannex.css">
     <link rel="stylesheet" href="/css/orgs/fraeval/annexa.css">
+    <link rel="stylesheet" href="/css/orgs/fraeval/annexb.css">
     <link rel="stylesheet" href="/css/test.css">
-    <script>    
-        document.addEventListener("DOMContentLoaded", function() {
-            // Existing functionality for dropdowns and alerts
-            var dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    
-            dropdownToggles.forEach(function(toggle) {
-                toggle.addEventListener('click', function(event) {
-                    event.preventDefault(); // Prevent the default anchor behavior
-                    var targetId = this.getAttribute('data-target');
-                    var dropdown = document.getElementById(targetId);
-    
-                    if (dropdown) {
-                        // Toggle the visibility of the dropdown
-                        if (dropdown.style.display === 'block') {
-                            dropdown.style.display = 'none';
-                        } else {
-                            // Close any open dropdowns
-                            document.querySelectorAll('.dropdown').forEach(function(dd) {
-                                dd.style.display = 'none';
-                            });
-                            dropdown.style.display = 'block';
-                        }
-                    }
-                });
-            });
-    
-            const alertBox = document.querySelector('.alert');
-            if (alertBox) {
-                setTimeout(() => {
-                    alertBox.style.opacity = '0';
-                    setTimeout(() => {
-                        alertBox.remove();
-                    }, 500);
-                }, 3000);
-            }
-    
-            // New functionality for dynamically adding fields
-            const addButton = document.getElementById('add-budget');
-            const container = document.getElementById('budget-container');
-            let index = container.querySelectorAll('.split').length;
-
-            const addButton1 = document.getElementById('add-other-income');
-            const container1 = document.getElementById('add-income');
-            let index1 = container1.querySelectorAll('.other-income').length; // Changed to index1
-
-            if (addButton) {
-                addButton.addEventListener('click', function() {
-                    const newFields = document.createElement('div');
-                    newFields.classList.add('split');
-                    newFields.innerHTML = `
-                        <div class="fra-group">
-                            <input type="text" id="expenditures_${index}" name="expenditures[]" class="form-control" placeholder="EXPENDITURES">
-                        </div>
-                        <div class="fra-group">
-                            <input type="text" id="amount_${index}" name="amount[]" class="form-control" placeholder="AMOUNT">
-                        </div>
-                    `;
-                    
-                    // Append the new fields to the container
-                    container.appendChild(newFields);
-                    index++;
-                });
-            }
-
-            if (addButton1) {
-                addButton1.addEventListener('click', function() {
-                    const newFields = document.createElement('div');
-                    newFields.classList.add('other-income');
-                    newFields.innerHTML = `
-                        <div class="fra-group">
-                            <input type="text" id="other_income_${index1}" name="other_income[]" class="form-control" placeholder="OTHER INCOME">
-                        </div>
-                    `;
-                    
-                    // Append the new fields to the container
-                    container1.appendChild(newFields);
-                    index1++; // Increment the correct index
-                });
-            }
-    
-            // File input validation
-            document.querySelector('form').addEventListener('submit', function(event) {
-                let inputs = document.querySelectorAll('input[type="file"]');
-                let hasFile = Array.from(inputs).some(input => input.files.length > 0);
-    
-                if (!hasFile) {
-                    event.preventDefault();
-                    alert('Please add at least one document.');
-                }
-            });
-        });
-    </script>
-    
+    <script src="/js/org/orgscript.js"></script>
+    <script src="/js/org/annexa.js"></script>
+    <script src="/js/org/annexb.js"></script>
 </head>
 <header>
     <div class="nav-item dropdown">
@@ -145,20 +57,19 @@
                     <p class="dropdown-toggle" data-target="application-dropdown">Application</p>
                     <div class="tooltiptext">Application History</div>
                 </div>
-                        <ul id="application-dropdown" class="dropdown">
-                        <li><a href="{{ url('/Fund-Raising-History') }}">Fund Raising Activity</a></li>
-                        <li><a href="{{ url('/In-Campus-History') }}">In-Campus Activity</a></li>
-                        <li><a href="{{ url('/Off-Campus-History') }}">Off-Campus Activity</a></li>
-                    </ul>
+                <ul id="application-dropdown" class="dropdown">
+                    <li><a href="{{ url('/Fund-Raising-History') }}">Fund Raising Activity</a></li>
+                    <li><a href="{{ url('/In-Campus-History') }}">In-Campus Activity</a></li>
+                    <li><a href="{{ url('/Off-Campus-History') }}">Off-Campus Activity</a></li>
+                </ul>
                 <li><a href="{{ url('/Download') }}">Download Forms</a></li>
                 <li><a href="{{ url('/Pre-Evaluation') }}">Pre-Evaluation</a></li>
-                <p>Upcoming Events<p>
+                <p>Upcoming Events</p>
                 <li><a href="{{ url('/In-Campus') }}">In-Campus</a></li>
                 <li><a href="#">Off-Campus</a></li>
-                <!--<li><a href="#">Log-Out</a></li>-->
             </ul>            
         </div>   
     </div>  
-        @yield('content')
+    @yield('content')
 </body>
 </html>

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AnnexAController;
+use App\Http\Controllers\AnnexBController;
 
 // GUEST
 Route::get('/', function () {
@@ -100,6 +101,10 @@ Route::middleware(['auth'])->group(function () {
         return view('/org/auth/fraeval/annex-a');
     });
 
+    Route::get('/Annex-B', function () {
+        return view('/org/auth/fraeval/annex-b');
+    });
+
     Route::get('/Fund-Raising', [FRAController::class,'preevalfra']);
     Route::post('/uploaddocument', [FRAController::class,'store']);
     Route::get('/faculty/Pre-Evaluation-Status', [FRAStatusController::class, 'display'])->name('preevalstatus');
@@ -111,6 +116,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('preevaldoc', [FRADocController::class, 'display'])->name('preevaldoc');
 
     Route::post('annexas', [AnnexAController::class, 'store']);
+    Route::post('annexbs', [AnnexBController::class, 'store']);
     Route::get('/Account-Settings', [AccountSettingsController::class, 'index'])->name('accset');
     Route::post('/Account-Settings', [AccountSettingsController::class, 'update'])->name('accset.update');
 

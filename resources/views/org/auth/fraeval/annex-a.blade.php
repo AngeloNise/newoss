@@ -67,7 +67,7 @@
                 </div>
             </div>
 
-            <div class="button-container">
+            <div class="button-income">
                 <button type="button" id="add-other-income">Add</button>
             </div>  
 
@@ -89,16 +89,16 @@
                         <input type="text" id="amount" name="amount[]" class="form-control">
                     </div>
                 </div>
-            </div>                
+            </div>
+            
+            <div class="button-budget">
+                <button type="button" id="add-budget">Add</button>
+            </div>  
 
             <div class="fra-group">
                 <label for="total_budget_expenses_php">Total Budgeted Expenses</label>
                 <input type="text" id="total_budget_expenses_php" name="total_budget_expenses_php" class="form-control" placeholder="(sum of 𝑛 terms of 𝑎) Php">
             </div>
-
-            <div class="button-container">
-                <button type="button" id="add-budget">Add</button>
-            </div>  
 
             <div class="fra-group">
                 <label for="total_estimated_proceeds">3. Total Estimated Proceeds (1e-2a)</label>

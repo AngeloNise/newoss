@@ -1,0 +1,96 @@
+.button-receipt {
+    text-align: right;
+}
+
+.button-disbursements {
+    text-align: right;
+}
+
+.split-1, .split-2 {
+    display: flex;
+    align-items: center; /* Vertically centers items within the container */
+    gap: 20px; /* Space between label and input */
+    margin-bottom: 20px; 
+}
+
+.split-1 .fra-group, .split-2 .fra-group {
+    flex: 1; /* Allows the elements to grow and shrink as needed */
+}
+
+.split-1 label, .split-2 label {
+    display: block;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 5px;
+}
+
+.split-1 input, .split-2 input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.split-1 input:focus, .split-2 input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+}
+
+
+#add-cash-receipt {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* Text color */
+    background-color: #dc3545; /* Button background color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#add-cash-receipt:hover {
+    background-color: #c82333; /* Darker red for hover effect */
+}
+
+#add-cash-receipt:active {
+    background-color: #bd2130; /* Even darker red for active effect */
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+
+#add-cash-receipt:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.5); /* Custom focus outline */
+}
+
+#add-disbursements {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* Text color */
+    background-color: #dc3545; /* Button background color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#add-disbursements:hover {
+    background-color: #c82333; /* Darker red for hover effect */
+}
+
+#add-disbursements:active {
+    background-color: #bd2130; /* Even darker red for active effect */
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+
+#add-disbursements:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.5); /* Custom focus outline */
+}
