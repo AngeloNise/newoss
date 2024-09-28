@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AnnexA;
+use App\Models\User; // Import the User model to check for organization
+use Illuminate\Support\Facades\Session;
 
 class AnnexAController extends Controller
 {
     public function store(Request $request)
     {
+        // Validate the input
         $validated = $request->validate([
             'name_of_project' => 'required|string',
             'date_duration' => 'required|string',
@@ -37,6 +40,16 @@ class AnnexAController extends Controller
             'treasurer' => 'nullable|string',
         ]);
     
+        // Check if the requesting organization exists in the users table
+        $organizationExists = User::where('name_of_organization', $validated['requesting_organization'])->exists();
+    
+        if (!$organizationExists) {
+            // If the organization does not exist, return an error message
+            Session::flash('error', 'Your organization name is not found in our system.');
+            return redirect()->back();
+        }
+    
+        // If the organization exists, proceed with saving the form data
         $annexA = new AnnexA();
         $annexA->name_of_project = $validated['name_of_project'];
         $annexA->date_duration = $validated['date_duration'];
@@ -62,7 +75,8 @@ class AnnexAController extends Controller
         $annexA->treasurer = $validated['treasurer'];
         $annexA->save();
     
-        return view('/org/auth/preevalfra');
+        // Show a success message
+        Session::flash('success', 'Your form has been evaluated.');
+        return redirect()->route('org.auth.preevalfra');
     }
-    
 }

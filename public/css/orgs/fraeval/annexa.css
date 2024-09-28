@@ -59,3 +59,15 @@
     outline: none; /* Remove default focus outline */
     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.5); /* Custom focus outline */
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; /* Make sure it appears above other content */
+    width: auto; /* Adjust width if necessary */
+    padding: 10px 20px;
+    margin: 10px 0; /* Space between alerts and top */
+    border-radius: 5px; /* Optional: for rounded corners */
+}

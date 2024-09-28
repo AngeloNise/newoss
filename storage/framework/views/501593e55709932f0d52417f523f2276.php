@@ -1,7 +1,22 @@
 
 <?php $__env->startSection('content'); ?>
+
+<?php if(Session::has('error')): ?>
+    <div class="alert alert-danger overlay"><?php echo e(Session::get('error')); ?></div>
+<?php endif; ?>
+
+<!-- Overlay message for evaluating form -->
+<div id="overlay-message" class="overlay-content" style="display:none;">
+    Evaluating form, please wait...
+</div>
+
+<!-- Result message -->
+<div id="result-message" class="overlay-content" style="display:none;">
+    <!-- Success or error message will be injected here -->
+</div>
+
 <div class="fra-container">
-    <form action="<?php echo e(url('annexas')); ?>" method="POST">
+    <form action="<?php echo e(url('/Fund-Raising')); ?>" method="POST" id="fundraising-form">
     <?php echo csrf_field(); ?>
         <h2>FUND RAISING ACTIVITY APPLICATION (Annex-A)</h2>
         <div class="fill-up-container">
@@ -141,4 +156,5 @@
     </form>
 </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layout.orglayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views//org/auth/fraeval/annex-a.blade.php ENDPATH**/ ?>

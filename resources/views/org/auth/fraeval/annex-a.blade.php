@@ -1,7 +1,13 @@
 @extends('layout.orglayout')
 @section('content')
+
+@if(Session::has('error'))
+    <div class="alert alert-danger overlay">{{ Session::get('error') }}</div>
+@endif
+
+
 <div class="fra-container">
-    <form action="{{ url('annexas') }}" method="POST">
+    <form action="{{ url('/Fund-Raising') }}" method="POST">
     @csrf
         <h2>FUND RAISING ACTIVITY APPLICATION (Annex-A)</h2>
         <div class="fill-up-container">
