@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
+    if (window.flashMessage) {
+        const messageContainer = document.createElement('div');
+        messageContainer.className = `flash-message ${window.flashMessage.type}`; // Add class for type (success/error)
+
+        messageContainer.innerText = window.flashMessage.message; // Set the message text
+        document.body.prepend(messageContainer); // Display it at the top of the body
+
+        // Optionally, add code to remove the message after a few seconds
+        setTimeout(() => {
+            messageContainer.classList.add('fade-out'); // Start fade-out animation
+            setTimeout(() => {
+                messageContainer.remove(); // Remove from DOM after fade-out
+            }, 500); // Match the timing with the CSS transition duration
+        }, 5000); // Show message for 5 seconds
+    }
+
     const addButton = document.getElementById('add-budget');
     const container = document.getElementById('budget-container');
     let index = container.querySelectorAll('.split').length;  
@@ -21,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Logic for adding other income fields
     const addButton1 = document.getElementById('add-other-income');
     const container1 = document.getElementById('add-income');
     let index1 = container1.querySelectorAll('.other-income').length;
@@ -40,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Logic for adding cash receipt fields
     const addButton2 = document.getElementById('add-cash-receipt');
     const container2 = document.getElementById('cash-receipt');
     let index2 = container2.querySelectorAll('.split-1').length;

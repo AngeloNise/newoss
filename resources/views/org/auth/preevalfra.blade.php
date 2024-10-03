@@ -2,7 +2,12 @@
 @section('content')
 
 @if(Session::has('success'))
-<div class="alert alert-success overlay">{{ Session::get('success') }}</div>
+    <script>
+        window.flashMessage = {
+            message: "{{ Session::get('success') }}",
+            type: "success"
+        };
+    </script>
 @endif
 
 <div class="annexes">

@@ -1,7 +1,12 @@
 <?php $__env->startSection('content'); ?>
 
 <?php if(Session::has('success')): ?>
-<div class="alert alert-success overlay"><?php echo e(Session::get('success')); ?></div>
+    <script>
+        window.flashMessage = {
+            message: "<?php echo e(Session::get('success')); ?>",
+            type: "success"
+        };
+    </script>
 <?php endif; ?>
 
 <div class="annexes">

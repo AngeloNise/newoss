@@ -46,7 +46,17 @@ class AnnexAController extends Controller
         if (!$organizationExists) {
             // If the organization does not exist, return an error message
             Session::flash('error', 'Your organization name is not found in our system.');
-            return redirect()->back();
+            Session::flash('error_field', 'requesting_organization');
+            return redirect()->back()->withInput();
+        }
+
+        $presidentExists = User::where('name', $validated['president'])->exists();
+
+        if (!$presidentExists) {
+            // If the organization does not exist, return an error message
+            Session::flash('error', 'President name does not match in our system.');
+            Session::flash('error_field', 'president');
+            return redirect()->back()->withInput();
         }
     
         // If the organization exists, proceed with saving the form data
