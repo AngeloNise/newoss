@@ -6,9 +6,9 @@
         <p>What type of Activity?</p>
     </div>
     <div class="activity-buttons">
-        <a href="<?php echo e(url('/Fund-Raising-Forms')); ?>" class="button">Fund Raising Activity</a>
-        <a href="<?php echo e(url('/In-Campus-Forms')); ?>" class="button">In-Campus Activity</a>
-        <a href="<?php echo e(url('/Off-Campus-Forms')); ?>" class="button">Off-Campus Activity</a>
+        <a href="<?php echo e(url('/faculty/FRA-Evaluation')); ?>" class="button">Fund Raising Activity</a>
+        <a href="<?php echo e(url('/faculty/In-Campus-Evaluation')); ?>" class="button">In-Campus Activity</a>
+        <a href="<?php echo e(url('/faculty/Off-Campus-Evaluation')); ?>" class="button">Off-Campus Activity</a>
     </div>
 </div>
 <?php $__env->stopSection(); ?>
