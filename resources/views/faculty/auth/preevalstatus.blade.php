@@ -1,29 +1,14 @@
 @extends('layout.adminlayout')
-
 @section('content')
-<table>
-    <tr>
-        <th>Webmail</th>
-        <th>Name</th>
-        <th>Date Submitted</th>
-        <th>Evaluation Type</th>
-        <th>Documents</th>
-        <th>Status</th>
-        <th>Action</th> <!-- Add a column for the action link -->
-    </tr>
-
-    @foreach($data as $item)
-    <tr>
-        <td>{{ $item->user_email }}</td>
-        <td>{{ $item->name_of_organization }}</td>
-        <td>{{ $item->date_issued }}</td>
-        <td>{{ $item->pre_eval_type }}</td>
-        <td>{{ $item->documents }}</td>
-        <td>{{ $item->status }}</td>
-        <td>
-            <a href="{{ route('preevalstatus.show', ['id' => $item->id]) }}">View Details</a>
-        </td>
-    </tr>
-    @endforeach
-</table>
+<div class="content-container">
+    <h1>Evaluation Form</h1>
+    <div class="activity-question">
+        <p>What type of Activity?</p>
+    </div>
+    <div class="activity-buttons">
+        <a href="{{ url('/Fund-Raising-Forms') }}" class="button">Fund Raising Activity</a>
+        <a href="{{ url('/In-Campus-Forms') }}" class="button">In-Campus Activity</a>
+        <a href="{{ url('/Off-Campus-Forms') }}" class="button">Off-Campus Activity</a>
+    </div>
+</div>
 @endsection

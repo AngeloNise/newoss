@@ -14,7 +14,8 @@ class AnnexAController extends Controller
         // Validate the input
         $validated = $request->validate([
             'name_of_project' => 'required|string',
-            'date_duration' => 'required|string',
+            'start_date' => 'required|string',
+            'end_date' => 'required|string',
             'requesting_organization' => 'required|string',
             'college_branch' => 'required|string',
             'representative' => 'required|string',
@@ -38,31 +39,35 @@ class AnnexAController extends Controller
             'participants' => 'nullable|string',
             'president' => 'nullable|string',
             'treasurer' => 'nullable|string',
+            'email' => 'required|email',
         ]);
     
-        // Check if the requesting organization exists in the users table
-        $organizationExists = User::where('name_of_organization', $validated['requesting_organization'])->exists();
+        // Get the logged-in user
+        $user = auth()->user();
     
-        if (!$organizationExists) {
-            // If the organization does not exist, return an error message
-            Session::flash('error', 'Your organization name is not found in our system.');
+        // Check if the requesting organization matches the user's organization
+        if ($user->name_of_organization !== $validated['requesting_organization']) {
+            Session::flash('error', 'Your organization name does not match your credentials.');
             Session::flash('error_field', 'requesting_organization');
             return redirect()->back()->withInput();
         }
-
-        $presidentExists = User::where('name', $validated['president'])->exists();
-
+    
+        // Check if the president exists in the same organization as the logged-in user
+        $presidentExists = User::where('name', $validated['president'])
+            ->where('name_of_organization', $user->name_of_organization)
+            ->exists();
+    
         if (!$presidentExists) {
-            // If the organization does not exist, return an error message
-            Session::flash('error', 'President name does not match in our system.');
+            Session::flash('error', 'President name does not match your organization.');
             Session::flash('error_field', 'president');
             return redirect()->back()->withInput();
         }
     
-        // If the organization exists, proceed with saving the form data
+        // Proceed with saving the form data if validations pass
         $annexA = new AnnexA();
         $annexA->name_of_project = $validated['name_of_project'];
-        $annexA->date_duration = $validated['date_duration'];
+        $annexA->start_date = $validated['start_date'];
+        $annexA->end_date = $validated['end_date'];
         $annexA->requesting_organization = $validated['requesting_organization'];
         $annexA->college_branch = $validated['college_branch'];
         $annexA->representative = $validated['representative'];
@@ -83,10 +88,11 @@ class AnnexAController extends Controller
         $annexA->participants = $validated['participants'];
         $annexA->president = $validated['president'];
         $annexA->treasurer = $validated['treasurer'];
+        $annexA->email = $validated['email'];
         $annexA->save();
     
         // Show a success message
         Session::flash('success', 'Your form has been evaluated.');
         return redirect()->route('org.auth.preevalfra');
-    }
+    }    
 }

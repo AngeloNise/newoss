@@ -8,12 +8,12 @@ use App\Http\Controllers\preeval\FRADocController;
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
 use App\Http\Middleware\GuestFacultyMiddleware;
-use App\Http\Controllers\preeval\FRAStatusController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AnnexAController;
 use App\Http\Controllers\AnnexBController;
+
 
 // GUEST Routes
 Route::get('/', function () {
@@ -45,9 +45,12 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/Post-Report', function() {
             return view('/faculty/auth/postreport');
         })->name('dbadmin3');
-        Route::get('/Pre-Evaluation-Document', function() {
-            return view('/faculty/auth/preevaldoc');
+        Route::get('/Pre-Evaluation-Status', function() {
+            return view('/faculty/auth/preevalstatus');
         })->name('dbadmin4');
+        Route::get('/Manage-Post', function() {
+            return view('/faculty/auth/managepost');
+        })->name('dbadmin5');
     });
 });
 
@@ -102,7 +105,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/Fund-Raising', [AnnexAController::class, 'store'])->name('fund-raising.store');
 
     // Other routes related to pre-evaluation status and documents
-    Route::get('/faculty/Pre-Evaluation-Status', [FRAStatusController::class, 'display'])->name('preevalstatus');
     Route::get('/faculty/Pre-Evaluation-Document', [FRADocController::class, 'display'])->name('preevaldoc');
     Route::get('/display', [FRADocController::class, 'display'])->name('display');
     Route::get('/download/{filename}', [FRADocController::class, 'download'])->name('download');

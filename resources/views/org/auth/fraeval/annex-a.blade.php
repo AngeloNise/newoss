@@ -25,21 +25,31 @@
     @csrf
         <h2>FUND RAISING ACTIVITY APPLICATION (Annex-A)</h2>
         <div class="fill-up-container">
+            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
             <div class="fra-group">
                 <label for="name_of_project">Name of Project</label>
                 <input type="text" id="name_of_project" name="name_of_project" class="form-control" value="{{ old('name_of_project') }}">
             </div>
-    
-            <div class="fra-group">
-                <label for="date_duration">Date/Duration</label>
-                <input type="text" id="date_duration" name="date_duration" class="form-control" value="{{ old('date_duration') }}">
+            
+            <div id="duration">
+                <div class="split">
+                    <div class="fra-group">
+                        <label for="start_date">Start Date</label>
+                        <input type="date" id="start_date" name="start_date" class="form-control" value="{{ old('start_date') }}">
+                    </div>
+                    
+                    <div class="fra-group">
+                        <label for="end_date">End Date</label>
+                        <input type="date" id="end_date" name="end_date" class="form-control" value="{{ old('end_date') }}">
+                    </div>
+                </div>
             </div>
-    
+
             <div class="fra-group">
                 <label for="requesting_organization">Requesting Organization</label>
                 <input type="text" id="requesting_organization" name="requesting_organization" class="form-control {{ Session::has('error_field') && Session::get('error_field') == 'requesting_organization' ? 'is-invalid' : '' }}" value="{{ old('requesting_organization') }}">
                 @if(Session::has('error_field') && Session::get('error_field') == 'requesting_organization')
-                    <small class="text-danger">Your organization name is not found in our system.</small>
+                    <small class="text-danger">Your organization name does not match our records.</small>
                 @endif
             </div>
             
@@ -66,21 +76,38 @@
 
             <h2>Project Estimates</h2>
             <h3>1. Estimate Income</h3>
-            <div class="fra-group">
-                <label for="estimate_income">a. Number of tickets/items to be sold</label>
-                <input type="text" id="estimate_income" name="estimate_income" class="form-control" value="{{ old('estimate_income') }}">
+            
+            <div id="items">
                 <h5>(Tickets are to be registered at the Office of Student Services)</h5>
+                <div class="items-to-be-sold">
+                    <div class="fra-group">
+                        <label for="estimate_income">a. Number of tickets/items to be sold</label>
+                        <input type="text" id="estimate_income" name="estimate_income" class="form-control" value="{{ old('estimate_income') }}">
+                    </div>
+    
+                    <div class="fra-group">
+                        <label for="price_ticket">b. Price per ticket/item</label>
+                        <input type="text" id="price_ticket" name="price_ticket" class="form-control" placeholder="Php" value="{{ old('price_ticket') }}">
+                    </div>
+                </div>
             </div>
 
-            <div class="fra-group">
-                <label for="price_ticket">b. Price per ticket/item</label>
-                <input type="text" id="price_ticket" name="price_ticket" class="form-control" placeholder="Php" value="{{ old('price_ticket') }}">
+            <div class="button-items">
+                <button type="button" id="add-items">Add</button>
+            </div> 
+
+            <div id="add-sales">
+                <div class="total-sales">
+                    <div class="fra-group">
+                        <label for="total_estimate_ticket">c. Total estimated tickets/items sales (a × b)</label>
+                        <input type="text" id="total_estimate_ticket" name="total_estimate_ticket" class="form-control" value="{{ old('total_estimate_ticket') }}">
+                    </div>
+                </div>
             </div>
 
-            <div class="fra-group">
-                <label for="total_estimate_ticket">c. Total estimated tickets/items sales (a × b)</label>
-                <input type="text" id="total_estimate_ticket" name="total_estimate_ticket" class="form-control" value="{{ old('total_estimate_ticket') }}">
-            </div>
+            <div class="button-sales">
+                <button type="button" id="add-item-sales">Add</button>
+            </div> 
 
             <div id="add-income">
                 <div class="other-income">
@@ -153,11 +180,11 @@
         <div class="split">
             <div class="fra-group">
                 <label for="president">President of Organization</label>
-                <input type="text" id="president" name="president" class="form-control" {{ Session::has('error_field') && Session::get('error_field') == 'president' ? 'is-invalid' : '' }}" value="{{ old('president') }}">
+                <input type="text" id="president" name="president" class="form-control {{ Session::has('error_field') && Session::get('error_field') == 'president' ? 'is-invalid' : '' }}" value="{{ old('president') }}">
                 @if(Session::has('error_field') && Session::get('error_field') == 'president')
-                    <small class="text-danger">Your president name does not match in our system.</small>
+                    <small class="text-danger">The president's name does not match our records.</small>
                 @endif
-            </div>
+            </div>            
 
             <div class="fra-group">
                 <label for="treasurer">Treasurer/ Representative</label>

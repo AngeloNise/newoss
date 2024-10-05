@@ -56,36 +56,46 @@ document.addEventListener('DOMContentLoaded', function() {
             index1++;
         });
     }
-
-    // Logic for adding cash receipt fields
-    const addButton2 = document.getElementById('add-cash-receipt');
-    const container2 = document.getElementById('cash-receipt');
-    let index2 = container2.querySelectorAll('.split-1').length;
+    
+    const addButton2 = document.getElementById('add-items');
+    const container2 = document.getElementById('items');
+    let index2 = container.querySelectorAll('.items-to-be-sold').length;  
 
     if (addButton2) {
         addButton2.addEventListener('click', function() {
             const newFields = document.createElement('div');
-            newFields.classList.add('split-1');
+            newFields.classList.add('items-to-be-sold');
             newFields.innerHTML = `
                 <div class="fra-group">
-                    <input type="text" id="date_receipt_${index2}" name="date_receipt[]" class="form-control" placeholder="Date Receipt">
+                    <input type="text" id="estimate_income_${index2}" name="estimate_income" class="form-control" placeholder="Number of tickets/items to be sold">
                 </div>
+
                 <div class="fra-group">
-                    <input type="text" id="invoice_no_receipt_${index2}" name="invoice_no_receipt[]" class="form-control" placeholder="Invoice No">
-                </div>
-                <div class="fra-group">
-                    <input type="text" id="particulars_${index2}" name="particulars[]" class="form-control" placeholder="Particulars">
-                </div>
-                <div class="fra-group">
-                    <input type="text" id="amount_${index2}" name="amount[]" class="form-control" placeholder="Amount">
-                </div>
-                <div class="fra-group">
-                    <input type="text" id="remarks_receipt_${index2}" name="remarks_receipt[]" class="form-control" placeholder="Remarks">
+                    <input type="text" id="price_ticket_${index2}" name="price_ticket" class="form-control" placeholder="Php" >
                 </div>
             `;
 
             container2.appendChild(newFields);
             index2++;
+        });
+    }
+
+    const addButton3 = document.getElementById('add-item-sales');
+    const container3 = document.getElementById('add-sales');
+    let index3 = container.querySelectorAll('.total-sales').length;  
+
+    if (addButton3) {
+        addButton3.addEventListener('click', function() {
+            const newFields = document.createElement('div');
+            newFields.classList.add('total-sales');
+            newFields.innerHTML = `
+                <div class="fra-group">
+                    <input type="text" id="total_estimate_ticket_${index3}" name="total_estimate_ticket" class="form-control" placeholder="Total estimated tickets/items sales (a × b)">
+                </div>
+            `;
+
+            container3.appendChild(newFields);
+            index3++;
         });
     }
 });

@@ -19,56 +19,32 @@
     margin-bottom: 25px;
 }
 
-.fra-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #34495e;
-    font-size: 14px;
-}
-
-.fra-group input {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #bdc3c7;
-    border-radius: 6px;
-    box-sizing: border-box;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.fra-group input:focus {
-    border-color: #3498db;
-    outline: none;
-    box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
-}
-
 /* CSS for Horizontal Alignment of Label and Input */
-.split {
+.split, .items-to-be-sold, .split {
     display: flex;
     align-items: center; /* Vertically centers items within the container */
     gap: 20px; /* Space between label and input */
     margin-bottom: 20px; 
 }
 
-.split .fra-group {
+.split .fra-group, .items-to-be-sold .fra-group, .split .fra-group{
     flex: 1; /* Allows the elements to grow and shrink as needed */
 }
 
-.split h3 {
+.split h3, .items-to-be-sold h3 {
     margin: 0;
     font-size: 18px;
     color: #2c3e50;
 }
 
-.split label {
+.split label, .items-to-be-sold label, .fra-group label {
     display: block;
     font-weight: 600;
     color: #34495e;
     margin-bottom: 5px;
 }
 
-.split input {
+.split input, .items-to-be-sold input, .fra-group input {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -78,7 +54,7 @@
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.split input:focus {
+.split input:focus, .items-to-be-sold input:focus, .fra-group input:focus {
     border-color: #3498db;
     outline: none;
     box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
@@ -115,4 +91,3 @@
 .button-container {
     text-align: right; /* Aligns child elements (button) to the right */
 }
-

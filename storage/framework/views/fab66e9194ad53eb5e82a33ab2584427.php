@@ -6,6 +6,7 @@
     <title>Office of the Student Services</title>
     <link rel="stylesheet" href="/css/Login/loginuser.css">
     <link rel="stylesheet" href="/css/faculty/fraeval.css">
+    <link rel="stylesheet" href="/css/faculty/preevalforms.css">
 </head>
 <header>
     <div class="nav-item dropdown">
@@ -46,8 +47,8 @@
             <li><a href="<?php echo e(url('/faculty/Organization-Account-Management')); ?>">Organization Account Management</a></li>
             <li><a href="<?php echo e(url('/faculty/Application-Admin')); ?>">Application</a></li>
             <li><a href="<?php echo e(url('/faculty/Post-Report')); ?>">Post Report</a></li>
-            <li><a href="<?php echo e(url('/faculty/Pre-Evaluation-Status')); ?>">Pre Evaluation Documents</a></li>
-            <li><a href="#">Manage/Create Post</a></li>
+            <li><a href="<?php echo e(url('/faculty/Pre-Evaluation-Status')); ?>">Pre Evaluation Forms</a></li>
+            <li><a href="<?php echo e(url('/faculty/Manage-Post')); ?>">Manage/Create Post</a></li>
             <!--<li><a href="#">Log-Out</a></li>-->
         </ul>            
     </div>   

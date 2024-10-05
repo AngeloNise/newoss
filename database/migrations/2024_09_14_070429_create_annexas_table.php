@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('annexas', function (Blueprint $table) {
             $table->id();
+            $table->string('email');
             $table->string('name_of_project');
-            $table->string('date_duration');
+            $table->string('start_date');
+            $table->string('end_date');
             $table->string('requesting_organization');
             $table->string('college_branch');
             $table->string('representative');

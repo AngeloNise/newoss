@@ -11,8 +11,9 @@
 @endif
 
 <div class="annexes">
-    <h1>Fill-up the Forms below</h1>
+    <h1>Pre-Activity Form</h1>
     <a href="{{ url('/Annex-A') }}" class="button">Annex-A</a>
+    <h1>Post-Activity Forms</h1>
     <a href="{{ url('/Annex-B') }}" class="button">Annex-B</a>
     <a href="{{ url('/Annex-C') }}" class="button">Annex-C</a>
 </div>
