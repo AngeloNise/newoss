@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const addButton = document.getElementById('add-budget');
-    const container = document.getElementById('budget-container');
-    let index = container.querySelectorAll('.split').length;  
+    const budgetContainer = document.getElementById('budget-container');
+    let index = budgetContainer.querySelectorAll('.split').length;  
 
     if (addButton) {
         addButton.addEventListener('click', function() {
@@ -25,77 +25,119 @@ document.addEventListener('DOMContentLoaded', function() {
             newFields.classList.add('split');
             newFields.innerHTML = `
                 <div class="fra-group">
-                    <input type="text" id="expenditures_${index}" name="expenditures[]" class="form-control" placeholder="EXPENDITURES">
+                    <input type="text" name="expenditures[]" class="form-control" placeholder="EXPENDITURES">
                 </div>
                 <div class="fra-group">
-                    <input type="text" id="amount_${index}" name="amount[]" class="form-control" placeholder="AMOUNT">
+                    <input type="text" name="amount[]" class="form-control" placeholder="AMOUNT">
                 </div>
             `;
 
-            container.appendChild(newFields);
+            budgetContainer.appendChild(newFields);
             index++;
         });
     }
 
-    // Logic for adding other income fields
-    const addButton1 = document.getElementById('add-other-income');
-    const container1 = document.getElementById('add-income');
-    let index1 = container1.querySelectorAll('.other-income').length;
+    const removeBudgetButton = document.getElementById('remove-budget');
+    if (removeBudgetButton) {
+        removeBudgetButton.addEventListener('click', function() {
+            const addedBudgets = budgetContainer.querySelectorAll('.split:not(:first-child)');
+            if (addedBudgets.length > 0) {
+                budgetContainer.removeChild(addedBudgets[addedBudgets.length - 1]);
+            }
+        });
+    }
 
-    if (addButton1) {
-        addButton1.addEventListener('click', function() {
+    // Logic for adding other income fields
+    const addOtherIncomeButton = document.getElementById('add-other-income');
+    const otherIncomeContainer = document.getElementById('add-income');
+    let index1 = otherIncomeContainer.querySelectorAll('.other-income').length;
+
+    if (addOtherIncomeButton) {
+        addOtherIncomeButton.addEventListener('click', function() {
             const newFields = document.createElement('div');
             newFields.classList.add('other-income');
             newFields.innerHTML = `
                 <div class="fra-group">
-                    <input type="text" id="other_income_${index1}" name="other_income[]" class="form-control" placeholder="OTHER INCOME">
+                    <input type="text" name="other_income[]" class="form-control" placeholder="OTHER INCOME">
+                </div>
+                <div class="fra-group">
+                    <input type="text" name="amount_income[]" class="form-control" placeholder="AMOUNT">
                 </div>
             `;
-
-            container1.appendChild(newFields);
+            otherIncomeContainer.appendChild(newFields);
             index1++;
         });
     }
-    
-    const addButton2 = document.getElementById('add-items');
-    const container2 = document.getElementById('items');
-    let index2 = container.querySelectorAll('.items-to-be-sold').length;  
 
-    if (addButton2) {
-        addButton2.addEventListener('click', function() {
+    const removeOtherIncomeButton = document.getElementById('remove-other-income');
+    if (removeOtherIncomeButton) {
+        removeOtherIncomeButton.addEventListener('click', function() {
+            const addedIncome = otherIncomeContainer.querySelectorAll('.other-income:not(:first-child)');
+            if (addedIncome.length > 0) {
+                otherIncomeContainer.removeChild(addedIncome[addedIncome.length - 1]);
+            }
+        });
+    }
+
+    const addItemsButton = document.getElementById('add-items');
+    const itemsContainer = document.getElementById('items');
+    let index2 = itemsContainer.querySelectorAll('.items-to-be-sold').length;  
+
+    if (addItemsButton) {
+        addItemsButton.addEventListener('click', function() {
             const newFields = document.createElement('div');
             newFields.classList.add('items-to-be-sold');
             newFields.innerHTML = `
                 <div class="fra-group">
-                    <input type="text" id="estimate_income_${index2}" name="estimate_income" class="form-control" placeholder="Number of tickets/items to be sold">
+                    <input type="text" name="estimate_income[]" class="form-control" placeholder="Number of tickets/items to be sold">
                 </div>
-
                 <div class="fra-group">
-                    <input type="text" id="price_ticket_${index2}" name="price_ticket" class="form-control" placeholder="Php" >
+                    <input type="text" name="item_pieces[]" class="form-control" placeholder="pieces">
+                </div>
+                <div class="fra-group">
+                    <input type="text" name="price_ticket[]" class="form-control" placeholder="Php">
                 </div>
             `;
-
-            container2.appendChild(newFields);
+            itemsContainer.appendChild(newFields);
             index2++;
         });
     }
 
-    const addButton3 = document.getElementById('add-item-sales');
-    const container3 = document.getElementById('add-sales');
-    let index3 = container.querySelectorAll('.total-sales').length;  
+    const removeItemsButton = document.getElementById('remove-items');
+    if (removeItemsButton) {
+        removeItemsButton.addEventListener('click', function() {
+            const addedItems = itemsContainer.querySelectorAll('.items-to-be-sold:not(:first-child)');
+            if (addedItems.length > 1) {
+                itemsContainer.removeChild(addedItems[addedItems.length - 1]);
+            }
+        });
+    }
 
-    if (addButton3) {
-        addButton3.addEventListener('click', function() {
+    const addSalesButton = document.getElementById('add-item-sales');
+    const salesContainer = document.getElementById('add-sales');
+    let index3 = salesContainer.querySelectorAll('.total-sales').length;  
+
+    if (addSalesButton) {
+        addSalesButton.addEventListener('click', function() {
             const newFields = document.createElement('div');
             newFields.classList.add('total-sales');
             newFields.innerHTML = `
                 <div class="fra-group">
-                    <input type="text" id="total_estimate_ticket_${index3}" name="total_estimate_ticket" class="form-control" placeholder="Total estimated tickets/items sales (a × b)">
+                    <input type="text" name="total_estimate_ticket[]" class="form-control" placeholder="Total estimated tickets/items sales (a × b)">
                 </div>
             `;
-
-            container3.appendChild(newFields);
+            salesContainer.appendChild(newFields);
             index3++;
+        });
+    }
+
+    const removeSalesButton = document.getElementById('remove-item-sales');
+    if (removeSalesButton) {
+        removeSalesButton.addEventListener('click', function() {
+            const addedSales = salesContainer.querySelectorAll('.total-sales:not(:first-child)');
+            if (addedSales.length > 0) {
+                salesContainer.removeChild(addedSales[addedSales.length - 1]);
+            }
         });
     }
 });

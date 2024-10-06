@@ -20,14 +20,14 @@
 }
 
 /* CSS for Horizontal Alignment of Label and Input */
-.split, .items-to-be-sold, .split {
+.split, .items-to-be-sold, .other-income {
     display: flex;
     align-items: center; /* Vertically centers items within the container */
     gap: 20px; /* Space between label and input */
     margin-bottom: 20px; 
 }
 
-.split .fra-group, .items-to-be-sold .fra-group, .split .fra-group{
+.split .fra-group, .items-to-be-sold .fra-group{
     flex: 1; /* Allows the elements to grow and shrink as needed */
 }
 

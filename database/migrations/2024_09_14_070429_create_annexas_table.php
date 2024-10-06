@@ -22,10 +22,12 @@ return new class extends Migration
             $table->string('representative');
             $table->string('address_contact');
             $table->string('objectives');
-            $table->string('estimate_income')->nullable();
-            $table->string('price_ticket')->nullable();
-            $table->string('total_estimate_ticket')->nullable();
+            $table->json('estimate_income')->nullable();
+            $table->json('item_pieces')->nullable();
+            $table->json('price_ticket')->nullable();
+            $table->json('total_estimate_ticket')->nullable();
             $table->json('other_income')->nullable();
+            $table->json('income_amount')->nullable();
             $table->string('total_estimated_income');
             $table->json('expenditures')->nullable();
             $table->json('amount')->nullable();

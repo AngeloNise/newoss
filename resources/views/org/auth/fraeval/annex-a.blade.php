@@ -19,7 +19,6 @@
     </script>
 @endif
 
-
 <div class="fra-container">
     <form action="{{ url('/Fund-Raising') }}" method="POST">
     @csrf
@@ -53,7 +52,6 @@
                 @endif
             </div>
             
-    
             <div class="fra-group">
                 <label for="college_branch">College/Branch/Campus</label>
                 <input type="text" id="college_branch" name="college_branch" class="form-control" value="{{ old('college_branch') }}">
@@ -82,17 +80,23 @@
                 <div class="items-to-be-sold">
                     <div class="fra-group">
                         <label for="estimate_income">a. Number of tickets/items to be sold</label>
-                        <input type="text" id="estimate_income" name="estimate_income" class="form-control" value="{{ old('estimate_income') }}">
+                        <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="{{ old('estimate_income') }}">
                     </div>
     
                     <div class="fra-group">
+                        <label for="item_pieces">Pieces</label>
+                        <input type="text" id="item_pieces" name="item_pieces[]" class="form-control" value="{{ old('item_pieces') }}">
+                    </div>
+
+                    <div class="fra-group">
                         <label for="price_ticket">b. Price per ticket/item</label>
-                        <input type="text" id="price_ticket" name="price_ticket" class="form-control" placeholder="Php" value="{{ old('price_ticket') }}">
+                        <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" placeholder="Php" value="{{ old('price_ticket') }}">
                     </div>
                 </div>
             </div>
 
             <div class="button-items">
+                <button type="button" id="remove-items">Remove</button>
                 <button type="button" id="add-items">Add</button>
             </div> 
 
@@ -100,25 +104,32 @@
                 <div class="total-sales">
                     <div class="fra-group">
                         <label for="total_estimate_ticket">c. Total estimated tickets/items sales (a × b)</label>
-                        <input type="text" id="total_estimate_ticket" name="total_estimate_ticket" class="form-control" value="{{ old('total_estimate_ticket') }}">
+                        <input type="text" id="total_estimate_ticket" name="total_estimate_ticket[]" class="form-control" value="{{ old('total_estimate_ticket') }}">
                     </div>
                 </div>
             </div>
 
             <div class="button-sales">
+                <button type="button" id="remove-item-sales">Remove</button>
                 <button type="button" id="add-item-sales">Add</button>
             </div> 
 
             <div id="add-income">
-                <div class="other-income">
+                <div class="split">
                     <div class="fra-group">
                         <label for="other_income">d. Other Income</label>
                         <input type="text" id="other_income" name="other_income[]" class="form-control">
+                    </div>
+
+                    <div class="fra-group">
+                        <label for="income_amount">AMOUNT</label>
+                        <input type="text" id="income_amount" name="income_amount[]" class="form-control">
                     </div>
                 </div>
             </div>
 
             <div class="button-income">
+                <button type="button" id="remove-other-income">Remove</button>
                 <button type="button" id="add-other-income">Add</button>
             </div>  
 
@@ -131,7 +142,7 @@
             <div id="budget-container">
                 <div class="split">
                     <div class="fra-group">
-                        <label for="expenditures">a. EXPENDITURES</label>
+                        <label for="expenditures">EXPENDITURES</label>
                         <input type="text" id="expenditures" name="expenditures[]" class="form-control">
                     </div>
             
@@ -143,11 +154,12 @@
             </div>
             
             <div class="button-budget">
+                <button type="button" id="remove-budget">Remove</button>
                 <button type="button" id="add-budget">Add</button>
             </div>  
 
             <div class="fra-group">
-                <label for="total_budget_expenses_php">Total Budgeted Expenses</label>
+                <label for="total_budget_expenses_php">a. Total Budgeted Expenses</label>
                 <input type="text" id="total_budget_expenses_php" name="total_budget_expenses_php" class="form-control" placeholder="(sum of 𝑛 terms of 𝑎) Php" value="{{ old('total_budget_expenses_php') }}">
             </div>
 

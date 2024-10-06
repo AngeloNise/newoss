@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountSettingsController;
 use App\Http\Controllers\Faculty\FacultyHomeController;
 use App\Http\Controllers\Faculty\FacultyLoginController;
+use App\Http\Controllers\Faculty\FacultyFRAAnnexAController;
 use App\Http\Controllers\preeval\FRAController;
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
@@ -33,9 +34,9 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/home', [FacultyHomeController::class, 'index'])->name('home');
         
         // New Routes for Evaluation Activities
-        Route::get('/FRA-Evaluation', function () {
-            return view('/faculty/auth/fra-evaluation'); // Create this view
-        })->name('fra.evaluation');
+        Route::get('/FRA-Evaluation', [FacultyFRAAnnexAController::class, 'index'])->name('fra.evaluation');
+        Route::get('/FRA-Evaluation/{id}', [FacultyFRAAnnexAController::class, 'show'])->name('fra-evaluation.show');
+
 
         Route::get('/In-Campus-Evaluation', function () {
             return view('/faculty/auth/incampus-evaluation'); // Create this view
