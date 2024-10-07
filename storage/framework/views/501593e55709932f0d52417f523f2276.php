@@ -25,6 +25,7 @@
         <h2>FUND RAISING ACTIVITY APPLICATION (Annex-A)</h2>
         <div class="fill-up-container">
             <input type="hidden" name="email" value="<?php echo e(auth()->user()->email); ?>">
+            
             <div class="fra-group">
                 <label for="name_of_project">Name of Project</label>
                 <input type="text" id="name_of_project" name="name_of_project" class="form-control" value="<?php echo e(old('name_of_project')); ?>">
@@ -80,17 +81,35 @@
                 <div class="items-to-be-sold">
                     <div class="fra-group">
                         <label for="estimate_income">a. Number of tickets/items to be sold</label>
-                        <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="<?php echo e(old('estimate_income')); ?>">
+                        <?php if(is_array(old('estimate_income'))): ?>
+                            <?php $__currentLoopData = old('estimate_income'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $income): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="<?php echo e($income); ?>">
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="">
+                        <?php endif; ?>
                     </div>
     
                     <div class="fra-group">
                         <label for="item_pieces">Pieces</label>
-                        <input type="text" id="item_pieces" name="item_pieces[]" class="form-control" value="<?php echo e(old('item_pieces')); ?>">
+                        <?php if(is_array(old('item_pieces'))): ?>
+                            <?php $__currentLoopData = old('item_pieces'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pieces): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <input type="text" id="item_pieces" name="item_pieces[]" class="form-control" value="<?php echo e($pieces); ?>">
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            <input type="text" id="item_pieces" name="item_pieces[]" class="form-control" value="">
+                        <?php endif; ?>
                     </div>
 
                     <div class="fra-group">
                         <label for="price_ticket">b. Price per ticket/item</label>
-                        <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" placeholder="Php" value="<?php echo e(old('price_ticket')); ?>">
+                        <?php if(is_array(old('price_ticket'))): ?>
+                            <?php $__currentLoopData = old('price_ticket'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $price): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" placeholder="Php" value="<?php echo e($price); ?>">
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" value="">
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -104,7 +123,13 @@
                 <div class="total-sales">
                     <div class="fra-group">
                         <label for="total_estimate_ticket">c. Total estimated tickets/items sales (a × b)</label>
-                        <input type="text" id="total_estimate_ticket" name="total_estimate_ticket[]" class="form-control" value="<?php echo e(old('total_estimate_ticket')); ?>">
+                        <?php if(is_array(old('total_estimate_ticket'))): ?>
+                            <?php $__currentLoopData = old('total_estimate_ticket'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $total): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <input type="text" id="total_estimate_ticket" name="total_estimate_ticket[]" class="form-control" value="<?php echo e($total); ?>">
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            <input type="text" id="total_estimate_ticket" name="total_estimate_ticket[]" class="form-control" value="">
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -118,12 +143,24 @@
                 <div class="split">
                     <div class="fra-group">
                         <label for="other_income">d. Other Income</label>
-                        <input type="text" id="other_income" name="other_income[]" class="form-control">
+                        <?php if(is_array(old('other_income'))): ?>
+                            <?php $__currentLoopData = old('other_income'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $income): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <input type="text" id="other_income" name="other_income[]" class="form-control" value="<?php echo e($income); ?>">
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            <input type="text" id="other_income" name="other_income[]" class="form-control" value="">
+                        <?php endif; ?>
                     </div>
 
                     <div class="fra-group">
-                        <label for="income_amount">AMOUNT</label>
-                        <input type="text" id="income_amount" name="income_amount[]" class="form-control">
+                        <label for="income_amount">Amount</label>
+                        <?php if(is_array(old('income_amount'))): ?>
+                            <?php $__currentLoopData = old('income_amount'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $amount): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <input type="text" id="income_amount" name="income_amount[]" class="form-control" value="<?php echo e($amount); ?>">
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            <input type="text" id="income_amount" name="income_amount[]" class="form-control" value="">
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -142,13 +179,25 @@
             <div id="budget-container">
                 <div class="split">
                     <div class="fra-group">
-                        <label for="expenditures">EXPENDITURES</label>
-                        <input type="text" id="expenditures" name="expenditures[]" class="form-control">
+                        <label for="expenditures">Expenditure</label>
+                        <?php if(is_array(old('expenditures'))): ?>
+                            <?php $__currentLoopData = old('expenditures'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $expenditure): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <input type="text" id="expenditures" name="expenditures[]" class="form-control" value="<?php echo e($expenditure); ?>">
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            <input type="text" id="expenditures" name="expenditures[]" class="form-control" value="">
+                        <?php endif; ?>
                     </div>
             
                     <div class="fra-group">
-                        <label for="amount">AMOUNT</label>
-                        <input type="text" id="amount" name="amount[]" class="form-control">
+                        <label for="amount">Cost</label>
+                        <?php if(is_array(old('amount'))): ?>
+                            <?php $__currentLoopData = old('amount'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $amount): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <input type="text" id="amount" name="amount[]" class="form-control" value="<?php echo e($amount); ?>">
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            <input type="text" id="amount" name="amount[]" class="form-control" value="">
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

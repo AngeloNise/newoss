@@ -25,6 +25,7 @@
         <h2>FUND RAISING ACTIVITY APPLICATION (Annex-A)</h2>
         <div class="fill-up-container">
             <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+            
             <div class="fra-group">
                 <label for="name_of_project">Name of Project</label>
                 <input type="text" id="name_of_project" name="name_of_project" class="form-control" value="{{ old('name_of_project') }}">
@@ -80,17 +81,35 @@
                 <div class="items-to-be-sold">
                     <div class="fra-group">
                         <label for="estimate_income">a. Number of tickets/items to be sold</label>
-                        <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="{{ old('estimate_income') }}">
+                        @if (is_array(old('estimate_income')))
+                            @foreach (old('estimate_income') as $income)
+                                <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="{{ $income }}">
+                            @endforeach
+                        @else
+                            <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="">
+                        @endif
                     </div>
     
                     <div class="fra-group">
                         <label for="item_pieces">Pieces</label>
-                        <input type="text" id="item_pieces" name="item_pieces[]" class="form-control" value="{{ old('item_pieces') }}">
+                        @if (is_array(old('item_pieces')))
+                            @foreach (old('item_pieces') as $pieces)
+                                <input type="text" id="item_pieces" name="item_pieces[]" class="form-control" value="{{ $pieces }}">
+                            @endforeach
+                        @else
+                            <input type="text" id="item_pieces" name="item_pieces[]" class="form-control" value="">
+                        @endif
                     </div>
 
                     <div class="fra-group">
                         <label for="price_ticket">b. Price per ticket/item</label>
-                        <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" placeholder="Php" value="{{ old('price_ticket') }}">
+                        @if (is_array(old('price_ticket')))
+                            @foreach (old('price_ticket') as $price)
+                                <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" placeholder="Php" value="{{ $price }}">
+                            @endforeach
+                        @else
+                            <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" value="">
+                        @endif
                     </div>
                 </div>
             </div>
@@ -104,7 +123,13 @@
                 <div class="total-sales">
                     <div class="fra-group">
                         <label for="total_estimate_ticket">c. Total estimated tickets/items sales (a × b)</label>
-                        <input type="text" id="total_estimate_ticket" name="total_estimate_ticket[]" class="form-control" value="{{ old('total_estimate_ticket') }}">
+                        @if (is_array(old('total_estimate_ticket')))
+                            @foreach (old('total_estimate_ticket') as $total)
+                                <input type="text" id="total_estimate_ticket" name="total_estimate_ticket[]" class="form-control" value="{{ $total }}">
+                            @endforeach
+                        @else
+                            <input type="text" id="total_estimate_ticket" name="total_estimate_ticket[]" class="form-control" value="">
+                        @endif
                     </div>
                 </div>
             </div>
@@ -118,12 +143,24 @@
                 <div class="split">
                     <div class="fra-group">
                         <label for="other_income">d. Other Income</label>
-                        <input type="text" id="other_income" name="other_income[]" class="form-control">
+                        @if (is_array(old('other_income')))
+                            @foreach (old('other_income') as $income)
+                                <input type="text" id="other_income" name="other_income[]" class="form-control" value="{{ $income }}">
+                            @endforeach
+                        @else
+                            <input type="text" id="other_income" name="other_income[]" class="form-control" value="">
+                        @endif
                     </div>
 
                     <div class="fra-group">
-                        <label for="income_amount">AMOUNT</label>
-                        <input type="text" id="income_amount" name="income_amount[]" class="form-control">
+                        <label for="income_amount">Amount</label>
+                        @if (is_array(old('income_amount')))
+                            @foreach (old('income_amount') as $amount)
+                                <input type="text" id="income_amount" name="income_amount[]" class="form-control" value="{{ $amount }}">
+                            @endforeach
+                        @else
+                            <input type="text" id="income_amount" name="income_amount[]" class="form-control" value="">
+                        @endif
                     </div>
                 </div>
             </div>
@@ -142,13 +179,25 @@
             <div id="budget-container">
                 <div class="split">
                     <div class="fra-group">
-                        <label for="expenditures">EXPENDITURES</label>
-                        <input type="text" id="expenditures" name="expenditures[]" class="form-control">
+                        <label for="expenditures">Expenditure</label>
+                        @if (is_array(old('expenditures')))
+                            @foreach (old('expenditures') as $expenditure)
+                                <input type="text" id="expenditures" name="expenditures[]" class="form-control" value="{{ $expenditure }}">
+                            @endforeach
+                        @else
+                            <input type="text" id="expenditures" name="expenditures[]" class="form-control" value="">
+                        @endif
                     </div>
             
                     <div class="fra-group">
-                        <label for="amount">AMOUNT</label>
-                        <input type="text" id="amount" name="amount[]" class="form-control">
+                        <label for="amount">Cost</label>
+                        @if (is_array(old('amount')))
+                            @foreach (old('amount') as $amount)
+                                <input type="text" id="amount" name="amount[]" class="form-control" value="{{ $amount }}">
+                            @endforeach
+                        @else
+                            <input type="text" id="amount" name="amount[]" class="form-control" value="">
+                        @endif
                     </div>
                 </div>
             </div>

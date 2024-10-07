@@ -25,10 +25,10 @@ document.addEventListener('DOMContentLoaded', function() {
             newFields.classList.add('split');
             newFields.innerHTML = `
                 <div class="fra-group">
-                    <input type="text" name="expenditures[]" class="form-control" placeholder="EXPENDITURES">
+                    <input type="text" name="expenditures[]" class="form-control" placeholder="Expenditure">
                 </div>
                 <div class="fra-group">
-                    <input type="text" name="amount[]" class="form-control" placeholder="AMOUNT">
+                    <input type="text" name="amount[]" class="form-control" placeholder="Cost">
                 </div>
             `;
 
@@ -58,10 +58,10 @@ document.addEventListener('DOMContentLoaded', function() {
             newFields.classList.add('other-income');
             newFields.innerHTML = `
                 <div class="fra-group">
-                    <input type="text" name="other_income[]" class="form-control" placeholder="OTHER INCOME">
+                    <input type="text" name="other_income[]" class="form-control" placeholder="Other Income">
                 </div>
                 <div class="fra-group">
-                    <input type="text" name="amount_income[]" class="form-control" placeholder="AMOUNT">
+                    <input type="text" name="amount_income[]" class="form-control" placeholder="Amount">
                 </div>
             `;
             otherIncomeContainer.appendChild(newFields);
@@ -92,10 +92,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     <input type="text" name="estimate_income[]" class="form-control" placeholder="Number of tickets/items to be sold">
                 </div>
                 <div class="fra-group">
-                    <input type="text" name="item_pieces[]" class="form-control" placeholder="pieces">
+                    <input type="text" name="item_pieces[]" class="form-control" placeholder="Pieces">
                 </div>
                 <div class="fra-group">
-                    <input type="text" name="price_ticket[]" class="form-control" placeholder="Php">
+                    <input type="text" name="price_ticket[]" class="form-control" placeholder="Price per ticket/item">
                 </div>
             `;
             itemsContainer.appendChild(newFields);
