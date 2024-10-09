@@ -20,7 +20,7 @@
 <?php endif; ?>
 
 <div class="fra-container">
-    <form action="<?php echo e(url('/Fund-Raising')); ?>" method="POST">
+    <form action="<?php echo e(url('/annex-a')); ?>" method="POST">
     <?php echo csrf_field(); ?>
         <h2>FUND RAISING ACTIVITY APPLICATION (Annex-A)</h2>
         <div class="fill-up-container">
@@ -47,9 +47,11 @@
 
             <div class="fra-group">
                 <label for="requesting_organization">Requesting Organization</label>
-                <input type="text" id="requesting_organization" name="requesting_organization" class="form-control <?php echo e(Session::has('error_field') && Session::get('error_field') == 'requesting_organization' ? 'is-invalid' : ''); ?>" value="<?php echo e(old('requesting_organization')); ?>">
+                <input type="text" id="requesting_organization" name="requesting_organization" class="form-control <?php echo e(Session::has('error_field') && Session::get('error_field') == 'requesting_organization' ? 'is-invalid' : ''); ?>" 
+                    value="<?php echo e(old('requesting_organization')); ?>" 
+                    placeholder="<?php echo e(auth()->user()->name_of_organization ?? 'Enter your organization name'); ?>">
                 <?php if(Session::has('error_field') && Session::get('error_field') == 'requesting_organization'): ?>
-                    <small class="text-danger">Your organization name does not match our records.</small>
+                    <small class="text-danger">The requesting organization does not match our records.</small>
                 <?php endif; ?>
             </div>
             
@@ -83,7 +85,7 @@
                         <label for="estimate_income">a. Number of tickets/items to be sold</label>
                         <?php if(is_array(old('estimate_income'))): ?>
                             <?php $__currentLoopData = old('estimate_income'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $income): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="<?php echo e($income); ?>">
+                                <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="<?php echo e($income); ?>"><br>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <?php else: ?>
                             <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="">
@@ -241,11 +243,13 @@
         <div class="split">
             <div class="fra-group">
                 <label for="president">President of Organization</label>
-                <input type="text" id="president" name="president" class="form-control <?php echo e(Session::has('error_field') && Session::get('error_field') == 'president' ? 'is-invalid' : ''); ?>" value="<?php echo e(old('president')); ?>">
+                <input type="text" id="president" name="president" class="form-control <?php echo e(Session::has('error_field') && Session::get('error_field') == 'president' ? 'is-invalid' : ''); ?>" 
+                    value="<?php echo e(old('president')); ?>" 
+                    placeholder="<?php echo e(auth()->user()->name ?? 'Enter the president\'s name'); ?>">
                 <?php if(Session::has('error_field') && Session::get('error_field') == 'president'): ?>
                     <small class="text-danger">The president's name does not match our records.</small>
                 <?php endif; ?>
-            </div>            
+            </div>
 
             <div class="fra-group">
                 <label for="treasurer">Treasurer/ Representative</label>

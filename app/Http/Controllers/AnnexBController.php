@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AnnexB;
+use App\Models\User; // Import the User model to check for organization
+use Illuminate\Support\Facades\Session;
 
 class AnnexBController extends Controller
 {
@@ -11,8 +13,8 @@ class AnnexBController extends Controller
     {
         $validated = $request->validate([
             'name_of_org' => 'required|string',
-            'semester' => 'required|string',
-            'school_year' => 'required|string',
+            'semester' => 'required|string|in:1st sem,2nd sem,summer sem',
+            'school_year' => 'required|string|regex:/\d{4}-\d{4}/',
             'period_covered' => 'required|string',
             'cash_balance' => 'nullable|string',
             'cash_receipt' => 'nullable|string',
@@ -48,6 +50,26 @@ class AnnexBController extends Controller
             'certified' => 'nullable|string',
         ]);
 
+        $user = auth()->user();
+    
+        // Check if the requesting organization matches the user's organization
+        if ($user->name_of_organization !== $validated['name_of_org']) {
+            Session::flash('error', 'Your organization name does not match your credentials.');
+            Session::flash('error_field', 'name_of_org');
+            return redirect()->back()->withInput();
+        }
+    
+        // Check if the president exists in the same organization as the logged-in user
+        $presidentExists = User::where('name', $validated['approved'])
+            ->where('name_of_organization', $user->name_of_organization)
+            ->exists();
+    
+        if (!$presidentExists) {
+            Session::flash('error', 'President name does not match your organization.');
+            Session::flash('error_field', 'approved');
+            return redirect()->back()->withInput();
+        }
+
         $annexB = new AnnexB();
         $annexB->name_of_org = $validated['name_of_org'];
         $annexB->semester = $validated['semester'];
@@ -77,6 +99,7 @@ class AnnexBController extends Controller
         $annexB->certified = $validated['certified'];
         $annexB->save();
 
-        return view('/org/auth/preevalfra');
+        Session::flash('success', 'Your form has been evaluated.');
+        return redirect()->route('org.auth.preevalfra');
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountSettingsController;
 use App\Http\Controllers\Faculty\FacultyHomeController;
 use App\Http\Controllers\Faculty\FacultyLoginController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexAController;
+use App\Http\Controllers\Faculty\FacultyFRAAnnexBController;
 use App\Http\Controllers\preeval\FRAController;
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
@@ -33,9 +34,17 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
     Route::middleware(['auth', FacultyMiddleware::class])->group(function () {
         Route::get('/home', [FacultyHomeController::class, 'index'])->name('home');
         
+
+        Route::get('/FRA-Evaluation', function () {
+            return view('/faculty/auth/fraeval/fra-evaluation'); // Create this view
+        })->name('fra.evaluation');
+
         // New Routes for Evaluation Activities
-        Route::get('/FRA-Evaluation', [FacultyFRAAnnexAController::class, 'index'])->name('fra.evaluation');
-        Route::get('/FRA-Evaluation/{id}', [FacultyFRAAnnexAController::class, 'show'])->name('fra-evaluation.show');
+        Route::get('/FRA-A-Evaluation', [FacultyFRAAnnexAController::class, 'index'])->name('fra-a-evaluation.index');
+        Route::get('/FRA-A-Evaluation/{id}', [FacultyFRAAnnexAController::class, 'show'])->name('fra-a-evaluation.show');
+
+        Route::get('/FRA-B-Evaluation', [FacultyFRAAnnexBController::class, 'index'])->name('fra-b-evaluation.index');
+        Route::get('/FRA-B-Evaluation/{id}', [FacultyFRAAnnexBController::class, 'show'])->name('fra-b-evaluation.show');
 
 
         Route::get('/In-Campus-Evaluation', function () {
@@ -109,13 +118,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Annex-B', function () {
         return view('/org/auth/fraeval/annex-b');
     });
+    Route::get('/Annex-C', function () {
+        return view('/org/auth/fraeval/annex-c');
+    });
 
     // Fund-Raising routes
     Route::get('/Fund-Raising', function () {
         return view('/org/auth/preevalfra');
     })->name('org.auth.preevalfra');
 
-    Route::post('/Fund-Raising', [AnnexAController::class, 'store'])->name('fund-raising.store');
+    Route::post('/annex-a', [AnnexAController::class, 'store'])->name('annexa.submit');
+    Route::post('/annex-b', [AnnexBController::class, 'store'])->name('annexb.submit');
 
     // Other routes related to pre-evaluation status and documents
 

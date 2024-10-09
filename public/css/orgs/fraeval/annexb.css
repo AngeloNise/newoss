@@ -1,9 +1,37 @@
-.button-receipt {
+.button-receipt, .button-disbursements{
     text-align: right;
 }
 
-.button-disbursements {
+.button-items, .button-sales {
     text-align: right;
+    margin-top: 10px; /* Add some space above the buttons */
+}
+
+.button-receipt button, .button-disbursements button{
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* Text color */
+    background-color: #dc3545; /* Button background color (red) */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button-receipt button:hover, .button-disbursements button:hover{
+    background-color: #c82333; /* Darker red for hover effect */
+}
+
+.button-receipt button:active, .button-disbursements button:active{
+    background-color: #bd2130; /* Even darker red for active effect */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.button-receipt button:focus, .button-disbursements button:focus{
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.5); /* Custom focus outline */
 }
 
 .split-1, .split-2 {
@@ -40,57 +68,33 @@
     box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
 }
 
-
-#add-cash-receipt {
+/* Updated button styles for add buttons */
+#add-cash-receipt, #add-disbursements {
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
     color: #fff; /* Text color */
-    background-color: #dc3545; /* Button background color */
+    background-color: #28a745; /* Green background color */
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-#add-cash-receipt:hover {
-    background-color: #c82333; /* Darker red for hover effect */
-}
-
-#add-cash-receipt:active {
-    background-color: #bd2130; /* Even darker red for active effect */
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
-}
-
-#add-cash-receipt:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.5); /* Custom focus outline */
-}
-
-#add-disbursements {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff; /* Text color */
-    background-color: #dc3545; /* Button background color */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
+#add-cash-receipt:hover,
 #add-disbursements:hover {
-    background-color: #c82333; /* Darker red for hover effect */
+    background-color: #218838; /* Darker green for hover effect */
 }
 
+#add-cash-receipt:active,
 #add-disbursements:active {
-    background-color: #bd2130; /* Even darker red for active effect */
+    background-color: #1e7e34; /* Even darker green for active effect */
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
 }
 
+#add-cash-receipt:focus,
 #add-disbursements:focus {
     outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.5); /* Custom focus outline */
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5); /* Custom focus outline */
 }

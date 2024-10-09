@@ -14,8 +14,8 @@ class AnnexAController extends Controller
         // Validate the input
         $validated = $request->validate([
             'name_of_project' => 'required|string',
-            'start_date' => 'required|string',
-            'end_date' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
             'requesting_organization' => 'required|string',
             'college_branch' => 'required|string',
             'representative' => 'required|string',

@@ -1,18 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
     if (window.flashMessage) {
         const messageContainer = document.createElement('div');
-        messageContainer.className = `flash-message ${window.flashMessage.type}`; // Add class for type (success/error)
+        messageContainer.className = `flash-message ${window.flashMessage.type}`; 
 
-        messageContainer.innerText = window.flashMessage.message; // Set the message text
-        document.body.prepend(messageContainer); // Display it at the top of the body
+        messageContainer.innerText = window.flashMessage.message; 
+        document.body.prepend(messageContainer);
 
-        // Optionally, add code to remove the message after a few seconds
+
         setTimeout(() => {
-            messageContainer.classList.add('fade-out'); // Start fade-out animation
+            messageContainer.classList.add('fade-out'); 
             setTimeout(() => {
-                messageContainer.remove(); // Remove from DOM after fade-out
-            }, 500); // Match the timing with the CSS transition duration
-        }, 5000); // Show message for 5 seconds
+                messageContainer.remove(); 
+            }, 500); 
+        }, 5000);
     }
 
     const addButton = document.getElementById('add-budget');

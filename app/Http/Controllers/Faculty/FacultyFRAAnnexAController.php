@@ -12,13 +12,13 @@ class FacultyFRAAnnexAController extends Controller
     {
         $applications = annexa::all();
 
-        return view('faculty.auth.fra-evaluation', compact('applications'));
+        return view('faculty.auth.fraeval.fra-a-evaluation', compact('applications'));
     }
 
     public function show($id)
     {
         $annexa = annexa::findOrFail($id);
 
-        return view('faculty.auth.fra-evaluation-detail', compact('annexa'));
+        return view('faculty.auth.fraeval.fra-a-evaluation-detail', compact('annexa'));
     }
 }

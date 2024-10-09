@@ -1,67 +1,98 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const addButton = document.getElementById('add-cash-receipt');
-    const container = document.getElementById('cash-receipt');
-    let index = container.querySelectorAll('.split-1').length;
+    if (window.flashMessage) {
+        const messageContainer = document.createElement('div');
+        messageContainer.className = `flash-message ${window.flashMessage.type}`; // Add class for type (success/error)
+        messageContainer.innerText = window.flashMessage.message; // Set the message text
+        document.body.prepend(messageContainer); // Display it at the top of the body
 
-    if (addButton) {
-        addButton.addEventListener('click', function() {
+        // Optionally, add code to remove the message after a few seconds
+        setTimeout(() => {
+            messageContainer.classList.add('fade-out'); // Start fade-out animation
+            setTimeout(() => {
+                messageContainer.remove(); // Remove from DOM after fade-out
+            }, 500); // Match the timing with the CSS transition duration
+        }, 5000); // Show message for 5 seconds
+    }
+
+    // Handle Cash Receipts
+    const addCashReceiptButton = document.getElementById('add-cash-receipt');
+    const cashReceiptContainer = document.getElementById('cash-receipt');
+    let index = cashReceiptContainer.querySelectorAll('.split-1').length;  
+    
+    if (addCashReceiptButton) {
+        addCashReceiptButton.addEventListener('click', function() {
             const newFields = document.createElement('div');
             newFields.classList.add('split-1');
             newFields.innerHTML = `
                 <div class="fra-group">
-                    <input type="text" id="date_receipt_${index}" name="date_receipt[]" class="form-control" placeholder="Date Receipt">
+                    <input type="text" name="date_receipt[]" class="form-control" placeholder="Date">
                 </div>
                 <div class="fra-group">
-                    <input type="text" id="invoice_no_receipt_${index}" name="invoice_no_receipt[]" class="form-control" placeholder="Invoice No">
+                    <input type="text" name="invoice_no_receipt[]" class="form-control" placeholder="O.R./Invoice No.">
                 </div>
                 <div class="fra-group">
-                    <input type="text" id="particulars_${index}" name="particulars[]" class="form-control" placeholder="Particulars">
+                    <input type="text" name="particulars[]" class="form-control" placeholder="Particulars">
                 </div>
                 <div class="fra-group">
-                    <input type="text" id="amount_${index}" name="amount[]" class="form-control" placeholder="Amount">
+                    <input type="text" name="amount[]" class="form-control" placeholder="Amount">
                 </div>
                 <div class="fra-group">
-                    <input type="text" id="remarks_receipt_${index}" name="remarks_receipt[]" class="form-control" placeholder="Remarks">
+                    <input type="text" name="remarks_receipt[]" class="form-control" placeholder="Remarks">
                 </div>
             `;
-
-            container.appendChild(newFields);
+            cashReceiptContainer.appendChild(newFields);
             index++;
         });
     }
 
-    const addButton1 = document.getElementById('add-disbursements');
-    const container1 = document.getElementById('disbursements');
-    let index1 = container.querySelectorAll('.split-2').length;
+    const removeCashReceiptButton = document.getElementById('remove-cash-receipt');
+    if (removeCashReceiptButton) {
+        removeCashReceiptButton.addEventListener('click', function() {
+            const addedReceipts = cashReceiptContainer.querySelectorAll('.split-1:not(:first-child)');
+            if (addedReceipts.length > 0) {
+                cashReceiptContainer.removeChild(addedReceipts[addedReceipts.length - 1]);
+            }
+        });
+    }
 
-    if (addButton1) {
-        addButton1.addEventListener('click', function() {
+    // Handle Disbursements
+    const addDisbursementsButton = document.getElementById('add-disbursements');
+    const disbursementsContainer = document.getElementById('disbursements');
+    let index1 = disbursementsContainer.querySelectorAll('.split-2').length;
+
+    if (addDisbursementsButton) {
+        addDisbursementsButton.addEventListener('click', function() {
             const newFields = document.createElement('div');
             newFields.classList.add('split-2');
             newFields.innerHTML = `
                 <div class="fra-group">
-                        <input type="text" id="date_disburse_${index}" name="date_disburse[]" class="form-control" placeholder="Date">
-                    </div>
-
-                    <div class="fra-group">
-                        <input type="text" id="invoice_no_disburse_${index}" name="invoice_no_disburse[]" class="form-control" placeholder="O.R./Invoice No">
-                    </div>
-
-                    <div class="fra-group">
-                        <input type="text" id="description_${index}" name="description[]" class="form-control" placeholder="Description">
-                    </div>
-
-                    <div class="fra-group">
-                        <input type="text" id="purpose_${index}" name="purpose[]" class="form-control" placeholder="Purpose">
-                    </div>
-
-                    <div class="fra-group">
-                        <input type="text" id="remarks_disburse_${index}" name="remarks_disburse[]" class="form-control" placeholder="Remarks">
-                    </div>
+                    <input type="text" name="date_disburse[]" class="form-control" placeholder="Date">
+                </div>
+                <div class="fra-group">
+                    <input type="text" name="invoice_no_disburse[]" class="form-control" placeholder="O.R./Invoice No.">
+                </div>
+                <div class="fra-group">
+                    <input type="text" name="description[]" class="form-control" placeholder="Description">
+                </div>
+                <div class="fra-group">
+                    <input type="text" name="purpose[]" class="form-control" placeholder="Purpose">
+                </div>
+                <div class="fra-group">
+                    <input type="text" name="remarks_disburse[]" class="form-control" placeholder="Remarks">
+                </div>
             `;
-
-            container1.appendChild(newFields);
+            disbursementsContainer.appendChild(newFields);
             index1++;
+        });
+    }
+
+    const removeDisbursementButton = document.getElementById('remove-disbursements');
+    if (removeDisbursementButton) {
+        removeDisbursementButton.addEventListener('click', function() {
+            const addedDisbursements = disbursementsContainer.querySelectorAll('.split-2:not(:first-child)');
+            if (addedDisbursements.length > 0) {
+                disbursementsContainer.removeChild(addedDisbursements[addedDisbursements.length - 1]);
+            }
         });
     }
 });

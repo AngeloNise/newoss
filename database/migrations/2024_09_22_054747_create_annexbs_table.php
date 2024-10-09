@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('annexbs', function (Blueprint $table) {
             $table->id();
             $table->string('name_of_org');
-            $table->string('semester');
+            $table->enum('semester', ['1st sem', '2nd sem', 'summer sem']);
             $table->string('school_year');
             $table->string('period_covered');
             $table->string('cash_balance')->nullable();
