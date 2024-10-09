@@ -12,9 +12,9 @@
 
 <div class="annexes">
     <h1>Pre-Activity Form</h1>
-    <a href="{{ url('/Annex-A') }}" class="button">Annex-A</a>
+    <a href="{{ url('/FRA/Annex-A') }}" class="button">Annex-A</a>
     <h1>Post-Activity Forms</h1>
-    <a href="{{ url('/Annex-B') }}" class="button">Annex-B</a>
-    <a href="{{ url('/Annex-C') }}" class="button">Annex-C</a>
+    <a href="{{ url('/FRA/Annex-B') }}" class="button">Annex-B</a>
+    <a href="{{ url('/FRA/Annex-C') }}" class="button">Annex-C</a>
 </div>
 @endsection

@@ -112,21 +112,64 @@ Route::middleware(['auth'])->group(function () {
         return view('/org/auth/incampus');
     });
 
-    Route::get('/Annex-A', function () {
-        return view('/org/auth/fraeval/annex-a');
+    Route::prefix('FRA')->name('fra.')->group(function () {
+        Route::get('/Annex-A', function () {
+            return view('/org/auth/fraeval/annex-a');
+        })->name('fra.annex-a');
+    
+        Route::get('/Annex-B', function () {
+            return view('/org/auth/fraeval/annex-b');
+        })->name('fra.annex-b');
+    
+        Route::get('/Annex-C', function () {
+            return view('/org/auth/fraeval/annex-c');
+        })->name('fra.annex-c');
     });
 
-    Route::get('/Annex-B', function () {
-        return view('/org/auth/fraeval/annex-b');
+    Route::prefix('Off-Campus')->name('offcampus.')->group(function () {
+        Route::get('/Annex-A', function () {
+            return view('/org/auth/offcampus/annex-a');
+        })->name('offcampus.annex-a');
+    
+        Route::get('/Off-Campus/Annex-B', function () {
+            return view('/org/auth/offcampus/annex-b');
+        })->name('offcampus.annex-b');
+        
+        Route::get('/Off-Campus/Annex-C', function () {
+            return view('/org/auth/offcampus/annex-c');
+        })->name('offcampus.annex-c');
+        
+        Route::get('/Off-Campus/Annex-D', function () {
+            return view('/org/auth/offcampus/annex-d');
+        })->name('offcampus.annex-d');
+        
+        Route::get('/Off-Campus/Annex-E', function () {
+            return view('/org/auth/offcampus/annex-e');
+        })->name('offcampus.annex-e');
+        
+        Route::get('/Off-Campus/Annex-F', function () {
+            return view('/org/auth/offcampus/annex-f');
+        })->name('offcampus.annex-f');
+        
+        Route::get('/Off-Campus/Annex-G', function () {
+            return view('/org/auth/offcampus/annex-g');
+        })->name('offcampus.annex-g');
+        
+        Route::get('/Off-Campus/Annex-H', function () {
+            return view('/org/auth/offcampus/annex-h');
+        })->name('offcampus.annex-h');
+        
     });
-    Route::get('/Annex-C', function () {
-        return view('/org/auth/fraeval/annex-c');
-    });
+    
 
     // Fund-Raising routes
     Route::get('/Fund-Raising', function () {
         return view('/org/auth/preevalfra');
     })->name('org.auth.preevalfra');
+
+    Route::get('/Off-Campus-Activity', function () {
+        return view('/org/auth/preevaloffcamp');
+    })->name('org.auth.preevaloffcamp');
 
     Route::post('/annex-a', [AnnexAController::class, 'store'])->name('annexa.submit');
     Route::post('/annex-b', [AnnexBController::class, 'store'])->name('annexb.submit');
