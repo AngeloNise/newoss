@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AnnexAController;
 use App\Http\Controllers\AnnexBController;
+use App\Http\Controllers\AnnexCController;
 
 // GUEST Routes
 Route::get('/', function () {
@@ -129,6 +130,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/annex-a', [AnnexAController::class, 'store'])->name('annexa.submit');
     Route::post('/annex-b', [AnnexBController::class, 'store'])->name('annexb.submit');
+    Route::post('/annex-c', [AnnexCController::class, 'store'])->name('annexc.submit');
 
     // Other routes related to pre-evaluation status and documents
 

@@ -1,7 +1,7 @@
 @extends('layout.adminlayout')
 @section('content')
 <div class="fra-container">
-    <a href="/faculty/FRA-B-Evaluation" class="btn btn-primary">Back</a>
+    <a href="/faculty/FRA-C-Evaluation" class="btn btn-primary">Back</a>
     <h2>Financial Summary</h2>
     
     <div class="org_info">

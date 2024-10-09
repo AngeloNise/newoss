@@ -12,7 +12,7 @@ class AnnexCController extends Controller
     {
         $validated = $request->validate([
             'qty' => 'required|array',
-            'qty.*' => 'required|integer',
+            'qty.*' => 'required|string',
             'unit' => 'required|array',
             'unit.*' => 'required|string',
             'item_description' => 'nullable|array',
@@ -22,9 +22,9 @@ class AnnexCController extends Controller
             'property_no' => 'nullable|array',
             'property_no.*' => 'nullable|string',
             'unit_cost' => 'required|array',
-            'unit_cost.*' => 'required|numeric',
+            'unit_cost.*' => 'required|string',
             'total_amount' => 'required|array',
-            'total_amount.*' => 'required|numeric',
+            'total_amount.*' => 'required|string',
         ]);
 
         $annexC = new AnnexC();
@@ -38,6 +38,6 @@ class AnnexCController extends Controller
         $annexC->save();
 
         Session::flash('success', 'Your form has been evaluated.');
-        return redirect()->route('annexc.index');
+        return redirect()->route('org.auth.preevalfra');
     }
 }
