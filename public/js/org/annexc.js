@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (removeReceiptForEquipmentButton) {
         removeReceiptForEquipmentButton.addEventListener('click', function() {
             const addedEquipment = ReceiptForEquipmentContainer.querySelectorAll('.equipment:not(:first-child)');
-            if (addedEquipment.length > 0) {
+            if (addedEquipment.length > 1) {
                 ReceiptForEquipmentContainer.removeChild(addedEquipment[addedEquipment.length - 1]);
             }
         });

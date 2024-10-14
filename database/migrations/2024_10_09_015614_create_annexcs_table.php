@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('annexcs', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('name_of_organization');
             $table->json('qty');
             $table->json('unit');
             $table->json('item_description')->nullable();

@@ -48,7 +48,7 @@
             <div class="fra-group">
                 <label for="requesting_organization">Requesting Organization</label>
                 <input type="text" id="requesting_organization" name="requesting_organization" class="form-control {{ Session::has('error_field') && Session::get('error_field') == 'requesting_organization' ? 'is-invalid' : '' }}" 
-                    value="{{ old('requesting_organization') }}" 
+                    value="{{ old('requesting_organization', auth()->user()->name_of_organization) }}" 
                     placeholder="{{ auth()->user()->name_of_organization ?? 'Enter your organization name' }}">
                 @if(Session::has('error_field') && Session::get('error_field') == 'requesting_organization')
                     <small class="text-danger">The requesting organization does not match our records.</small>
@@ -82,13 +82,13 @@
                 <h5>(Tickets are to be registered at the Office of Student Services)</h5>
                 <div class="items-to-be-sold">
                     <div class="fra-group">
-                        <label for="estimate_income">a. Number of tickets/items to be sold</label>
-                        @if (is_array(old('estimate_income')))
-                            @foreach (old('estimate_income') as $income)
-                                <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="{{ $income }}"><br>
+                        <label for="items_to_be_sold">a. Number of tickets/items to be sold</label>
+                        @if (is_array(old('items_to_be_sold')))
+                            @foreach (old('items_to_be_sold') as $income)
+                                <input type="text" id="items_to_be_sold" name="items_to_be_sold[]" class="form-control" value="{{ $income }}"><br>
                             @endforeach
                         @else
-                            <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="">
+                            <input type="text" id="items_to_be_sold" name="items_to_be_sold[]" class="form-control" value="">
                         @endif
                     </div>
     
@@ -97,22 +97,27 @@
                         @if (is_array(old('item_pieces')))
                             @foreach (old('item_pieces') as $pieces)
                                 <input type="text" id="item_pieces" name="item_pieces[]" class="form-control" value="{{ $pieces }}">
+                                <div class="error-message" style="color: red; display: none;">Please enter a valid number.</div> <!-- Error message -->
                             @endforeach
                         @else
                             <input type="text" id="item_pieces" name="item_pieces[]" class="form-control" value="">
+                            <div class="error-message" style="color: red; display: none;">Please enter a valid number.</div> <!-- Error message -->
                         @endif
                     </div>
-
+                    
                     <div class="fra-group">
                         <label for="price_ticket">b. Price per ticket/item</label>
                         @if (is_array(old('price_ticket')))
                             @foreach (old('price_ticket') as $price)
-                                <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" placeholder="Php" value="{{ $price }}">
+                                <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" value="{{ $price }}">
+                                <div class="error-message" style="color: red; display: none;">Please enter a valid number.</div> <!-- Error message -->
                             @endforeach
                         @else
                             <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" value="">
+                            <div class="error-message" style="color: red; display: none;">Please enter a valid number.</div> <!-- Error message -->
                         @endif
                     </div>
+                                      
                 </div>
             </div>
 
@@ -121,10 +126,11 @@
                 <button type="button" id="add-items">Add</button>
             </div> 
 
-            <div id="add-sales">
+            <div id="total-sales-container">
                 <div class="total-sales">
                     <div class="fra-group">
                         <label for="total_estimate_ticket">c. Total estimated tickets/items sales (a × b)</label>
+                        <h5>(Note: Change the value if you see the computation went wrong or different from what you got.)</h5>
                         @if (is_array(old('total_estimate_ticket')))
                             @foreach (old('total_estimate_ticket') as $total)
                                 <input type="text" id="total_estimate_ticket" name="total_estimate_ticket[]" class="form-control" value="{{ $total }}">
@@ -135,11 +141,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="button-sales">
-                <button type="button" id="remove-item-sales">Remove</button>
-                <button type="button" id="add-item-sales">Add</button>
-            </div> 
 
             <div id="add-income">
                 <div class="split">
@@ -211,12 +212,12 @@
 
             <div class="fra-group">
                 <label for="total_budget_expenses_php">a. Total Budgeted Expenses</label>
-                <input type="text" id="total_budget_expenses_php" name="total_budget_expenses_php" class="form-control" placeholder="(sum of 𝑛 terms of 𝑎) Php" value="{{ old('total_budget_expenses_php') }}">
+                <input type="text" id="total_budget_expenses_php" name="total_budget_expenses_php" class="form-control" placeholder="(sum of all expenditures) Php" value="{{ old('total_budget_expenses_php') }}">
             </div>
 
             <div class="fra-group">
                 <label for="total_estimated_proceeds">3. Total Estimated Proceeds (1e-2a)</label>
-                <input type="text" id="total_estimated_proceeds" name="total_estimated_proceeds" class="form-control" placeholder="Php" value="{{ old('total_estimated_proceeds') }}">
+                <input type="text" id="total_estimated_proceeds" name="total_estimated_proceeds" class="form-control" placeholder="(Php) total estimated income minus total budgeted expenses" value="{{ old('total_estimated_proceeds') }}">
             </div>
 
             <div class="fra-group">
@@ -244,7 +245,7 @@
             <div class="fra-group">
                 <label for="president">President of Organization</label>
                 <input type="text" id="president" name="president" class="form-control {{ Session::has('error_field') && Session::get('error_field') == 'president' ? 'is-invalid' : '' }}" 
-                    value="{{ old('president') }}" 
+                    value="{{ old('president', auth()->user()->name) }}" 
                     placeholder="{{ auth()->user()->name ?? 'Enter the president\'s name' }}">
                 @if(Session::has('error_field') && Session::get('error_field') == 'president')
                     <small class="text-danger">The president's name does not match our records.</small>

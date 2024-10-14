@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('representative');
             $table->string('address_contact');
             $table->string('objectives');
-            $table->json('estimate_income')->nullable();
+            $table->json('items_to_be_sold')->nullable();
             $table->json('item_pieces')->nullable();
             $table->json('price_ticket')->nullable();
             $table->json('total_estimate_ticket')->nullable();

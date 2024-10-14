@@ -5,12 +5,17 @@ use App\Http\Controllers\Faculty\FacultyHomeController;
 use App\Http\Controllers\Faculty\FacultyLoginController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexAController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexBController;
+use App\Http\Controllers\Faculty\FacultyFRAAnnexCController;
+
 use App\Http\Controllers\preeval\FRAController;
+
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
 use App\Http\Middleware\GuestFacultyMiddleware;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AnnexAController;
 use App\Http\Controllers\AnnexBController;
@@ -47,6 +52,9 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/FRA-B-Evaluation', [FacultyFRAAnnexBController::class, 'index'])->name('fra-b-evaluation.index');
         Route::get('/FRA-B-Evaluation/{id}', [FacultyFRAAnnexBController::class, 'show'])->name('fra-b-evaluation.show');
 
+        
+        Route::get('/FRA-C-Evaluation', [FacultyFRAAnnexCController::class, 'index'])->name('fra-c-evaluation.index');
+        Route::get('/FRA-C-Evaluation/{id}', [FacultyFRAAnnexCController::class, 'show'])->name('fra-c-evaluation.show');
 
         Route::get('/In-Campus-Evaluation', function () {
             return view('/faculty/auth/incampus-evaluation'); // Create this view
@@ -131,31 +139,31 @@ Route::middleware(['auth'])->group(function () {
             return view('/org/auth/offcampus/annex-a');
         })->name('offcampus.annex-a');
     
-        Route::get('/Off-Campus/Annex-B', function () {
+        Route::get('/Annex-B', function () {
             return view('/org/auth/offcampus/annex-b');
         })->name('offcampus.annex-b');
         
-        Route::get('/Off-Campus/Annex-C', function () {
+        Route::get('/Annex-C', function () {
             return view('/org/auth/offcampus/annex-c');
         })->name('offcampus.annex-c');
         
-        Route::get('/Off-Campus/Annex-D', function () {
+        Route::get('/Annex-D', function () {
             return view('/org/auth/offcampus/annex-d');
         })->name('offcampus.annex-d');
         
-        Route::get('/Off-Campus/Annex-E', function () {
+        Route::get('/Annex-E', function () {
             return view('/org/auth/offcampus/annex-e');
         })->name('offcampus.annex-e');
         
-        Route::get('/Off-Campus/Annex-F', function () {
+        Route::get('/Annex-F', function () {
             return view('/org/auth/offcampus/annex-f');
         })->name('offcampus.annex-f');
         
-        Route::get('/Off-Campus/Annex-G', function () {
+        Route::get('/Annex-G', function () {
             return view('/org/auth/offcampus/annex-g');
         })->name('offcampus.annex-g');
         
-        Route::get('/Off-Campus/Annex-H', function () {
+        Route::get('/Annex-H', function () {
             return view('/org/auth/offcampus/annex-h');
         })->name('offcampus.annex-h');
         

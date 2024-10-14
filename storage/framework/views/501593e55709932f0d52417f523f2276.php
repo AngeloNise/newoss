@@ -48,7 +48,7 @@
             <div class="fra-group">
                 <label for="requesting_organization">Requesting Organization</label>
                 <input type="text" id="requesting_organization" name="requesting_organization" class="form-control <?php echo e(Session::has('error_field') && Session::get('error_field') == 'requesting_organization' ? 'is-invalid' : ''); ?>" 
-                    value="<?php echo e(old('requesting_organization')); ?>" 
+                    value="<?php echo e(old('requesting_organization', auth()->user()->name_of_organization)); ?>" 
                     placeholder="<?php echo e(auth()->user()->name_of_organization ?? 'Enter your organization name'); ?>">
                 <?php if(Session::has('error_field') && Session::get('error_field') == 'requesting_organization'): ?>
                     <small class="text-danger">The requesting organization does not match our records.</small>
@@ -82,13 +82,13 @@
                 <h5>(Tickets are to be registered at the Office of Student Services)</h5>
                 <div class="items-to-be-sold">
                     <div class="fra-group">
-                        <label for="estimate_income">a. Number of tickets/items to be sold</label>
-                        <?php if(is_array(old('estimate_income'))): ?>
-                            <?php $__currentLoopData = old('estimate_income'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $income): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="<?php echo e($income); ?>"><br>
+                        <label for="items_to_be_sold">a. Number of tickets/items to be sold</label>
+                        <?php if(is_array(old('items_to_be_sold'))): ?>
+                            <?php $__currentLoopData = old('items_to_be_sold'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $income): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <input type="text" id="items_to_be_sold" name="items_to_be_sold[]" class="form-control" value="<?php echo e($income); ?>"><br>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <?php else: ?>
-                            <input type="text" id="estimate_income" name="estimate_income[]" class="form-control" value="">
+                            <input type="text" id="items_to_be_sold" name="items_to_be_sold[]" class="form-control" value="">
                         <?php endif; ?>
                     </div>
     
@@ -97,22 +97,27 @@
                         <?php if(is_array(old('item_pieces'))): ?>
                             <?php $__currentLoopData = old('item_pieces'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pieces): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <input type="text" id="item_pieces" name="item_pieces[]" class="form-control" value="<?php echo e($pieces); ?>">
+                                <div class="error-message" style="color: red; display: none;">Please enter a valid number.</div> <!-- Error message -->
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <?php else: ?>
                             <input type="text" id="item_pieces" name="item_pieces[]" class="form-control" value="">
+                            <div class="error-message" style="color: red; display: none;">Please enter a valid number.</div> <!-- Error message -->
                         <?php endif; ?>
                     </div>
-
+                    
                     <div class="fra-group">
                         <label for="price_ticket">b. Price per ticket/item</label>
                         <?php if(is_array(old('price_ticket'))): ?>
                             <?php $__currentLoopData = old('price_ticket'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $price): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" placeholder="Php" value="<?php echo e($price); ?>">
+                                <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" value="<?php echo e($price); ?>">
+                                <div class="error-message" style="color: red; display: none;">Please enter a valid number.</div> <!-- Error message -->
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <?php else: ?>
                             <input type="text" id="price_ticket" name="price_ticket[]" class="form-control" value="">
+                            <div class="error-message" style="color: red; display: none;">Please enter a valid number.</div> <!-- Error message -->
                         <?php endif; ?>
                     </div>
+                                      
                 </div>
             </div>
 
@@ -121,10 +126,11 @@
                 <button type="button" id="add-items">Add</button>
             </div> 
 
-            <div id="add-sales">
+            <div id="total-sales-container">
                 <div class="total-sales">
                     <div class="fra-group">
                         <label for="total_estimate_ticket">c. Total estimated tickets/items sales (a × b)</label>
+                        <h5>(Note: Change the value if you see the computation went wrong or different from what you got.)</h5>
                         <?php if(is_array(old('total_estimate_ticket'))): ?>
                             <?php $__currentLoopData = old('total_estimate_ticket'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $total): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <input type="text" id="total_estimate_ticket" name="total_estimate_ticket[]" class="form-control" value="<?php echo e($total); ?>">
@@ -135,11 +141,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="button-sales">
-                <button type="button" id="remove-item-sales">Remove</button>
-                <button type="button" id="add-item-sales">Add</button>
-            </div> 
 
             <div id="add-income">
                 <div class="split">
@@ -211,12 +212,12 @@
 
             <div class="fra-group">
                 <label for="total_budget_expenses_php">a. Total Budgeted Expenses</label>
-                <input type="text" id="total_budget_expenses_php" name="total_budget_expenses_php" class="form-control" placeholder="(sum of 𝑛 terms of 𝑎) Php" value="<?php echo e(old('total_budget_expenses_php')); ?>">
+                <input type="text" id="total_budget_expenses_php" name="total_budget_expenses_php" class="form-control" placeholder="(sum of all expenditures) Php" value="<?php echo e(old('total_budget_expenses_php')); ?>">
             </div>
 
             <div class="fra-group">
                 <label for="total_estimated_proceeds">3. Total Estimated Proceeds (1e-2a)</label>
-                <input type="text" id="total_estimated_proceeds" name="total_estimated_proceeds" class="form-control" placeholder="Php" value="<?php echo e(old('total_estimated_proceeds')); ?>">
+                <input type="text" id="total_estimated_proceeds" name="total_estimated_proceeds" class="form-control" placeholder="(Php) total estimated income minus total budgeted expenses" value="<?php echo e(old('total_estimated_proceeds')); ?>">
             </div>
 
             <div class="fra-group">
@@ -244,7 +245,7 @@
             <div class="fra-group">
                 <label for="president">President of Organization</label>
                 <input type="text" id="president" name="president" class="form-control <?php echo e(Session::has('error_field') && Session::get('error_field') == 'president' ? 'is-invalid' : ''); ?>" 
-                    value="<?php echo e(old('president')); ?>" 
+                    value="<?php echo e(old('president', auth()->user()->name)); ?>" 
                     placeholder="<?php echo e(auth()->user()->name ?? 'Enter the president\'s name'); ?>">
                 <?php if(Session::has('error_field') && Session::get('error_field') == 'president'): ?>
                     <small class="text-danger">The president's name does not match our records.</small>

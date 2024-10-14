@@ -10,6 +10,8 @@ class annexc extends Model
     protected $table = 'annexcs';
 
     protected $fillable = [
+        'name',
+        'email',
         'qty',
         'unit',
         'item_description',

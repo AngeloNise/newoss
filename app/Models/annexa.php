@@ -17,7 +17,7 @@ class annexa extends Model
         'representative',
         'address_contact',
         'objectives',
-        'estimate_income',
+        'items_to_be_sold',
         'item_pieces',
         'price_ticket',
         'total_estimate_ticket',

@@ -11,6 +11,8 @@ class AnnexCController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'name' => 'nullable|string',
+            'organization' => 'nullable|string',
             'qty' => 'required|array',
             'qty.*' => 'required|string',
             'unit' => 'required|array',
@@ -27,7 +29,10 @@ class AnnexCController extends Controller
             'total_amount.*' => 'required|string',
         ]);
 
+        // Save the validated form data
         $annexC = new AnnexC();
+        $annexC->name = $validated['name'] ?? auth()->user()->name;  // Default to authenticated user's name
+        $annexC->name_of_organization = $validated['organization'] ?? auth()->user()->name_of_organization;  // Default to authenticated user's organization
         $annexC->qty = json_encode($validated['qty']);
         $annexC->unit = json_encode($validated['unit']);
         $annexC->item_description = json_encode($validated['item_description'] ?? []);
@@ -37,6 +42,7 @@ class AnnexCController extends Controller
         $annexC->total_amount = json_encode($validated['total_amount']);
         $annexC->save();
 
+        // Set a success message and redirect
         Session::flash('success', 'Your form has been evaluated.');
         return redirect()->route('org.auth.preevalfra');
     }

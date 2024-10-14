@@ -21,8 +21,8 @@ class AnnexAController extends Controller
             'representative' => 'required|string',
             'address_contact' => 'required|string',
             'objectives' => 'required|string',
-            'estimate_income' => 'nullable|array',
-            'estimate_income.*' => 'nullable|string',
+            'items_to_be_sold' => 'nullable|array',
+            'items_to_be_sold.*' => 'nullable|string',
             'item_pieces' => 'nullable|array',
             'item_pieces.*' => 'nullable|string',
             'price_ticket' => 'nullable|array',
@@ -80,7 +80,7 @@ class AnnexAController extends Controller
         $annexA->representative = $validated['representative'];
         $annexA->address_contact = $validated['address_contact'];
         $annexA->objectives = $validated['objectives'];
-        $annexA->estimate_income = json_encode($validated['estimate_income'] ?? []);
+        $annexA->items_to_be_sold = json_encode($validated['items_to_be_sold'] ?? []);
         $annexA->item_pieces = json_encode($validated['item_pieces'] ?? []);
         $annexA->price_ticket = json_encode($validated['price_ticket'] ?? []);
         $annexA->total_estimate_ticket = json_encode($validated['total_estimate_ticket'] ?? []);

@@ -24,6 +24,10 @@
     <?php echo csrf_field(); ?>
         <h2>FUND RAISING ACTIVITY APPLICATION (Annex-C)</h2>
         <div id="receipt-for-equipment">
+            <input type="hidden" name="name" value="<?php echo e(auth()->user()->name); ?>">
+            <input type="hidden" name="name_of_organization" value="<?php echo e(auth()->user()->name_of_organization); ?>">
+
+        
             <div class="equipment">
                 <div class="fra-group">
                     <label for="qty">Qty.</label>
