@@ -78,15 +78,36 @@
                 </tbody>
             </table>
         <?php else: ?>
-            <p><strong>Items to be sold:</strong> N/A</p>
+            <p><strong>Other Income:</strong> N/A</p>
         <?php endif; ?>
 
-        <p><strong>Total Estimated Income:</strong> <?php echo e($annexa->total_estimated_income ?? 'N/A'); ?></p>
-        <p><strong>Total Budget Expenses (PHP):</strong> <?php echo e($annexa->total_budget_expenses_php ?? 'N/A'); ?></p>
-        <p><strong>Total Estimated Proceeds:</strong> <?php echo e($annexa->total_estimated_proceeds ?? 'N/A'); ?></p>
-    </div>
+        <h3>Other Income</h3>
+        <?php
+            $other_income = json_decode($annexa->other_income) ?? [];
+            $income_amount = json_decode($annexa->income_amount) ?? [];
+        ?>
 
-        <div class="expenditures_info">
+        <?php if(is_array($other_income) && is_array($income_amount)): ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Item Pieces</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $__currentLoopData = $other_income; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td><?php echo e($item ?? 'N/A'); ?></td>
+                            <td><?php echo e($income_amount[$index] ?? 'N/A'); ?></td>
+                        </tr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p><strong>Other Income:</strong> N/A</p>
+        <?php endif; ?>
+
             <h3>Expenditures</h3>
             <?php
                 $expenditures = json_decode($annexa->expenditures) ?? [];
@@ -114,7 +135,10 @@
                 <p><strong>Expenditures:</strong> N/A</p>
             <?php endif; ?>
 
-        </div>
+        <p><strong>Total Estimated Income:</strong> <?php echo e($annexa->total_estimated_income ?? 'N/A'); ?></p>
+        <p><strong>Total Budget Expenses (PHP):</strong> <?php echo e($annexa->total_budget_expenses_php ?? 'N/A'); ?></p>
+        <p><strong>Total Estimated Proceeds:</strong> <?php echo e($annexa->total_estimated_proceeds ?? 'N/A'); ?></p>
+    </div>
         
         <div class="other_info">
             <h3>Other Information</h3>
@@ -155,5 +179,4 @@
     </div>
 </div>
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/fraeval/fra-a-evaluation-detail.blade.php ENDPATH**/ ?>

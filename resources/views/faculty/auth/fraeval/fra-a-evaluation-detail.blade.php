@@ -78,15 +78,36 @@
                 </tbody>
             </table>
         @else
-            <p><strong>Items to be sold:</strong> N/A</p>
+            <p><strong>Other Income:</strong> N/A</p>
         @endif
 
-        <p><strong>Total Estimated Income:</strong> {{ $annexa->total_estimated_income ?? 'N/A' }}</p>
-        <p><strong>Total Budget Expenses (PHP):</strong> {{ $annexa->total_budget_expenses_php ?? 'N/A' }}</p>
-        <p><strong>Total Estimated Proceeds:</strong> {{ $annexa->total_estimated_proceeds ?? 'N/A' }}</p>
-    </div>
+        <h3>Other Income</h3>
+        @php
+            $other_income = json_decode($annexa->other_income) ?? [];
+            $income_amount = json_decode($annexa->income_amount) ?? [];
+        @endphp
 
-        <div class="expenditures_info">
+        @if (is_array($other_income) && is_array($income_amount))
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Item Names</th>
+                        <th>Item Pieces</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($other_income as $index => $item)
+                        <tr>
+                            <td>{{ $item ?? 'N/A' }}</td>
+                            <td>{{ $income_amount[$index] ?? 'N/A' }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <p><strong>Other Income:</strong> N/A</p>
+        @endif
+
             <h3>Expenditures</h3>
             @php
                 $expenditures = json_decode($annexa->expenditures) ?? [];
@@ -114,7 +135,10 @@
                 <p><strong>Expenditures:</strong> N/A</p>
             @endif
 
-        </div>
+        <p><strong>Total Estimated Income:</strong> {{ $annexa->total_estimated_income ?? 'N/A' }}</p>
+        <p><strong>Total Budget Expenses (PHP):</strong> {{ $annexa->total_budget_expenses_php ?? 'N/A' }}</p>
+        <p><strong>Total Estimated Proceeds:</strong> {{ $annexa->total_estimated_proceeds ?? 'N/A' }}</p>
+    </div>
         
         <div class="other_info">
             <h3>Other Information</h3>
