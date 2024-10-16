@@ -1,0 +1,149 @@
+.button-income, .button-items, .button-budget, .button-sales{
+    text-align: right;
+}
+
+.button-items, .button-sales, .button-income, .button-budget {
+    text-align: right;
+    margin-top: 10px; /* Add some space above the buttons */
+}
+
+.button-items button, .button-sales button, .button-income button, .button-budget button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* Text color */
+    background-color: #dc3545; /* Button background color (red) */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button-items button:hover,
+.button-sales button:hover,
+.button-income button:hover,
+.button-budget button:hover {
+    background-color: #c82333; /* Darker red for hover effect */
+}
+
+.button-items button:active,
+.button-sales button:active,
+.button-income button:active,
+.button-budget button:active {
+    background-color: #bd2130; /* Even darker red for active effect */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.button-items button:focus,
+.button-sales button:focus,
+.button-income button:focus,
+.button-budget button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.5); /* Custom focus outline */
+}
+
+#semester, #school_year {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #495057; /* Text color */
+    background-color: #fff; /* Background color */
+    border: 1px solid #ced4da; /* Border color */
+    border-radius: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: auto; /* Adjust width as needed */
+}
+
+/* Focus state styling for semester and school year */
+#semester:focus, #school_year:focus {
+    border-color: #80bdff; /* Focus border color */
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Custom focus outline */
+}
+
+/* Hover state styling for semester and school year */
+#semester:hover, #school_year:hover {
+    border-color: #0056b3; /* Darker border on hover */
+}
+
+/* Error state (invalid) for semester and school year */
+#semester.is-invalid, #school_year.is-invalid {
+    border-color: red; /* Error border color */
+}
+
+#semester.is-invalid:focus, #school_year.is-invalid:focus {
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Error shadow effect */
+}
+
+#add-budget, #add-other-income, #add-items, #add-item-sales {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* Text color */
+    background-color: #28a745; /* Button background color (green) */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#add-budget:hover, #add-other-income:hover, #add-items:hover, #add-item-sales:hover {
+    background-color: #218838; /* Darker green for hover effect */
+}
+
+#add-budget:active, #add-other-income:active, #add-items:active, #add-item-sales:active {
+    background-color: #1e7e34; /* Even darker green for active effect */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#add-budget:focus, #add-other-income:focus, #add-items:focus, #add-item-sales:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5); /* Custom focus outline */
+}
+/* General styles for the overlay */
+.flash-message {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; /* Ensure it's on top of other content */
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: white;
+    width: auto; /* or set a specific width */
+    margin: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.5s ease, top 0.5s ease; /* Smooth transition */
+    opacity: 1; /* Fully visible */
+}
+
+/* Success message styling */
+.flash-message.success {
+    background-color: #28a745; /* Green background for success */
+}
+
+/* Error message styling */
+.flash-message.error {
+    background-color: #dc3545; /* Red background for error */
+}
+
+/* Animation for fading out the message */
+.flash-message.fade-out {
+    opacity: 0; /* Make it transparent */
+    top: -50px; /* Move it up out of view */
+}
+
+.is-invalid {
+    border-color: red; /* Change the border color to red */
+}
+
+.is-invalid:focus {
+    outline: none; /* Remove the default outline */
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Optional: Add a shadow to indicate error */
+}
+
+input.form-control.is-invalid {
+    border-color: red !important;
+}

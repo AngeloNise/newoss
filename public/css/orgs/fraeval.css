@@ -1,0 +1,33 @@
+.annexes {
+    text-align: center; /* Center the text horizontally */
+    margin: 6% auto;
+}
+
+.annexes h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Style for the button container */
+.annexes-buttons {
+    display: flex;
+    flex-direction: column; /* Arrange buttons vertically */
+    align-items: center;    /* Center the buttons horizontally */
+    gap: 15px;              /* Space between buttons */
+}
+
+/* Style for individual buttons */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #800000;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #a00000;
+}
