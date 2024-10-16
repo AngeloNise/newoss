@@ -6,6 +6,7 @@ use App\Http\Controllers\Faculty\FacultyLoginController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexAController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexBController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexCController;
+use App\Http\Controllers\Faculty\FacultyOrgAcctManagementController;
 
 use App\Http\Controllers\preeval\FRAController;
 
@@ -48,6 +49,8 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         // New Routes for Evaluation Activities
         Route::get('/FRA-A-Evaluation', [FacultyFRAAnnexAController::class, 'index'])->name('fra-a-evaluation.index');
         Route::get('/FRA-A-Evaluation/{id}', [FacultyFRAAnnexAController::class, 'show'])->name('fra-a-evaluation.show');
+        Route::get('/Dashboard-Admin', [FacultyFRAAnnexAController::class, 'sidenotif'])->name('dbadmin');
+        Route::get('faculty/fraannexa/{id}', [FacultyFRAAnnexAController::class, 'show'])->name('faculty.fraannexa.show');
 
         Route::get('/FRA-B-Evaluation', [FacultyFRAAnnexBController::class, 'index'])->name('fra-b-evaluation.index');
         Route::get('/FRA-B-Evaluation/{id}', [FacultyFRAAnnexBController::class, 'show'])->name('fra-b-evaluation.show');
@@ -64,9 +67,7 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
             return view('/faculty/auth/offcampus-evaluation'); // Create this view
         })->name('offcampus.evaluation');
 
-        Route::get('/Dashboard-Admin', function() {
-            return view('/faculty/auth/dbadmin');
-        })->name('dbadmin');
+        
         Route::get('/Organization-Account-Management', function() {
             return view('/faculty/auth/oam');
         })->name('dbadmin1');
@@ -82,6 +83,12 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/Manage-Post', function() {
             return view('/faculty/auth/managepost');
         })->name('dbadmin5');
+
+
+        Route::get('/Organization-Account-Management', [FacultyOrgAcctManagementController::class, 'index'])->name('orgs.index');
+        Route::get('/Organization-Account-Management/edit/{id}', [FacultyOrgAcctManagementController::class, 'edit'])->name('orgs.edit');
+        Route::put('/Organization-Account-Management/update/{id}', [FacultyOrgAcctManagementController::class, 'update'])->name('orgs.update');
+        Route::get('/Organization-Account-Management/remove/{id}', [FacultyOrgAcctManagementController::class, 'remove'])->name('orgs.remove');
     });
 });
 

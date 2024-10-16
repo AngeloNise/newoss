@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
 <div class="fra-container">
     <a href="/faculty/FRA-A-Evaluation" class="btn btn-primary">Back</a>
@@ -91,7 +90,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Item</th>
+                        <th>Item Names</th>
                         <th>Item Pieces</th>
                     </tr>
                 </thead>
