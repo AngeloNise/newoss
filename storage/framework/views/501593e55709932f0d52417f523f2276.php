@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
 
 <?php if(Session::has('error')): ?>
@@ -82,7 +81,7 @@
                 <h5>(Tickets are to be registered at the Office of Student Services)</h5>
                 <div class="items-to-be-sold">
                     <div class="fra-group">
-                        <label for="items_to_be_sold">a. Number of tickets/items to be sold</label>
+                        <label for="items_to_be_sold">a. Tickets/items to be sold</label>
                         <?php if(is_array(old('items_to_be_sold'))): ?>
                             <?php $__currentLoopData = old('items_to_be_sold'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $income): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <input type="text" id="items_to_be_sold" name="items_to_be_sold[]" class="form-control" value="<?php echo e($income); ?>"><br>

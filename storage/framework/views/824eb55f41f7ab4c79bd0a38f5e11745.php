@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
 
 <?php if(Session::has('success')): ?>
