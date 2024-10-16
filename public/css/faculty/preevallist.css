@@ -75,16 +75,17 @@
 }
 
 .btn {
-    display: inline-block; /* Make button inline */
+    display: inline-block; /* Keep button inline */
     padding: 10px 15px; /* Padding for button */
     margin-top: 20px; /* Space above the button */
     color: #fff; /* White text */
-    background-color: #007bff; /* Bootstrap primary button color */
+    background-color: #007bff; /* Primary button color */
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
-    text-align: center; /* Center the text */
+    text-align: center; /* Center the text inside */
     text-decoration: none; /* No underline */
-    transition: background-color 0.3s ease; /* Smooth transition for hover */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+    float: left;
 }
 
 .btn:hover {

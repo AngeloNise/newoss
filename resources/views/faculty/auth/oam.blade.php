@@ -2,22 +2,22 @@
 
 @section('content')
 
-<div class="container">
+<div class="org-account-container">
     <h2>Organization Account Management</h2>
     
     @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="org-alert-success">{{ session('success') }}</div>
     @endif
 
     @if ($errors->any())
-        <div class="alert alert-danger">
+        <div class="org-alert-danger">
             @foreach ($errors->all() as $error)
                 <p>{{ $error }}</p>
             @endforeach
         </div>
     @endif
 
-    <table class="table table-striped">
+    <table class="org-table org-table-striped">
         <thead>
             <tr>
                 <th>Organization Name</th>
@@ -35,8 +35,10 @@
                     <td>{{ $organization->email }}</td>
                     <td>{{ $organization->status }}</td>
                     <td>
-                        <a href="{{ route('faculty.orgs.edit', $organization->id) }}" class="btn btn-primary">Edit</a>
-                        <a href="{{ route('faculty.orgs.remove', $organization->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove this organization?');">Remove</a>
+                        <div class="org-btn-group">
+                            <a href="{{ route('faculty.orgs.edit', $organization->id) }}" class="org-btn org-btn-primary">✏️</a>
+                            <a href="{{ route('faculty.orgs.remove', $organization->id) }}" class="org-btn org-btn-danger" onclick="return confirm('Are you sure you want to remove this organization?');">🗑️</a>
+                        </div>
                     </td>
                 </tr>
             @endforeach

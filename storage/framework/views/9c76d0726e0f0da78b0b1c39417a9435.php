@@ -1,14 +1,14 @@
 <?php $__env->startSection('content'); ?>
 
-<div class="container">
+<div class="org-account-container">
     <h2>Edit Organization Account</h2>
 
     <?php if(session('success')): ?>
-        <div class="alert alert-success"><?php echo e(session('success')); ?></div>
+        <div class="org-alert-success"><?php echo e(session('success')); ?></div>
     <?php endif; ?>
 
     <?php if($errors->any()): ?>
-        <div class="alert alert-danger">
+        <div class="org-alert-danger">
             <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <p><?php echo e($error); ?></p>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -44,10 +44,11 @@
             <input type="password" id="confirm_password" name="password_confirmation" class="form-control">
         </div>
 
-        <button type="submit" class="btn btn-success">Save Changes</button>
-        <a href="<?php echo e(route('faculty.orgs.index')); ?>" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="org-btn org-btn-success">Save Changes</button>
+        <a href="<?php echo e(route('faculty.orgs.index')); ?>" class="org-btn org-btn-secondary">Cancel</a>
     </form>
 </div>
 
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/oamedit.blade.php ENDPATH**/ ?>

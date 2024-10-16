@@ -84,7 +84,6 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
             return view('/faculty/auth/managepost');
         })->name('dbadmin5');
 
-
         Route::get('/Organization-Account-Management', [FacultyOrgAcctManagementController::class, 'index'])->name('orgs.index');
         Route::get('/Organization-Account-Management/edit/{id}', [FacultyOrgAcctManagementController::class, 'edit'])->name('orgs.edit');
         Route::put('/Organization-Account-Management/update/{id}', [FacultyOrgAcctManagementController::class, 'update'])->name('orgs.update');

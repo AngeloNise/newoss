@@ -16,10 +16,10 @@ class GuestFacultyMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if(auth()->check() && auth() ->user()->is_admin){
-            return redirect()->route('faculty.dbadmin');
+            return redirect()->route('faculty.home');
         }
         if(auth()->check() && !auth() ->user()->is_admin){
-            return redirect()->route('dbadmin');
+            return redirect()->route('home');
         }
         return $next($request);
     }

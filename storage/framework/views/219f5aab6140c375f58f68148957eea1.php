@@ -1,21 +1,21 @@
 <?php $__env->startSection('content'); ?>
 
-<div class="container">
+<div class="org-account-container">
     <h2>Organization Account Management</h2>
     
     <?php if(session('success')): ?>
-        <div class="alert alert-success"><?php echo e(session('success')); ?></div>
+        <div class="org-alert-success"><?php echo e(session('success')); ?></div>
     <?php endif; ?>
 
     <?php if($errors->any()): ?>
-        <div class="alert alert-danger">
+        <div class="org-alert-danger">
             <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <p><?php echo e($error); ?></p>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
     <?php endif; ?>
 
-    <table class="table table-striped">
+    <table class="org-table org-table-striped">
         <thead>
             <tr>
                 <th>Organization Name</th>
@@ -33,8 +33,10 @@
                     <td><?php echo e($organization->email); ?></td>
                     <td><?php echo e($organization->status); ?></td>
                     <td>
-                        <a href="<?php echo e(route('faculty.orgs.edit', $organization->id)); ?>" class="btn btn-primary">Edit</a>
-                        <a href="<?php echo e(route('faculty.orgs.remove', $organization->id)); ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove this organization?');">Remove</a>
+                        <div class="org-btn-group">
+                            <a href="<?php echo e(route('faculty.orgs.edit', $organization->id)); ?>" class="org-btn org-btn-primary">✏️</a>
+                            <a href="<?php echo e(route('faculty.orgs.remove', $organization->id)); ?>" class="org-btn org-btn-danger" onclick="return confirm('Are you sure you want to remove this organization?');">🗑️</a>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -43,4 +45,5 @@
 </div>
 
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/oam.blade.php ENDPATH**/ ?>

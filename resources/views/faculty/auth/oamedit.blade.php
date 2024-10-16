@@ -2,15 +2,15 @@
 
 @section('content')
 
-<div class="container">
+<div class="org-account-container">
     <h2>Edit Organization Account</h2>
 
     @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="org-alert-success">{{ session('success') }}</div>
     @endif
 
     @if ($errors->any())
-        <div class="alert alert-danger">
+        <div class="org-alert-danger">
             @foreach ($errors->all() as $error)
                 <p>{{ $error }}</p>
             @endforeach
@@ -46,8 +46,8 @@
             <input type="password" id="confirm_password" name="password_confirmation" class="form-control">
         </div>
 
-        <button type="submit" class="btn btn-success">Save Changes</button>
-        <a href="{{ route('faculty.orgs.index') }}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="org-btn org-btn-success">Save Changes</button>
+        <a href="{{ route('faculty.orgs.index') }}" class="org-btn org-btn-secondary">Cancel</a>
     </form>
 </div>
 
