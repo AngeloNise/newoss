@@ -10,12 +10,12 @@ class GeneratePDFController extends Controller
 {
     public function index()
     {
-        // Assuming you're using the user's email to filter submissions
         $userEmail = auth()->user()->email;
 
-        // Retrieve only the forms submitted by the logged-in user
-        $applications = annexa::where('email', $userEmail)->get();
+        $applications = annexa::where('email', $userEmail)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return view('preeval.user-forms', compact('applications'));
+        return view('org.auth.sidebar.preevalpdf', compact('applications'));
     }
 }

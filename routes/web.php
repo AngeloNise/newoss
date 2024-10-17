@@ -19,6 +19,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\preeval\AnnexAController;
 use App\Http\Controllers\preeval\AnnexBController;
 use App\Http\Controllers\preeval\AnnexCController;
+use App\Http\Controllers\preeval\GeneratePDFController;
 
 // GUEST Routes
 Route::get('/', function () {
@@ -91,7 +92,7 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
 
 // Auth routes
 Auth::routes();
-Route::get('/sidebar/home', [App\Http\Controllers\HomeController::class, 'index'])->name('Homepage')->middleware(UserMiddleware::class);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('Homepage')->middleware(UserMiddleware::class);
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'orgLogin'])->name('login');
 
 // Organization routes
@@ -120,9 +121,7 @@ Route::middleware(['auth'])->group(function () {
         return view('/org/auth/sidebar/preeval');
     });
 
-    Route::get('/Pre-Evaluation-PDF', function () {
-        return view('/org/auth/sidebar/preevalpdf');
-    });
+    Route::get('/Pre-Evaluation-PDF', [GeneratePDFController::class, 'index']);
 
     Route::get('/In-Campus', function () {
         return view('/org/auth/sidebar/incampus');
@@ -130,49 +129,49 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('FRA')->name('fra.')->group(function () {
         Route::get('/Annex-A', function () {
-            return view('/org/auth/fraeval/annex-a');
+            return view('/org/auth/sidebar/fraeval/annex-a');
         })->name('fra.annex-a');
     
         Route::get('/Annex-B', function () {
-            return view('/org/auth/fraeval/annex-b');
+            return view('/org/auth/sidebar/fraeval/annex-b');
         })->name('fra.annex-b');
     
         Route::get('/Annex-C', function () {
-            return view('/org/auth/fraeval/annex-c');
+            return view('/org/auth/sidebar/fraeval/annex-c');
         })->name('fra.annex-c');
     });
 
     Route::prefix('Off-Campus')->name('offcampus.')->group(function () {
         Route::get('/Annex-A', function () {
-            return view('/org/auth/offcampus/annex-a');
+            return view('/org/auth/sidebar/offcampus/annex-a');
         })->name('offcampus.annex-a');
     
         Route::get('/Annex-B', function () {
-            return view('/org/auth/offcampus/annex-b');
+            return view('/org/auth/sidebar/offcampus/annex-b');
         })->name('offcampus.annex-b');
         
         Route::get('/Annex-C', function () {
-            return view('/org/auth/offcampus/annex-c');
+            return view('/org/auth/sidebar/offcampus/annex-c');
         })->name('offcampus.annex-c');
         
         Route::get('/Annex-D', function () {
-            return view('/org/auth/offcampus/annex-d');
+            return view('/org/auth/sidebar/offcampus/annex-d');
         })->name('offcampus.annex-d');
         
         Route::get('/Annex-E', function () {
-            return view('/org/auth/offcampus/annex-e');
+            return view('/org/auth/sidebar/offcampus/annex-e');
         })->name('offcampus.annex-e');
         
         Route::get('/Annex-F', function () {
-            return view('/org/auth/offcampus/annex-f');
+            return view('/org/auth/sidebar/offcampus/annex-f');
         })->name('offcampus.annex-f');
         
         Route::get('/Annex-G', function () {
-            return view('/org/auth/offcampus/annex-g');
+            return view('/org/auth/sidebar/offcampus/annex-g');
         })->name('offcampus.annex-g');
         
         Route::get('/Annex-H', function () {
-            return view('/org/auth/offcampus/annex-h');
+            return view('/org/auth/sidebar/offcampus/annex-h');
         })->name('offcampus.annex-h');
         
     });
@@ -180,12 +179,12 @@ Route::middleware(['auth'])->group(function () {
 
     // Fund-Raising routes
     Route::get('/Fund-Raising', function () {
-        return view('/org/auth/preevalfra');
-    })->name('org.auth.preevalfra');
+        return view('/org/auth/sidebar/preevalfra');
+    })->name('org.auth.sidebar.preevalfra');
 
     Route::get('/Off-Campus-Activity', function () {
-        return view('/org/auth/preevaloffcamp');
-    })->name('org.auth.preevaloffcamp');
+        return view('/org/auth/sidebar/preevaloffcamp');
+    })->name('org.auth.sidebar.preevaloffcamp');
 
     Route::post('/annex-a', [AnnexAController::class, 'store'])->name('annexa.submit');
     Route::post('/annex-b', [AnnexBController::class, 'store'])->name('annexb.submit');
