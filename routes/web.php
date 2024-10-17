@@ -8,8 +8,6 @@ use App\Http\Controllers\Faculty\FacultyFRAAnnexBController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexCController;
 use App\Http\Controllers\Faculty\FacultyOrgAcctManagementController;
 
-use App\Http\Controllers\preeval\FRAController;
-
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
 use App\Http\Middleware\GuestFacultyMiddleware;
@@ -18,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\AnnexAController;
-use App\Http\Controllers\AnnexBController;
-use App\Http\Controllers\AnnexCController;
+use App\Http\Controllers\preeval\AnnexAController;
+use App\Http\Controllers\preeval\AnnexBController;
+use App\Http\Controllers\preeval\AnnexCController;
 
 // GUEST Routes
 Route::get('/', function () {
@@ -93,17 +91,17 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
 
 // Auth routes
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('Homepage')->middleware(UserMiddleware::class);
+Route::get('/sidebar/home', [App\Http\Controllers\HomeController::class, 'index'])->name('Homepage')->middleware(UserMiddleware::class);
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'orgLogin'])->name('login');
 
 // Organization routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/Homepage', function () {
-        return view('/org/auth/homepage');
+        return view('/org/auth/sidebar/homepage');
     });
 
     Route::get('/Application', function () {
-        return view('/org/auth/application');
+        return view('/org/auth/sidebar/application');
     });
 
     Route::get('/test', function () {
@@ -111,19 +109,23 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('/Dashboard', function () {
-        return view('/org/auth/dborg');
+        return view('/org/auth/sidebar/dborg');
     });
 
     Route::get('/Download', function () {
-        return view('/org/auth/download');
+        return view('/org/auth/sidebar/download');
     });
 
     Route::get('/Pre-Evaluation', function () {
-        return view('/org/auth/preeval');
+        return view('/org/auth/sidebar/preeval');
+    });
+
+    Route::get('/Pre-Evaluation-PDF', function () {
+        return view('/org/auth/sidebar/preevalpdf');
     });
 
     Route::get('/In-Campus', function () {
-        return view('/org/auth/incampus');
+        return view('/org/auth/sidebar/incampus');
     });
 
     Route::prefix('FRA')->name('fra.')->group(function () {
