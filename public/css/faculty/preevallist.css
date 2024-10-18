@@ -17,6 +17,10 @@
     color: #333;
 }
 
+.fra-container h3, p {
+    text-align: left; /* Align <h3> text to the left */
+}
+
 /* Table Styling */
 .table {
     width: 100%; /* Set table width */
