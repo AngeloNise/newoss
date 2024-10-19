@@ -45,6 +45,6 @@ class AnnexCController extends Controller
 
         // Set a success message and redirect
         Session::flash('success', 'Your form has been evaluated.');
-        return redirect()->route('org.auth.preevalfra');
+        return redirect()->route('org.auth.sidebar.preevalfra');
     }
 }

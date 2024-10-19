@@ -1,7 +1,7 @@
 @extends('layout.orglayout')
 
 @section('content')
-    <div class="container mt-4">
+    <div class="fra-container mt-4">
         <h2>Your Submitted Forms</h2>
 
         @if($applications->isEmpty())
@@ -10,7 +10,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>            </th>
+                        <th></th>
                         <th>Name of Project</th>
                         <th>Requesting Organization</th>
                         <th>Start Date</th>
@@ -29,8 +29,15 @@
                             <td>{{ $application->end_date }}</td>
                             <td>{{ $application->total_estimated_income }}</td>
                             <td>
-                                <a href="#" class="btn btn-primary">View</a>
-                                <a href="{{ route('generate-pdf', ['id' => $application->id]) }}" class="btn btn-secondary">Download PDF</a>
+                                <button onclick="window.location='{{ route('org.fra-a-evaluation.show', $application->id) }}'" class="btn btn-primary">
+                                    View Details
+                                </button>
+                                <a href="{{ route('generate-pdf', ['id' => $application->id]) }}" class="btn btn-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;">
+                                        <path d="M12 3v9m0 0l3-3m-3 3l-3-3M4 21h16" />
+                                    </svg>
+                                    PDF
+                                </a>
                             </td>
                         </tr>
                     @endforeach

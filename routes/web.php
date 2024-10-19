@@ -123,7 +123,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/Pre-Evaluation-PDF', [GeneratePDFController::class, 'index']);
     Route::get('/generate-pdf/{id}', [GeneratePDFController::class, 'generatePDF'])->name('generate-pdf');
-
+    Route::get('/FRA-A-Evaluation/{id}', [GeneratePDFController::class, 'show'])->name('org.fra-a-evaluation.show');
 
     Route::get('/In-Campus', function () {
         return view('/org/auth/sidebar/incampus');
