@@ -122,6 +122,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('/Pre-Evaluation-PDF', [GeneratePDFController::class, 'index']);
+    Route::get('/generate-pdf/{id}', [GeneratePDFController::class, 'generatePDF'])->name('generate-pdf');
+
 
     Route::get('/In-Campus', function () {
         return view('/org/auth/sidebar/incampus');

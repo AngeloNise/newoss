@@ -71,8 +71,8 @@
                         <tr>
                             <td>{{ $item ?? 'N/A' }}</td>
                             <td>{{ $item_pieces[$index] ?? 'N/A' }}</td>
-                            <td>₱ {{ $itemPrices[$index] ?? 'N/A' }}</td>
-                            <td>₱ {{ $totalEstimateItems[$index] ?? 'N/A' }}</td>
+                            <td>{{ $itemPrices[$index] ?? 'N/A' }}</td>
+                            <td>{{ $totalEstimateItems[$index] ?? 'N/A' }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -126,7 +126,7 @@
                         @foreach ($expenditures as $index => $expenditure)
                             <tr>
                                 <td>{{ $expenditure ?? 'N/A' }}</td>
-                                <td>₱ {{ $amounts[$index] ?? 'N/A' }}</td>
+                                <td>{{ $amounts[$index] ?? 'N/A' }}</td>
                             </tr>
                         @endforeach
                     </tbody>
