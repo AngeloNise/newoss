@@ -12,7 +12,6 @@ class annexa extends Model
 
     protected $fillable = [
         'email',
-        'img',
         'name_of_project',
         'start_date',
         'end_date',

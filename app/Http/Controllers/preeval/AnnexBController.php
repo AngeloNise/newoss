@@ -101,6 +101,6 @@ class AnnexBController extends Controller
         $annexB->save();
 
         Session::flash('success', 'Your form has been evaluated.');
-        return redirect()->route('org.auth.sidebar.preevalfra');
+        return redirect()->route('org.auth.preevalfra');
     }
 }

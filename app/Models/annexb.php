@@ -11,7 +11,6 @@ class annexb extends Model
 
     protected $fillable = [
         'name_of_org',
-        'img',
         'semester',
         'school_year',
         'period_covered',
