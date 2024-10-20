@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder
     {
         // List of organizations and users
         $organizations = [
+            ['name' => 'maria', 'name_of_organization' => 'TPG', 'email' => 'test12344@example.com'],
+            ['name' => 'mang juan', 'name_of_organization' => 'IBits', 'email' => 'test@example.com'],
+            ['name' => 'JP', 'name_of_organization' => 'CCIS Student Council', 'email' => 'CCISSC@example.com'],
             ['name' => 'JP', 'name_of_organization' => 'CCIS Student Council', 'email' => 'CCISSC@example.com'],
             ['name' => 'Cornell', 'name_of_organization' => 'PUP Association for the Advancement of Tourism and Hospitality (PAATH)', 'email' => 'PAATH@example.com'],
             ['name' => 'Rivas', 'name_of_organization' => 'PUP The Symposium (PUP TS)', 'email' => 'PUPTS@example.com'],

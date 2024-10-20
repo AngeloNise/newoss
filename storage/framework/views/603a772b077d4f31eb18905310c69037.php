@@ -6,11 +6,6 @@
             <table class="table_org_info" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px;">
                 <tbody>
                     <tr>
-                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">Application No.</th>
-                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 44%;">Received by:</th>
-                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">Date received:</th>
-                    </tr>
-                    <tr>
                         <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">Name of Project:</th>
                         <td colspan="2" style="border: 1px solid black; padding: 1.5px;"><?php echo e($annexa->name_of_project ?? 'N/A'); ?></td>
                     </tr>

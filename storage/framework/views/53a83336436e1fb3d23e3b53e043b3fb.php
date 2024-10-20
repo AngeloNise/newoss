@@ -62,7 +62,6 @@
             <ul>
                 <li><a href="<?php echo e(url('/Homepage')); ?>">Home</a></li>
                 <li><a href="<?php echo e(url('/Account-Settings')); ?>">Account Settings</a></li>
-                <li><a href="<?php echo e(url('/Dashboard')); ?>">Dashboard</a></li>
                 <div class="tooltip">
                     <p class="dropdown-toggle" data-target="application-dropdown">Application</p>
                     <div class="tooltiptext">Application History</div>

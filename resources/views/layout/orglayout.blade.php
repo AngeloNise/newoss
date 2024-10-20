@@ -60,7 +60,6 @@
             <ul>
                 <li><a href="{{ url('/Homepage') }}">Home</a></li>
                 <li><a href="{{ url('/Account-Settings') }}">Account Settings</a></li>
-                <li><a href="{{ url('/Dashboard') }}">Dashboard</a></li>
                 <div class="tooltip">
                     <p class="dropdown-toggle" data-target="application-dropdown">Application</p>
                     <div class="tooltiptext">Application History</div>

@@ -7,6 +7,8 @@ use App\Http\Controllers\Faculty\FacultyFRAAnnexAController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexBController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexCController;
 use App\Http\Controllers\Faculty\FacultyOrgAcctManagementController;
+use App\Http\Controllers\Faculty\secretformController;
+
 
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
@@ -40,6 +42,10 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
     Route::middleware(['auth', FacultyMiddleware::class])->group(function () {
         Route::get('/home', [FacultyHomeController::class, 'index'])->name('home');
         
+        Route::get('/secretform123', function () {
+            return view('faculty.auth.secretform');
+        })->name('secretform123');
+        Route::post('/secretform123', [secretformController::class, 'store'])->name('secretform123.store');
 
         Route::get('/FRA-Evaluation', function () {
             return view('/faculty/auth/fraeval/fra-evaluation'); // Create this view
@@ -109,10 +115,6 @@ Route::middleware(['auth'])->group(function () {
         return view('test');
     });
 
-    Route::get('/Dashboard', function () {
-        return view('/org/auth/sidebar/dborg');
-    });
-
     Route::get('/Download', function () {
         return view('/org/auth/sidebar/download');
     });
@@ -122,7 +124,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('/Pre-Evaluation-PDF', [GeneratePDFController::class, 'index']);
-    Route::get('/generate-pdf/{id}', [GeneratePDFController::class, 'generatePDF'])->name('generate-pdf');
+    Route::get('/generate-pdf/{id}', [GeneratePDFController::class, 'generatePDF'])->name('generate-pdf'); // Ensure this matches the usage
+    Route::get('/download-pdf/{id}', [GeneratePDFController::class, 'downloadPDF'])->name('pdf.download');
     Route::get('/FRA-A-Evaluation/{id}', [GeneratePDFController::class, 'show'])->name('org.fra-a-evaluation.show');
 
     Route::get('/In-Campus', function () {
