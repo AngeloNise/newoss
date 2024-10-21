@@ -8,9 +8,6 @@ use App\Http\Controllers\Faculty\FacultyFRAAnnexBController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexCController;
 use App\Http\Controllers\Faculty\FacultyOrgAcctManagementController;
 
-
-use App\Http\Controllers\preeval\FRAController;
-
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
 use App\Http\Middleware\GuestFacultyMiddleware;
@@ -18,10 +15,17 @@ use App\Http\Middleware\GuestFacultyMiddleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+
 use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\AnnexAController;
-use App\Http\Controllers\AnnexBController;
-use App\Http\Controllers\AnnexCController;
+use App\Http\Controllers\preeval\AnnexAController;
+use App\Http\Controllers\preeval\AnnexBController;
+use App\Http\Controllers\preeval\AnnexCController;
+use App\Http\Controllers\preeval\GeneratePDFController;
+
+
+use App\Http\Controllers\EventController;
+
+
 
 // GUEST Routes
 Route::get('/', function () {
@@ -29,8 +33,12 @@ Route::get('/', function () {
 });
 
 Route::get('/In-Campus!', function () {
-    return view('/guest/incampusg');
+    $events = \App\Models\Event::where('category', 'In-Campus')->get(); // Fetch events
+    return view('guest.incampusg', compact('events')); // Pass events to the view
 });
+
+
+
 
 // Faculty routes
 Route::prefix('faculty')->name('faculty.')->group(function () {
@@ -50,6 +58,8 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         // New Routes for Evaluation Activities
         Route::get('/FRA-A-Evaluation', [FacultyFRAAnnexAController::class, 'index'])->name('fra-a-evaluation.index');
         Route::get('/FRA-A-Evaluation/{id}', [FacultyFRAAnnexAController::class, 'show'])->name('fra-a-evaluation.show');
+        Route::get('/Dashboard-Admin', [FacultyFRAAnnexAController::class, 'sidenotif'])->name('dbadmin');
+        Route::get('faculty/fraannexa/{id}', [FacultyFRAAnnexAController::class, 'show'])->name('faculty.fraannexa.show');
 
         Route::get('/FRA-B-Evaluation', [FacultyFRAAnnexBController::class, 'index'])->name('fra-b-evaluation.index');
         Route::get('/FRA-B-Evaluation/{id}', [FacultyFRAAnnexBController::class, 'show'])->name('fra-b-evaluation.show');
@@ -66,9 +76,7 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
             return view('/faculty/auth/offcampus-evaluation'); // Create this view
         })->name('offcampus.evaluation');
 
-        Route::get('/Dashboard-Admin', function() {
-            return view('/faculty/auth/dbadmin');
-        })->name('dbadmin');
+        
         Route::get('/Organization-Account-Management', function() {
             return view('/faculty/auth/oam');
         })->name('dbadmin1');
@@ -85,7 +93,6 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
             return view('/faculty/auth/managepost');
         })->name('dbadmin5');
 
-        // Organization Account Management routes
         Route::get('/Organization-Account-Management', [FacultyOrgAcctManagementController::class, 'index'])->name('orgs.index');
         Route::get('/Organization-Account-Management/edit/{id}', [FacultyOrgAcctManagementController::class, 'edit'])->name('orgs.edit');
         Route::put('/Organization-Account-Management/update/{id}', [FacultyOrgAcctManagementController::class, 'update'])->name('orgs.update');
@@ -101,11 +108,11 @@ Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'orgLogin
 // Organization routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/Homepage', function () {
-        return view('/org/auth/homepage');
+        return view('/org/auth/sidebar/homepage');
     });
 
     Route::get('/Application', function () {
-        return view('/org/auth/application');
+        return view('/org/auth/sidebar/application');
     });
 
     Route::get('/test', function () {
@@ -113,79 +120,90 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('/Dashboard', function () {
-        return view('/org/auth/dborg');
+        return view('/org/auth/sidebar/dborg');
     });
 
     Route::get('/Download', function () {
-        return view('/org/auth/download');
+        return view('/org/auth/sidebar/download');
     });
 
     Route::get('/Pre-Evaluation', function () {
-        return view('/org/auth/preeval');
+        return view('/org/auth/sidebar/preeval');
     });
 
-    Route::get('/In-Campus', function () {
-        return view('/org/auth/incampus');
-    });
+    Route::get('/Pre-Evaluation-PDF', [GeneratePDFController::class, 'index']);
+    Route::get('/generate-pdf/{id}', [GeneratePDFController::class, 'generatePDF'])->name('generate-pdf');
+
+
+    // Route for In-Campus Activity
+    // Route for In-Campus Activity
+    Route::get('/In-Campus', [EventController::class, 'showInCampus'])->name('events.incampus');
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    Route::post('/events/store', [EventController::class, 'store'])->name('events.store');
+    Route::get('/events/edit/{id}', [EventController::class, 'edit'])->name('events.edit');  // <-- Add this line
+    Route::put('/events/update/{id}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/destroy/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+
+
 
     Route::prefix('FRA')->name('fra.')->group(function () {
         Route::get('/Annex-A', function () {
-            return view('/org/auth/fraeval/annex-a');
+            return view('/org/auth/sidebar/fraeval/annex-a');
         })->name('fra.annex-a');
     
         Route::get('/Annex-B', function () {
-            return view('/org/auth/fraeval/annex-b');
+            return view('/org/auth/sidebar/fraeval/annex-b');
         })->name('fra.annex-b');
     
         Route::get('/Annex-C', function () {
-            return view('/org/auth/fraeval/annex-c');
+            return view('/org/auth/sidebar/fraeval/annex-c');
         })->name('fra.annex-c');
     });
 
     Route::prefix('Off-Campus')->name('offcampus.')->group(function () {
         Route::get('/Annex-A', function () {
-            return view('/org/auth/offcampus/annex-a');
+            return view('/org/auth/sidebar/offcampus/annex-a');
         })->name('offcampus.annex-a');
     
         Route::get('/Annex-B', function () {
-            return view('/org/auth/offcampus/annex-b');
+            return view('/org/auth/sidebar/offcampus/annex-b');
         })->name('offcampus.annex-b');
         
         Route::get('/Annex-C', function () {
-            return view('/org/auth/offcampus/annex-c');
+            return view('/org/auth/sidebar/offcampus/annex-c');
         })->name('offcampus.annex-c');
         
         Route::get('/Annex-D', function () {
-            return view('/org/auth/offcampus/annex-d');
+            return view('/org/auth/sidebar/offcampus/annex-d');
         })->name('offcampus.annex-d');
         
         Route::get('/Annex-E', function () {
-            return view('/org/auth/offcampus/annex-e');
+            return view('/org/auth/sidebar/offcampus/annex-e');
         })->name('offcampus.annex-e');
         
         Route::get('/Annex-F', function () {
-            return view('/org/auth/offcampus/annex-f');
+            return view('/org/auth/sidebar/offcampus/annex-f');
         })->name('offcampus.annex-f');
         
         Route::get('/Annex-G', function () {
-            return view('/org/auth/offcampus/annex-g');
+            return view('/org/auth/sidebar/offcampus/annex-g');
         })->name('offcampus.annex-g');
         
         Route::get('/Annex-H', function () {
-            return view('/org/auth/offcampus/annex-h');
+            return view('/org/auth/sidebar/offcampus/annex-h');
         })->name('offcampus.annex-h');
         
     });
-    
+
 
     // Fund-Raising routes
     Route::get('/Fund-Raising', function () {
-        return view('/org/auth/preevalfra');
-    })->name('org.auth.preevalfra');
+        return view('/org/auth/sidebar/preevalfra');
+    })->name('org.auth.sidebar.preevalfra');
 
     Route::get('/Off-Campus-Activity', function () {
-        return view('/org/auth/preevaloffcamp');
-    })->name('org.auth.preevaloffcamp');
+        return view('/org/auth/sidebar/preevaloffcamp');
+    })->name('org.auth.sidebar.preevaloffcamp');
 
     Route::post('/annex-a', [AnnexAController::class, 'store'])->name('annexa.submit');
     Route::post('/annex-b', [AnnexBController::class, 'store'])->name('annexb.submit');

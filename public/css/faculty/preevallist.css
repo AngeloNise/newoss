@@ -17,6 +17,10 @@
     color: #333;
 }
 
+.fra-container h3, p {
+    text-align: left; /* Align <h3> text to the left */
+}
+
 /* Table Styling */
 .table {
     width: 100%; /* Set table width */
@@ -52,7 +56,7 @@
     cursor: pointer;
 }
 
-.org_info, .items_info, .other_info, .receipt_info, .disbursement_info, .expenditures_info {
+.org_info, .items_info, .other_info, .receipt_info, .disbursement_info {
     margin-bottom: 20px; /* Space between sections */
     padding: 15px; /* Padding inside each section */
     background-color: #fff; /* White background for info sections */
@@ -62,7 +66,7 @@
 
 /* Paragraph styles */
 .org_info p, .items_info p, .other_info p, .receipt_info p,
-.disbursement_info p, .expenditures_info p {
+.disbursement_info p{
     margin: 5px 0; /* Margin between paragraphs */
     line-height: 1.5; /* Spacing between lines */
     color: #555; /* Darker gray for the text */
@@ -70,21 +74,22 @@
 
 /* Strong tag styles */
 .org_info p strong, .items_info p strong, .other_info p strong,
-.receipt_info p strong, .disbursement_info p strong, .expenditures_info p strong {
+.receipt_info p strong, .disbursement_info p strong {
     color: #007bff; /* Bootstrap primary color for strong text */
 }
 
 .btn {
-    display: inline-block; /* Make button inline */
+    display: inline-block; /* Keep button inline */
     padding: 10px 15px; /* Padding for button */
     margin-top: 20px; /* Space above the button */
     color: #fff; /* White text */
-    background-color: #007bff; /* Bootstrap primary button color */
+    background-color: #007bff; /* Primary button color */
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
-    text-align: center; /* Center the text */
+    text-align: center; /* Center the text inside */
     text-decoration: none; /* No underline */
-    transition: background-color 0.3s ease; /* Smooth transition for hover */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+    float: left;
 }
 
 .btn:hover {

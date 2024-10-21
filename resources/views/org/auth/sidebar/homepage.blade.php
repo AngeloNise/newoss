@@ -1,4 +1,5 @@
-<?php $__env->startSection('content'); ?>
+@extends('layout.orglayout')
+@section('content')
     <div class="centerbody">
         <div class="center">
             <h1>Office of the Student Services</h1>
@@ -24,5 +25,4 @@
             </div>
         </div>
     </div>    
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('layout.orglayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\newoss-main\resources\views/org/auth/homepage.blade.php ENDPATH**/ ?>
+@endsection

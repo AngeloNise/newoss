@@ -1,26 +1,20 @@
 @extends('layout.adminlayout')
+
 @section('content')
-<div class="nav-item dropdown">
-    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-        {{ Auth::user()->name }}
-    </a>
-
-    <div class="nav-item dropdown">
-        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-            {{ Auth::user()->name }}
-        </a>
-
-        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ route('logout') }}"
-               onclick="event.preventDefault();
-                             document.getElementById('logout-form').submit();">
-                {{ __('Logout') }}
-            </a>
-
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
+    <div class="notification-container">
+        <div class="notification">
+            @if ($notifications->isEmpty())
+                <p>No new notifications.</p>
+            @else
+                <ul>
+                    @foreach ($notifications as $notification)
+                        <li onclick="window.location='{{ route('faculty.fra-a-evaluation.show', $notification['id']) }}'" style="cursor:pointer;">
+                            <p>{{ $notification['message'] }} - {{ $notification['time'] }}</p>
+                        </li>
+                    @endforeach
+                </ul>
+                <hr>
+            @endif
         </div>
     </div>
-</div>
 @endsection

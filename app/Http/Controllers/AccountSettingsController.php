@@ -14,7 +14,7 @@ class AccountSettingsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('org/auth/accset', compact('user'));
+        return view('org/auth/sidebar/accset', compact('user'));
     }
 
     public function update(Request $request)

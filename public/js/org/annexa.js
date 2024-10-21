@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
             newItemFields.classList.add('items-to-be-sold');
             newItemFields.innerHTML = `
                 <div class="fra-group">
-                    <input type="text" name="items_to_be_sold[]" class="form-control" placeholder="Number of tickets/items to be sold">
+                    <input type="text" name="items_to_be_sold[]" class="form-control" placeholder="Tickets/items to be sold">
                     <div class="error-message" style="color: red; display: none;">Please enter a valid number.</div>
                 </div>
                 <div class="fra-group">

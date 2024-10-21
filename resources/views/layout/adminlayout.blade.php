@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/faculty/preevallist.css">
     <link rel="stylesheet" href="/css/faculty/preevalforms.css">
     <link rel="stylesheet" href="/css/faculty/oam.css">
+    <link rel="stylesheet" href="/css/faculty/notif.css">
 </head>
 <header>
     <div class="nav-item dropdown">

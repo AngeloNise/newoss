@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="/css/orgs/fraeval/annexb.css">
     <link rel="stylesheet" href="/css/orgs/fraeval/annexc.css">
     <link rel="stylesheet" href="/css/test.css">
+    
+    <link rel="stylesheet" href="{{ asset('css/incampus.css') }}">
+    
     <script src="/js/org/orgscript.js"></script>
     <script src="/js/org/annexa.js"></script>
     <script src="/js/org/annexb.js"></script>
@@ -71,6 +74,7 @@
                 </ul>
                 <li><a href="{{ url('/Download') }}">Download Forms</a></li>
                 <li><a href="{{ url('/Pre-Evaluation') }}">Pre-Evaluation</a></li>
+                <li><a href="{{ url('/Pre-Evaluation-PDF') }}">Generate / Download PDF</a></li>
                 <p>Upcoming Events</p>
                 <li><a href="{{ url('/In-Campus') }}">In-Campus</a></li>
                 <li><a href="#">Off-Campus</a></li>

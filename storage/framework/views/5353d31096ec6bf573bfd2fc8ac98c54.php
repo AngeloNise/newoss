@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="/css/orgs/fraeval/annexb.css">
     <link rel="stylesheet" href="/css/orgs/fraeval/annexc.css">
     <link rel="stylesheet" href="/css/test.css">
+    
+    <link rel="stylesheet" href="<?php echo e(asset('css/incampus.css')); ?>">
+    
     <script src="/js/org/orgscript.js"></script>
     <script src="/js/org/annexa.js"></script>
     <script src="/js/org/annexb.js"></script>
@@ -73,6 +76,7 @@
                 </ul>
                 <li><a href="<?php echo e(url('/Download')); ?>">Download Forms</a></li>
                 <li><a href="<?php echo e(url('/Pre-Evaluation')); ?>">Pre-Evaluation</a></li>
+                <li><a href="<?php echo e(url('/Pre-Evaluation-PDF')); ?>">Generate / Download PDF</a></li>
                 <p>Upcoming Events</p>
                 <li><a href="<?php echo e(url('/In-Campus')); ?>">In-Campus</a></li>
                 <li><a href="#">Off-Campus</a></li>

@@ -1,4 +1,5 @@
-<?php $__env->startSection('content'); ?>
+@extends('layout.orglayout')
+@section('content')
 <div class="download-section">
     <div class="downloads">
         <h2>Fund Raising Download</h2>
@@ -72,5 +73,4 @@
         </div>
     </div>
 </div>
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('layout.orglayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\newoss-main\resources\views//org/auth/download.blade.php ENDPATH**/ ?>
+@endsection

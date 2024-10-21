@@ -23,6 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('org.auth.homepage');
+        return view('org.auth.sidebar.homepage');
     }
 }

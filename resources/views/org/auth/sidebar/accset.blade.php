@@ -1,44 +1,44 @@
-<?php $__env->startSection('content'); ?>
+@extends('layout.orglayout')
+@section('content')
 
-<?php if(session('success')): ?>
+@if (session('success'))
     <div class="alert alert-success">
-        <?php echo e(session('success')); ?>
-
+        {{ session('success') }}
     </div>
-<?php endif; ?>
+@endif
 
-<?php if($errors->any()): ?>
+@if ($errors->any())
     <div class="alert alert-danger">
-        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <p><?php echo e($error); ?></p>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        @foreach ($errors->all() as $error)
+            <p>{{ $error }}</p>
+        @endforeach
     </div>
-<?php endif; ?>
+@endif
 
 <div class="container">
     <div class="profile-header">
         <div class="details">
-            <h3><?php echo e($user->name_of_organization); ?></h3>
+            <h3>{{ $user->name_of_organization}}</h3>
             <p>PRESIDENT</p>
-            <p><?php echo e($user->name); ?></p>
+            <p>{{ $user->name }}</p>
         </div>
 
     </div>
 
     <div class="form-container-accset">
-        <form action="<?php echo e(route('accset.update')); ?>" method="POST">
-            <?php echo csrf_field(); ?>
+        <form action="{{ route('accset.update') }}" method="POST">
+            @csrf
     
             <div class="form-layout">
                 <!-- Left Column -->
                 <div class="form-left">
                     <div class="form-accset">
                         <label for="name" class="form-label">President Name:</label>
-                        <input type="text" class="form-control" id="name" name="name" value="<?php echo e(old('name', $user->name)); ?>" required>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}" required>
                     </div>
     
                     <div class="form-accset">
-                        <input type="text" class="form-control" id="organization" name="organization" value="<?php echo e(old('name_of_organization', $user->name_of_organization)); ?>" placeholder="Organization Name" required>
+                        <input type="text" class="form-control" id="organization" name="organization" value="{{ old('name_of_organization', $user->name_of_organization) }}" placeholder="Organization Name" required>
                     </div>
                 </div>
     
@@ -66,6 +66,4 @@
     </div>
     
 </div>
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layout.orglayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\newoss-main\resources\views/org/auth/accset.blade.php ENDPATH**/ ?>
+@endsection
