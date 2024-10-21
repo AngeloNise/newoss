@@ -1,6 +1,9 @@
 <?php
 
+
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AccountSettingsController;
+
 use App\Http\Controllers\Faculty\FacultyHomeController;
 use App\Http\Controllers\Faculty\FacultyLoginController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexAController;
@@ -10,6 +13,13 @@ use App\Http\Controllers\Faculty\FacultyOrgAcctManagementController;
 use App\Http\Controllers\Faculty\secretformController;
 use App\Http\Controllers\faculty\CreateApplicationController;
 
+use App\Http\Controllers\org\ApplicationHistoryController;
+
+use App\Http\Controllers\preeval\AnnexAController;
+use App\Http\Controllers\preeval\AnnexBController;
+use App\Http\Controllers\preeval\AnnexCController;
+use App\Http\Controllers\preeval\GeneratePDFController;
+
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
 use App\Http\Middleware\GuestFacultyMiddleware;
@@ -17,11 +27,7 @@ use App\Http\Middleware\GuestFacultyMiddleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\preeval\AnnexAController;
-use App\Http\Controllers\preeval\AnnexBController;
-use App\Http\Controllers\preeval\AnnexCController;
-use App\Http\Controllers\preeval\GeneratePDFController;
+
 
 // GUEST Routes
 Route::get('/', function () {
@@ -132,17 +138,9 @@ Route::middleware(['auth'])->group(function () {
         return view('/org/auth/sidebar/preeval');
     });
 
-    Route::get('/Fund-Raising-History', function () {
-        return view('/org/auth/sidebar/history/frahistory');
-    });
-
-    Route::get('/In-Campus-History', function () {
-        return view('/org/auth/sidebar/history/icahistory');
-    });
-
-    Route::get('/Off-Campus-History', function () {
-        return view('/org/auth/sidebar/history/ocahistory');
-    });
+    Route::get('/Fund-Raising-History', [ApplicationHistoryController::class, 'frahistory'])->name('org.history.frahistory');
+    Route::get('/In-Campus-History', [ApplicationHistoryController::class, 'icahistory'])->name('org.history.icahistory');
+    Route::get('/Off-Campus-History', [ApplicationHistoryController::class, 'ocahistory'])->name('org.history.ocahistory');
 
     Route::get('/Pre-Evaluation-PDF', [GeneratePDFController::class, 'index']);
     Route::get('/generate-pdf/{id}', [GeneratePDFController::class, 'generatePDF'])->name('generate-pdf'); // Ensure this matches the usage
