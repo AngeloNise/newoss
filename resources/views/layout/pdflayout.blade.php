@@ -75,11 +75,11 @@
     </header>
 
     <footer style="text-align: center;">
-        <p style="font-family: 'Calibri', sans-serif; font-size: 8pt; font-weight: normal; margin: 0;">
+        <p style="font-family: 'Calibri', sans-serif; font-size: 8pt; font-weight: light; margin: 0;">
             Room 208 Charlie Del Rosario Building PUP A. Mabini Campus, Anonas Street, Sta. Mesa, Manila
         </p>
-        <p style="font-family: 'Calibri', sans-serif; font-size: 8pt; font-weight: normal; margin: 0;">
-            Trunk Line: 5335-1777 local 352; Website: www.pup.edu.ph; e-mail: studentservices@pup.edu.ph
+        <p style="font-family: 'Calibri', sans-serif; font-size: 8pt; font-weight: light; margin: 0;">
+            Trunk Line: 5335-1777 local 352; Website: <u>www.pup.edu.ph</u> e-mail: <u>studentservices@pup.edu.ph</u>
         </p>
         <br>
         <p style="font-family: 'Californian FB', serif; font-size: 12pt; font-weight: normal; margin: 0; font-style: italic;">

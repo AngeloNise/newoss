@@ -8,7 +8,7 @@ use App\Http\Controllers\Faculty\FacultyFRAAnnexBController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexCController;
 use App\Http\Controllers\Faculty\FacultyOrgAcctManagementController;
 use App\Http\Controllers\Faculty\secretformController;
-
+use App\Http\Controllers\faculty\CreateApplicationController;
 
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
@@ -41,7 +41,7 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
 
     Route::middleware(['auth', FacultyMiddleware::class])->group(function () {
         Route::get('/home', [FacultyHomeController::class, 'index'])->name('home');
-        
+
         Route::get('/secretform123', function () {
             return view('faculty.auth.secretform');
         })->name('secretform123');
@@ -50,6 +50,15 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/FRA-Evaluation', function () {
             return view('/faculty/auth/fraeval/fra-evaluation'); // Create this view
         })->name('fra.evaluation');
+
+        // Route for submitting the application form
+        Route::get('/Application/create', [CreateApplicationController::class, 'create'])->name('application.create');
+        Route::post('/Application', [CreateApplicationController::class, 'store'])->name('application.store');
+        Route::get('/Applications', [CreateApplicationController::class, 'index'])->name('applications.index');
+        Route::get('/Applications/{id}', [CreateApplicationController::class, 'show'])->name('applications.show');
+        Route::put('/Applications/{id}', [CreateApplicationController::class, 'update'])->name('application.update');
+        Route::get('/application/admin', [CreateApplicationController::class, 'applicationAdmin'])->name('applicationadmin'); // Make sure this matches
+
 
         // New Routes for Evaluation Activities
         Route::get('/FRA-A-Evaluation', [FacultyFRAAnnexAController::class, 'index'])->name('fra-a-evaluation.index');
@@ -76,9 +85,9 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/Organization-Account-Management', function() {
             return view('/faculty/auth/oam');
         })->name('dbadmin1');
-        Route::get('/Application-Admin', function() {
-            return view('/faculty/auth/applicationadmin');
-        })->name('dbadmin2');
+        
+        Route::get('/Application-Admin', [CreateApplicationController::class, 'index'])->name('faculty.applicationadmin');
+
         Route::get('/Post-Report', function() {
             return view('/faculty/auth/postreport');
         })->name('dbadmin3');
@@ -121,6 +130,18 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/Pre-Evaluation', function () {
         return view('/org/auth/sidebar/preeval');
+    });
+
+    Route::get('/Fund-Raising-History', function () {
+        return view('/org/auth/sidebar/history/frahistory');
+    });
+
+    Route::get('/In-Campus-History', function () {
+        return view('/org/auth/sidebar/history/icahistory');
+    });
+
+    Route::get('/Off-Campus-History', function () {
+        return view('/org/auth/sidebar/history/ocahistory');
     });
 
     Route::get('/Pre-Evaluation-PDF', [GeneratePDFController::class, 'index']);

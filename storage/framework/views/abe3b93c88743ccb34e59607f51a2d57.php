@@ -70,8 +70,8 @@
                         <tr>
                             <td><?php echo e($item ?? 'N/A'); ?></td>
                             <td><?php echo e($item_pieces[$index] ?? 'N/A'); ?></td>
-                            <td>₱ <?php echo e($itemPrices[$index] ?? 'N/A'); ?></td>
-                            <td>₱ <?php echo e($totalEstimateItems[$index] ?? 'N/A'); ?></td>
+                            <td><?php echo e($itemPrices[$index] ?? 'N/A'); ?></td>
+                            <td><?php echo e($totalEstimateItems[$index] ?? 'N/A'); ?></td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
@@ -125,7 +125,7 @@
                         <?php $__currentLoopData = $expenditures; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $expenditure): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
                                 <td><?php echo e($expenditure ?? 'N/A'); ?></td>
-                                <td>₱ <?php echo e($amounts[$index] ?? 'N/A'); ?></td>
+                                <td><?php echo e($amounts[$index] ?? 'N/A'); ?></td>
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>

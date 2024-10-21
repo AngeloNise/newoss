@@ -9,6 +9,18 @@
     <link rel="stylesheet" href="/css/faculty/preevalforms.css">
     <link rel="stylesheet" href="/css/faculty/oam.css">
     <link rel="stylesheet" href="/css/faculty/notif.css">
+    <link rel="stylesheet" href="/css/faculty/application.css">
+    <link rel="stylesheet" href="/css/faculty/applicationdetails.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
+    <script src="/js/faculty/application.js"></script>
+    <link rel="stylesheet" href="/css/orgs/fraeval/allannex.css">
+    <link rel="stylesheet" href="/css/orgs/fraeval/annexa.css">
+    
 </head>
 <header>
     <div class="nav-item dropdown">

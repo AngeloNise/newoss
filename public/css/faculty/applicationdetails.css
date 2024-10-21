@@ -1,0 +1,94 @@
+.application-detail-container {
+    width: 81%;
+    margin: 5% auto;
+    margin-left: 15%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.application-detail-container h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.application-info {
+    margin-bottom: 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.table thead th {
+    background-color: #007BFF;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.table tbody tr:hover {
+    background-color: #e0f7fa;
+    cursor: pointer;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+/* Styles for Back button positioning */
+.btn-back {
+    float: left; /* Use float to position the button to the left */
+    margin-bottom: 20px; /* Optional: add space below the button */
+}
+
+.btn:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .application-detail-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .table th, .table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .application-detail-container h2 {
+        font-size: 24px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .btn-back {
+        float: none; /* Reset float on smaller screens */
+        margin-bottom: 10px; /* Adjust space below */
+    }
+}
