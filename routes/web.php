@@ -13,6 +13,9 @@ use App\Http\Controllers\Faculty\FacultyOrgAcctManagementController;
 use App\Http\Controllers\Faculty\secretformController;
 use App\Http\Controllers\faculty\CreateApplicationController;
 
+use App\Http\Controllers\Dean\DeanLoginController;
+
+
 use App\Http\Controllers\org\ApplicationHistoryController;
 
 use App\Http\Controllers\preeval\AnnexAController;
@@ -22,7 +25,8 @@ use App\Http\Controllers\preeval\GeneratePDFController;
 
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
-use App\Http\Middleware\GuestFacultyMiddleware;
+use App\Http\Middleware\FacultyDeanMiddleware;
+use App\Http\Middleware\DeanMiddleware;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +44,7 @@ Route::get('/In-Campus!', function () {
 
 // Faculty routes
 Route::prefix('faculty')->name('faculty.')->group(function () {
-    Route::middleware([GuestFacultyMiddleware::class])->group(function () {
+    Route::middleware([FacultyDeanMiddleware::class])->group(function () {
         Route::get('/login', [FacultyLoginController::class, 'index']);
         Route::post('/login', [FacultyLoginController::class, 'login'])->name('login');
     });
@@ -110,6 +114,16 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/Organization-Account-Management/remove/{id}', [FacultyOrgAcctManagementController::class, 'remove'])->name('orgs.remove');
     });
 });
+
+Route::get('/dean/login', [DeanLoginController::class, 'index'])->name('dean.login');
+Route::post('/dean/login', [DeanLoginController::class, 'login']);
+
+Route::middleware(['auth', DeanMiddleware::class])->group(function () {
+    Route::get('/dean/Homepage', function () {
+        return view('dean.auth.homepage'); // Path to the dean homepage
+    })->name('dean.homepage');
+});
+
 
 // Auth routes
 Auth::routes();

@@ -10,7 +10,7 @@ use App\Http\Controllers\Faculty\FacultyOrgAcctManagementController;
 
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
-use App\Http\Middleware\GuestFacultyMiddleware;
+use App\Http\Middleware\FacultyDeanMiddleware;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +32,7 @@ Route::get('/In-Campus!', function () {
 
 // Faculty routes
 Route::prefix('faculty')->name('faculty.')->group(function () {
-    Route::middleware([GuestFacultyMiddleware::class])->group(function () {
+    Route::middleware([FacultyDeanMiddleware::class])->group(function () {
         Route::get('/login', [FacultyLoginController::class, 'index']);
         Route::post('/login', [FacultyLoginController::class, 'login'])->name('login');
     });
