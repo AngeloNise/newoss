@@ -117,7 +117,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'orgLogin'])->name('login');
 
 // Organization routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::get('/Homepage', function () {
         return view('/org/auth/sidebar/homepage');
     });
