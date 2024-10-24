@@ -118,18 +118,19 @@ class DatabaseSeeder extends Seeder
         }
 
         $deans = [
-            ['name' => 'red', 'email' => 'red@example.com', 'is_admin' => '2'],
-            ['name' => 'yellow', 'email' => 'yellow@example.com', 'is_admin' => '2'],
-            ['name' => 'blue', 'email' => 'blue@example.com', 'is_admin' => '2'],
-            ['name' => 'green', 'email' => 'green@example.com', 'is_admin' => '2'],
+            ['name' => 'red', 'email' => 'red@example.com', 'is_admin' => '2', 'color' => 'red'],
+            ['name' => 'yellow', 'email' => 'yellow@example.com', 'is_admin' => '2', 'color' => 'yellow'],
+            ['name' => 'blue', 'email' => 'blue@example.com', 'is_admin' => '2', 'color' => 'blue'],
+            ['name' => 'green', 'email' => 'green@example.com', 'is_admin' => '2', 'color' => 'green'],
         ];
-
+        
         foreach ($deans as $dean) {
             User::factory()->create([
                 'name' => $dean['name'],
                 'email' => $dean['email'],
                 'password' => bcrypt('password2'),
-                'is_admin' => 2
+                'is_admin' => 2,
+                'color' => $dean['color']
             ]);
         }
 

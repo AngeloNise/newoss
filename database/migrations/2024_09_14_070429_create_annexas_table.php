@@ -39,6 +39,7 @@ return new class extends Migration
             $table->string('participants')->nullable();
             $table->string('president')->nullable();
             $table->string('treasurer')->nullable();
+            $table->string('color')->nullable(); // Add the color field
             $table->timestamps();
         });        
     }

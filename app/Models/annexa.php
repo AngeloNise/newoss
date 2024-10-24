@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class annexa extends Model
+class AnnexA extends Model // Change the class name to AnnexA (capitalized) for consistency
 {
     use HasFactory; // Don't forget to include this
 
@@ -37,6 +38,7 @@ class annexa extends Model
         'participants',
         'president',
         'treasurer',
+        'color',
     ];
 
     public static function notifOrNot()

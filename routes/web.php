@@ -14,6 +14,7 @@ use App\Http\Controllers\Faculty\secretformController;
 use App\Http\Controllers\faculty\CreateApplicationController;
 
 use App\Http\Controllers\Dean\DeanLoginController;
+use App\Http\Controllers\Dean\DeanFRAAnnexAController;
 
 
 use App\Http\Controllers\org\ApplicationHistoryController;
@@ -122,7 +123,11 @@ Route::middleware(['auth', DeanMiddleware::class])->group(function () {
     Route::get('/dean/Homepage', function () {
         return view('dean.auth.homepage'); // Path to the dean homepage
     })->name('dean.homepage');
+
+    Route::get('/dean/Dashboard', [DeanFRAAnnexAController::class, 'sidenotif'])->name('dashboard');
+    Route::get('/dean/FRA-A-Evaluation/{id}', [DeanFRAAnnexAController::class, 'show'])->name('dean.fra-a-evaluation.show');
 });
+
 
 
 // Auth routes

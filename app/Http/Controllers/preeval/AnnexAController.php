@@ -99,6 +99,10 @@ class AnnexAController extends Controller
         $annexA->president = $validated['president'];
         $annexA->treasurer = $validated['treasurer'];
         $annexA->email = $validated['email'];
+        
+        // Add the user's color to the application
+        $annexA->color = $user->color; // Assuming the AnnexA model has a 'color' field
+
         $annexA->save();
     
         // Show a success message

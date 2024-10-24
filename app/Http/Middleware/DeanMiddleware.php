@@ -15,19 +15,10 @@ class DeanMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check()) {
-            $user = auth()->user();
-    
-            // Check if the user is a dean and not already on the homepage route
-            if ($user->is_admin == 2 && !$request->routeIs('dean.homepage')) {
-                return redirect()->route('dean.homepage'); 
-            }
-    
-            return $next($request); // Allow access to the current route
+        if (auth()->check() && auth()->user()->is_admin == 2) {
+            return $next($request);
         }
     
-        // If the user is not authenticated, redirect to the login page
-        return redirect()->route('login');
+        abort(403, 'You do not have permission to access this page');
     }
-    
 }
