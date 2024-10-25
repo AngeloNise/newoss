@@ -60,7 +60,7 @@
             <li><a href="<?php echo e(url('/dean/Homepage')); ?>">Homepage</a></li>
             <li><a href="<?php echo e(url('/dean/Dashboard')); ?>">Dashboard</a></li>
             <li><a href="<?php echo e(url('/dean/Organization-Account-Management')); ?>">Organization Account Management</a></li>
-            <li><a href="<?php echo e(url('/dean/Pre-Evaluation-Status')); ?>">Pre Evaluation Forms</a></li>
+            <li><a href="<?php echo e(url('/dean/Pre-Evaluation-Forms')); ?>">Pre Evaluation Forms</a></li>
         </ul>            
     </div>   
 </div>  

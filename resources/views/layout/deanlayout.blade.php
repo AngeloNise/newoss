@@ -58,7 +58,7 @@
             <li><a href="{{ url('/dean/Homepage') }}">Homepage</a></li>
             <li><a href="{{ url('/dean/Dashboard') }}">Dashboard</a></li>
             <li><a href="{{ url('/dean/Organization-Account-Management') }}">Organization Account Management</a></li>
-            <li><a href="{{ url('/dean/Pre-Evaluation-Status') }}">Pre Evaluation Forms</a></li>
+            <li><a href="{{ url('/dean/Pre-Evaluation-Forms') }}">Pre Evaluation Forms</a></li>
         </ul>            
     </div>   
 </div>  

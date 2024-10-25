@@ -12,13 +12,13 @@ class DeanFRAAnnexAController extends Controller
     {
         $userColor = auth()->check() ? auth()->user()->color : null;
         $applications = $userColor ? AnnexA::where('color', $userColor)->get() : collect();
-        return view('dean.auth.fraeval.fra-a-evaluation', compact('applications'));
+        return view('dean.auth.fra-a-evaluation', compact('applications'));
     }
 
     public function show($id)
     {
         $application = AnnexA::findOrFail($id);
-        return view('dean.auth.fraeval.fra-a-evaluation-detail', compact('application'));
+        return view('dean.auth.fra-a-evaluation-detail', compact('application'));
     }
 
     public function sidenotif()

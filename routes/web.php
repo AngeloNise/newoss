@@ -124,9 +124,12 @@ Route::middleware(['auth', DeanMiddleware::class])->group(function () {
         return view('dean.auth.homepage'); // Path to the dean homepage
     })->name('dean.homepage');
 
-    Route::get('/dean/Dashboard', [DeanFRAAnnexAController::class, 'sidenotif'])->name('dashboard');
+    Route::get('/dean/Pre-Evaluation-Forms', [DeanFRAAnnexAController::class, 'index'])->name('dean.fra-a-evaluation.index');
     Route::get('/dean/FRA-A-Evaluation/{id}', [DeanFRAAnnexAController::class, 'show'])->name('dean.fra-a-evaluation.show');
+
+    Route::get('/dean/Dashboard', [DeanFRAAnnexAController::class, 'sidenotif'])->name('dashboard');
 });
+
 
 
 
