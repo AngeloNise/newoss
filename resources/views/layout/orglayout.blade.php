@@ -72,7 +72,7 @@
                 </ul>
                 <li><a href="{{ url('/Download') }}">Download Forms</a></li>
                 <li><a href="{{ url('/Pre-Evaluation') }}">Pre-Evaluation</a></li>
-                <li><a href="{{ url('/Pre-Evaluation-PDF') }}">Generate / Download PDF</a></li>
+                <li><a href="{{ url('/Pre-Evaluation-PDF') }}">View / Download PDF</a></li>
                 <p>Upcoming Events</p>
                 <li><a href="{{ url('/In-Campus') }}">In-Campus</a></li>
                 <li><a href="#">Off-Campus</a></li>

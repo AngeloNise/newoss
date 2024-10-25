@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AccountSettingsController;
+use App\Http\Controllers\EventController;
 
 use App\Http\Controllers\Faculty\FacultyHomeController;
 use App\Http\Controllers\Faculty\FacultyLoginController;
@@ -40,8 +41,11 @@ Route::get('/', function () {
 });
 
 Route::get('/In-Campus!', function () {
-    return view('/guest/incampusg');
+    $events = \App\Models\Event::where('category', 'In-Campus')->get(); // Fetch events
+    return view('guest.incampusg', compact('events')); // Pass events to the view
 });
+
+Route::get('/events/search', [EventController::class, 'search'])->name('events.search');
 
 // Faculty routes
 Route::prefix('faculty')->name('faculty.')->group(function () {
@@ -172,9 +176,13 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::get('/download-pdf/{id}', [GeneratePDFController::class, 'downloadPDF'])->name('pdf.download');
     Route::get('/FRA-A-Evaluation/{id}', [GeneratePDFController::class, 'show'])->name('org.fra-a-evaluation.show');
 
-    Route::get('/In-Campus', function () {
-        return view('/org/auth/sidebar/incampus');
-    });
+    // Route for In-Campus Activity
+    Route::get('/In-Campus', [EventController::class, 'showInCampus'])->name('events.incampus');
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    Route::post('/events/store', [EventController::class, 'store'])->name('events.store');
+    Route::get('/events/edit/{id}', [EventController::class, 'edit'])->name('events.edit'); 
+    Route::put('/events/update/{id}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/destroy/{id}', [EventController::class, 'destroy'])->name('events.destroy');
 
     Route::prefix('FRA')->name('fra.')->group(function () {
         Route::get('/Annex-A', function () {

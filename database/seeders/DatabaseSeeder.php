@@ -140,5 +140,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password1'),
             'is_admin' => 1
         ]);
+
+        $this->call(EventSeeder::class);
     }
 }

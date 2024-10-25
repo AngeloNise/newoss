@@ -2,6 +2,7 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="suggestion-container">
+    <a href="<?php echo e(route('dean.fra-a-evaluation.show', $application->id)); ?>" class="btn btn-primary">Back</a>
     <h2>Add Suggestion for FRA <?php echo e($application->name_of_project); ?></h2>
     
     <!-- First Form: Status Update -->
