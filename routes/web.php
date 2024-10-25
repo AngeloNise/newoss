@@ -126,7 +126,10 @@ Route::middleware(['auth', DeanMiddleware::class])->group(function () {
 
     Route::get('/dean/Pre-Evaluation-Forms', [DeanFRAAnnexAController::class, 'index'])->name('dean.fra-a-evaluation.index');
     Route::get('/dean/FRA-A-Evaluation/{id}', [DeanFRAAnnexAController::class, 'show'])->name('dean.fra-a-evaluation.show');
-
+    Route::get('/dean/FRA-A-Evaluation/{id}/suggestion', [DeanFRAAnnexAController::class, 'suggestion'])->name('dean.fra-a-evaluation.suggestion');
+    Route::put('/dean/FRA-A-Evaluation/{id}/update-status', [DeanFRAAnnexAController::class, 'updateStatus'])->name('dean.fra-a-evaluation.update-status');
+    Route::post('/dean/FRA-A-Evaluation/{id}/suggestions', [DeanFRAAnnexAController::class, 'storeSuggestion'])->name('dean.fra-a-evaluation.store-suggestion');
+    
     Route::get('/dean/Dashboard', [DeanFRAAnnexAController::class, 'sidenotif'])->name('dashboard');
 });
 

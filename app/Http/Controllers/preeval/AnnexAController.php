@@ -20,7 +20,8 @@ class AnnexAController extends Controller
             'requesting_organization' => 'required|string',
             'college_branch' => 'required|string',
             'representative' => 'required|string',
-            'address_contact' => 'required|string',
+            'address' => 'required|string',
+            'contact' => 'required|string',
             'objectives' => 'required|string',
             'items_to_be_sold' => 'nullable|array',
             'items_to_be_sold.*' => 'nullable|string',
@@ -79,7 +80,8 @@ class AnnexAController extends Controller
         $annexA->requesting_organization = $validated['requesting_organization'];
         $annexA->college_branch = $validated['college_branch'];
         $annexA->representative = $validated['representative'];
-        $annexA->address_contact = $validated['address_contact'];
+        $annexA->address = $validated['address'];
+        $annexA->contact = $validated['contact'];
         $annexA->objectives = $validated['objectives'];
         $annexA->items_to_be_sold = json_encode($validated['items_to_be_sold'] ?? []);
         $annexA->item_pieces = json_encode($validated['item_pieces'] ?? []);

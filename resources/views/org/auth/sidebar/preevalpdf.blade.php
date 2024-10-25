@@ -16,6 +16,7 @@
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Total Estimated Income</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -28,9 +29,10 @@
                             <td>{{ $application->start_date }}</td>
                             <td>{{ $application->end_date }}</td>
                             <td>{{ $application->total_estimated_income }}</td>
+                            <td>{{ $application->status }}</td>
                             <td>
                                 <button onclick="window.location='{{ route('org.fra-a-evaluation.show', $application->id) }}'" class="btn btn-primary">
-                                    View Details
+                                    View
                                 </button>
                                 <a href="{{ route('generate-pdf', ['id' => $application->id]) }}" class="btn btn-secondary" target="_blank">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;">

@@ -1,7 +1,7 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="fra-container">
-    <a href="/dean/FRA-A-Evaluation" class="btn btn-primary">Back</a>
+    <a href="/dean/Pre-Evaluation-Forms" class="btn btn-primary">Back</a>
     <h2>Evaluation Details</h2>
 
     <div class="org_info">
@@ -40,7 +40,7 @@
                     <td><?php echo e($application->start_date ?? 'N/A'); ?></td>
                     <td><?php echo e($application->end_date ?? 'N/A'); ?></td>
                     <td><?php echo e($application->representative ?? 'N/A'); ?></td>
-                    <td><?php echo e($application->address_contact ?? 'N/A'); ?></td>
+                    <td><?php echo e($application->address ?? 'N/A'); ?><?php echo e($application->address && $application->contact ? ' - ' : ''); ?><?php echo e($application->contact ?? 'N/A'); ?></td>
                     <td><?php echo e($application->objectives ?? 'N/A'); ?></td>
                 </tr>
             </tbody>
@@ -175,6 +175,7 @@
                 </tr>
             </tbody>
         </table>
+        <a href="<?php echo e(route('dean.fra-a-evaluation.suggestion', $application->id)); ?>" class="btn btn-secondary">Add Comment</a>
     </div>
 </div>
 <?php $__env->stopSection(); ?>

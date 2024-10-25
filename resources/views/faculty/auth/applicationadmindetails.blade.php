@@ -33,7 +33,7 @@
                                 <select name="status" id="status">
                                     <option value="Pending Approval" {{ $application->status === 'pending approval' ? 'selected' : '' }}>Pending Approval</option>
                                     <option value="Approved" {{ $application->status === 'Approved' ? 'selected' : '' }}>Approved</option>
-                                    <option value="Rejected" {{ $application->status === 'Rejected' ? 'selected' : '' }}>Rejected</option> <!-- Alternative to "denied" -->
+                                    <option value="Returned" {{ $application->status === 'Returned' ? 'selected' : '' }}>Returned</option> <!-- Alternative to "denied" -->
                                 </select>
                             </td>
 

@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AnnexA extends Model // Change the class name to AnnexA (capitalized) for consistency
+class AnnexA extends Model // Class name is consistent with convention
 {
-    use HasFactory; // Don't forget to include this
+    use HasFactory;
 
     protected $table = 'annexas';
 
@@ -19,7 +19,8 @@ class AnnexA extends Model // Change the class name to AnnexA (capitalized) for 
         'requesting_organization',
         'college_branch',
         'representative',
-        'address_contact',
+        'address',
+        'contact',
         'objectives',
         'items_to_be_sold',
         'item_pieces',
@@ -39,7 +40,14 @@ class AnnexA extends Model // Change the class name to AnnexA (capitalized) for 
         'president',
         'treasurer',
         'color',
+        'status',
     ];
+
+    // Define the relationship with Frasuggestion
+    public function suggestions()
+    {
+        return $this->hasMany(Frasuggestion::class, 'application_id'); // Ensure 'application_id' matches your foreign key in Frasuggestion
+    }
 
     public static function notifOrNot()
     {

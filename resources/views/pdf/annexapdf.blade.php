@@ -31,8 +31,11 @@
                 </tr>
                 <tr>
                     <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">Address and Contact:</th>
-                    <td colspan="2" style="border: 1px solid black; padding: 1.5px;">{{ $annexa->address_contact ?? 'N/A' }}</td>
+                    <td colspan="2" style="border: 1px solid black; padding: 1.5px;">
+                        {{ $annexa->address ?? 'N/A' }}{{ $annexa->address && $annexa->contact ? ' - ' : '' }}{{ $annexa->contact ?? 'N/A' }}
+                    </td>
                 </tr>
+                
                 <tr>
                     <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">Objectives:</th>
                     <td colspan="2" style="border: 1px solid black; padding: 1.5px;">{{ $annexa->objectives ?? 'N/A' }}</td>

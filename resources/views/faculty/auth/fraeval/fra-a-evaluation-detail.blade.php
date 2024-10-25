@@ -40,7 +40,7 @@
                     <td>{{ $annexa->start_date ?? 'N/A' }}</td>
                     <td>{{ $annexa->end_date ?? 'N/A' }}</td>
                     <td>{{ $annexa->representative ?? 'N/A' }}</td>
-                    <td>{{ $annexa->address_contact ?? 'N/A' }}</td>
+                    <td>{{ $annexa->address ?? 'N/A' }}{{ $annexa->address && $annexa->contact ? ' - ' : '' }}{{ $annexa->contact ?? 'N/A' }}</td>
                     <td>{{ $annexa->objectives ?? 'N/A' }}</td>
                 </tr>
             </tbody>

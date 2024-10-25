@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dean;
 
 use App\Http\Controllers\Controller;
 use App\Models\AnnexA;
+use App\Models\Frasuggestion;
 use Illuminate\Http\Request;
 
 class DeanFRAAnnexAController extends Controller
@@ -32,5 +33,43 @@ class DeanFRAAnnexAController extends Controller
             ];
         }) : collect();
         return view('dean.auth.dashboard', compact('notifications'));
+    }
+
+    public function suggestion($id)
+    {
+        $application = AnnexA::findOrFail($id);
+        return view('dean.auth.fra-a-evaluation-suggestion', compact('application'));
+    }
+
+    public function storeSuggestion(Request $request, $id)
+    {
+        $request->validate([
+            'section' => 'required|array',
+            'section.*' => 'required|string|max:255',
+            'comment' => 'required|array',
+            'comment.*' => 'required|string',
+        ]);
+
+        Frasuggestion::create([
+            'application_id' => $id,
+            'section' => json_encode($request->section),
+            'comment' => json_encode($request->comment),
+        ]);
+
+        return redirect()->route('dean.fra-a-evaluation.show', $id)->with('success', 'Suggestions submitted successfully!');
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'new_status' => 'required|string|in:Pending Approval,Approved,Returned',
+        ]);
+
+        $application = AnnexA::findOrFail($id);
+        $application->status = $request->new_status;
+        $application->save();
+
+        return redirect()->route('dean.fra-a-evaluation.show', $id)
+                         ->with('success', 'Status updated successfully!');
     }
 }

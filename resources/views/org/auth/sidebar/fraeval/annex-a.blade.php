@@ -66,8 +66,13 @@
             </div>
     
             <div class="fra-group">
-                <label for="address_contact">Address/Contact No.</label>
-                <input type="text" id="address_contact" name="address_contact" class="form-control" value="{{ old('address_contact') }}">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" class="form-control" value="{{ old('address') }}">
+            </div>
+
+            <div class="fra-group">
+                <label for="contact">Contact No.</label>
+                <input type="text" id="contact" name="contact" class="form-control" value="{{ old('contact') }}">
             </div>
     
             <div class="fra-group">

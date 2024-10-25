@@ -1,7 +1,7 @@
 @extends('layout.deanlayout')
 @section('content')
 <div class="fra-container">
-    <a href="/dean/FRA-A-Evaluation" class="btn btn-primary">Back</a>
+    <a href="/dean/Pre-Evaluation-Forms" class="btn btn-primary">Back</a>
     <h2>Evaluation Details</h2>
 
     <div class="org_info">
@@ -40,7 +40,7 @@
                     <td>{{ $application->start_date ?? 'N/A' }}</td>
                     <td>{{ $application->end_date ?? 'N/A' }}</td>
                     <td>{{ $application->representative ?? 'N/A' }}</td>
-                    <td>{{ $application->address_contact ?? 'N/A' }}</td>
+                    <td>{{ $application->address ?? 'N/A' }}{{ $application->address && $application->contact ? ' - ' : '' }}{{ $application->contact ?? 'N/A' }}</td>
                     <td>{{ $application->objectives ?? 'N/A' }}</td>
                 </tr>
             </tbody>
@@ -175,6 +175,7 @@
                 </tr>
             </tbody>
         </table>
+        <a href="{{ route('dean.fra-a-evaluation.suggestion', $application->id) }}" class="btn btn-secondary">Add Comment</a>
     </div>
 </div>
 @endsection
