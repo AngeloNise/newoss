@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\org;
 
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
