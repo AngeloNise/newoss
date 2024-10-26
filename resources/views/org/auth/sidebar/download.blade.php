@@ -1,75 +1,133 @@
 @extends('layout.orglayout')
 @section('content')
+
 <div class="download-section">
     <div class="downloads">
         <h2>Fund Raising Download</h2>
         <div class="file-list">
-            <div class="file">
-                <a href="/path/to/your/file1.docx" download onclick="confirmDownload(event)">
-                    <img src="/thumbnail/guidelinestn.jpg" alt="Thumbnail 1">
-                    <p>Executive Order No. 12, Series of 2024 - Revised Guidelines on Fund-Raising Activities of Students</p>
-                </a>
-            </div>
-            <div class="file">
-                <a href="/path/to/your/file2.docx" download onclick="confirmDownload(event)">
-                    <img src="/thumbnail/annexAtn.jpg" alt="Thumbnail 2">
-                    <p>Executive Order No. 12-Annex A - Fund Raising Activity Application Form</p>
-                </a>
-            </div>
-            <div class="file">
-                <a href="/path/to/your/file3.xlsx" download onclick="confirmDownload(event)">
-                    <img src="/thumbnail/annexBtn.jpg" alt="Thumbnail 3">
-                    <p>Executive Order No. 12-Annex B- Financial Report</p>
-                </a>
-            </div>
-            <div class="file">
-                <a href="/path/to/your/file4.xlsx" download onclick="confirmDownload(event)">
-                    <img src="/thumbnail/annexCtn.jpg" alt="Thumbnail 4">
-                    <p>Executive Order No. 12-Annex C - Acknowledgment Receipt for Equipment Form</p>
-                </a>
-            </div>
+            <a href="https://drive.google.com/uc?id=1_54dZPDXZdXgTjhgwdSGdkcAkLsdYDKO" download onclick="confirmDownload(event)">
+                <div class="file">
+                    <div class="group">
+                        <img src="/thumbnail/guidelinestn.jpg" alt="Thumbnail 1">
+                    </div>
+                    <div class="group">
+                        <h3>Executive Order No. 12, Series of 2024</h3>
+                        <p>Revised Guidelines on Fund-Raising Activities of Students</p>
+                    </div>
+                </div>
+            </a>
+            <a href="https://docs.google.com/document/d/1fcMu3ljD4fr83TyHoJyQfaHEuET6d4JU/export?format=doc" download onclick="confirmDownload(event)">
+                <div class="file">
+                    <div class="group">
+                            <img src="/thumbnail/annexAtn.jpg" alt="Thumbnail 2">
+                    </div>
+                    <div class="group">
+                        <h3>Executive Order No. 12</h3>
+                        <p>Annex A - Fund Raising Activity Application Form</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://docs.google.com/document/d/1XOc590HjDtWOXrErxKb6IUmgF8h8yu9E/export?format=doc" download onclick="confirmDownload(event)">
+                <div class="file">
+                    <div class="group">
+                        <img src="/thumbnail/annexBtn.jpg" alt="Thumbnail 3">
+                    </div>
+                    <div class="group">
+                        <h3>Executive Order No. 12</h3>
+                        <p>Annex B - Financial Report</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://docs.google.com/spreadsheets/d/1zUi4s-5N-Ey3yQkaByAghKvLO1wssV-V/export?format=xlsx" download onclick="confirmDownload(event)">
+                <div class="file">
+                    <div class="group">
+                        <img src="/thumbnail/annexCtn.jpg" alt="Thumbnail 4">
+                    </div>
+                    <div class="group">
+                        <h3>Executive Order No. 12-Annex C</h3>
+                        <p>Acknowledgment Receipt for Equipment Form</p>
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
-    
+
     <div class="downloads">
         <h2>Off-Campus Download</h2>
         <div class="file-list">
-            <div class="file">
-                <a href="/path/to/your/file5.pdf" download onclick="confirmDownload(event)">
-                    <img src="/thumbnail/annexA-Htn.jpg" alt="Thumbnail 5">
-                    <p>Executive Order No. 11-Annexes-A to H</p>
-                </a>
-            </div>
-            <div class="file">
-                <a href="/path/to/your/file6.docx" download onclick="confirmDownload(event)">
-                    <img src="/thumbnail/OCannexI-Ltn.jpg" alt="Thumbnail 6">
-                    <p>Executive Order No. 11-Annexes-I-L</p>
-                </a>
-            </div>
-            <div class="file">
-                <a href="/path/to/your/file4.docx" download onclick="confirmDownload(event)">
-                    <img src="/thumbnail/budreq.jpg" alt="Thumbnail 7">
-                    <p>Executive Order No. 11-BUDGETARY REQUIREMENTS</p>
-                </a>
-            </div>
-            <div class="file">
-                <a href="/path/to/your/file5.pdf" download onclick="confirmDownload(event)">
-                    <img src="/thumbnail/OCguidelinestn.jpg" alt="Thumbnail 8">
-                    <p>Executive Order No. 11-PROCESS MANUAL FOR OFF-CAMPUS STUDENT ACTIVITY</p>
-                </a>
-            </div>
-            <div class="file">
-                <a href="/path/to/your/file6.docx" download onclick="confirmDownload(event)">
-                    <img src="/thumbnail/OCguidelinestn.jpg" alt="Thumbnail 9">
-                    <p>Executive Order No. 11-Revised Guidelines for the Conduct of Off-Campus Student Activities</p>
-                </a>
-            </div>
-            <div class="file">
-                <a href="/path/to/your/file4.docx" download onclick="confirmDownload(event)">
-                    <img src="/thumbnail/parentconsent.jpg" alt="Thumbnail 10">
-                    <p>Executive Order No. 11-TEMPLATE NOTARIZED PARENTAL CONSENT</p>
-                </a>
-            </div>
+            <a href="https://docs.google.com/document/d/1mpAJMI_NxV_hhA-xrcg7--orozX2Kt_Y/export?format=doc" download onclick="confirmDownload(event)">
+                <div class="file">
+                    <div class="group">
+                        <img src="/thumbnail/annexA-Htn.jpg" alt="Thumbnail 5">
+                    </div>
+                    <div class="group">
+                        <h3>Executive Order No. 11</h3>
+                        <p>Annexes-A to H</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://docs.google.com/document/d/15_PFTJdO6FXHO_8miZqUBF4QnSBIIvBv/export?format=doc" download onclick="confirmDownload(event)">
+                <div class="file">
+                    <div class="group">
+                        <img src="/thumbnail/OCannexI-Ltn.jpg" alt="Thumbnail 6">
+                    </div>
+                    <div class="group">
+                        <h3>Executive Order No. 11</h3>
+                        <p>Annexes-I-L</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://docs.google.com/spreadsheets/d/1e6M2pyCY3KZw0EvVPZlKnAMl-VlrpW3_/export?format=xlsx" download onclick="confirmDownload(event)">
+                <div class="file">
+                    <div class="group">
+                        <img src="/thumbnail/budreq.jpg" alt="Thumbnail 7">
+                    </div>
+                    <div class="group">
+                        <h3>Executive Order No. 11</h3>
+                        <p>BUDGETARY REQUIREMENTS</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://docs.google.com/document/d/1oM7pNyVeggz0DmxjN38n82in3ZczzEQw/export?format=doc" download onclick="confirmDownload(event)">
+                <div class="file">
+                    <div class="group">
+                        <img src="/thumbnail/OCguidelinestn.jpg" alt="Thumbnail 8">
+                    </div>
+                    <div class="group">
+                        <h3>Executive Order No. 11</h3>
+                        <p>PROCESS MANUAL FOR OFF-CAMPUS STUDENT ACTIVITY</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://drive.google.com/uc?id=1LD0igCma73Hb9mRQhX1Oe1YcJB1paEbN" download onclick="confirmDownload(event)">
+                <div class="file">
+                    <div class="group">
+                        <img src="/thumbnail/OCguidelinestn.jpg" alt="Thumbnail 9">
+                    </div>
+                    <div class="group">
+                        <h3>Executive Order No. 11</h3>
+                        <p>Revised Guidelines for the Conduct of Off-Campus Student Activities</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://docs.google.com/document/d/1MtxfUDvfzYXLNIME_lMRoUWqfdrhtjwc/export?format=doc" download onclick="confirmDownload(event)">
+                <div class="file">
+                    <div class="group">
+                        <img src="/thumbnail/parentconsent.jpg" alt="Thumbnail 10">
+                    </div>
+                    <div class="group">
+                        <h3>Executive Order No. 11</h3>
+                        <p>TEMPLATE NOTARIZED PARENTAL CONSENT</p>
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
 </div>
