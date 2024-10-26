@@ -100,7 +100,7 @@ class AnnexBController extends Controller
         $annexB->certified = $validated['certified'];
         $annexB->save();
 
-        Session::flash('success', 'Your form has been evaluated.');
+        Session::flash('success', 'Your form has passed the first evaluation.');
         return redirect()->route('org.auth.preevalfra');
     }
 }

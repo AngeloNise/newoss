@@ -22,14 +22,4 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-
-    const alertBox = document.querySelector('.alert');
-    if (alertBox) {
-        setTimeout(() => {
-            alertBox.style.opacity = '0';
-            setTimeout(() => {
-                alertBox.remove();
-            }, 500);
-        }, 3000);
-    }
 });

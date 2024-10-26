@@ -1,9 +1,52 @@
 <?php $__env->startSection('content'); ?>
 
+<script>
+    function confirmDownload(event) {
+        // Prevent the default anchor click behavior
+        event.preventDefault();
+        
+        // Show a confirmation dialog
+        const userConfirmed = confirm("Are you sure you want to download this file?");
+        
+        // If the user confirms, redirect to the download link
+        if (userConfirmed) {
+            window.location.href = event.currentTarget.href;
+        }
+    }
+
+        function confirmzipDownload(event) {
+        // Prevent the default anchor click behavior
+        event.preventDefault();
+        
+        // Show a confirmation dialog
+        const userzipConfirmed = confirm("Are you sure you want to download this zip file?");
+        
+        // If the user confirms, redirect to the download link
+        if (userzipConfirmed) {
+            window.location.href = event.currentTarget.href;
+        }
+    }
+</script>
+
 <div class="download-section">
     <div class="downloads">
         <h2>Fund Raising Download</h2>
         <div class="file-list">
+            <a href="https://drive.google.com/uc?id=1LPKA21IykzFoxzWTOCYCcBfLyR1gT3SA" download onclick="confirmzipDownload(event)">
+                <div class="file">
+                    <div class="group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+                            <path d="M32 46L18 32h10V20h8v12h10L32 46z" fill="#000"/>
+                            <path d="M4 54h56v6H4v-6z" fill="#000"/>
+                        </svg>
+                    </div>
+                    <div class="group">
+                        <h3>Download All</h3>
+                        <p>Fund Raising Activity</p>
+                    </div>
+                </div>
+            </a>
+            
             <a href="https://drive.google.com/uc?id=1_54dZPDXZdXgTjhgwdSGdkcAkLsdYDKO" download onclick="confirmDownload(event)">
                 <div class="file">
                     <div class="group">
@@ -55,6 +98,20 @@
 
     <div class="downloads">
         <h2>Off-Campus Download</h2>
+        <a href="https://drive.google.com/uc?id=1UEFETqg-OxrBSBGrCzIRih_qajLA8kUI" download onclick="confirmzipDownload(event)">
+            <div class="file">
+                <div class="group">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+                        <path d="M32 46L18 32h10V20h8v12h10L32 46z" fill="#000"/>
+                        <path d="M4 54h56v6H4v-6z" fill="#000"/>
+                    </svg>
+                </div>
+                <div class="group">
+                    <h3>Download All</h3>
+                    <p>Off Campus Activity</p>
+                </div>
+            </div>
+        </a>        
         <div class="file-list">
             <a href="https://docs.google.com/document/d/1mpAJMI_NxV_hhA-xrcg7--orozX2Kt_Y/export?format=doc" download onclick="confirmDownload(event)">
                 <div class="file">
@@ -130,7 +187,6 @@
         </div>
     </div>
 </div>
-
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.orglayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views//org/auth/sidebar/download.blade.php ENDPATH**/ ?>
