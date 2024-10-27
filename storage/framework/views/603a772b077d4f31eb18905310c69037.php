@@ -23,7 +23,7 @@
                     <tbody>
                         <?php $__currentLoopData = $annexa->suggestions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $suggestion): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php
-                                $sections = json_decode($suggestion->section, true); // Decode JSON to array
+                                $sections = json_decode($suggestion->section, true);
                                 $comments = json_decode($suggestion->comment, true);
                             ?>
         

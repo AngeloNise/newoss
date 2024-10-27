@@ -13,7 +13,6 @@ class CreateFrasuggestionsTable extends Migration
             $table->foreignId('application_id')->constrained('annexas')->onDelete('cascade'); // Link to the AnnexA table
             $table->json('section'); // JSON field to store sections as an array
             $table->json('comment'); // JSON field to store comments as an array
-            $table->string('status')->default('Pending Approval'); // Status with default value
             $table->timestamps(); // Created at and updated at timestamps
         });
     }

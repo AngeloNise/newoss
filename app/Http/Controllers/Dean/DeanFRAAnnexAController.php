@@ -26,7 +26,7 @@ class DeanFRAAnnexAController extends Controller
     {
         $userColor = auth()->check() ? auth()->user()->color : null;
         $notifications = $userColor ? AnnexA::where('color', $userColor)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->get()
             ->map(function ($application) {
                 $message = $application->created_at != $application->updated_at 
@@ -50,23 +50,41 @@ class DeanFRAAnnexAController extends Controller
         return view('dean.auth.fra-a-evaluation-suggestion', compact('application'));
     }
 
-    public function storeSuggestion(Request $request, $id)
+    public function storeSuggestion(Request $request, $id = null)
     {
+        // Validation rules
         $request->validate([
             'section' => 'required|array',
             'section.*' => 'required|string|max:255',
             'comment' => 'required|array',
             'comment.*' => 'required|string',
         ]);
-
-        Frasuggestion::create([
-            'application_id' => $id,
-            'section' => json_encode($request->section),
-            'comment' => json_encode($request->comment),
-        ]);
-
-        return redirect()->route('dean.fra-a-evaluation.show', $id)->with('success', 'Suggestions submitted successfully!');
-    }
+    
+        // Check if we're updating an existing suggestion
+        if ($id) {
+            // Find the suggestion by ID for updating
+            $frasuggestion = Frasuggestion::findOrFail($id);
+            
+            // Update fields
+            $frasuggestion->section = json_encode($request->section);
+            $frasuggestion->comment = json_encode($request->comment);
+            $frasuggestion->status = $request->input('status', 'Pending Approval'); // Default if not provided
+            $frasuggestion->save();
+    
+            return redirect()->route('dean.fra-a-evaluation.show', $frasuggestion->application_id)
+                             ->with('success', 'Suggestion updated successfully!');
+        } else {
+            // Create a new suggestion
+            Frasuggestion::create([
+                'application_id' => $id, // Ensure you have the application ID for new suggestions
+                'section' => json_encode($request->section),
+                'comment' => json_encode($request->comment),
+            ]);
+    
+            return redirect()->route('dean.fra-a-evaluation.show', $id)
+                             ->with('success', 'Suggestions submitted successfully!');
+        }
+    }    
 
     public function updateStatus(Request $request, $id)
     {

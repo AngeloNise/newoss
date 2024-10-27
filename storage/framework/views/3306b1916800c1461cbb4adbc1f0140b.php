@@ -36,6 +36,7 @@
                         <option value="Other Income">Other Income</option>
                         <option value="Expenditures">Expenditures</option>
                         <option value="Other Information">Other Information</option>
+                        <option value="Other Concerns">Other Concerns</option>
                     </select>
                 </div>
                 <div class="fra-group">

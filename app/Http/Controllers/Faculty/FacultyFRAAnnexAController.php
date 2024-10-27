@@ -21,25 +21,24 @@ class FacultyFRAAnnexAController extends Controller
 
         return view('faculty.auth.fraeval.fra-a-evaluation-detail', compact('annexa'));
     }
-    
     public function sidenotif()
     {
-        $userColor = auth()->check() ? auth()->user()->color : null;
-        $notifications = $userColor ? AnnexA::where('color', $userColor)
-            ->orderBy('created_at', 'desc')
+        $notifications = AnnexA::where('status', 'approved')
+            ->orderBy('updated_at', 'desc')
             ->get()
             ->map(function ($application) {
                 $message = $application->created_at != $application->updated_at 
-                    ? "{$application->requesting_organization} updated a pre-evaluation in FRA"
-                    : "{$application->requesting_organization} submitted a pre-evaluation in FRA";
-
+                    ? "{$application->color} forwarded a pre-evaluation in FRA from {$application->requesting_organization}"
+                    : "{$application->color} forwarded a pre-evaluation in FRA from {$application->requesting_organization}";
+    
                 return [
                     'id' => $application->id,
                     'message' => $message,
                     'time' => $application->updated_at->diffForHumans(),
                 ];
-            }) : collect();
-
+            });
+    
         return view('dean.auth.dashboard', compact('notifications'));
     }
+    
 }
