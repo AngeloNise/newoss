@@ -12,7 +12,10 @@ class DeanFRAAnnexAController extends Controller
     public function index()
     {
         $userColor = auth()->check() ? auth()->user()->color : null;
-        $applications = $userColor ? AnnexA::where('color', $userColor)->get() : collect();
+        $applications = $userColor 
+            ? AnnexA::where('color', $userColor)->orderBy('updated_at', 'desc')->get() // Change 'start_date' to your desired column
+            : collect();
+    
         return view('dean.auth.fra-a-evaluation', compact('applications'));
     }
 
