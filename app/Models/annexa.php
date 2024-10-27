@@ -52,15 +52,15 @@ class AnnexA extends Model // Class name is consistent with convention
     public static function notifOrNot()
     {
         // Fetch recent entries (e.g., last 7 days)
-        return self::where('created_at', '>=', now()->subDays(7))
-                ->orderBy('created_at', 'desc')
+        return self::where('updated_at', '>=', now()->subDays(7))
+                ->orderBy('updated_at', 'desc')
                 ->get()
                 ->map(function($annexa) {
                     // Create a custom message for each notification
                     return [
                         'id' => $annexa->id, // Include the ID
                         'message' => "{$annexa->requesting_organization} submitted a pre-evaluation in FRA",
-                        'time' => $annexa->created_at->diffForHumans(), // Use the original time calculation
+                        'time' => $annexa->updated_at->diffForHumans(), // Use the original time calculation
                     ];
                 });
     }

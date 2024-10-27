@@ -25,15 +25,24 @@ class DeanFRAAnnexAController extends Controller
     public function sidenotif()
     {
         $userColor = auth()->check() ? auth()->user()->color : null;
-        $notifications = $userColor ? AnnexA::where('color', $userColor)->orderBy('created_at', 'desc')->get()->map(function ($application) {
-            return [
-                'id' => $application->id,
-                'message' => "{$application->requesting_organization} submitted a pre-evaluation in FRA",
-                'time' => $application->created_at->diffForHumans(),
-            ];
-        }) : collect();
+        $notifications = $userColor ? AnnexA::where('color', $userColor)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($application) {
+                $message = $application->created_at != $application->updated_at 
+                    ? "{$application->requesting_organization} updated a pre-evaluation in FRA"
+                    : "{$application->requesting_organization} submitted a pre-evaluation in FRA";
+
+                return [
+                    'id' => $application->id,
+                    'message' => $message,
+                    'time' => $application->updated_at->diffForHumans(),
+                ];
+            }) : collect();
+
         return view('dean.auth.dashboard', compact('notifications'));
     }
+
 
     public function suggestion($id)
     {

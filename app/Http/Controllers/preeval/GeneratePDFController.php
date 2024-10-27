@@ -14,7 +14,7 @@ class GeneratePDFController extends Controller
         $userEmail = auth()->user()->email;
     
         $applications = AnnexA::where('email', $userEmail)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->get();
     
         return view('org.auth.sidebar.preevalpdf', compact('applications'));

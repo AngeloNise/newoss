@@ -3,6 +3,7 @@
 @section('content')
 <div class="fra-container">
     <a href="/Pre-Evaluation-PDF" class="btn btn-primary">Back</a>
+    <a href="{{ route('org.auth.sidebar.preevalfra.edit', $annexa->id) }}" class="btn btn-warning">Edit</a> <!-- Edit Button -->
     <h2>Evaluation Details</h2>
 
     <div class="org_info">
@@ -16,12 +17,13 @@
                         <tr>
                             <th></th>
                             <th>Comment</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($annexa->suggestions as $suggestion)
                             @php
-                                $sections = json_decode($suggestion->section, true); // Decode JSON to array
+                                $sections = json_decode($suggestion->section, true);
                                 $comments = json_decode($suggestion->comment, true);
                             @endphp
         
@@ -29,6 +31,7 @@
                                 <tr>
                                     <td>{{ $section ?? 'N/A' }}</td>
                                     <td>{{ $comments[$index] ?? 'N/A' }}</td>
+                                    <td></td>
                                 </tr>
                             @endforeach
                         @endforeach
@@ -123,8 +126,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Item Names</th>
-                        <th>Item Pieces</th>
+                        <th>Other Income</th>
+                        <th>Amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -151,7 +154,7 @@
                     <thead>
                         <tr>
                             <th>Expenditure</th>
-                            <th>Item Price</th>
+                            <th>Cost</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -172,27 +175,27 @@
         <p><strong>Total Estimated Proceeds:</strong> {{ $annexa->total_estimated_proceeds ?? 'N/A' }}</p>
     </div>
         
-        <div class="other_info">
-            <h3>Other Information</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Coordinator</th>
-                        <th>Participants</th>
-                        <th>Utilization Plan</th>
-                        <th>Solicitation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-    
-                        <td>{{ $annexa->coordinator ?? 'N/A' }}</td>
-                        <td>{{ $annexa->participants ?? 'N/A' }}</td>
-                        <td>{{ $annexa->utilization_plan ?? 'N/A' }}</td>
-                        <td>{{ $annexa->solicitation ?? 'N/A' }}</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="other_info">
+        <h3>Other Information</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Coordinator</th>
+                    <th>Participants</th>
+                    <th>Utilization Plan</th>
+                    <th>Solicitation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                    <td>{{ $annexa->coordinator ?? 'N/A' }}</td>
+                    <td>{{ $annexa->participants ?? 'N/A' }}</td>
+                    <td>{{ $annexa->utilization_plan ?? 'N/A' }}</td>
+                    <td>{{ $annexa->solicitation ?? 'N/A' }}</td>
+                </tr>
+            </tbody>
+        </table>
 
         <table class="table">
             <thead>

@@ -91,8 +91,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Item Names</th>
-                        <th>Item Pieces</th>
+                        <th>Other Income</th>
+                        <th>Amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,7 +119,7 @@
                     <thead>
                         <tr>
                             <th>Expenditure</th>
-                            <th>Item Price</th>
+                            <th>Cost</th>
                         </tr>
                     </thead>
                     <tbody>

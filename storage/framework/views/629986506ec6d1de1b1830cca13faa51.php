@@ -27,22 +27,52 @@
             
             <div class="fra-group">
                 <label for="name_of_project">Name of Project</label>
-                <input type="text" id="name_of_project" name="name_of_project" class="form-control" value="<?php echo e(old('name_of_project')); ?>">
+                <input type="text" id="name_of_project" name="name_of_project" class="form-control" value="<?php echo e(old('name_of_project')); ?>" required>
+                <?php $__errorArgs = ['name_of_project'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <div class="text-danger"><?php echo e($message); ?></div>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
             
             <div id="duration">
                 <div class="split">
                     <div class="fra-group">
                         <label for="start_date">Start Date</label>
-                        <input type="date" id="start_date" name="start_date" class="form-control" value="<?php echo e(old('start_date')); ?>">
+                        <input type="date" id="start_date" name="start_date" class="form-control" value="<?php echo e(old('start_date')); ?>" required>
+                        <?php $__errorArgs = ['start_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <div class="text-danger"><?php echo e($message); ?></div>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                     </div>
                     
                     <div class="fra-group">
                         <label for="end_date">End Date</label>
-                        <input type="date" id="end_date" name="end_date" class="form-control" value="<?php echo e(old('end_date')); ?>">
+                        <input type="date" id="end_date" name="end_date" class="form-control" value="<?php echo e(old('end_date')); ?>" required>
+                        <?php $__errorArgs = ['end_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <div class="text-danger"><?php echo e($message); ?></div>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                     </div>
                 </div>
-            </div>
+            </div>            
 
             <div class="fra-group">
                 <label for="requesting_organization">Requesting Organization</label>
@@ -56,28 +86,78 @@
             
             <div class="fra-group">
                 <label for="college_branch">College/Branch/Campus</label>
-                <input type="text" id="college_branch" name="college_branch" class="form-control" value="<?php echo e(old('college_branch')); ?>">
+                <input type="text" id="college_branch" name="college_branch" class="form-control" value="<?php echo e(old('college_branch')); ?>" required>
+                <?php $__errorArgs = ['college_branch'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <div class="text-danger"><?php echo e($message); ?></div>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
-    
+            
             <div class="fra-group">
                 <label for="representative">Name of Representative</label>
-                <input type="text" id="representative" name="representative" class="form-control" value="<?php echo e(old('representative')); ?>">
+                <input type="text" id="representative" name="representative" class="form-control" value="<?php echo e(old('representative')); ?>" required>
+                <?php $__errorArgs = ['representative'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <div class="text-danger"><?php echo e($message); ?></div>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
-    
+            
             <div class="fra-group">
                 <label for="address">Address</label>
-                <input type="text" id="address" name="address" class="form-control" value="<?php echo e(old('address')); ?>">
+                <input type="text" id="address" name="address" class="form-control" value="<?php echo e(old('address')); ?>" required>
+                <?php $__errorArgs = ['address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <div class="text-danger"><?php echo e($message); ?></div>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
-
+            
             <div class="fra-group">
                 <label for="contact">Contact No.</label>
-                <input type="text" id="contact" name="contact" class="form-control" value="<?php echo e(old('contact')); ?>">
+                <input type="text" id="contact" name="contact" class="form-control" value="<?php echo e(old('contact')); ?>" required>
+                <?php $__errorArgs = ['contact'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <div class="text-danger"><?php echo e($message); ?></div>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
-    
+            
             <div class="fra-group">
                 <label for="objectives">Objectives</label>
-                <input type="text" id="objectives" name="objectives" class="form-control" value="<?php echo e(old('objectives')); ?>">
-            </div>
+                <input type="text" id="objectives" name="objectives" class="form-control" value="<?php echo e(old('objectives')); ?>" required>
+                <?php $__errorArgs = ['objectives'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <div class="text-danger"><?php echo e($message); ?></div>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+            </div>            
 
             <h2>Project Estimates</h2>
             <h3>1. Estimate Income</h3>

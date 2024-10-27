@@ -5,6 +5,51 @@
     <h2>Evaluation Details</h2>
 
     <div class="org_info">
+        <div class="suggestions">
+            <h3>Suggestions</h3>
+            <?php if($application->suggestions->isEmpty()): ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Suggestion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>None</td>
+                        <td>No current Suggestion/Comments</td>
+                    </tr>
+                </tbody>
+            </table>
+            <?php else: ?>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Comment</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $__currentLoopData = $application->suggestions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $suggestion): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php
+                                $sections = json_decode($suggestion->section, true); // Decode JSON to array
+                                $comments = json_decode($suggestion->comment, true);
+                            ?>
+        
+                            <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <tr>
+                                    <td><?php echo e($section ?? 'N/A'); ?></td>
+                                    <td><?php echo e($comments[$index] ?? 'N/A'); ?></td>
+                                    <td></td>
+                                </tr>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        
         <h3>Project Information</h3>
         <table class="table">
             <thead>
@@ -91,8 +136,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Item Names</th>
-                        <th>Item Pieces</th>
+                        <th>Other Income</th>
+                        <th>Amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,7 +164,7 @@
                 <thead>
                     <tr>
                         <th>Expenditure</th>
-                        <th>Item Price</th>
+                        <th>Cost</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -175,8 +220,8 @@
                 </tr>
             </tbody>
         </table>
-        <a href="<?php echo e(route('dean.fra-a-evaluation.suggestion', $application->id)); ?>" class="btn btn-secondary">Add Comment</a>
     </div>
+    <a href="<?php echo e(route('dean.fra-a-evaluation.suggestion', $application->id)); ?>" class="btn btn-secondary">Evaluate</a>
 </div>
 <?php $__env->stopSection(); ?>
 

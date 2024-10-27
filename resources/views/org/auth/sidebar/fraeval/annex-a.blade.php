@@ -28,22 +28,31 @@
             
             <div class="fra-group">
                 <label for="name_of_project">Name of Project</label>
-                <input type="text" id="name_of_project" name="name_of_project" class="form-control" value="{{ old('name_of_project') }}">
+                <input type="text" id="name_of_project" name="name_of_project" class="form-control" value="{{ old('name_of_project') }}" required>
+                @error('name_of_project')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             
             <div id="duration">
                 <div class="split">
                     <div class="fra-group">
                         <label for="start_date">Start Date</label>
-                        <input type="date" id="start_date" name="start_date" class="form-control" value="{{ old('start_date') }}">
+                        <input type="date" id="start_date" name="start_date" class="form-control" value="{{ old('start_date') }}" required>
+                        @error('start_date')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     
                     <div class="fra-group">
                         <label for="end_date">End Date</label>
-                        <input type="date" id="end_date" name="end_date" class="form-control" value="{{ old('end_date') }}">
+                        <input type="date" id="end_date" name="end_date" class="form-control" value="{{ old('end_date') }}" required>
+                        @error('end_date')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
-            </div>
+            </div>            
 
             <div class="fra-group">
                 <label for="requesting_organization">Requesting Organization</label>
@@ -57,28 +66,43 @@
             
             <div class="fra-group">
                 <label for="college_branch">College/Branch/Campus</label>
-                <input type="text" id="college_branch" name="college_branch" class="form-control" value="{{ old('college_branch') }}">
+                <input type="text" id="college_branch" name="college_branch" class="form-control" value="{{ old('college_branch') }}" required>
+                @error('college_branch')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-    
+            
             <div class="fra-group">
                 <label for="representative">Name of Representative</label>
-                <input type="text" id="representative" name="representative" class="form-control" value="{{ old('representative') }}">
+                <input type="text" id="representative" name="representative" class="form-control" value="{{ old('representative') }}" required>
+                @error('representative')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-    
+            
             <div class="fra-group">
                 <label for="address">Address</label>
-                <input type="text" id="address" name="address" class="form-control" value="{{ old('address') }}">
+                <input type="text" id="address" name="address" class="form-control" value="{{ old('address') }}" required>
+                @error('address')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-
+            
             <div class="fra-group">
                 <label for="contact">Contact No.</label>
-                <input type="text" id="contact" name="contact" class="form-control" value="{{ old('contact') }}">
+                <input type="text" id="contact" name="contact" class="form-control" value="{{ old('contact') }}" required>
+                @error('contact')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-    
+            
             <div class="fra-group">
                 <label for="objectives">Objectives</label>
-                <input type="text" id="objectives" name="objectives" class="form-control" value="{{ old('objectives') }}">
-            </div>
+                <input type="text" id="objectives" name="objectives" class="form-control" value="{{ old('objectives') }}" required>
+                @error('objectives')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>            
 
             <h2>Project Estimates</h2>
             <h3>1. Estimate Income</h3>

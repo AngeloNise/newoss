@@ -3,6 +3,7 @@
 <?php $__env->startSection('content'); ?>
 <div class="fra-container">
     <a href="/Pre-Evaluation-PDF" class="btn btn-primary">Back</a>
+    <a href="<?php echo e(route('org.auth.sidebar.preevalfra.edit', $annexa->id)); ?>" class="btn btn-warning">Edit</a> <!-- Edit Button -->
     <h2>Evaluation Details</h2>
 
     <div class="org_info">
@@ -16,6 +17,7 @@
                         <tr>
                             <th></th>
                             <th>Comment</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +31,7 @@
                                 <tr>
                                     <td><?php echo e($section ?? 'N/A'); ?></td>
                                     <td><?php echo e($comments[$index] ?? 'N/A'); ?></td>
+                                    <td></td>
                                 </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -123,8 +126,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Item Names</th>
-                        <th>Item Pieces</th>
+                        <th>Other Income</th>
+                        <th>Amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -151,7 +154,7 @@
                     <thead>
                         <tr>
                             <th>Expenditure</th>
-                            <th>Item Price</th>
+                            <th>Cost</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -172,27 +175,27 @@
         <p><strong>Total Estimated Proceeds:</strong> <?php echo e($annexa->total_estimated_proceeds ?? 'N/A'); ?></p>
     </div>
         
-        <div class="other_info">
-            <h3>Other Information</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Coordinator</th>
-                        <th>Participants</th>
-                        <th>Utilization Plan</th>
-                        <th>Solicitation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-    
-                        <td><?php echo e($annexa->coordinator ?? 'N/A'); ?></td>
-                        <td><?php echo e($annexa->participants ?? 'N/A'); ?></td>
-                        <td><?php echo e($annexa->utilization_plan ?? 'N/A'); ?></td>
-                        <td><?php echo e($annexa->solicitation ?? 'N/A'); ?></td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="other_info">
+        <h3>Other Information</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Coordinator</th>
+                    <th>Participants</th>
+                    <th>Utilization Plan</th>
+                    <th>Solicitation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                    <td><?php echo e($annexa->coordinator ?? 'N/A'); ?></td>
+                    <td><?php echo e($annexa->participants ?? 'N/A'); ?></td>
+                    <td><?php echo e($annexa->utilization_plan ?? 'N/A'); ?></td>
+                    <td><?php echo e($annexa->solicitation ?? 'N/A'); ?></td>
+                </tr>
+            </tbody>
+        </table>
 
         <table class="table">
             <thead>

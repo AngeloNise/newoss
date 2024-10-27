@@ -5,6 +5,51 @@
     <h2>Evaluation Details</h2>
 
     <div class="org_info">
+        <div class="suggestions">
+            <h3>Suggestions</h3>
+            @if ($application->suggestions->isEmpty())
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Suggestion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>None</td>
+                        <td>No current Suggestion/Comments</td>
+                    </tr>
+                </tbody>
+            </table>
+            @else
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Comment</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($application->suggestions as $suggestion)
+                            @php
+                                $sections = json_decode($suggestion->section, true); // Decode JSON to array
+                                $comments = json_decode($suggestion->comment, true);
+                            @endphp
+        
+                            @foreach ($sections as $index => $section)
+                                <tr>
+                                    <td>{{ $section ?? 'N/A' }}</td>
+                                    <td>{{ $comments[$index] ?? 'N/A' }}</td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+        
         <h3>Project Information</h3>
         <table class="table">
             <thead>
@@ -91,8 +136,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Item Names</th>
-                        <th>Item Pieces</th>
+                        <th>Other Income</th>
+                        <th>Amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,7 +164,7 @@
                 <thead>
                     <tr>
                         <th>Expenditure</th>
-                        <th>Item Price</th>
+                        <th>Cost</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -175,7 +220,7 @@
                 </tr>
             </tbody>
         </table>
-        <a href="{{ route('dean.fra-a-evaluation.suggestion', $application->id) }}" class="btn btn-secondary">Add Comment</a>
     </div>
+    <a href="{{ route('dean.fra-a-evaluation.suggestion', $application->id) }}" class="btn btn-secondary">Evaluate</a>
 </div>
 @endsection

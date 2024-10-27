@@ -2,7 +2,6 @@
 
 
 use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\AccountSettingsController;
 use App\Http\Controllers\EventController;
 
 use App\Http\Controllers\Faculty\FacultyHomeController;
@@ -19,6 +18,7 @@ use App\Http\Controllers\Dean\DeanFRAAnnexAController;
 
 
 use App\Http\Controllers\org\ApplicationHistoryController;
+use App\Http\Controllers\org\AccountSettingsController;
 
 use App\Http\Controllers\preeval\AnnexAController;
 use App\Http\Controllers\preeval\AnnexBController;
@@ -176,6 +176,7 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::get('/download-pdf/{id}', [GeneratePDFController::class, 'downloadPDF'])->name('pdf.download');
     Route::get('/FRA-A-Evaluation/{id}', [GeneratePDFController::class, 'show'])->name('org.fra-a-evaluation.show');
 
+
     // Route for In-Campus Activity
     Route::get('/In-Campus', [EventController::class, 'showInCampus'])->name('events.incampus');
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
@@ -244,6 +245,8 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     })->name('org.auth.sidebar.preevaloffcamp');
 
     Route::post('/annex-a', [AnnexAController::class, 'store'])->name('annexa.submit');
+    Route::get('/preevalfra/{id}/edit', [AnnexAController::class, 'edit'])->name('org.auth.sidebar.preevalfra.edit');
+    Route::put('/annex-a/{id}', [AnnexAController::class, 'update'])->name('org.auth.sidebar.preevalfra.update');
     Route::post('/annex-b', [AnnexBController::class, 'store'])->name('annexb.submit');
     Route::post('/annex-c', [AnnexCController::class, 'store'])->name('annexc.submit');
 
