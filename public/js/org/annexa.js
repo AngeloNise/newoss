@@ -242,4 +242,31 @@ document.addEventListener('DOMContentLoaded', function() {
     totalBudgetExpensesField.addEventListener('input', updateTotalEstimatedProceeds);
 
     updateTotalBudgetedExpenses();
+    
+    const addCoordinatorButton = document.getElementById('add-coordinator');
+    const coordinatorContainer = document.getElementById('coordinator');
+    let indexCoordinator = coordinatorContainer.querySelectorAll('input[name="coordinator[]"]').length;
+
+    if (addCoordinatorButton) {
+        addCoordinatorButton.addEventListener('click', function() {
+            const newCoordinatorField = document.createElement('div');
+            newCoordinatorField.classList.add('fra-group');
+            newCoordinatorField.innerHTML = `
+                <input type="text" name="coordinator[]" class="form-control" placeholder="Lists of Officials/Coordinators">
+            `;
+            coordinatorContainer.appendChild(newCoordinatorField);
+            indexCoordinator++;
+        });
+    }
+
+    const removeCoordinatorButton = document.getElementById('remove-coordinator');
+    if (removeCoordinatorButton) {
+        removeCoordinatorButton.addEventListener('click', function() {
+            const addedCoordinators = coordinatorContainer.querySelectorAll('.fra-group:not(:first-child)');
+            if (addedCoordinators.length > 0) {
+                coordinatorContainer.removeChild(addedCoordinators[addedCoordinators.length - 1]);
+            }
+        });
+    }
+
 });

@@ -315,8 +315,23 @@ unset($__errorArgs, $__bag); ?>
             </div>
 
             <div class="fra-group">
-                <label for="coordinator">6. Lists of Officials/Coordinator</label>
-                <input type="text" id="coordinator" name="coordinator" class="form-control" value="<?php echo e(old('coordinator')); ?>">
+                <div id="coordinator">
+                    <div class="fra-group">
+                        <label for="coordinator">6. Lists of Officials/Coordinators</label>
+                        <?php if(is_array(old('coordinator'))): ?>
+                            <?php $__currentLoopData = old('coordinator'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coordinator): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <input type="text" id="coordinator" name="coordinator[]" class="form-control" value="<?php echo e($coordinator); ?>">
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            <input type="text" id="coordinator" name="coordinator[]" class="form-control" value="">
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-coordinator">
+                <button type="button" id="remove-coordinator">Remove</button>
+                <button type="button" id="add-coordinator">Add</button>
             </div>
 
             <div class="fra-group">

@@ -3,42 +3,80 @@
 namespace App\Http\Controllers\faculty;
 
 use App\Http\Controllers\Controller;
-use App\Models\annexa; // Assuming applications are stored in AnnexA model
+use App\Models\AnnexA; // Ensure this is correct
+use App\Models\Frasuggestion; // Ensure this is correct
 use Illuminate\Http\Request;
 
 class FacultyFRAAnnexAController extends Controller
 {
     public function index()
     {
-        $applications = annexa::all();
-
+        $applications = AnnexA::all(); // Fetch all applications without filtering by status
         return view('faculty.auth.fraeval.fra-a-evaluation', compact('applications'));
     }
 
     public function show($id)
     {
         $annexa = annexa::findOrFail($id);
-
+    
         return view('faculty.auth.fraeval.fra-a-evaluation-detail', compact('annexa'));
-    }
+    }    
+
     public function sidenotif()
     {
-        $notifications = AnnexA::where('status', 'approved')
-            ->orderBy('updated_at', 'desc')
+        $notifications = AnnexA::orderBy('updated_at', 'desc')
             ->get()
             ->map(function ($application) {
                 $message = $application->created_at != $application->updated_at 
-                    ? "{$application->color} forwarded a pre-evaluation in FRA from {$application->requesting_organization}"
-                    : "{$application->color} forwarded a pre-evaluation in FRA from {$application->requesting_organization}";
-    
+                    ? "The {$application->requesting_organization} updated a pre-evaluation in FRA"
+                    : "The {$application->requesting_organization} submitted a pre-evaluation in FRA";
+
                 return [
                     'id' => $application->id,
                     'message' => $message,
                     'time' => $application->updated_at->diffForHumans(),
                 ];
             });
-    
-        return view('dean.auth.dashboard', compact('notifications'));
+
+        return view('faculty.auth.dbadmin', compact('notifications'));
     }
-    
+
+    public function suggestion($id)
+    {
+        $application = AnnexA::findOrFail($id);
+        return view('faculty.auth.fraeval.fra-a-evaluation-suggestion', compact('application'));
+    }    
+
+    public function storeSuggestion(Request $request, $id)
+    {
+        $request->validate([
+            'section' => 'required|array',
+            'section.*' => 'required|string|max:255',
+            'comment' => 'required|array',
+            'comment.*' => 'required|string',
+        ]);
+
+        Frasuggestion::create([
+            'application_id' => $id,
+            'section' => json_encode($request->section),
+            'comment' => json_encode($request->comment),
+        ]);
+
+        return redirect()->route('faculty.fra-a-evaluation.show', $id)
+                         ->with('success', 'Suggestions submitted successfully!');
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'new_status' => 'required|string|in:Pending Approval,Approved,Returned',
+        ]);
+
+        $application = AnnexA::findOrFail($id);
+        $application->status = $request->new_status;
+        $application->save();
+
+        return redirect()->route('faculty.fra-a-evaluation.show', $id)
+                         ->with('success', 'Status updated successfully!');
+    }
 }

@@ -22,7 +22,7 @@ class User extends Authenticatable
         'password',
         'name_of_organization',
         'is_admin',
-        'color',
+        'branch',
     ];
 
     /**

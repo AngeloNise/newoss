@@ -66,18 +66,24 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
             return view('/faculty/auth/fraeval/fra-evaluation'); // Create this view
         })->name('fra.evaluation');
 
-        // Route for submitting the application form
         Route::get('/Application/create', [CreateApplicationController::class, 'create'])->name('application.create');
-        Route::post('/Application', [CreateApplicationController::class, 'store'])->name('application.store');
-        Route::get('/Applications', [CreateApplicationController::class, 'index'])->name('applications.index');
-        Route::get('/Applications/{id}', [CreateApplicationController::class, 'show'])->name('applications.show');
-        Route::put('/Applications/{id}', [CreateApplicationController::class, 'update'])->name('application.update');
-        Route::get('/application/admin', [CreateApplicationController::class, 'applicationAdmin'])->name('applicationadmin'); // Make sure this matches
+        Route::post('/Application/create', [CreateApplicationController::class, 'store'])->name('application.store');
+        Route::get('/Application-Admin', [CreateApplicationController::class, 'applicationAdmin'])->name('application.admin');
+        
 
 
         // New Routes for Evaluation Activities
         Route::get('/FRA-A-Evaluation', [FacultyFRAAnnexAController::class, 'index'])->name('fra-a-evaluation.index');
         Route::get('/FRA-A-Evaluation/{id}', [FacultyFRAAnnexAController::class, 'show'])->name('fra-a-evaluation.show');
+        Route::put('/FRA-A-Evaluation/{id}/update-status', [FacultyFRAAnnexAController::class, 'updateStatus'])->name('fra-a-evaluation.update-status');
+        Route::get('/FRA-A-Evaluation/{id}/suggestion', [FacultyFRAAnnexAController::class, 'suggestion'])->name('fra-a-evaluation.suggestion');
+        Route::post('/FRA-A-Evaluation/{id}/suggestions', [FacultyFRAAnnexAController::class, 'storeSuggestion'])->name('fra-a-evaluation.store-suggestion');
+        Route::put('/FRA-A-Evaluation/suggestions/{id}', [FacultyFRAAnnexAController::class, 'updateSuggestion'])->name('fra-a-evaluation.update-suggestion');
+
+
+
+        Route::post('/FRA-A-Evaluation/{id}/suggestions', [FacultyFRAAnnexAController::class, 'storeSuggestion'])->name('fra-a-evaluation.store-suggestion');
+
         Route::get('/Dashboard-Admin', [FacultyFRAAnnexAController::class, 'sidenotif'])->name('dbadmin');
         Route::get('faculty/fraannexa/{id}', [FacultyFRAAnnexAController::class, 'show'])->name('faculty.fraannexa.show');
 
@@ -101,7 +107,6 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
             return view('/faculty/auth/oam');
         })->name('dbadmin1');
         
-        Route::get('/Application-Admin', [CreateApplicationController::class, 'index'])->name('faculty.applicationadmin');
 
         Route::get('/Post-Report', function() {
             return view('/faculty/auth/postreport');
@@ -127,19 +132,26 @@ Route::middleware(['auth', DeanMiddleware::class])->group(function () {
     Route::get('/dean/Homepage', function () {
         return view('dean.auth.homepage'); // Path to the dean homepage
     })->name('dean.homepage');
-
+    
     Route::get('/dean/Pre-Evaluation-Forms', [DeanFRAAnnexAController::class, 'index'])->name('dean.fra-a-evaluation.index');
     Route::get('/dean/FRA-A-Evaluation/{id}', [DeanFRAAnnexAController::class, 'show'])->name('dean.fra-a-evaluation.show');
     Route::get('/dean/FRA-A-Evaluation/{id}/suggestion', [DeanFRAAnnexAController::class, 'suggestion'])->name('dean.fra-a-evaluation.suggestion');
     Route::post('/dean/FRA-A-Evaluation/{id}/suggestions', [DeanFRAAnnexAController::class, 'storeSuggestion'])->name('dean.fra-a-evaluation.store-suggestion');
+    Route::put('/dean/FRA-A-Evaluation/suggestions/{id}', [DeanFRAAnnexAController::class, 'updateSuggestion'])->name('dean.fra-a-evaluation.update-suggestion');
     Route::put('/dean/FRA-A-Evaluation/{id}/update-status', [DeanFRAAnnexAController::class, 'updateStatus'])->name('dean.fra-a-evaluation.update-status');
     Route::get('/dean/Dashboard', [DeanFRAAnnexAController::class, 'sidenotif'])->name('dashboard');
 });
 
+Route::prefix('faculty')->name('faculty.')->middleware(['auth', FacultyMiddleware::class])->group(function () {
+    Route::get('/auth/managepost', [EventController::class, 'adminIndex'])->name('managePost');
 
+    Route::get('/events/create', [EventController::class, 'facultyCreate'])->name('events.create');
+    Route::post('/events/store', [EventController::class, 'facultyStore'])->name('events.store');
+    Route::get('/events/edit/{id}', [EventController::class, 'facultyEdit'])->name('events.edit');
+    Route::put('/events/update/{id}', [EventController::class, 'facultyUpdate'])->name('events.update');
+    Route::delete('/events/destroy/{id}', [EventController::class, 'facultyDestroy'])->name('events.destroy');
+});
 
-
-// Auth routes
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('Homepage')->middleware(UserMiddleware::class);
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'orgLogin'])->name('login');
@@ -235,9 +247,9 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     
 
     // Fund-Raising routes
-    Route::get('/Fund-Raising', function () {
-        return view('/org/auth/sidebar/preevalfra');
-    })->name('org.auth.sidebar.preevalfra');
+    Route::get('/Pre-Evaluation', function () {
+        return view('/org/auth/sidebar/preeval');
+    })->name('org.auth.sidebar.preeval');
 
     Route::get('/Off-Campus-Activity', function () {
         return view('/org/auth/sidebar/preevaloffcamp');

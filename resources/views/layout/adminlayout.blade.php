@@ -60,8 +60,7 @@
             <li><a href="{{ url('/faculty/Application-Admin') }}">Application</a></li>
             <li><a href="{{ url('/faculty/Post-Report') }}">Post Report</a></li>
             <li><a href="{{ url('/faculty/Pre-Evaluation-Status') }}">Pre Evaluation Forms</a></li>
-            <li><a href="{{ url('/faculty/Manage-Post') }}">Manage/Create Post</a></li>
-            <!--<li><a href="#">Log-Out</a></li>-->
+            <li><a href="{{ route('faculty.managePost') }}">Manage/Create Post</a></li>            <!--<li><a href="#">Log-Out</a></li>-->
         </ul>            
     </div>   
 </div>  

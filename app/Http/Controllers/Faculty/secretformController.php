@@ -12,8 +12,8 @@ class SecretFormController extends Controller
     {
         // Validate the input
         $validated = $request->validate([
-            'pup_logo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'ched_logo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'pup_logo' => 'required|image|mimes:jpeg,png,jpg',
+            'ched_logo' => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
         // Prepare data for insertion

@@ -1,12 +1,19 @@
 <?php $__env->startSection('content'); ?>
+<?php if(Session::has('success')): ?>
+    <script>
+        window.flashMessage = {
+            message: "<?php echo e(Session::get('success')); ?>",
+            type: "success"
+        };
+    </script>
+<?php endif; ?>
 <div class="content-container">
     <h1>Pre Evaluation</h1>
     <div class="activity-question">
         <p>What type of Activity?</p>
     </div>
     <div class="activity-buttons">
-        <a href="<?php echo e(url('/Fund-Raising')); ?>" class="button">Fund Raising Activity</a>
-        <a href="<?php echo e(url('/In-Campus-Activity')); ?>" class="button">In-Campus Activity</a>
+        <a href="<?php echo e(url('/FRA/Annex-A')); ?>" class="button">Fund Raising Activity</a>
         <a href="<?php echo e(url('/Off-Campus-Activity')); ?>" class="button">Off-Campus Activity</a>
     </div>
     <div class="note">

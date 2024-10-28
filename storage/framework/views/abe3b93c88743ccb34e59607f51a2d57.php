@@ -4,6 +4,67 @@
     <h2>Evaluation Details</h2>
 
     <div class="org_info">
+        <form id="status-update-form" action="<?php echo e(route('faculty.fra-a-evaluation.update-status', $annexa->id)); ?>" method="POST" class="mb-4">
+            <?php echo csrf_field(); ?>
+            <?php echo method_field('PUT'); ?>
+            <div class="form-group">
+                <label for="status">Update Status</label>
+                <select name="new_status" id="status" class="form-control" required>
+                    <option value="" disabled selected>Select new status</option>
+                    <option value="Pending Approval" <?php echo e($annexa->status === 'Pending Approval' ? 'selected' : ''); ?>>Pending Approval</option>
+                    <option value="Approved" <?php echo e($annexa->status === 'Approved' ? 'selected' : ''); ?>>Approved</option>
+                    <option value="Returned" <?php echo e($annexa->status === 'Returned' ? 'selected' : ''); ?>>Returned</option>
+                </select>
+                <div class="split">
+                    <button type="submit" class="btn btn-primary">Update Status</button>
+                    <a href="<?php echo e(route('faculty.fra-a-evaluation.suggestion', $annexa->id)); ?>" class="btn btn-secondary">Evaluate</a>
+                </div>
+            </div>
+
+            <div class="suggestions">
+                <?php if($annexa->suggestions->isEmpty()): ?>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Section</th>
+                                <th>Suggestion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>None</td>
+                                <td>No current suggestions/comments</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Section</th>
+                                <th>Comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $__currentLoopData = $annexa->suggestions->sortByDesc('created_at'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $suggestion): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php
+                                    $sections = json_decode($suggestion->section, true);
+                                    $comments = json_decode($suggestion->comment, true);
+                                ?>
+        
+                                <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <tr>
+                                        <td><?php echo e($section ?? 'N/A'); ?></td>
+                                        <td><?php echo e($comments[$index] ?? 'N/A'); ?></td>
+                                    </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
+            </div>
+        </form>
+        
         <h3>Project Information</h3>
         <table class="table">
             <thead>
@@ -90,8 +151,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Item Names</th>
-                        <th>Item Pieces</th>
+                        <th>Other Income</th>
+                        <th>Amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,7 +179,7 @@
                     <thead>
                         <tr>
                             <th>Expenditure</th>
-                            <th>Item Price</th>
+                            <th>Cost</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -139,27 +200,37 @@
         <p><strong>Total Estimated Proceeds:</strong> <?php echo e($annexa->total_estimated_proceeds ?? 'N/A'); ?></p>
     </div>
         
-        <div class="other_info">
-            <h3>Other Information</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Coordinator</th>
-                        <th>Participants</th>
-                        <th>Utilization Plan</th>
-                        <th>Solicitation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+    <div class="other_info">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Coordinators</th>
+                    <th>Participants</th>
+                    <th>Utilization Plan</th>
+                    <th>Solicitation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <?php
+                            $coordinator = json_decode($annexa->coordinator) ?? [];
+                        ?>
+                        <?php if(is_array($coordinator) && count($coordinator) > 0): ?>
+                            <?php $__currentLoopData = $coordinator; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coordinatorItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php echo e($coordinatorItem); ?><?php if(!$loop->last): ?>, <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            N/A
+                        <?php endif; ?>
+                    </td>
+                    <td><?php echo e($annexa->participants ?? 'N/A'); ?></td>
+                    <td><?php echo e($annexa->utilization_plan ?? 'N/A'); ?></td>
+                    <td><?php echo e($annexa->solicitation ?? 'N/A'); ?></td>
+                </tr>
+            </tbody>
+        </table>      
     
-                        <td><?php echo e($annexa->coordinator ?? 'N/A'); ?></td>
-                        <td><?php echo e($annexa->participants ?? 'N/A'); ?></td>
-                        <td><?php echo e($annexa->utilization_plan ?? 'N/A'); ?></td>
-                        <td><?php echo e($annexa->solicitation ?? 'N/A'); ?></td>
-                    </tr>
-                </tbody>
-            </table>
 
         <table class="table">
             <thead>

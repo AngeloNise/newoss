@@ -180,7 +180,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Coordinator</th>
+                    <th>Coordinators</th>
                     <th>Participants</th>
                     <th>Utilization Plan</th>
                     <th>Solicitation</th>
@@ -188,15 +188,25 @@
             </thead>
             <tbody>
                 <tr>
-
-                    <td>{{ $annexa->coordinator ?? 'N/A' }}</td>
+                    <td>
+                        @php
+                            $coordinator = json_decode($annexa->coordinator) ?? [];
+                        @endphp
+                        @if (is_array($coordinator) && count($coordinator) > 0)
+                            @foreach ($coordinator as $coordinatorItem)
+                                {{ $coordinatorItem }}@if (!$loop->last), @endif
+                            @endforeach
+                        @else
+                            N/A
+                        @endif
+                    </td>
                     <td>{{ $annexa->participants ?? 'N/A' }}</td>
                     <td>{{ $annexa->utilization_plan ?? 'N/A' }}</td>
                     <td>{{ $annexa->solicitation ?? 'N/A' }}</td>
                 </tr>
             </tbody>
-        </table>
-
+        </table>      
+        
         <table class="table">
             <thead>
                 <tr>

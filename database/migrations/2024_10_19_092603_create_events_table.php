@@ -21,6 +21,7 @@ class CreateEventsTable extends Migration
             $table->string('image')->nullable(); // Path to the event image
             $table->string('category')->default('In-Campus'); // Category (In-Campus, Off-Campus, etc.)
             $table->string('organization'); // Organization that created the event
+            $table->string('department')->nullable(); // Department column added
             $table->timestamps(); // Created and updated timestamps
         });
     }

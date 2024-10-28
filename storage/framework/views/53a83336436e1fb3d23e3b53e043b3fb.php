@@ -56,15 +56,16 @@
         
         <label id="overlay" for="sidebar"></label>
 
-        <div class="link-container">
+        <div class="link-container" >
             <label for="sidebar" class="close">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
             </label>
             <ul>
                 <li><a href="<?php echo e(url('/Homepage')); ?>">Home</a></li>
-                <li><a href="<?php echo e(url('/Account-Settings')); ?>">Account Settings</a></li>
+                <br>
+                <li><a href="<?php echo e(url('/Pre-Evaluation')); ?>">Pre-Evaluation</a></li>
                 <div class="tooltip">
-                    <p class="dropdown-toggle" data-target="application-dropdown">Application</p>
+                    <p class="dropdown-toggle" data-target="application-dropdown">Application History</p>
                     <div class="tooltiptext">Application History</div>
                 </div>
                 <ul id="application-dropdown" class="dropdown">
@@ -73,11 +74,10 @@
                     <li><a href="<?php echo e(url('/Off-Campus-History')); ?>">Off-Campus Activity</a></li>
                 </ul>
                 <li><a href="<?php echo e(url('/Download')); ?>">Download Forms</a></li>
-                <li><a href="<?php echo e(url('/Pre-Evaluation')); ?>">Pre-Evaluation</a></li>
-                <li><a href="<?php echo e(url('/Pre-Evaluation-PDF')); ?>">View / Download PDF</a></li>
-                <p>Upcoming Events</p>
-                <li><a href="<?php echo e(url('/In-Campus')); ?>">In-Campus</a></li>
-                <li><a href="#">Off-Campus</a></li>
+                <li><a href="<?php echo e(url('/Pre-Evaluation-PDF')); ?>">Generate / Download PDF</a></li>
+                <li><a href="<?php echo e(url('/In-Campus')); ?>">Upcoming In-Campus Events</a></li>
+                <br><br><br><br><br><br><br>
+                <li><a href="<?php echo e(url('/Account-Settings')); ?>">Account Settings</a></li>
             </ul>            
         </div>   
     </div>  

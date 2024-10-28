@@ -147,63 +147,76 @@
         <?php endif; ?>
     </div>
     <div class="fra-container page-break">
-    <div class="other_info "> 
-        <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
-            <tbody>
-                <tr>
-                    <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">3. Total Estimated Proceeds (1e-2a)</th>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black; padding: 1.5px;"><?php echo e($annexa->total_estimated_proceeds ?? 'N/A'); ?></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="other_info "> 
+            <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
+                <tbody>
+                    <tr>
+                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">3. Total Estimated Proceeds (1e-2a)</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 1.5px;"><?php echo e($annexa->total_estimated_proceeds ?? 'N/A'); ?></td>
+                    </tr>
+                </tbody>
+            </table>
 
 
-        <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
-            <tbody>
-                <tr>
-                    <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">4. Proceeds Utilization Plan/Budget Proposal (use extra sheet if necessary)</th>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black; padding: 1.5px;"><?php echo e($annexa->utilization_plan ?? 'N/A'); ?></td>
-                </tr>
-            </tbody>
-        </table>
-    
-        <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
-            <tbody>
-                <tr>
-                    <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">5. Solicitation/Lists of Donors (Pls. provide extra sheet if necessary)</th>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black; padding: 1.5px;"><?php echo e($annexa->solicitation ?? 'N/A'); ?></td>
-                </tr>
-            </tbody>
-        </table>
-    
-        <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
-            <tbody>
-                <tr>
-                    <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">6. Lists of Officials/Coordinator (pls. use extra sheet)</th>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black; padding: 1.5px;"><?php echo e($annexa->coordinator ?? 'N/A'); ?></td>
-                </tr>
-            </tbody>
-        </table>
-    
-        <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
-            <tbody>
-                <tr>
-                    <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">7. Lists of Participants (if necessary)</th>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black; padding: 1.5px;"><?php echo e($annexa->participants ?? 'N/A'); ?></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+            <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
+                <tbody>
+                    <tr>
+                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">4. Proceeds Utilization Plan/Budget Proposal (use extra sheet if necessary)</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 1.5px;"><?php echo e($annexa->utilization_plan ?? 'N/A'); ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
+                <tbody>
+                    <tr>
+                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">5. Solicitation/Lists of Donors (Pls. provide extra sheet if necessary)</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 1.5px;"><?php echo e($annexa->solicitation ?? 'N/A'); ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
+                <tbody>
+                    <tr>
+                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">6. Lists of Officials/Coordinators (pls. use extra sheet)</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 1.5px;">
+                            <?php
+                                $coordinators = json_decode($annexa->coordinator) ?? [];
+                            ?>
+                            <?php if(is_array($coordinators) && count($coordinators) > 0): ?>
+                                <?php $__currentLoopData = $coordinators; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coordinator): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php echo e($coordinator ?? 'N/A'); ?><br>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php else: ?>
+                                N/A
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            
+        
+            <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
+                <tbody>
+                    <tr>
+                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">7. Lists of Participants (if necessary)</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 1.5px;"><?php echo e($annexa->participants ?? 'N/A'); ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <br>
     <div class="head_info" style="width: 100%; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 10px;">

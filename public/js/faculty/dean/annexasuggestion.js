@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const addSuggestionForm = () => {
         const newFormGroup = document.createElement('div');
-        newFormGroup.classList.add('split', 'suggestion-group'); // Add necessary classes for styling
+        newFormGroup.classList.add('split', 'suggestion-group');
 
         newFormGroup.innerHTML = `
             <div class="form-group">
@@ -23,41 +23,30 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
-        suggestionsContainer.appendChild(newFormGroup); // Append the new form group to the container
+        suggestionsContainer.appendChild(newFormGroup);
+
+        // Scroll to the newly added suggestion
+        newFormGroup.scrollIntoView({ behavior: "smooth", block: "start" });
     };
 
-    // Event listener for adding a new suggestion
     if (addSuggestionButton) {
         addSuggestionButton.addEventListener('click', function() {
-            addSuggestionForm(); // Call to add new suggestion form
-            addSuggestionButton.scrollIntoView({ behavior: "smooth", block: "end" }); // Scroll button into view
-        });
-    }
-
-    // Event listener for removing the last suggestion form group
-    if (removeSuggestionButton) {
-        removeSuggestionButton.addEventListener('click', function() {
-            const addedSuggestions = suggestionsContainer.querySelectorAll('.suggestion-group');
-            if (addedSuggestions.length > 0) {
-                suggestionsContainer.removeChild(addedSuggestions[addedSuggestions.length - 1]); // Remove the last suggestion
+            // Check if the form is valid before adding a new suggestion
+            const form = document.getElementById('suggestions-form');
+            if (form.checkValidity()) {
+                addSuggestionForm();
+            } else {
+                // Optionally, you can highlight or show a message about invalid fields
+                form.reportValidity(); // This will show validation messages
             }
         });
     }
 
-    const submitBothButton = document.getElementById('submit-both');
-
-    if (submitBothButton) {
-        submitBothButton.addEventListener('click', function() {
-            const statusForm = document.getElementById('status-update-form');
-            const suggestionsForm = document.getElementById('suggestions-form');
-
-            if (statusForm.checkValidity() && suggestionsForm.checkValidity()) {
-                statusForm.submit();
-                setTimeout(() => {
-                    suggestionsForm.submit();
-                }, 500);
-            } else {
-                alert('Please fill in all required fields.');
+    if (removeSuggestionButton) {
+        removeSuggestionButton.addEventListener('click', function() {
+            const addedSuggestions = suggestionsContainer.querySelectorAll('.suggestion-group');
+            if (addedSuggestions.length > 0) {
+                suggestionsContainer.removeChild(addedSuggestions[addedSuggestions.length - 1]);
             }
         });
     }

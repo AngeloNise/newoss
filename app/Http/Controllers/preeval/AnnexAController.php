@@ -44,12 +44,14 @@ class AnnexAController extends Controller
             'total_estimated_proceeds' => 'required|string',
             'utilization_plan' => 'nullable|string',
             'solicitation' => 'nullable|string',
-            'coordinator' => 'nullable|string',
+            'coordinator' => 'nullable|array',
+            'coordinator.*' => 'nullable|string',
             'participants' => 'nullable|string',
             'president' => 'nullable|string',
             'treasurer' => 'nullable|string',
             'email' => 'required|email',
         ];
+        
     }
 
     protected function prepareData(array $validated, $user)
@@ -77,12 +79,12 @@ class AnnexAController extends Controller
             'total_estimated_proceeds' => $validated['total_estimated_proceeds'],
             'utilization_plan' => $validated['utilization_plan'],
             'solicitation' => $validated['solicitation'],
-            'coordinator' => $validated['coordinator'],
+            'coordinator' => json_encode($validated['coordinator'] ?? []),
             'participants' => $validated['participants'],
             'president' => $validated['president'],
             'treasurer' => $validated['treasurer'],
             'email' => $validated['email'],
-            'color' => $user->color, // Assuming the AnnexA model has a 'color' field
+            'branch' => $user->branch, // Assuming the AnnexA model has a 'branch' field
         ];
     }
 
@@ -115,7 +117,7 @@ class AnnexAController extends Controller
 
         // Show a success message
         Session::flash('success', 'Your form has passed the first evaluation');
-        return redirect()->route('org.auth.sidebar.preevalfra');
+        return redirect()->route('org.auth.sidebar.preeval');
     }
 
     public function edit($id)
@@ -178,13 +180,12 @@ class AnnexAController extends Controller
             'total_estimated_proceeds' => $validatedData['total_estimated_proceeds'],
             'utilization_plan' => $validatedData['utilization_plan'],
             'solicitation' => $validatedData['solicitation'],
-            'coordinator' => $validatedData['coordinator'],
+            'coordinator' => is_array($validatedData['coordinator']) ? json_encode($validatedData['coordinator']) : null, // Updated to check if it's an array
             'participants' => $validatedData['participants'],
             'president' => $validatedData['president'],
             'treasurer' => $validatedData['treasurer'],
             'email' => $validatedData['email'],
-        ];
-    
+        ];        
         // Update the fields using mass assignment with the prepared data
         $annexA->fill($dataToUpdate);
     

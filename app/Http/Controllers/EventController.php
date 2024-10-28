@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Gate;
+
 
 class EventController extends Controller
 {
@@ -33,7 +35,7 @@ class EventController extends Controller
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'href' => 'required|url',
-        'image' => 'required|image|max:2048',
+        'image' => 'required|image',
         'event_date' => 'required|date|after:today',
         'department' => 'required|string|max:255', // Validate the department input
     ]);
@@ -96,7 +98,7 @@ class EventController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'href' => 'required|url',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'required|image',
             'event_date' => 'required|date|after:today',
             'department' => 'required|string|max:255', // Validate the department input
         ]);
@@ -134,7 +136,102 @@ class EventController extends Controller
         // Return the view with the filtered events
         return view('guest.incampusg', compact('events'));
     }
-    
+    public function adminIndex()
+    {
+        $events = Event::all(); // Fetch all events or adjust as needed
+        return view('faculty.auth.managepost', compact('events'));
+    }
+
+    //Faculty side
+    public function facultyCreate()
+{
+    return view('faculty.auth.faculty_create_event');
+}
+
+public function facultyStore(Request $request)
+{
+
+    if (Gate::denies('create', Event::class)) {
+        abort(403, 'Unauthorized action.');
+    }
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'href' => 'required|url',
+        'image' => 'required|image',
+        'event_date' => 'required|date|after:today',
+        'department' => 'required|string|max:255',
+    ]);
+
+    $imagePath = $request->file('image')->store('events', 'public');
+     // Set organization value (replace 'Default Organization' with appropriate logic if needed)
+     $organization = Auth::user()->name_of_organization ?? 'Default Organization';
+
+     Event::create([
+        'title' => $request->title,
+        'description' => $request->description,
+        'href' => $request->href,
+        'image' => $imagePath,
+        'category' => 'In-Campus',
+        'organization' => $organization, // Make sure this is not null
+        'event_date' => $request->event_date,
+        'department' => $request->department,
+    ]);
+
+    return redirect()->route('faculty.managePost')->with('success', 'Event created successfully!');
+}
+
+public function facultyEdit($id)
+{
+    $event = Event::findOrFail($id);
+    return view('faculty.auth.faculty_edit_event', compact('event'));
+}
+
+public function facultyUpdate(Request $request, $id)
+{
+    $event = Event::findOrFail($id);
+
+    if (Gate::denies('update', $event)) {
+        abort(403, 'Unauthorized action.');
+    }
+
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'href' => 'required|url',
+        'image' => 'required|image',
+        'event_date' => 'required|date|after:today',
+        'department' => 'required|string|max:255',
+    ]);
+
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('events', 'public');
+        $event->image = $imagePath;
+    }
+
+    $event->title = $request->title;
+    $event->description = $request->description;
+    $event->href = $request->href;
+    $event->event_date = $request->event_date;
+    $event->department = $request->department;
+
+    $event->save();
+
+    return redirect()->route('faculty.managePost')->with('success', 'Event updated successfully!');
+}
+
+public function facultyDestroy($id)
+{
+    $event = Event::findOrFail($id);
+
+    // Optional: Add authorization check if needed
+    if (Gate::denies('delete', $event)) {
+        abort(403, 'Unauthorized action.');
+    }
+
+    $event->delete();
+    return redirect()->route('faculty.managePost')->with('success', 'Event deleted successfully!');
+}
 
 
 }

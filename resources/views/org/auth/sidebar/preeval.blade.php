@@ -1,13 +1,20 @@
 @extends('layout.orglayout')
 @section('content')
+@if(Session::has('success'))
+    <script>
+        window.flashMessage = {
+            message: "{{ Session::get('success') }}",
+            type: "success"
+        };
+    </script>
+@endif
 <div class="content-container">
     <h1>Pre Evaluation</h1>
     <div class="activity-question">
         <p>What type of Activity?</p>
     </div>
     <div class="activity-buttons">
-        <a href="{{ url('/Fund-Raising') }}" class="button">Fund Raising Activity</a>
-        <a href="{{ url('/In-Campus-Activity') }}" class="button">In-Campus Activity</a>
+        <a href="{{ url('/FRA/Annex-A') }}" class="button">Fund Raising Activity</a>
         <a href="{{ url('/Off-Campus-Activity') }}" class="button">Off-Campus Activity</a>
     </div>
     <div class="note">

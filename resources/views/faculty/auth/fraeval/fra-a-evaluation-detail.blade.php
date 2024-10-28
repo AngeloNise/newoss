@@ -5,6 +5,67 @@
     <h2>Evaluation Details</h2>
 
     <div class="org_info">
+        <form id="status-update-form" action="{{ route('faculty.fra-a-evaluation.update-status', $annexa->id) }}" method="POST" class="mb-4">
+            @csrf
+            @method('PUT')
+            <div class="form-group">
+                <label for="status">Update Status</label>
+                <select name="new_status" id="status" class="form-control" required>
+                    <option value="" disabled selected>Select new status</option>
+                    <option value="Pending Approval" {{ $annexa->status === 'Pending Approval' ? 'selected' : '' }}>Pending Approval</option>
+                    <option value="Approved" {{ $annexa->status === 'Approved' ? 'selected' : '' }}>Approved</option>
+                    <option value="Returned" {{ $annexa->status === 'Returned' ? 'selected' : '' }}>Returned</option>
+                </select>
+                <div class="split">
+                    <button type="submit" class="btn btn-primary">Update Status</button>
+                    <a href="{{ route('faculty.fra-a-evaluation.suggestion', $annexa->id) }}" class="btn btn-secondary">Evaluate</a>
+                </div>
+            </div>
+
+            <div class="suggestions">
+                @if ($annexa->suggestions->isEmpty())
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Section</th>
+                                <th>Suggestion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>None</td>
+                                <td>No current suggestions/comments</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                @else
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Section</th>
+                                <th>Comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($annexa->suggestions->sortByDesc('created_at') as $suggestion)
+                                @php
+                                    $sections = json_decode($suggestion->section, true);
+                                    $comments = json_decode($suggestion->comment, true);
+                                @endphp
+        
+                                @foreach ($sections as $index => $section)
+                                    <tr>
+                                        <td>{{ $section ?? 'N/A' }}</td>
+                                        <td>{{ $comments[$index] ?? 'N/A' }}</td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
+            </div>
+        </form>
+        
         <h3>Project Information</h3>
         <table class="table">
             <thead>
@@ -140,27 +201,37 @@
         <p><strong>Total Estimated Proceeds:</strong> {{ $annexa->total_estimated_proceeds ?? 'N/A' }}</p>
     </div>
         
-        <div class="other_info">
-            <h3>Other Information</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Coordinator</th>
-                        <th>Participants</th>
-                        <th>Utilization Plan</th>
-                        <th>Solicitation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+    <div class="other_info">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Coordinators</th>
+                    <th>Participants</th>
+                    <th>Utilization Plan</th>
+                    <th>Solicitation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @php
+                            $coordinator = json_decode($annexa->coordinator) ?? [];
+                        @endphp
+                        @if (is_array($coordinator) && count($coordinator) > 0)
+                            @foreach ($coordinator as $coordinatorItem)
+                                {{ $coordinatorItem }}@if (!$loop->last), @endif
+                            @endforeach
+                        @else
+                            N/A
+                        @endif
+                    </td>
+                    <td>{{ $annexa->participants ?? 'N/A' }}</td>
+                    <td>{{ $annexa->utilization_plan ?? 'N/A' }}</td>
+                    <td>{{ $annexa->solicitation ?? 'N/A' }}</td>
+                </tr>
+            </tbody>
+        </table>      
     
-                        <td>{{ $annexa->coordinator ?? 'N/A' }}</td>
-                        <td>{{ $annexa->participants ?? 'N/A' }}</td>
-                        <td>{{ $annexa->utilization_plan ?? 'N/A' }}</td>
-                        <td>{{ $annexa->solicitation ?? 'N/A' }}</td>
-                    </tr>
-                </tbody>
-            </table>
 
         <table class="table">
             <thead>

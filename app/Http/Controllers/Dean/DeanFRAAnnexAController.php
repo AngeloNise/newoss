@@ -11,9 +11,9 @@ class DeanFRAAnnexAController extends Controller
 {
     public function index()
     {
-        $userColor = auth()->check() ? auth()->user()->color : null;
-        $applications = $userColor 
-            ? AnnexA::where('color', $userColor)->orderBy('updated_at', 'desc')->get() // Change 'start_date' to your desired column
+        $userBranch = auth()->check() ? auth()->user()->branch : null;
+        $applications = $userBranch 
+            ? AnnexA::where('branch', $userBranch)->orderBy('updated_at', 'desc')->get()
             : collect();
     
         return view('dean.auth.fra-a-evaluation', compact('applications'));
@@ -27,8 +27,8 @@ class DeanFRAAnnexAController extends Controller
 
     public function sidenotif()
     {
-        $userColor = auth()->check() ? auth()->user()->color : null;
-        $notifications = $userColor ? AnnexA::where('color', $userColor)
+        $userBranch = auth()->check() ? auth()->user()->branch : null;
+        $notifications = $userBranch ? AnnexA::where('branch', $userBranch)
             ->orderBy('updated_at', 'desc')
             ->get()
             ->map(function ($application) {
@@ -46,16 +46,14 @@ class DeanFRAAnnexAController extends Controller
         return view('dean.auth.dashboard', compact('notifications'));
     }
 
-
     public function suggestion($id)
     {
         $application = AnnexA::findOrFail($id);
         return view('dean.auth.fra-a-evaluation-suggestion', compact('application'));
     }
 
-    public function storeSuggestion(Request $request, $id = null)
+    public function storeSuggestion(Request $request, $id)
     {
-        // Validation rules
         $request->validate([
             'section' => 'required|array',
             'section.*' => 'required|string|max:255',
@@ -63,32 +61,17 @@ class DeanFRAAnnexAController extends Controller
             'comment.*' => 'required|string',
         ]);
     
-        // Check if we're updating an existing suggestion
-        if ($id) {
-            // Find the suggestion by ID for updating
-            $frasuggestion = Frasuggestion::findOrFail($id);
-            
-            // Update fields
-            $frasuggestion->section = json_encode($request->section);
-            $frasuggestion->comment = json_encode($request->comment);
-            $frasuggestion->status = $request->input('status', 'Pending Approval'); // Default if not provided
-            $frasuggestion->save();
+        // Create a new suggestion
+        Frasuggestion::create([
+            'application_id' => $id, // Use the application ID passed in the route
+            'section' => json_encode($request->section),
+            'comment' => json_encode($request->comment),
+        ]);
     
-            return redirect()->route('dean.fra-a-evaluation.show', $frasuggestion->application_id)
-                             ->with('success', 'Suggestion updated successfully!');
-        } else {
-            // Create a new suggestion
-            Frasuggestion::create([
-                'application_id' => $id, // Ensure you have the application ID for new suggestions
-                'section' => json_encode($request->section),
-                'comment' => json_encode($request->comment),
-            ]);
+        return redirect()->route('dean.fra-a-evaluation.show', $id)
+                         ->with('success', 'Suggestions submitted successfully!');
+    }
     
-            return redirect()->route('dean.fra-a-evaluation.show', $id)
-                             ->with('success', 'Suggestions submitted successfully!');
-        }
-    }    
-
     public function updateStatus(Request $request, $id)
     {
         $request->validate([

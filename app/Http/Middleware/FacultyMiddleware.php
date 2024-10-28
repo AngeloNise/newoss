@@ -15,7 +15,7 @@ class FacultyMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->is_admin == 1) {
+        if (auth()->check() && (auth()->user()->is_admin == 1 || auth()->user()->is_admin == 2)) {
             return $next($request);
         }
     

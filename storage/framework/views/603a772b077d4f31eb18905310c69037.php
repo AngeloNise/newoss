@@ -180,7 +180,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Coordinator</th>
+                    <th>Coordinators</th>
                     <th>Participants</th>
                     <th>Utilization Plan</th>
                     <th>Solicitation</th>
@@ -188,15 +188,25 @@
             </thead>
             <tbody>
                 <tr>
-
-                    <td><?php echo e($annexa->coordinator ?? 'N/A'); ?></td>
+                    <td>
+                        <?php
+                            $coordinator = json_decode($annexa->coordinator) ?? [];
+                        ?>
+                        <?php if(is_array($coordinator) && count($coordinator) > 0): ?>
+                            <?php $__currentLoopData = $coordinator; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coordinatorItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php echo e($coordinatorItem); ?><?php if(!$loop->last): ?>, <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            N/A
+                        <?php endif; ?>
+                    </td>
                     <td><?php echo e($annexa->participants ?? 'N/A'); ?></td>
                     <td><?php echo e($annexa->utilization_plan ?? 'N/A'); ?></td>
                     <td><?php echo e($annexa->solicitation ?? 'N/A'); ?></td>
                 </tr>
             </tbody>
-        </table>
-
+        </table>      
+        
         <table class="table">
             <thead>
                 <tr>

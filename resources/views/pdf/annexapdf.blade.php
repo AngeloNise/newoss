@@ -146,63 +146,76 @@
         @endif
     </div>
     <div class="fra-container page-break">
-    <div class="other_info "> 
-        <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
-            <tbody>
-                <tr>
-                    <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">3. Total Estimated Proceeds (1e-2a)</th>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black; padding: 1.5px;">{{ $annexa->total_estimated_proceeds ?? 'N/A' }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="other_info "> 
+            <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
+                <tbody>
+                    <tr>
+                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">3. Total Estimated Proceeds (1e-2a)</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 1.5px;">{{ $annexa->total_estimated_proceeds ?? 'N/A' }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
 
-        <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
-            <tbody>
-                <tr>
-                    <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">4. Proceeds Utilization Plan/Budget Proposal (use extra sheet if necessary)</th>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black; padding: 1.5px;">{{ $annexa->utilization_plan ?? 'N/A' }}</td>
-                </tr>
-            </tbody>
-        </table>
-    
-        <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
-            <tbody>
-                <tr>
-                    <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">5. Solicitation/Lists of Donors (Pls. provide extra sheet if necessary)</th>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black; padding: 1.5px;">{{ $annexa->solicitation ?? 'N/A' }}</td>
-                </tr>
-            </tbody>
-        </table>
-    
-        <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
-            <tbody>
-                <tr>
-                    <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">6. Lists of Officials/Coordinator (pls. use extra sheet)</th>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black; padding: 1.5px;">{{ $annexa->coordinator ?? 'N/A' }}</td>
-                </tr>
-            </tbody>
-        </table>
-    
-        <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
-            <tbody>
-                <tr>
-                    <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">7. Lists of Participants (if necessary)</th>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black; padding: 1.5px;">{{ $annexa->participants ?? 'N/A' }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+            <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
+                <tbody>
+                    <tr>
+                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">4. Proceeds Utilization Plan/Budget Proposal (use extra sheet if necessary)</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 1.5px;">{{ $annexa->utilization_plan ?? 'N/A' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
+                <tbody>
+                    <tr>
+                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">5. Solicitation/Lists of Donors (Pls. provide extra sheet if necessary)</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 1.5px;">{{ $annexa->solicitation ?? 'N/A' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
+                <tbody>
+                    <tr>
+                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">6. Lists of Officials/Coordinators (pls. use extra sheet)</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 1.5px;">
+                            @php
+                                $coordinators = json_decode($annexa->coordinator) ?? [];
+                            @endphp
+                            @if (is_array($coordinators) && count($coordinators) > 0)
+                                @foreach ($coordinators as $coordinator)
+                                    {{ $coordinator ?? 'N/A' }}<br>
+                                @endforeach
+                            @else
+                                N/A
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            
+        
+            <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid black; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 17px;">
+                <tbody>
+                    <tr>
+                        <th style="border: 1px solid black; padding: 1.5px; text-align: left; width: 28%;">7. Lists of Participants (if necessary)</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 1.5px;">{{ $annexa->participants ?? 'N/A' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <br>
     <div class="head_info" style="width: 100%; font-family: 'Calibri', sans-serif; font-size: 11px; margin-top: 10px;">

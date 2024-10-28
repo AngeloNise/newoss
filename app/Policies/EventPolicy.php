@@ -11,20 +11,30 @@ class EventPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine if the given user can update the event.
+     * Determine if the user can create events.
      */
-    public function update(User $user, Event $event)
+    public function create(User $user)
     {
-        // Only allow the user to update if their organization matches
-        return $user->name_of_organization === $event->organization;
+        return $user->is_admin == 1 || $user->is_admin == 2; // Allow if user is admin or organization user
     }
 
-    /**
-     * Determine if the given user can delete the event.
-     */
-    public function delete(User $user, Event $event)
+    public function update(User $user, Event $event)
     {
-        // Only allow the user to delete if their organization matches
+        // Admins can update any event
+        if ($user->is_admin == 1) {
+            return true;
+        }
+        // Organization users can only update their own organization's events
         return $user->name_of_organization === $event->organization;
     }
-}
+    
+    public function delete(User $user, Event $event)
+    {
+        // Admins can delete any event
+        if ($user->is_admin == 1) {
+            return true;
+        }
+        // Organization users can only delete their own organization's events
+        return $user->name_of_organization === $event->organization;
+    }
+}    

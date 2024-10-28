@@ -14,7 +14,7 @@ class CreateFrasuggestionsTable extends Migration
             $table->json('section'); // JSON field to store sections as an array
             $table->json('comment'); // JSON field to store comments as an array
             $table->timestamps(); // Created at and updated at timestamps
-        });
+        });        
     }
 
     public function down()

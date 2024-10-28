@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('annexas', function (Blueprint $table) {
             $table->id();
-            $table->text('email'); // Consider using string if you want to enforce a format
+            $table->text('email');
             $table->text('name_of_project');
             $table->text('start_date');
             $table->text('end_date');
@@ -40,10 +40,11 @@ return new class extends Migration
             $table->text('participants')->nullable();
             $table->text('president')->nullable();
             $table->text('treasurer')->nullable();
-            $table->text('color')->nullable();
+            $table->text('branch')->nullable();
+            $table->string('activity')->default('FRA');
             $table->enum('status', ['Pending Approval', 'Returned', 'Approved'])->default('Pending Approval')->nullable();
             $table->timestamps();
-        });        
+        });
     }
 
     /**

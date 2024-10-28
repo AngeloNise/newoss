@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
 <div class="content-container">
     <h1>Evaluation Form</h1>
