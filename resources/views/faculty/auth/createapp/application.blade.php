@@ -21,6 +21,12 @@
 @endif
 
 <div class="fra-container">
+    
+    <form action="{{ route('faculty.application.index') }}" method="GET" class="mb-3">
+        <input type="text" name="search" class="form-control" placeholder="Search by project name, organization, or branch" value="{{ request('search') }}">
+        <button type="submit" class="btn btn-primary mt-2">Search</button>
+    </form>
+
     <form action="{{ route('faculty.application.store') }}" method="POST">
         @csrf
         <h2>CREATE APPLICATION</h2>
