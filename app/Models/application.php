@@ -13,9 +13,13 @@ class Application extends Model
         'name_of_project',
         'name_of_organization',
         'proposed_activity',
+        'start_date',
+        'end_date',
+        'college_branch',
+        'total_estimated_income',
         'status',
         'current_file_location',
-        'submission_date',
+        'submission_date'
     ];
 
     public function user()

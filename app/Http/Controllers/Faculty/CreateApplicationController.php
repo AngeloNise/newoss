@@ -25,6 +25,10 @@ class CreateApplicationController extends Controller
             'name_of_project' => 'required|string',
             'name_of_organization' => 'required|string',
             'proposed_activity' => 'required|string',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
+            'college_branch' => 'nullable|string',
+            'total_estimated_income' => 'nullable|numeric',
         ]);
     
         // Create a new application instance
@@ -35,11 +39,18 @@ class CreateApplicationController extends Controller
         $application->status = 'pending approval'; 
         $application->current_file_location = 'OSS'; 
         $application->submission_date = now();
+        
+        // Assign additional fields
+        $application->start_date = $validated['start_date'];
+        $application->end_date = $validated['end_date'];
+        $application->college_branch = $validated['college_branch'];
+        $application->total_estimated_income = $validated['total_estimated_income'];
     
         $application->save();
     
         Session::flash('success', 'Application created successfully.');
-        return redirect()->route('faculty.applicationadmin')->with('success', 'Application created successfully!'); // Change here
+        return redirect()->route('faculty.application.admin')->with('success', 'Application created successfully!');
+
     }
 
     // Method to display all applications
@@ -66,18 +77,31 @@ class CreateApplicationController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Validate the input
         $validated = $request->validate([
             'status' => 'required|string',
             'current_file_location' => 'required|string',
+            'start_date' => 'nullable|date',             // Added
+            'end_date' => 'nullable|date',               // Added
+            'college_branch' => 'nullable|string',       // Added
+            'total_estimated_income' => 'nullable|numeric', // Added
         ]);
 
+        // Find the application by ID or fail with a 404 error
         $application = Application::findOrFail($id);
+
+        // Update fields
         $application->status = $validated['status'];
         $application->current_file_location = $validated['current_file_location'];
+        $application->start_date = $validated['start_date'];                 // Added
+        $application->end_date = $validated['end_date'];                     // Added
+        $application->college_branch = $validated['college_branch'];         // Added
+        $application->total_estimated_income = $validated['total_estimated_income']; // Added
+        
         $application->save();
 
         Session::flash('success', 'Application updated successfully.');
-        return redirect()->route('faculty.applicationadmin')->with('success', 'Application updated successfully!');
+        return redirect()->route('faculty.application.admin')->with('success', 'Application updated successfully!'); // Ensure this matches
     }
 
     // Add the applicationAdmin method here

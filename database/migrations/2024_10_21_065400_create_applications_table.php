@@ -13,6 +13,10 @@ return new class extends Migration
             $table->string('name_of_project');
             $table->string('name_of_organization');
             $table->enum('proposed_activity', ['off campus', 'in campus', 'fund raising'])->nullable();
+            $table->date('start_date')->nullable(); // Added start_date
+            $table->date('end_date')->nullable(); // Added end_date
+            $table->string('college_branch')->nullable(); // Added college_branch
+            $table->decimal('total_estimated_income', 10, 2)->nullable(); // Added total_estimated_income
             $table->enum('status', ['Pending Approval', 'Returned', 'Approved'])->default('Pending Approval')->nullable();
             $table->enum('current_file_location', ['Forwarded by OSS', 'Returned to OSS', 'OSS'])->default('OSS')->nullable();
             $table->date('submission_date')->default(now());
