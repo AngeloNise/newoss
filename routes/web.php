@@ -67,10 +67,11 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         })->name('fra.evaluation');
 
         Route::get('/Application/create', [CreateApplicationController::class, 'create'])->name('application.create');
-        Route::post('/Application/create', [CreateApplicationController::class, 'store'])->name('application.store');
-        Route::get('/Application-Admin', [CreateApplicationController::class, 'applicationAdmin'])->name('application.admin');
-        
-
+        Route::post('/Application', [CreateApplicationController::class, 'store'])->name('application.store');
+        Route::get('/Applications', [CreateApplicationController::class, 'index'])->name('applications.index');
+        Route::get('/Applications/{id}', [CreateApplicationController::class, 'show'])->name('applications.show');
+        Route::put('/Applications/{id}', [CreateApplicationController::class, 'update'])->name('application.update');
+        Route::get('/application/admin', [CreateApplicationController::class, 'applicationAdmin'])->name('applicationadmin'); // Make sure this matches
 
         // New Routes for Evaluation Activities
         Route::get('/FRA-A-Evaluation', [FacultyFRAAnnexAController::class, 'index'])->name('fra-a-evaluation.index');

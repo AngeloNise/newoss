@@ -6,32 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->text('email'); // Consider using string if you want to enforce a format
-            $table->text('activity');
-            $table->text('name_of_project');
-            $table->text('start_date');
-            $table->text('end_date');
-            $table->text('requesting_organization');
-            $table->text('college_branch');
-            $table->text('total_estimated_income');
+            $table->string('name_of_project');
+            $table->string('name_of_organization');
+            $table->enum('proposed_activity', ['off campus', 'in campus', 'fund raising'])->nullable();
             $table->enum('status', ['Pending Approval', 'Returned', 'Approved'])->default('Pending Approval')->nullable();
             $table->enum('current_file_location', ['Forwarded by OSS', 'Returned to OSS', 'OSS'])->default('OSS')->nullable();
+            $table->date('submission_date')->default(now());
             $table->timestamps();
-        });        
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('annexas');
+        Schema::dropIfExists('applications');
     }
 };

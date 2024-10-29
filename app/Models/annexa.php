@@ -40,7 +40,7 @@ class AnnexA extends Model // Class name is consistent with convention
         'president',
         'treasurer',
         'branch',
-        'activity',
+        'proposed_activity',
         'status',
     ];
 

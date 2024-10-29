@@ -41,7 +41,7 @@ return new class extends Migration
             $table->text('president')->nullable();
             $table->text('treasurer')->nullable();
             $table->text('branch')->nullable();
-            $table->string('activity')->default('FRA');
+            $table->string('proposed_activity')->default('FRA');
             $table->enum('status', ['Pending Approval', 'Returned', 'Approved'])->default('Pending Approval')->nullable();
             $table->timestamps();
         });
