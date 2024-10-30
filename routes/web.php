@@ -72,7 +72,9 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/Application', [ApplicationController::class, 'index'])->name('application.index');
         Route::get('/Applications/{id}', [CreateApplicationController::class, 'show'])->name('applications.show');
         Route::put('/Applications/{id}', [CreateApplicationController::class, 'update'])->name('application.update'); // Ensure this matches
-        
+        Route::get('/Applications/{id}/comments', [CreateApplicationController::class, 'createComment'])->name('applications.comments.create');
+        Route::post('/Applications/{id}/comments', [CreateApplicationController::class, 'storeComment'])->name('applications.comments.store');
+        Route::post('/Application', [CreateApplicationController::class, 'store'])->name('application.store');
 
         // New Routes for Evaluation Activities
         Route::get('/FRA-A-Evaluation', [FacultyFRAAnnexAController::class, 'index'])->name('fra-a-evaluation.index');
@@ -81,6 +83,8 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/FRA-A-Evaluation/{id}/suggestion', [FacultyFRAAnnexAController::class, 'suggestion'])->name('fra-a-evaluation.suggestion');
         Route::post('/FRA-A-Evaluation/{id}/suggestions', [FacultyFRAAnnexAController::class, 'storeSuggestion'])->name('fra-a-evaluation.store-suggestion');
         Route::put('/FRA-A-Evaluation/suggestions/{id}', [FacultyFRAAnnexAController::class, 'updateSuggestion'])->name('fra-a-evaluation.update-suggestion');
+        Route::get('/search/organization', [FacultyFRAAnnexAController::class, 'searchOrganization'])->name('search.organization');
+
 
 
 

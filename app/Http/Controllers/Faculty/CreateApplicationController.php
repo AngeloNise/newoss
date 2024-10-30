@@ -29,6 +29,7 @@ class CreateApplicationController extends Controller
             'end_date' => 'nullable|date',
             'college_branch' => 'nullable|string',
             'total_estimated_income' => 'nullable|numeric',
+            'place_of_activity' => 'nullable|string',
         ]);
     
         // Create a new application instance
@@ -45,6 +46,7 @@ class CreateApplicationController extends Controller
         $application->end_date = $validated['end_date'];
         $application->college_branch = $validated['college_branch'];
         $application->total_estimated_income = $validated['total_estimated_income'];
+        $application->place_of_activity = $validated['place_of_activity'];
     
         $application->save();
     
@@ -85,6 +87,7 @@ class CreateApplicationController extends Controller
             'end_date' => 'nullable|date',               // Added
             'college_branch' => 'nullable|string',       // Added
             'total_estimated_income' => 'nullable|numeric', // Added
+            'place_of_activity' => 'nullable|string',     // Added
         ]);
 
         // Find the application by ID or fail with a 404 error
@@ -97,6 +100,7 @@ class CreateApplicationController extends Controller
         $application->end_date = $validated['end_date'];                     // Added
         $application->college_branch = $validated['college_branch'];         // Added
         $application->total_estimated_income = $validated['total_estimated_income']; // Added
+        $application->place_of_activity = $validated['place_of_activity']; 
         
         $application->save();
 
@@ -113,4 +117,40 @@ class CreateApplicationController extends Controller
         // Return the view with the applications data
         return view('faculty.auth.applicationadmin', compact('applications'));
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function createComment($id)
+    {
+        // Find the application by ID or fail
+        $application = Application::findOrFail($id);
+        
+        // Pass the application to the renamed comment view
+        return view('faculty.auth.createapp.applicationcomment', compact('application'));
+    }
+    
+
+    public function storeComment(Request $request, $id)
+    {
+        // Validate the comment and document fields
+        $validated = $request->validate([
+            'comment' => 'required|string|max:500',
+            'document' => 'required|string', // Add validation for the document field
+        ]);
+    
+        // Find the application by ID
+        $application = Application::findOrFail($id);
+    
+        // Save the comment
+        $application->comments()->create([
+            'comment' => $validated['comment'],
+            'document' => $validated['document'], // Include document in the creation data
+            'user_id' => auth()->id(), // Assuming user is authenticated
+        ]);
+    
+        return redirect()->route('faculty.application.admin')->with('success', 'Comment added successfully.');
+    }    
 }

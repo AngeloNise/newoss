@@ -3,7 +3,7 @@
 <div class="application-detail-container">
     <a href="<?php echo e(route('faculty.application.admin')); ?>" class="btn btn-primary">Back</a>
     <h2>Application Details</h2>
-
+    <a href="<?php echo e(route('faculty.applications.comments.create', $application->id)); ?>" class="btn btn-secondary">Add Comment</a>
     <form id="applicationForm" method="POST" action="<?php echo e(route('faculty.application.update', $application->id)); ?>">
         <?php echo csrf_field(); ?>
         <?php echo method_field('PUT'); ?>
@@ -68,7 +68,7 @@
             </table>
         </div>
 
-        <button type="button" class="btn btn-success" onclick="confirmChanges()">Commit Changes</button>
+        <button type="button" class="btn btn-success" onclick="confirmChanges()">Save</button>
     </form>
 </div>
 

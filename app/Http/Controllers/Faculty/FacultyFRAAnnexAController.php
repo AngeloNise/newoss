@@ -79,4 +79,24 @@ class FacultyFRAAnnexAController extends Controller
         return redirect()->route('faculty.fra-a-evaluation.show', $id)
                          ->with('success', 'Status updated successfully!');
     }
+
+    public function searchOrganization(Request $request)
+    {
+        $query = $request->input('query');
+        $organizations = AnnexA::where('requesting_organization', 'LIKE', "%{$query}%")
+                                ->orWhere('name_of_project', 'LIKE', "%{$query}%")
+                                ->get();
+    
+        $output = '';
+        if ($organizations->isEmpty()) {
+            $output .= '<li class="list-group-item">No results found</li>';
+        } else {
+            foreach ($organizations as $organization) {
+                $output .= '<li class="list-group-item organization-item" data-organization=\''. json_encode($organization) .'\'>'
+                            . htmlspecialchars($organization->requesting_organization) . ' - ' . htmlspecialchars($organization->name_of_project) . '</li>';
+            }
+        }
+    
+        return response($output);
+    }
 }

@@ -17,6 +17,7 @@ class Application extends Model
         'end_date',
         'college_branch',
         'total_estimated_income',
+        'place_of_activity',
         'status',
         'current_file_location',
         'submission_date'
@@ -25,5 +26,11 @@ class Application extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // Define the relationship to comments
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'application_id');
     }
 }

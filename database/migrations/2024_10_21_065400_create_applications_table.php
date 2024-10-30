@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('end_date')->nullable(); // Added end_date
             $table->string('college_branch')->nullable(); // Added college_branch
             $table->decimal('total_estimated_income', 10, 2)->nullable(); // Added total_estimated_income
+            $table->string('place_of_activity')->nullable(); // Added place_of_activity
             $table->enum('status', ['Pending Approval', 'Returned', 'Approved'])->default('Pending Approval')->nullable();
             $table->enum('current_file_location', ['Forwarded by OSS', 'Returned to OSS', 'OSS'])->default('OSS')->nullable();
             $table->date('submission_date')->default(now());

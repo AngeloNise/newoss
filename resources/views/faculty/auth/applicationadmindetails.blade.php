@@ -5,7 +5,7 @@
 <div class="application-detail-container">
     <a href="{{ route('faculty.application.admin') }}" class="btn btn-primary">Back</a>
     <h2>Application Details</h2>
-
+    <a href="{{ route('faculty.applications.comments.create', $application->id) }}" class="btn btn-secondary">Add Comment</a>
     <form id="applicationForm" method="POST" action="{{ route('faculty.application.update', $application->id) }}">
         @csrf
         @method('PUT')
@@ -70,7 +70,7 @@
             </table>
         </div>
 
-        <button type="button" class="btn btn-success" onclick="confirmChanges()">Commit Changes</button>
+        <button type="button" class="btn btn-success" onclick="confirmChanges()">Save</button>
     </form>
 </div>
 

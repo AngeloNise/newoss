@@ -278,9 +278,23 @@
             </div>
             
             <div class="fra-group">
-                <label for="coordinator">6. Lists of Officials/Coordinator</label>
-                <input type="text" id="coordinator" name="coordinator" class="form-control" 
-                    value="{{ old('coordinator', $annexA->coordinator ?? '') }}">
+                <div id="coordinator">
+                    <div class="fra-group">
+                        <label for="coordinator">6. Lists of Officials/Coordinators</label>
+                        @if (is_array(old('coordinator')))
+                            @foreach (old('coordinator') as $coordinator)
+                                <input type="text" id="coordinator" name="coordinator[]" class="form-control" value="{{ $coordinator }}">
+                            @endforeach
+                        @else
+                            <input type="text" id="coordinator" name="coordinator[]" class="form-control" value="">
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-coordinator">
+                <button type="button" id="remove-coordinator">Remove</button>
+                <button type="button" id="add-coordinator">Add</button>
             </div>
             
             <div class="fra-group">
