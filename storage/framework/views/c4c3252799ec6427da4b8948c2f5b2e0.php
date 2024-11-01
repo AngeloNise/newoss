@@ -1,7 +1,6 @@
 
 
 <?php $__env->startSection('content'); ?>
-
 <div class="history-container">
     <h2>Fund Raising Application History</h2>
 
@@ -21,7 +20,7 @@
             </thead>
             <tbody>
                 <?php $__currentLoopData = $applications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $application): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr>
+                <tr onclick="window.location='<?php echo e(url('Fund-Raising-History/applications/'.$application->id.'/comments')); ?>'" style="cursor: pointer;">
                     <td><?php echo e($application->name_of_project); ?></td>
                     <td><?php echo e($application->name_of_organization); ?></td>
                     <td><?php echo e($application->proposed_activity); ?></td>

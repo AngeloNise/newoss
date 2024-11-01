@@ -152,5 +152,13 @@ class CreateApplicationController extends Controller
         ]);
     
         return redirect()->route('faculty.application.admin')->with('success', 'Comment added successfully.');
-    }    
+    }
+
+    public function showComments($id)
+    {
+        $application = Application::findOrFail($id);
+        $comments = $application->comments()->with('user')->get();
+        
+        return view('org.auth.sidebar.history.frahistorydetails', compact('application', 'comments'));
+    }
 }

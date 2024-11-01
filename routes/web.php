@@ -185,6 +185,8 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     });
 
     Route::get('/Fund-Raising-History', [ApplicationHistoryController::class, 'frahistory'])->name('org.history.frahistory');
+    Route::get('Fund-Raising-History/applications/{id}/comments', [CreateApplicationController::class, 'showComments'])->name('fundraising.comments');
+
     Route::get('/In-Campus-History', [ApplicationHistoryController::class, 'icahistory'])->name('org.history.icahistory');
     Route::get('/Off-Campus-History', [ApplicationHistoryController::class, 'ocahistory'])->name('org.history.ocahistory');
 

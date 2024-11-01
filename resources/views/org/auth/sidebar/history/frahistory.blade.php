@@ -1,7 +1,6 @@
 @extends('layout.orglayout')
 
 @section('content')
-
 <div class="history-container">
     <h2>Fund Raising Application History</h2>
 
@@ -21,7 +20,7 @@
             </thead>
             <tbody>
                 @foreach($applications as $application)
-                <tr>
+                <tr onclick="window.location='{{ url('Fund-Raising-History/applications/'.$application->id.'/comments') }}'" style="cursor: pointer;">
                     <td>{{ $application->name_of_project }}</td>
                     <td>{{ $application->name_of_organization }}</td>
                     <td>{{ $application->proposed_activity }}</td>
