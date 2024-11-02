@@ -1,110 +1,103 @@
 .application-container {
-    width: 81%;
-    margin: 5% auto;
-    margin-left: 15%;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 50%; /* Centered width matching fra-container */
+    margin: 4% auto; /* Center the container */
+    padding: 30px; /* Adjusted padding */
+    background-color: #ffffff; /* White background */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Box shadow */
 }
 
 .application-container h2 {
     text-align: center;
-    font-size: 28px;
+    color: #333; /* Darker shade for the title */
     margin-bottom: 20px;
-    color: #333;
+    font-size: 24px; /* Adjusted font size */
 }
 
 .search-bar {
-    width: 60%;
+    width: 100%; /* Full width to match form-control */
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 1px solid #bdc3c7; /* Matching border */
+    border-radius: 6px; /* Rounded corners */
     font-size: 16px;
-    display: inline-block;
+    box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 .application-container .button,
 .application-container .btn {
     display: inline-block;
-    padding: 10px 15px;
+    padding: 12px 25px; /* Adjusted padding to match btn styles */
     margin-top: 20px;
     color: #fff;
-    background-color: #007bff;
+    background-color: #dc3545; /* Red color for evaluation */
     border: none;
-    border-radius: 5px;
+    border-radius: 6px; /* Rounded corners */
     text-align: center;
     text-decoration: none;
-    transition: background-color 0.3s ease;
-    float: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s;
 }
 
 .application-container .button:hover,
 .application-container .btn:hover {
-    background-color: #0056b3;
-    cursor: pointer;
+    background-color: #c82333; /* Darker red for hover */
+    transform: scale(1.03); /* Scale effect on hover */
 }
 
 .table {
     width: 100%;
-    margin: 0 auto;
     border-collapse: collapse;
     margin-bottom: 20px;
-    background-color: #fff;
+    background-color: #fff; /* Background color for table */
 }
 
 .table th, .table td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-    font-size: 16px;
+    padding: 12px; /* Matching padding */
+    text-align: center; /* Centered text */
+    border: 1px solid #bdc3c7; /* Matching border */
+    font-size: 16px; /* Font size */
 }
 
-.table thead th {
-    background-color: #007BFF;
-    color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
+.table th {
+    background-color: #007BFF; /* Header background color */
+    color: #ffffff; /* Header text color */
+    font-weight: bold; /* Bold text */
 }
 
 .table tbody tr:nth-child(odd) {
-    background-color: #f2f2f2;
+    background-color: #f2f2f2; /* Alternating row colors */
 }
 
 .table tbody tr:hover {
-    background-color: #e0f7fa;
+    background-color: #e0f7fa; /* Light blue hover effect */
     cursor: pointer;
 }
 
 @media (max-width: 768px) {
     .application-container {
-        width: 100%;
-        padding: 10px;
+        width: 100%; /* Full width on small screens */
+        padding: 15px; /* Reduced padding */
     }
 
     .table th, .table td {
-        font-size: 14px;
-        padding: 8px;
+        font-size: 14px; /* Smaller font size */
+        padding: 10px; /* Reduced padding */
     }
 
     .application-container h2 {
-        font-size: 24px;
+        font-size: 24px; /* Adjusted heading size */
     }
 
-    .table tbody tr:hover {
-        background-color: #d0e7ff;
-        cursor: pointer;
-    }
-
-    .button, .btn {
-        width: 100%;
-        padding: 12px;
+    .application-container .button,
+    .application-container .btn {
+        width: 100%; /* Full width buttons */
+        padding: 12px; /* Adjusted padding */
     }
 
     .search-bar {
-        padding: 8px;
-        font-size: 14px;
-        width: 80%;
+        padding: 8px; /* Reduced padding */
+        font-size: 14px; /* Smaller font size */
+        width: 80%; /* Slightly smaller width */
     }
 }

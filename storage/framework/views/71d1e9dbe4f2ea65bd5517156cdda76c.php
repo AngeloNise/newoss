@@ -39,8 +39,8 @@
         <button type="submit" id="submit-both" class="btn btn-primary">Send</button>
     </form>
 </div>
-
+<link rel="stylesheet" href="/css/faculty/fraevalsuggestion.css">
 <script src="<?php echo e(asset('js/faculty/dean/annexasuggestion.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layout.deanlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/fraeval/fra-a-evaluation-suggestion.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/fraeval/fra-a-evaluation-suggestion.blade.php ENDPATH**/ ?>

@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="fra-container">
-    <a href="http://127.0.0.1:8000/faculty/FRA-Evaluation" class="btn btn-secondary mb-3">Back</a>
+    <a href="{{ url('/faculty/Pre-Evaluation-Status') }}" class="btn btn-secondary mb-3">Back</a>
     <h2>FRA Evaluation Applications</h2>
     
     @if($applications->isEmpty())

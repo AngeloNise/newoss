@@ -46,4 +46,5 @@
         </form>
     </div>
 </div>
+<link rel="stylesheet" href="/css/faculty/applicationaddcomment.css">
 @endsection

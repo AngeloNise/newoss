@@ -17,4 +17,5 @@
             @endif
         </div>
     </div>
+    <link rel="stylesheet" href="/css/faculty/notif.css">
 @endsection

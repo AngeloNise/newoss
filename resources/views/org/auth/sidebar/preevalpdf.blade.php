@@ -17,7 +17,7 @@
                         <th>End Date</th>
                         <th>Total Estimated Income</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,22 +31,23 @@
                             <td>{{ $application->total_estimated_income }}</td>
                             <td>{{ $application->status }}</td>
                             <td>
-                                <button onclick="window.location='{{ route('org.fra-a-evaluation.show', $application->id) }}'" class="btn btn-primary">
-                                    View
-                                </button>
-
-                                @if($application->status === 'Approved')
-                                    <a href="{{ route('generate-pdf', ['id' => $application->id]) }}" class="btn btn-secondary" target="_blank">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;">
-                                            <path d="M12 3v9m0 0l3-3m-3 3l-3-3M4 21h16" />
-                                        </svg>
-                                        PDF
-                                    </a>
-                                @else
-                                    <div class="border p-2 text-muted" style="border-radius: 5px;">
-                                        PDF will be available once approved
-                                    </div>
-                                @endif
+                                <div class="split">
+                                    <button onclick="window.location='{{ route('org.fra-a-evaluation.show', $application->id) }}'" class="btn btn-primary">
+                                        View
+                                    </button>
+                                    @if($application->status === 'Approved')
+                                        <a href="{{ route('generate-pdf', ['id' => $application->id]) }}" class="btn btn-secondary" target="_blank">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;">
+                                                <path d="M12 3v9m0 0l3-3m-3 3l-3-3M4 21h16" />
+                                            </svg>
+                                            PDF
+                                        </a>
+                                    @else
+                                        <div class="border p-2 text-muted" style="border-radius: 5px;">
+                                            PDF will be available once approved
+                                        </div>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @endforeach

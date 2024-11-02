@@ -249,4 +249,5 @@
         </table>
     </div>
 </div>
+<link rel="stylesheet" href="/css/faculty/eval.css">
 @endsection

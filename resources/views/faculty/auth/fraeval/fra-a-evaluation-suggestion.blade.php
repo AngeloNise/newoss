@@ -1,4 +1,4 @@
-@extends('layout.deanlayout')
+@extends('layout.adminlayout')
 
 @section('content')
 <div class="suggestion-container">
@@ -39,6 +39,6 @@
         <button type="submit" id="submit-both" class="btn btn-primary">Send</button>
     </form>
 </div>
-
+<link rel="stylesheet" href="/css/faculty/fraevalsuggestion.css">
 <script src="{{ asset('js/faculty/dean/annexasuggestion.js') }}"></script>
 @endsection

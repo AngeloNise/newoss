@@ -34,6 +34,6 @@
             </table>    
         @endif
     </div>
-
+    <link rel="stylesheet" href="/css/faculty/application.css">
     <script src="/js/faculty/application.js"></script>
 @endsection

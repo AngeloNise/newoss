@@ -19,11 +19,6 @@
                         <th>Proposed Activity</th>
                         <th>Start Date</th>
                         <th>End Date</th>
-                        <th>College Branch</th>
-                        <th>Total Estimated Income</th>
-                        <th>Status</th>
-                        <th>Current File Location</th>
-                        <th>Submission Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,7 +34,22 @@
                         <td>
                             <input type="date" name="end_date" value="{{ $application->end_date }}" class="form-control">
                         </td>
+                    </tr>
+                </tbody>
+            </table>
 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>College Branch</th>
+                        <th>Total Estimated Income</th>
+                        <th>Status</th>
+                        <th>Current File Location</th>
+                        <th>Submission Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
                         <td>
                             <input type="text" name="college_branch" value="{{ $application->college_branch }}" class="form-control">
                         </td>
@@ -73,6 +83,6 @@
         <button type="button" class="btn btn-success" onclick="confirmChanges()">Save</button>
     </form>
 </div>
-
+<link rel="stylesheet" href="/css/faculty/applicationdetails.css">
 <script src="/js/faculty/applicationstatus.js"></script>
 @endsection

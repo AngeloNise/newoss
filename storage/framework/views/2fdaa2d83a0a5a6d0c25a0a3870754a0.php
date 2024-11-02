@@ -32,7 +32,7 @@
             </table>    
         <?php endif; ?>
     </div>
-
+    <link rel="stylesheet" href="/css/faculty/application.css">
     <script src="/js/faculty/application.js"></script>
 <?php $__env->stopSection(); ?>
 

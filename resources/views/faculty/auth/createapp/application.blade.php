@@ -71,7 +71,7 @@
                         <option value="{{ $organization }}">{{ $organization }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div>            
 
             <div class="fra-group">
                 <label for="college_branch">College Branch</label>
@@ -89,28 +89,31 @@
             </div>
         </div>
         
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
 
 <script>
-    $(document).ready(function() {
-        // Search organization
-        $('#search_organization').on('keyup', function() {
-            var query = $(this).val();
-            if (query.length > 0) {
-                $.ajax({
-                    url: "{{ route('faculty.search.organization') }}", // Adjust to your route
-                    method: "GET",
-                    data: { query: query },
-                    success: function(data) {
-                        $('#organization_list').html(data).show();
-                    }
-                });
-            } else {
-                $('#organization_list').hide();
-            }
-        });
+$(document).ready(function() {
+    // Search organization
+    $('#search_organization').on('keyup', function() {
+        var query = $(this).val();
+        if (query.length > 0) {
+            $.ajax({
+                url: "{{ route('faculty.search.organization') }}", // Adjust to your route
+                method: "GET",
+                data: { query: query },
+                success: function(data) {
+                    $('#organization_list').html(data).show();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching data:", error);
+                }
+            });
+        } else {
+            $('#organization_list').hide();
+        }
+    });
         // Select organization from the list
         $(document).on('click', '.organization-item', function() {
             var organizationData = $(this).data('organization');
@@ -143,4 +146,5 @@
         });
     });
 </script>
+<link rel="stylesheet" href="/css/faculty/applicationadd.css">
 @endsection

@@ -1,7 +1,5 @@
 @extends('layout.adminlayout')
-
 @section('content')
-
 <div class="org-account-container">
     <h2>Organization Account Management</h2>
     
@@ -45,5 +43,5 @@
         </tbody>
     </table>
 </div>
-
+<link rel="stylesheet" href="/css/faculty/oam.css">
 @endsection

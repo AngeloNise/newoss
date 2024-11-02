@@ -85,7 +85,7 @@ unset($__errorArgs, $__bag); ?>
                         <option value="<?php echo e($organization); ?>"><?php echo e($organization); ?></option>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
-            </div>
+            </div>            
 
             <div class="fra-group">
                 <label for="college_branch">College Branch</label>
@@ -103,28 +103,31 @@ unset($__errorArgs, $__bag); ?>
             </div>
         </div>
         
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
 
 <script>
-    $(document).ready(function() {
-        // Search organization
-        $('#search_organization').on('keyup', function() {
-            var query = $(this).val();
-            if (query.length > 0) {
-                $.ajax({
-                    url: "<?php echo e(route('faculty.search.organization')); ?>", // Adjust to your route
-                    method: "GET",
-                    data: { query: query },
-                    success: function(data) {
-                        $('#organization_list').html(data).show();
-                    }
-                });
-            } else {
-                $('#organization_list').hide();
-            }
-        });
+$(document).ready(function() {
+    // Search organization
+    $('#search_organization').on('keyup', function() {
+        var query = $(this).val();
+        if (query.length > 0) {
+            $.ajax({
+                url: "<?php echo e(route('faculty.search.organization')); ?>", // Adjust to your route
+                method: "GET",
+                data: { query: query },
+                success: function(data) {
+                    $('#organization_list').html(data).show();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching data:", error);
+                }
+            });
+        } else {
+            $('#organization_list').hide();
+        }
+    });
         // Select organization from the list
         $(document).on('click', '.organization-item', function() {
             var organizationData = $(this).data('organization');
@@ -157,5 +160,6 @@ unset($__errorArgs, $__bag); ?>
         });
     });
 </script>
+<link rel="stylesheet" href="/css/faculty/applicationadd.css">
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/createapp/application.blade.php ENDPATH**/ ?>

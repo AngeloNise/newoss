@@ -1,7 +1,6 @@
 .fra-container {
     width: 50%;
-    margin: 4% 0;
-    margin-left: 28%;
+    margin: 4% auto; /* Center the container */
     padding: 30px;
     background-color: #ffffff;
     border-radius: 12px;
@@ -27,7 +26,7 @@
     margin-bottom: 20px; 
 }
 
-.split .fra-group, .items-to-be-sold .fra-group, .other-income .fra-group{
+.split .fra-group, .items-to-be-sold .fra-group, .other-income .fra-group {
     flex: 1; /* Allows the elements to grow and shrink as needed */
 }
 

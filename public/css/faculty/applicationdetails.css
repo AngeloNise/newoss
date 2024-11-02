@@ -1,94 +1,121 @@
 .application-detail-container {
-    width: 81%;
-    margin: 5% auto;
-    margin-left: 15%;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 50%; /* Centered width for the application detail */
+    margin: 4% auto; /* Center the container */
+    padding: 30px; /* Ample padding for spacing */
+    background-color: #ffffff; /* White background for clarity */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 .application-detail-container h2 {
-    text-align: center;
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #333;
+    text-align: center; /* Centered title */
+    color: #333; /* Darker shade for the title */
+    margin-bottom: 20px; /* Space below title */
+    font-size: 26px; /* Increased font size for visibility */
 }
 
 .application-info {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Space below application info */
 }
 
 .table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
+    width: 100%; /* Full width for the table */
+    border-collapse: collapse; /* Remove gaps between cells */
+    margin-bottom: 20px; /* Space below the table */
+    background-color: #fff; /* Table background */
 }
 
 .table th, .table td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-    font-size: 16px;
+    padding: 12px; /* Consistent padding for cells */
+    text-align: center; /* Centered text */
+    border: 1px solid #bdc3c7; /* Light gray border */
+    font-size: 16px; /* Font size for table text */
 }
 
-.table thead th {
-    background-color: #007BFF;
-    color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
+.table th {
+    background-color: #007BFF; /* Header background color */
+    color: #ffffff; /* Header text color */
+    font-weight: bold; /* Bold text for headers */
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Alternating row colors for readability */
 }
 
 .table tbody tr:hover {
-    background-color: #e0f7fa;
-    cursor: pointer;
+    background-color: #e0f7fa; /* Light blue hover effect */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.form-control {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding for inputs */
+    font-size: 16px; /* Font size for inputs */
+    border: 1px solid #bdc3c7; /* Matching border color */
+    border-radius: 6px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding in width */
+    transition: border-color 0.3s; /* Smooth transition for border */
+}
+
+.form-control:focus {
+    border-color: #007BFF; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
 }
 
 .btn {
-    display: inline-block;
-    padding: 10px 15px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+    display: inline-block; /* Inline block for buttons */
+    padding: 12px 25px; /* Button padding */
+    margin-top: 20px; /* Spacing above button */
+    color: #fff; /* Text color */
+    border: none; /* No border */
+    border-radius: 6px; /* Rounded corners */
+    text-align: center; /* Center text */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s ease, transform 0.3s; /* Smooth transition */
+    text-decoration: none; /* Remove underline from links */
 }
 
-/* Styles for Back button positioning */
-.btn-back {
-    float: left; /* Use float to position the button to the left */
-    margin-bottom: 20px; /* Optional: add space below the button */
+.btn-primary {
+    background-color: #007BFF; /* Primary button color */
 }
 
-.btn:hover {
-    background-color: #0056b3;
-    cursor: pointer;
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.btn-secondary {
+    background-color: #dc3545; /* Secondary button color */
+}
+
+.btn-secondary:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+.btn-success {
+    background-color: #28a745; /* Success button color */
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Darker green on hover */
 }
 
 @media (max-width: 768px) {
     .application-detail-container {
-        width: 100%;
-        padding: 15px;
+        width: 90%; /* Full width on smaller screens */
+        padding: 20px; /* Reduced padding */
     }
 
     .table th, .table td {
-        font-size: 14px;
-        padding: 10px;
+        font-size: 14px; /* Smaller font size for table on small screens */
+        padding: 10px; /* Reduced padding */
     }
 
     .application-detail-container h2 {
-        font-size: 24px;
+        font-size: 24px; /* Adjusted heading size */
     }
 
     .btn {
-        width: 100%;
-        padding: 12px;
-    }
-
-    .btn-back {
-        float: none; /* Reset float on smaller screens */
-        margin-bottom: 10px; /* Adjust space below */
+        width: 100%; /* Full width buttons on smaller screens */
+        padding: 12px; /* Consistent padding */
     }
 }

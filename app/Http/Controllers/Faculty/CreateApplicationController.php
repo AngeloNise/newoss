@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Application; // Import the Application model
 use App\Models\User; // Import the User model to fetch organizations
 use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CreateApplicationController extends Controller
 {
@@ -28,7 +29,7 @@ class CreateApplicationController extends Controller
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
             'college_branch' => 'nullable|string',
-            'total_estimated_income' => 'nullable|numeric',
+            'total_estimated_income' => 'nullable',
             'place_of_activity' => 'nullable|string',
         ]);
     
@@ -53,6 +54,18 @@ class CreateApplicationController extends Controller
         Session::flash('success', 'Application created successfully.');
         return redirect()->route('faculty.application.admin')->with('success', 'Application created successfully!');
 
+    }
+
+    public function generateAllApplicationsPDF()
+    {
+        // Retrieve all applications
+        $applications = Application::all();
+
+        // Load the view with applications data
+        $pdf = PDF::loadView('faculty.generatepdf.allapplicationspdf', compact('applications'));
+
+        // Stream the PDF as a download
+        return $pdf->stream('all_applications.pdf');
     }
 
     // Method to display all applications

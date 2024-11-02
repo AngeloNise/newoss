@@ -1,0 +1,118 @@
+.suggestion-container {
+    width: 50%;
+    margin: 4% auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-container h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.suggestion-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.suggestion-group .form-group,
+.suggestion-group .fra-group {
+    flex: 1;
+}
+
+.suggestion-group label {
+    display: block;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 5px;
+}
+
+.suggestion-group .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.suggestion-group .form-control:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+}
+
+.button-items {
+    text-align: right;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+    transform: scale(1.03);
+}
+
+.btn-primary:active {
+    background-color: #1e7e34;
+    transform: scale(0.98);
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    transform: scale(1.03);
+}
+
+.btn-danger:active {
+    background-color: #a93226;
+    transform: scale(0.98);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: scale(1.03);
+}
+
+.btn-secondary:active {
+    background-color: #545b62;
+    transform: scale(0.98);
+}
