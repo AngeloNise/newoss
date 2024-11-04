@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-
+<link rel="stylesheet" href="/css/orgs/ocaeval/ocaeval.css">
 <?php if(Session::has('success')): ?>
     <script>
         window.flashMessage = {
@@ -10,11 +10,13 @@
 <?php endif; ?>
 
 <div class="annexes">
-    <h1>Pre-Approval Requirements</h1>
-    <a href="<?php echo e(url('/faculty/Off-Campus-Evaluation')); ?>" class="button">Annex A-C</a>
-    <br>
-    <h1>Upon-Approval Requirements</h1>
-    <a href="<?php echo e(url('/Off-Campus/Annex-D')); ?>" class="button">Annex D-H</a>
+    <div class="activity-buttons">
+        <h1>Pre-Approval Requirements</h1>
+        <a href="<?php echo e(url('/Off-Campus/Annex-A')); ?>" class="button">Annex A-C</a>
+        <h1>Upon-Approval Requirements</h1>
+        <a href="<?php echo e(url('/Off-Campus/Annex-D')); ?>" class="button">Annex D-H</a>
+        <br>
+    </div>
 </div>
 <?php $__env->stopSection(); ?>
 

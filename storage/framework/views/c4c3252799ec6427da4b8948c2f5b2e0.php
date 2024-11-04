@@ -1,6 +1,14 @@
 
 
 <?php $__env->startSection('content'); ?>
+<link rel="stylesheet" href="/public/css/orgs/applicationhistory.css">
+
+
+
+
+<link rel="stylesheet" href="/css/orgs/fraeval/annexa.css">
+<link rel="stylesheet" href="/css/orgs/applicationhistory.css">
+<link rel="stylesheet" href="/css/test.css">
 <div class="history-container">
     <h2>Fund Raising Application History</h2>
 

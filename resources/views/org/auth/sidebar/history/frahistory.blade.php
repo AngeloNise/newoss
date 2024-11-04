@@ -1,6 +1,7 @@
 @extends('layout.orglayout')
 
 @section('content')
+<link rel="stylesheet" href="/css/orgs/applicationhistory.css">
 <div class="history-container">
     <h2>Fund Raising Application History</h2>
 

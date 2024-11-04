@@ -1,6 +1,6 @@
 @extends('layout.orglayout')
 @section('content')
-
+<link rel="stylesheet" href="/css/orgs/ocaeval/ocaeval.css">
 @if(Session::has('success'))
     <script>
         window.flashMessage = {
@@ -11,10 +11,12 @@
 @endif
 
 <div class="annexes">
-    <h1>Pre-Approval Requirements</h1>
-    <a href="{{ url('/faculty/Off-Campus-Evaluation') }}" class="button">Annex A-C</a>
-    <br>
-    <h1>Upon-Approval Requirements</h1>
-    <a href="{{ url('/Off-Campus/Annex-D') }}" class="button">Annex D-H</a>
+    <div class="activity-buttons">
+        <h1>Pre-Approval Requirements</h1>
+        <a href="{{ url('/Off-Campus/Annex-A') }}" class="button">Annex A-C</a>
+        <h1>Upon-Approval Requirements</h1>
+        <a href="{{ url('/Off-Campus/Annex-D') }}" class="button">Annex D-H</a>
+        <br>
+    </div>
 </div>
 @endsection

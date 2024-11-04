@@ -1,0 +1,112 @@
+.oca-container {
+    width: 50%; /* Keep your existing width */
+    margin: 4% auto 4% 32.4%; /* Adjust the left margin to nudge it right */
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.oca-container h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.oca-group {
+    margin-bottom: 25px;
+}
+
+.oca-group label {
+    display: block;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 5px;
+}
+
+.oca-group input[type="text"],
+.oca-group input[type="number"],
+.oca-group input[type="date"],
+.oca-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.oca-group input[type="text"]:focus,
+.oca-group input[type="number"]:focus,
+.oca-group input[type="date"]:focus,
+.oca-group input[type="file"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    background-color: #3498db; /* Primary button color */
+    color: #ffffff; /* Text color */
+}
+
+.btn:hover {
+    background-color: #2980b9; /* Darker shade for hover */
+}
+
+.btn:active {
+    background-color: #1f6d8d; /* Even darker shade for active */
+}
+
+.is-invalid {
+    border-color: red; /* Change the border color to red */
+}
+
+.is-invalid:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Optional: Add a shadow to indicate error */
+}
+
+/* Flash messages */
+.flash-message {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; /* Ensure it's on top of other content */
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: white;
+    width: auto; /* or set a specific width */
+    margin: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.5s ease, top 0.5s ease; /* Smooth transition */
+    opacity: 1; /* Fully visible */
+}
+
+/* Success message styling */
+.flash-message.success {
+    background-color: #28a745; /* Green background for success */
+}
+
+/* Error message styling */
+.flash-message.error {
+    background-color: #dc3545; /* Red background for error */
+}
+
+/* Animation for fading out the message */
+.flash-message.fade-out {
+    opacity: 0; /* Make it transparent */
+    top: -50px; /* Move it up out of view */
+}

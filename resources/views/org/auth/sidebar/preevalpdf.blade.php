@@ -1,6 +1,7 @@
 @extends('layout.orglayout')
 
 @section('content')
+    <link rel="stylesheet" href="/css/orgs/pdf/evalpdf.css">
     <div class="fra-container mt-4">
         <h2>Your Submitted Forms</h2>
 

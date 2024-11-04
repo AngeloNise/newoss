@@ -1,6 +1,6 @@
 @extends('layout.orglayout')
 @section('content')
-
+<link rel="stylesheet" href="{{ asset('css/orgs/ocaeval/annexa.css') }}">
 @if(Session::has('error'))
     <script>
         window.flashMessage = {
@@ -19,14 +19,14 @@
     </script>
 @endif
 
-<div class="fra-container">
+<div class="oca-container">
     <form action="{{ route('org.auth.sidebar.annex.a.submit') }}" method="POST" enctype="multipart/form-data" onsubmit="return validateAttachments()">
         @csrf
         <h2> Annex A Pre-Approval Requirements </h2>
         <div id="Annex-A-Pre-Approval-Requirements">
             <div class="requirements">
                 <!-- Name of Activity and Place of Activity on one line -->
-                <div class="fra-group" style="display: flex; gap: 50px; align-items: center;">
+                <div class="oca-group" style="display: flex; gap: 50px; align-items: center;">
                     <div style="flex: 1;">
                         <label for="noa">Name of Activity</label>
                         <input type="text" id="noa" name="name_of_activity" class="form-control" value="{{ old('name_of_activity') }}" maxlength="100" required>
@@ -38,19 +38,29 @@
                 </div>
         
                 <!-- Duration fields on one line -->
-                <div class="fra-group" style="display: flex; gap: 20px; align-items: center;">
-                    <div style="flex: 1; display: flex; align-items: center;">
-                        <label for="duration_from" style="margin-right: 10px; white-space: nowrap;">Start Date</label>
-                        <input type="date" id="duration_from" name="start_date" class="form-control" required>
-                    </div>
-                    <div style="flex: 1; display: flex; align-items: center;">
-                        <label for="duration_to" style="margin-right: 10px; white-space: nowrap;">End Date</label>
-                        <input type="date" id="duration_to" name="end_date" class="form-control" required>
+                <div id="duration">
+                    <div class="split">
+                        <div class="oca-group">
+                            <label for="start_date">Start Date</label>
+                            <input type="date" id="start_date" name="start_date" class="form-control" value="{{ old('start_date') }}" required>
+                            @error('start_date')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        
+                        <div class="oca-group">
+                            <label for="end_date">End Date</label>
+                            <input type="date" id="end_date" name="end_date" class="form-control" value="{{ old('end_date') }}" required>
+                            @error('end_date')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                 </div>
+                       
 
                 <!-- Number of Participants and Campus/College/Organization on one line -->
-                <div class="fra-group" style="display: flex; gap: 50px; align-items: center;">
+                <div class="oca-group" style="display: flex; gap: 50px; align-items: center;">
                     <div style="flex: 1;">
                         <label for="nop">Number of Participants</label>
                         <input type="number" id="nop" name="number_of_participants" class="form-control" min="1" max="1000" required>
@@ -66,39 +76,39 @@
     <!-- Attachment Fields with Custom Labels -->
     <h2>Annex B</h2>
 
-    <div class="fra-group">
+    <div class="oca-group">
         <label for="attachment1">Letter of Intent (Addressed to Sector Head and Recommended by Director/Dean)</label>
         <input type="file" id="attachment1" name="attachment1" accept=".pdf,.doc,.docx" required>
     </div>
 
-    <div class="fra-group">
+    <div class="oca-group">
         <label for="attachment2">Invitation/Acceptance Letter (From Organizers of Event/Activity)</label>
         <input type="file" id="attachment2" name="attachment2" accept=".pdf,.doc,.docx" required>
     </div>
 
-    <div class="fra-group">
+    <div class="oca-group">
         <label for="attachment3">Endorsement (From Research Management Office for Research-Related Activities)</label>
         <input type="file" id="attachment3" name="attachment3" accept=".pdf,.doc,.docx" required>
     </div>
 
-    <div class="fra-group">
+    <div class="oca-group">
         <label for="attachment4">Program of Activities</label>
         <input type="file" id="attachment4" name="attachment4" accept=".pdf,.doc,.docx" required>
     </div>
 
     <h2>Annex C</h2>
 
-    <div class="fra-group">
+    <div class="oca-group">
         <label for="attachment5">Summary List of Participants (With College Indicated)</label>
         <input type="file" id="attachment5" name="attachment5" accept=".pdf,.doc,.docx" required>
     </div>
 
-    <div class="fra-group">
+    <div class="oca-group">
         <label for="attachment6">Latest Certificate of Registration (For Students)</label>
         <input type="file" id="attachment6" name="attachment6" accept=".pdf,.doc,.docx" required>
     </div>
 
-    <div class="fra-group">
+    <div class="oca-group">
         <label for="attachment7">Curriculum Copy (For Curricular Activities)</label>
         <input type="file" id="attachment7" name="attachment7" accept=".pdf,.doc,.docx" required>
     </div>

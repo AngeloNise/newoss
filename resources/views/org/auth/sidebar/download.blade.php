@@ -1,6 +1,6 @@
 @extends('layout.orglayout')
 @section('content')
-
+<link rel="stylesheet" href="/css/orgs/download.css">
 <script>
     function confirmDownload(event) {
         // Prevent the default anchor click behavior
