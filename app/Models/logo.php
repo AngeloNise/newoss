@@ -11,5 +11,5 @@ class Logo extends Model
 
     protected $table = 'logos';
 
-    protected $fillable = ['pup_logo', 'ched_logo'];
+    protected $fillable = ['pup_logo', 'ched_logo', 'oss_logo'];
 }

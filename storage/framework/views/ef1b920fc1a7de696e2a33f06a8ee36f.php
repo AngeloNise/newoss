@@ -15,11 +15,17 @@
                     <label for="ched_logo">CHED LOGO</label>
                     <input type="file" id="ched_logo" name="ched_logo" class="form-control" required>
                 </div>
+
+                <div class="fra-group">
+                    <label for="oss_logo">OSS LOGO</label>
+                    <input type="file" id="oss_logo" name="oss_logo" class="form-control" required>
+                </div>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+<link rel="stylesheet" href="/css/faculty/secretform.css">
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/secretform.blade.php ENDPATH**/ ?>

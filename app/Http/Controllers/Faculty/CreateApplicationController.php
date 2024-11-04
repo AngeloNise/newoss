@@ -8,6 +8,7 @@ use App\Models\Application; // Import the Application model
 use App\Models\User; // Import the User model to fetch organizations
 use Illuminate\Support\Facades\Session;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Logo;
 
 class CreateApplicationController extends Controller
 {
@@ -58,13 +59,9 @@ class CreateApplicationController extends Controller
 
     public function generateAllApplicationsPDF()
     {
-        // Retrieve all applications
         $applications = Application::all();
-
-        // Load the view with applications data
-        $pdf = PDF::loadView('faculty.generatepdf.allapplicationspdf', compact('applications'));
-
-        // Stream the PDF as a download
+        $logo = Logo::first(); // Ensure that you have the Logo model defined and it's fetching the correct record
+        $pdf = PDF::loadView('faculty.generatepdf.allapplicationspdf', compact('applications', 'logo'));
         return $pdf->stream('all_applications.pdf');
     }
 
@@ -113,7 +110,6 @@ class CreateApplicationController extends Controller
         $application->end_date = $validated['end_date'];                     // Added
         $application->college_branch = $validated['college_branch'];         // Added
         $application->total_estimated_income = $validated['total_estimated_income']; // Added
-        $application->place_of_activity = $validated['place_of_activity']; 
         
         $application->save();
 

@@ -65,18 +65,19 @@ body {
     opacity: 1;
 }
 .sb{
-    background-color: #721425;
+    background-color: #a8243c;
     color: #ffffff;
-    width: 13%;
+    width: 18%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     position: fixed;
+    vertical-align: middle;
 }
 
 .link-container{
-    background-color: #721425;
+    background-color: #a8243c;
     color: #ffffff;
     position: relative;
     width: 100%;
@@ -87,11 +88,19 @@ body {
 }
 
 .link-container p {
-    text-align: center;
+    text-align: left;
+    vertical-align: middle;
+    margin-left: 5%;
+    margin-right: 5%;
     color: white;
     font-weight: bold;
     font-size: 18px;
-    text-shadow: 1px 1px 2px rgb(36, 29, 27);
+    padding: 10px;
+}
+
+.link-container p:hover {
+    background-color: #d48686;
+    border-radius:  5% 5% 5% 5%/  30% 30% 30% 30%;  
 }
 
 .link-container ul {
@@ -103,9 +112,10 @@ body {
 }
 
 .link-container ul li {
-    margin: 10px 0;
+    margin: 0;
     font-weight: bold;
     font-size: 18px;
+    text-align: left;
 }
 
 .link-container ul li a {
@@ -113,21 +123,25 @@ body {
     text-decoration: none;
     display: block;
     padding: 10px;
-    border-radius: 5px;
-    text-align: center;
+    text-align: left;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius:  5% 5% 5% 5%/  30% 30% 30% 30%;  
     
 }
 
 .link-container ul li p {
     color: #ffffff;
     text-decoration: none;
-    display: block;
-    border-radius: 5px;
+    border-radius:  5% 5% 5% 5%/  30% 30% 30% 30%;  
     text-align: center;
+    vertical-align: middle;
 }
 
 .link-container ul li a:hover {
-    background-color: #a83232;
+    background-color: #d48686;
+    border-radius:  5% 5% 5% 5%/  30% 30% 30% 30%;  
+    
 }
 
 
@@ -140,18 +154,20 @@ body {
     background-color: #5c0c1a;
     left: 50%;
     transform: translateX(-50%);
+    border-radius:  5% 5% 5% 5%/  20% 20% 20% 20%;   
 }
 
 .link-container ul .dropdown li a {
-    padding: 5px 0px;
+    padding: 5px 5px;
     color: #ffffff;
     text-decoration: none;
     font-weight: normal;
     font-size: 15px;
+    
 }
 
 .link-container ul .dropdown li a:hover {
-    background-color: #a83232;
+    background-color: #d48686;
     
 }
 
@@ -214,7 +230,7 @@ body {
     background-color: #f8f8f8;
     height: 100%;
     width: 92%;
-    margin-left: 3%;
+    margin-left: 8%;
 }
 
 .center{

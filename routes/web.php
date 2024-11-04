@@ -3,6 +3,8 @@
 
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\PreApprovalSubmissionController;
+use App\Http\Controllers\AnnexDSubmissionController;
 
 use App\Http\Controllers\Faculty\FacultyHomeController;
 use App\Http\Controllers\Faculty\FacultyLoginController;
@@ -12,6 +14,7 @@ use App\Http\Controllers\Faculty\FacultyFRAAnnexCController;
 use App\Http\Controllers\Faculty\FacultyOrgAcctManagementController;
 use App\Http\Controllers\Faculty\secretformController;
 use App\Http\Controllers\faculty\CreateApplicationController;
+use App\Http\Controllers\Faculty\FacultyOffCampusAnnexAController;
 
 use App\Http\Controllers\Dean\DeanLoginController;
 use App\Http\Controllers\Dean\DeanFRAAnnexAController;
@@ -69,15 +72,14 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/Application/create', [CreateApplicationController::class, 'create'])->name('application.create');
         Route::post('/Application/create', [CreateApplicationController::class, 'store'])->name('application.store');
         Route::get('/Application-Admin', [CreateApplicationController::class, 'applicationAdmin'])->name('application.admin'); // Correct route name
-        Route::get('/Application', [ApplicationController::class, 'index'])->name('application.index');
+        Route::get('/Application', [CreateApplicationController::class, 'index'])->name('application.index');
         Route::get('/Applications/{id}', [CreateApplicationController::class, 'show'])->name('applications.show');
         Route::put('/Applications/{id}', [CreateApplicationController::class, 'update'])->name('application.update'); // Ensure this matches
         Route::get('/Applications/{id}/comments', [CreateApplicationController::class, 'createComment'])->name('applications.comments.create');
         Route::post('/Applications/{id}/comments', [CreateApplicationController::class, 'storeComment'])->name('applications.comments.store');
-        Route::post('/Application', [CreateApplicationController::class, 'store'])->name('application.store');
-        Route::get('/Application-Admin/pdf', [CreateApplicationController::class, 'generateAllApplicationsPDF'])->name('faculty.application-admin.pdf');
-
-
+       // Route::post('/Application', [CreateApplicationController::class, 'store'])->name('application.store');
+        Route::get('/Application-Admin/pdf', [CreateApplicationController::class, 'generateAllApplicationsPDF'])->name('application-admin.pdf');
+        
         // New Routes for Evaluation Activities
         Route::get('/FRA-A-Evaluation', [FacultyFRAAnnexAController::class, 'index'])->name('fra-a-evaluation.index');
         Route::get('/FRA-A-Evaluation/{id}', [FacultyFRAAnnexAController::class, 'show'])->name('fra-a-evaluation.show');
@@ -106,10 +108,32 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
             return view('/faculty/auth/incampus-evaluation'); // Create this view
         })->name('incampus.evaluation');
 
-        Route::get('/Off-Campus-Evaluation', function () {
-            return view('/faculty/auth/offcampus-evaluation'); // Create this view
-        })->name('offcampus.evaluation');
+        Route::get('/Off-Campus-Evaluation', [FacultyOffCampusAnnexAController::class, 'index'])->name('offcampus.evaluation');
 
+        Route::get('/offcampuseval/offcampusannexa', [FacultyOffCampusAnnexAController::class, 'index'])
+        ->name('auth.offcampuseval.offcampusannexa');
+
+        // Route to list all submissions for faculty
+        Route::get('/offcampus-annex-a', [FacultyOffCampusAnnexAController::class, 'index'])->name('offcampus.annex.a.index');
+
+        // Route to show details of a specific submission
+        Route::get('/offcampus-annex-a/{id}', [FacultyOffCampusAnnexAController::class, 'show'])->name('offcampus.annex.a.show');
+
+        Route::get('/faculty/offcampus-annex-a/{id}/download/{attachmentNumber}', [FacultyOffCampusAnnexAController::class, 'downloadAttachment'])
+        ->name('faculty.offcampus.annex.a.download');   
+
+        //Annex D
+        Route::get('/offcampuseval/offcampusannexd', [FacultyOffCampusAnnexDController::class, 'index'])
+        ->name('auth.offcampuseval.offcampusannexd');
+
+        // Route to list all submissions for faculty
+        Route::get('/offcampus-annex-d', [FacultyOffCampusAnnexDController::class, 'index'])->name('offcampus.annex.d.index');
+
+        // Route to show details of a specific submission
+        Route::get('/offcampus-annex-d/{id}', [FacultyOffCampusAnnexDController::class, 'show'])->name('offcampus.annex.d.show');
+
+        Route::get('/faculty/offcampus-annex-d/{id}/download/{attachmentNumber}', [FacultyOffCampusAnnexDController::class, 'downloadAttachment'])
+        ->name('faculty.offcampus.annex.d.download');   
         
         Route::get('/Organization-Account-Management', function() {
             return view('/faculty/auth/oam');
@@ -130,6 +154,10 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/Organization-Account-Management/edit/{id}', [FacultyOrgAcctManagementController::class, 'edit'])->name('orgs.edit');
         Route::put('/Organization-Account-Management/update/{id}', [FacultyOrgAcctManagementController::class, 'update'])->name('orgs.update');
         Route::get('/Organization-Account-Management/remove/{id}', [FacultyOrgAcctManagementController::class, 'remove'])->name('orgs.remove');
+
+
+        //Off-Campus download
+        Route::get('/annex-a/{id}/download/{attachmentNumber}', [PreApprovalSubmissionController::class, 'viewAttachment'])->name('preApproval.download');
     });
 });
 
@@ -211,21 +239,33 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
             return view('/org/auth/sidebar/fraeval/annex-a');
         })->name('fra.annex-a');
     
-        Route::get('/Annex-B', function () {
+        /*Route::get('/Annex-B', function () {
             return view('/org/auth/sidebar/fraeval/annex-b');
         })->name('fra.annex-b');
     
-        Route::get('/Annex-C', function () {
+        Route::get('/Annex-C', function () {f
             return view('/org/auth/sidebar/fraeval/annex-c');
-        })->name('fra.annex-c');
+        })->name('fra.annex-c');*/
     });
 
-    Route::prefix('Off-Campus')->name('offcampus.')->group(function () {
+    Route::prefix('Off-Campus')->group(function () {
         Route::get('/Annex-A', function () {
-            return view('/org/auth/sidebar/offcampus/annex-a');
-        })->name('offcampus.annex-a');
+            return view('org.auth.sidebar.offcampus.annex-a');
+        })->name('org.auth.sidebar.annex-a');
     
-        Route::get('/Annex-B', function () {
+        // Route for displaying the form
+        Route::get('/annex-a', [PreApprovalSubmissionController::class, 'showForm'])->name('org.auth.sidebar.annex.a.form');
+    
+        // Route for submitting the form
+        Route::post('/annex-a', [PreApprovalSubmissionController::class, 'submitForm'])->name('org.auth.sidebar.annex.a.submit');
+    
+        Route::get('/Annex-D', function () {
+            return view('org.auth.sidebar.offcampus.annex-d');
+        })->name('org.auth.sidebar.annex-d');        
+        Route::get('/annex-d', [AnnexDSubmissionController::class, 'showForm'])->name('org.auth.sidebar.annex.d.form');
+
+        Route::post('/annex-d', [AnnexDSubmissionController::class, 'submitForm'])->name('org.auth.sidebar.annex.d.submit');
+        /*Route::get('/Annex-B', function () {
             return view('/org/auth/sidebar/offcampus/annex-b');
         })->name('offcampus.annex-b');
         
@@ -233,9 +273,7 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
             return view('/org/auth/sidebar/offcampus/annex-c');
         })->name('offcampus.annex-c');
         
-        Route::get('/Annex-D', function () {
-            return view('/org/auth/sidebar/offcampus/annex-d');
-        })->name('offcampus.annex-d');
+
         
         Route::get('/Annex-E', function () {
             return view('/org/auth/sidebar/offcampus/annex-e');
@@ -251,7 +289,7 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
         
         Route::get('/Annex-H', function () {
             return view('/org/auth/sidebar/offcampus/annex-h');
-        })->name('offcampus.annex-h');
+        })->name('offcampus.annex-h');*/
         
     });
     
@@ -268,7 +306,7 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::post('/annex-a', [AnnexAController::class, 'store'])->name('annexa.submit');
     Route::get('/preevalfra/{id}/edit', [AnnexAController::class, 'edit'])->name('org.auth.sidebar.preevalfra.edit');
     Route::put('/annex-a/{id}', [AnnexAController::class, 'update'])->name('org.auth.sidebar.preevalfra.update');
-    Route::post('/annex-b', [AnnexBController::class, 'store'])->name('annexb.submit');
+    //Route::post('/annex-b', [AnnexBController::class, 'store'])->name('annexb.submit');
     Route::post('/annex-c', [AnnexCController::class, 'store'])->name('annexc.submit');
 
     // Other routes related to pre-evaluation status and documents

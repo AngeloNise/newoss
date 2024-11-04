@@ -25,7 +25,7 @@
         <input type="text" id="search_organization" class="form-control" placeholder="Type to search organization...">
         <ul id="organization_list" class="list-group" style="display: none;"></ul>
     </div>
-    <form action="{{ url('/faculty/Application') }}" method="POST">
+    <form action="{{ url('/faculty/Application/create') }}" method="POST">
         @csrf
         <h2>CREATE APPLICATION</h2>
         <div class="fill-up-container">

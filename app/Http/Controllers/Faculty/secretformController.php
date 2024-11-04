@@ -12,8 +12,9 @@ class SecretFormController extends Controller
     {
         // Validate the input
         $validated = $request->validate([
-            'pup_logo' => 'required|image|mimes:jpeg,png,jpg',
-            'ched_logo' => 'required|image|mimes:jpeg,png,jpg',
+            'pup_logo' => 'image|mimes:jpeg,png,jpg',
+            'ched_logo' => 'image|mimes:jpeg,png,jpg',
+            'oss_logo' => 'image|mimes:jpeg,png,jpg',
         ]);
 
         // Prepare data for insertion
@@ -33,6 +34,13 @@ class SecretFormController extends Controller
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('images'), $filename);
             $data['ched_logo'] = $filename; // Set filename for CHED logo
+        }
+
+        if ($request->hasFile('oss_logo')) {
+            $file = $request->file('oss_logo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images'), $filename);
+            $data['oss_logo'] = $filename; // Set filename for CHED logo
         }
 
         // Save the logos in the database

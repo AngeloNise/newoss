@@ -17,5 +17,12 @@
             @endif
         </div>
     </div>
-    <link rel="stylesheet" href="/css/faculty/notif.css">
+
+    <div class="action-button-container">
+        <button onclick="window.location='{{ route('faculty.application-admin.pdf') }}'" class="btn btn-secondary">
+            Generate All Applications PDF
+        </button>
+    </div>
+
+    <link rel="stylesheet" href="/css/faculty/dbadmin.css">
 @endsection

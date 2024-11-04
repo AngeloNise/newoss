@@ -23,7 +23,7 @@ class EventSeeder extends Seeder
             'href' => 'https://facebook.com/event1',
             'image' => 'events/event1.jpg',
             'category' => 'In-Campus',
-            'organization' => $organization // Assigning organization
+            'organization' => $organization, // Assigning organization
         ]);
 
         Event::create([

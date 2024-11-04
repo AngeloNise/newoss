@@ -1,0 +1,70 @@
+.notification-container {
+    position: fixed; /* Keep the position fixed */
+    top: 6%; /* Distance from the top */
+    right: 20px; /* Distance from the right */
+    width: 300px; /* Width of the container */
+    height: 400px; /* Fixed height for the container */
+    border: 2px solid black; /* Border around the container */
+    background-color: #f9f9f9; /* Background color for the whole container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    overflow: hidden; /* Prevent overflow from the container */
+    border-radius: 12px; /* Rounded corners */
+}
+
+.notification {
+    height: 100%; /* Make it take full height of the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 10px; /* Add padding for better spacing */
+    display: flex;
+    flex-direction: column; /* Stack notifications vertically */
+}
+
+.notification p {
+    margin: 0;
+    text-align: center; /* Center the text */
+}
+
+.notification ul {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+.notification li {
+    padding: 10px 0; /* Add some vertical padding */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.notification li:not(:last-child) {
+    border-bottom: 1px solid #ccc; /* Add a bottom border to all but the last item */
+}
+
+/* Add hover effect */
+.notification li:hover {
+    background-color: #e0e0e0; /* Change to a light gray on hover */
+}
+
+.action-button-container {
+    position: fixed; /* Keep the button in a fixed position */
+    top: calc(6% + 400px); /* Place it directly below the notification */
+    right: 2.8%; /* Distance from the right */
+    text-align: center; /* Center the button */
+    margin-top: 10px; /* Space above the button */
+}
+
+.btn {
+    padding: 12px 25px; /* Button padding */
+    color: #fff; /* Text color */
+    border: none; /* No border */
+    border-radius: 6px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.btn-secondary {
+    background-color: #dc3545; /* Secondary button color */
+}
+
+.btn-secondary:hover {
+    background-color: #c82333; /* Darker red on hover */
+}

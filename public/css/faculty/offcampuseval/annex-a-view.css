@@ -1,0 +1,87 @@
+.application-container {
+    width: 50%; /* Centered width for the application details */
+    margin: 4% auto; /* Center the container */
+    padding: 30px; /* Ample padding for spacing */
+    background-color: #ffffff; /* White background for clarity */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.application-container h2 {
+    text-align: center; /* Centered title */
+    color: #333; /* Darker shade for the title */
+    margin-bottom: 20px; /* Space below title */
+    font-size: 26px; /* Increased font size for visibility */
+}
+
+.alert-success {
+    background-color: #d4edda; /* Light green background */
+    color: #155724; /* Dark green text */
+    padding: 10px; /* Padding for alerts */
+    border: 1px solid #c3e6cb; /* Light green border */
+    border-radius: 6px; /* Rounded corners */
+    margin-bottom: 20px; /* Space below alert */
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red text */
+    padding: 10px; /* Padding for alerts */
+    border: 1px solid #f5c6cb; /* Light red border */
+    border-radius: 6px; /* Rounded corners */
+    margin-bottom: 20px; /* Space below alert */
+}
+
+.details-table, .attachments-table {
+    width: 100%; /* Full width for tables */
+    border-collapse: collapse; /* Remove gaps between cells */
+    margin-bottom: 20px; /* Space below the table */
+}
+
+.details-table td, .attachments-table td {
+    padding: 12px; /* Consistent padding for cells */
+    border: 1px solid #bdc3c7; /* Light gray border */
+    font-size: 16px; /* Font size for table text */
+}
+
+.attachments-table td {
+    text-align: left; /* Left-align attachment details */
+}
+
+.activity-buttons {
+    text-align: center; /* Center the buttons */
+}
+
+.activity-buttons .btn {
+    display: inline-block; /* Inline block for buttons */
+    padding: 10px 15px; /* Button padding */
+    margin: 0 5px; /* Spacing between buttons */
+    color: #fff; /* Text color */
+    background-color: #007BFF; /* Primary button color */
+    border: none; /* No border */
+    border-radius: 6px; /* Rounded corners */
+    text-align: center; /* Center text */
+    cursor: pointer; /* Pointer cursor */
+    text-decoration: none; /* Remove underline from links */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.activity-buttons .btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+@media (max-width: 768px) {
+    .application-container {
+        width: 90%; /* Full width on smaller screens */
+        padding: 20px; /* Reduced padding */
+    }
+
+    .application-container h2 {
+        font-size: 24px; /* Adjusted heading size */
+    }
+
+    .details-table td, .attachments-table td {
+        font-size: 14px; /* Smaller font size for table on small screens */
+        padding: 10px; /* Reduced padding */
+    }
+}

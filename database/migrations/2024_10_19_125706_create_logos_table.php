@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('pup_logo');
             $table->string('ched_logo');
+            $table->string('oss_logo');
             $table->timestamps();
         });
     }

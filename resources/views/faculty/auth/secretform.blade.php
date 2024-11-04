@@ -15,9 +15,15 @@
                     <label for="ched_logo">CHED LOGO</label>
                     <input type="file" id="ched_logo" name="ched_logo" class="form-control" required>
                 </div>
+
+                <div class="fra-group">
+                    <label for="oss_logo">OSS LOGO</label>
+                    <input type="file" id="oss_logo" name="oss_logo" class="form-control" required>
+                </div>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+<link rel="stylesheet" href="/css/faculty/secretform.css">
 @endsection
