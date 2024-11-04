@@ -117,7 +117,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $deans = [
+        /*$deans = [
             ['name' => 'PUP-MAIN', 'email' => 'PUP-Taguig@example.com', 'is_admin' => '2', 'branch' => 'PUP-MAIN'],
             ['name' => 'PUP-MAIN', 'email' => 'PUP-Quezon@example.com', 'is_admin' => '2', 'branch' => 'PUP-MAIN'],
         ];
@@ -130,7 +130,7 @@ class DatabaseSeeder extends Seeder
                 'is_admin' => 2,
                 'branch' => $dean['branch']
             ]);
-        }
+        }*/
 
         User::factory()->create([
             'name' => 'Admin User',

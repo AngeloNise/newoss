@@ -164,7 +164,7 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
 Route::get('/dean/login', [DeanLoginController::class, 'index'])->name('dean.login');
 Route::post('/dean/login', [DeanLoginController::class, 'login']);
 
-Route::middleware(['auth', DeanMiddleware::class])->group(function () {
+/*Route::middleware(['auth', DeanMiddleware::class])->group(function () {
     Route::get('/dean/Homepage', function () {
         return view('dean.auth.homepage'); // Path to the dean homepage
     })->name('dean.homepage');
@@ -176,7 +176,7 @@ Route::middleware(['auth', DeanMiddleware::class])->group(function () {
     Route::put('/dean/FRA-A-Evaluation/suggestions/{id}', [DeanFRAAnnexAController::class, 'updateSuggestion'])->name('dean.fra-a-evaluation.update-suggestion');
     Route::put('/dean/FRA-A-Evaluation/{id}/update-status', [DeanFRAAnnexAController::class, 'updateStatus'])->name('dean.fra-a-evaluation.update-status');
     Route::get('/dean/Dashboard', [DeanFRAAnnexAController::class, 'sidenotif'])->name('dashboard');
-});
+});*/
 
 Route::prefix('faculty')->name('faculty.')->middleware(['auth', FacultyMiddleware::class])->group(function () {
     Route::get('/auth/managepost', [EventController::class, 'adminIndex'])->name('managePost');
