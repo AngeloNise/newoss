@@ -18,7 +18,13 @@
         </div>
     </div>
 
+    <div class="action-button-container">
+        <button onclick="window.location='<?php echo e(route('faculty.application-admin.pdf-options')); ?>'" class="btn btn-secondary">
+            Generate Applications PDF
+        </button>
+    </div>
     
+     
 
 <?php $__env->stopSection(); ?>
 

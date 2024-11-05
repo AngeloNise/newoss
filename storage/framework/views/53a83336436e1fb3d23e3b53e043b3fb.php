@@ -6,7 +6,7 @@
     <title>Office of the Student Services</title>
     <link rel="stylesheet" href="<?php echo e(asset('css/Login/loginuser.css')); ?>">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <script src="/js/org/orgscript.js"></script>
+    <script src="<?php echo e(asset('js/org/orgscript.js')); ?>"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>

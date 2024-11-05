@@ -16,6 +16,7 @@
                     <th>Organization</th>
                     <th>Start Date</th>
                     <th>End Date</th>
+                    <th>Status</th>
                     <th>Total Estimated Income</th>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@
                     <td><?php echo e($application->requesting_organization); ?></td>
                     <td><?php echo e($application->start_date); ?></td>
                     <td><?php echo e($application->end_date); ?></td>
+                    <td><?php echo e($application->status); ?></td>
                     <td><?php echo e($application->total_estimated_income); ?></td>
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

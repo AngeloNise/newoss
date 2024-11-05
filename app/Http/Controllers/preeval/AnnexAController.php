@@ -90,35 +90,47 @@ class AnnexAController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate($this->validationRules());
         $user = auth()->user();
-
+    
+        // Check if the user already has a pending application
+        $existingApplication = AnnexA::where('email', $user->email)
+            ->where('status', 'Pending Approval')
+            ->first();
+    
+        if ($existingApplication) {
+            Session::flash('error', 'You already have a pending application and cannot submit a new one at this time.');
+            return redirect()->back();
+        }
+    
+        $validated = $request->validate($this->validationRules());
+    
         // Check if the requesting organization matches the user's organization
         if ($user->name_of_organization !== $validated['requesting_organization']) {
             Session::flash('error', 'Your organization name does not match your credentials.');
             Session::flash('error_field', 'requesting_organization');
             return redirect()->back()->withInput();
         }
-
+    
         // Check if the president exists in the same organization as the logged-in user
         $presidentExists = User::where('name', $validated['president'])
             ->where('name_of_organization', $user->name_of_organization)
             ->exists();
-
+    
         if (!$presidentExists) {
             Session::flash('error', 'President name does not match your organization.');
             Session::flash('error_field', 'president');
             return redirect()->back()->withInput();
         }
-
+    
         // Proceed with saving the form data if validations pass
         $annexA = new AnnexA($this->prepareData($validated, $user));
         $annexA->save();
-
+    
         // Show a success message
         Session::flash('success', 'Your form has passed the first evaluation');
         return redirect()->route('org.auth.sidebar.preeval');
     }
+    
 
     public function edit($id)
     {

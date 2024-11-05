@@ -79,6 +79,8 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::post('/Applications/{id}/comments', [CreateApplicationController::class, 'storeComment'])->name('applications.comments.store');
        // Route::post('/Application', [CreateApplicationController::class, 'store'])->name('application.store');
         Route::get('/Application-Admin/pdf', [CreateApplicationController::class, 'generateAllApplicationsPDF'])->name('application-admin.pdf');
+        Route::get('/Application-Admin/pdf-options', [CreateApplicationController::class, 'showPdfOptions'])->name('application-admin.pdf-options');
+        Route::get('/Application-Admin/generate-pdf', [CreateApplicationController::class, 'generateApplicationsPDF'])->name('application-admin.generate-pdf');
         
         // New Routes for Evaluation Activities
         Route::get('/FRA-A-Evaluation', [FacultyFRAAnnexAController::class, 'index'])->name('fra-a-evaluation.index');

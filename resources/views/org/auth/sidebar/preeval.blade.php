@@ -9,6 +9,13 @@
         };
     </script>
 @endif
+@php
+    $user = auth()->user();
+    $existingApplication = \App\Models\AnnexA::where('email', $user->email)
+        ->where('status', 'Pending Approval')
+        ->exists();
+@endphp
+
 <div class="content-container">
     <h1>Pre-Evaluation</h1>
     <div class="activity-question">
@@ -16,9 +23,13 @@
     </div>
       
     <div class="activity-buttons">
-        <a href="{{ url('/FRA/Annex-A') }}" class="button">Fund Raising Activity</a>
+        <a href="{{ url('/FRA/Annex-A') }}" class="button {{ $existingApplication ? 'disabled' : '' }}" 
+           {{ $existingApplication ? 'onclick="return false;""' : '' }}>
+           {{ $existingApplication ? 'Fund Raising Activity (One Pre-Evaluation at a time)' : 'Fund Raising Activity' }}
+        </a>
         <a href="{{ url('/Off-Campus-Activity') }}" class="button">Off-Campus Activity</a>
     </div>
+    
     <div class="note">
         <p>Note: Pre-Evaluation does not guarantee an approved Application. It helps checking all the requirements needed to have an approved activity.</p>
     </div>

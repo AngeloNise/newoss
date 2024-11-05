@@ -20,9 +20,9 @@
         </div>
     </div>
 
-    {{--<div class="action-button-container">
+    <div class="action-button-container">
         <button onclick="window.location='{{ route('faculty.application-admin.pdf-options') }}'" class="btn btn-secondary">
-            Generate All Applications PDF
+            Generate Applications PDF
         </button>
     </div>
     

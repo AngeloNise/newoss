@@ -82,6 +82,79 @@
 
         <button type="button" class="btn btn-success" onclick="confirmChanges()">Save</button>
     </form>
+
+    <h3>Application Logs</h3>
+    <?php if($application->logs->isNotEmpty()): ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Old Value</th>
+                    <th>New Value</th>
+                    <th>Updated At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $__currentLoopData = $application->logs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $log): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php
+                        $startDate = json_decode($log->start_date, true);
+                        $endDate = json_decode($log->end_date, true);
+                        $totalEstimatedIncome = json_decode($log->total_estimated_income, true);
+                        $status = json_decode($log->status, true);
+                        $currentFileLocation = json_decode($log->current_file_location, true);
+                    ?>
+
+                    <?php if($startDate): ?>
+                        <tr>
+                            <td>Start Date</td>
+                            <td><?php echo e($startDate['old'] ?? 'N/A'); ?></td>
+                            <td><?php echo e($startDate['new'] ?? 'N/A'); ?></td>
+                            <td><?php echo e($log->updated_at); ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    
+                    <?php if($endDate): ?>
+                        <tr>
+                            <td>End Date</td>
+                            <td><?php echo e($endDate['old'] ?? 'N/A'); ?></td>
+                            <td><?php echo e($endDate['new'] ?? 'N/A'); ?></td>
+                            <td><?php echo e($log->updated_at); ?></td>
+                        </tr>
+                    <?php endif; ?>
+
+                    <?php if($totalEstimatedIncome): ?>
+                        <tr>
+                            <td>Total Estimated Income</td>
+                            <td><?php echo e($totalEstimatedIncome['old'] ?? 'N/A'); ?></td>
+                            <td><?php echo e($totalEstimatedIncome['new'] ?? 'N/A'); ?></td>
+                            <td><?php echo e($log->updated_at); ?></td>
+                        </tr>
+                    <?php endif; ?>
+
+                    <?php if($status): ?>
+                        <tr>
+                            <td>Status</td>
+                            <td><?php echo e($status['old'] ?? 'N/A'); ?></td>
+                            <td><?php echo e($status['new'] ?? 'N/A'); ?></td>
+                            <td><?php echo e($log->updated_at); ?></td>
+                        </tr>
+                    <?php endif; ?>
+
+                    <?php if($currentFileLocation): ?>
+                        <tr>
+                            <td>Current File Location</td>
+                            <td><?php echo e($currentFileLocation['old'] ?? 'N/A'); ?></td>
+                            <td><?php echo e($currentFileLocation['new'] ?? 'N/A'); ?></td>
+                            <td><?php echo e($log->updated_at); ?></td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>No logs available for this application.</p>
+    <?php endif; ?>
+
 </div>
 
 <?php $__env->stopSection(); ?>

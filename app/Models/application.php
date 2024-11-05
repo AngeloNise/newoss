@@ -33,4 +33,9 @@ class Application extends Model
     {
         return $this->hasMany(Comment::class, 'application_id');
     }
+
+    public function logs()
+    {
+        return $this->hasMany(ApplicationLog::class)->orderBy('created_at', 'desc'); // Newest logs first
+    }    
 }

@@ -17,6 +17,7 @@
                     <th>Organization</th>
                     <th>Start Date</th>
                     <th>End Date</th>
+                    <th>Status</th>
                     <th>Total Estimated Income</th>
                 </tr>
             </thead>
@@ -27,6 +28,7 @@
                     <td>{{ $application->requesting_organization }}</td>
                     <td>{{ $application->start_date }}</td>
                     <td>{{ $application->end_date }}</td>
+                    <td>{{ $application->status }}</td>
                     <td>{{ $application->total_estimated_income }}</td>
                 </tr>
                 @endforeach

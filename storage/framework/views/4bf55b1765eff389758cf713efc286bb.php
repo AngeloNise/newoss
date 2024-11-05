@@ -55,6 +55,10 @@
                             &nbsp;&nbsp;&nbsp;OFFICE OF THE VICE PRESIDENT FOR FINANCE
                         </h4>
                     </td>
+                    <td style="text-align: center; vertical-align: middle; font-family: 'Calibri', sans-serif; font-size: 7pt; font-weight: bold; border: 0.5px solid black; padding: 1px;">
+                        <?php echo e($dateRange); ?>
+
+                    </td>
                 </tr>
             </table>
             <br>
@@ -175,6 +179,7 @@
                     </td>
                     <td style="text-align: center; vertical-align: middle; font-family: 'Calibri', sans-serif; font-size: 24pt; font-weight: bold; border: 0.5px solid black; padding: 1px;">
                         Fund Raising
+                    </td>
                 </tr>
             </table>
             <div style="margin-top: -15px; font-family: 'Calibri', sans-serif;">
