@@ -60,11 +60,12 @@
                 <input type="text" id="requesting_organization" name="requesting_organization" class="form-control {{ Session::has('error_field') && Session::get('error_field') == 'requesting_organization' ? 'is-invalid' : '' }}" 
                     value="{{ old('requesting_organization', auth()->user()->name_of_organization) }}" 
                     placeholder="{{ auth()->user()->name_of_organization ?? 'Enter your organization name' }}" 
-                    disabled>
+                    readonly>
                 @if(Session::has('error_field') && Session::get('error_field') == 'requesting_organization')
                     <small class="text-danger">The requesting organization does not match our records.</small>
                 @endif
             </div>
+            
 
             <div class="fra-group">
                 <label for="college_branch">College/Branch/Campus</label>
@@ -293,11 +294,11 @@
                 <input type="text" id="president" name="president" class="form-control {{ Session::has('error_field') && Session::get('error_field') == 'president' ? 'is-invalid' : '' }}" 
                     value="{{ old('president', auth()->user()->name) }}" 
                     placeholder="{{ auth()->user()->name ?? 'Enter the president\'s name' }}" 
-                    disabled>
+                    readonly>
                 @if(Session::has('error_field') && Session::get('error_field') == 'president')
                     <small class="text-danger">The president's name does not match our records.</small>
                 @endif
-            </div>
+            </div>            
 
             <div class="fra-group">
                 <label for="treasurer">Treasurer/ Representative</label>

@@ -89,8 +89,8 @@
             <thead>
                 <tr>
                     <th>Field</th>
-                    <th>Old Value</th>
-                    <th>New Value</th>
+                    <th>Previous</th>
+                    <th>Current</th>
                     <th>Updated At</th>
                 </tr>
             </thead>
