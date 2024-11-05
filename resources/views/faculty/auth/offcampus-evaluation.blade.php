@@ -1,5 +1,6 @@
 @extends('layout.adminlayout')
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/orgs/preeval.css') }}">
 
 @if(Session::has('success'))
     <script>
@@ -16,5 +17,4 @@
     <h1>Upon-ApprovalL Requirements</h1>
     <a href="{{ url('/Off-Campus/Annex-D') }}" class="button">Annex D-H</a>
 </div>
-<link rel="stylesheet" href="/css/orgs/preeval.css">
 @endsection

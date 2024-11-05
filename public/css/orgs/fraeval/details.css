@@ -1,0 +1,84 @@
+.fra-container {
+    width: 70%; /* Width for the container */
+    margin: 4% auto 4% 22.5%; /* Center the container */
+    padding: 30px; /* Ample padding for spacing */
+    background-color: #ffffff; /* White background for clarity */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.fra-container h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.fra-container h3 {
+    color: #34495e;
+    margin-top: 20px; /* Space above section headings */
+    margin-bottom: 10px; /* Space below section headings */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse; /* Combine borders of adjacent cells */
+    margin-bottom: 20px; /* Space between tables */
+    background-color: #fff; /* Background color for table */
+}
+
+.table th, .table td {
+    padding: 12px; /* Cell padding */
+    text-align: left; /* Align text to the left */
+    border: 1px solid #bdc3c7; /* Border for table cells */
+}
+
+.table th {
+    background-color: #007BFF; /* Header background color */
+    color: #ffffff; /* Header text color */
+    font-weight: 600; /* Bold text for headers */
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alternate row color */
+}
+
+.table tbody tr:hover {
+    background-color: #e0f7fa; /* Light blue hover effect */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.btn-primary, .btn-warning {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-warning {
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #218838;
+}
+
+strong {
+    color: #34495e; /* Strong text color */
+}

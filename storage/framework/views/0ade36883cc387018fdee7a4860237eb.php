@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-
+<link rel="stylesheet" href="<?php echo e(asset('css/orgs/ocaeval/annexd.css')); ?>">
 <?php if(Session::has('error')): ?>
     <script>
         window.flashMessage = {
@@ -18,14 +18,14 @@
     </script>
 <?php endif; ?>
 
-<div class="fra-container">
+<div class="oca-container">
     <form action="<?php echo e(route('org.auth.sidebar.annex.d.submit')); ?>" method="POST" enctype="multipart/form-data" onsubmit="return validateAttachments()">
         <?php echo csrf_field(); ?>
         <h2> Annex D: Upon Approval Requirements Pre-Evaluation </h2>
         <div id="Annex-A-Pre-Approval-Requirements">
             <div class="requirements">
                 <!-- Name of Activity and Place of Activity on one line -->
-                <div class="fra-group" style="display: flex; gap: 50px; align-items: center;">
+                <div class="oca-group" style="display: flex; gap: 50px; align-items: center;">
                     <div style="flex: 1;">
                         <label for="noa">Name of Activity</label>
                         <input type="text" id="noa2" name="name_of_activity2" class="form-control" value="<?php echo e(old('name_of_activity2')); ?>" maxlength="100" required>
@@ -37,19 +37,42 @@
                 </div>
         
                 <!-- Duration fields on one line -->
-                <div class="fra-group" style="display: flex; gap: 20px; align-items: center;">
-                    <div style="flex: 1; display: flex; align-items: center;">
-                        <label for="duration_from2" style="margin-right: 10px; white-space: nowrap;">Start Date</label>
-                        <input type="date" id="duration_from2" name="start_date2" class="form-control" required>
+                <div id="duration">
+                    <div class="split">
+                        <div class="oca-group">
+                            <label for="start_date2" style="margin-right: 10px; white-space: nowrap;">Start Date</label>
+                            <input type="date" id="start_date2" name="start_date" class="form-control" value="<?php echo e(old('start_date')); ?>" required>
+                            <?php $__errorArgs = ['start_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="text-danger"><?php echo e($message); ?></div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+
+                        <div class="oca-group">
+                            <label for="end_date2" style="margin-right: 10px; white-space: nowrap;">End Date</label>
+                            <input type="date" id="end_date2" name="end_date" class="form-control" value="<?php echo e(old('end_date')); ?>" required>
+                            <?php $__errorArgs = ['end_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="text-danger"><?php echo e($message); ?></div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
                     </div>
-                    <div style="flex: 1; display: flex; align-items: center;">
-                        <label for="duration_to2" style="margin-right: 10px; white-space: nowrap;">End Date</label>
-                        <input type="date" id="duration_to2" name="end_date2" class="form-control" required>
-                    </div>
-                </div>
+                </div>                
 
                 <!-- Number of Participants and Campus/College/Organization on one line -->
-                <div class="fra-group" style="display: flex; gap: 50px; align-items: center;">
+                <div class="oca-group" style="display: flex; gap: 50px; align-items: center;">
                     <div style="flex: 1;">
                         <label for="nop2">Number of Participants</label>
                         <input type="number" id="nop2" name="number_of_participants2" class="form-control" min="1" max="1000" required>
@@ -64,80 +87,80 @@
 
         <h2>Annex D</h2>
 
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment8">(Individual Itinerary of Travel) reviewed by PIC and approved by Dean/ Director.</label>
             <input type="file" id="attachment8" name="attachment8" accept=".pdf,.doc,.docx" required>
         </div>
     
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment9">Scanned copy/photocopy of the Passport of participants. (for activity outside the country).</label>
             <input type="file" id="attachment9" name="attachment9" accept=".pdf,.doc,.docx" required>
         </div>
     
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment10">Medical Clearance (Office Memorandum Order No. 13 Series 2022)</label>
             <input type="file" id="attachment10" name="attachment10" accept=".pdf,.doc,.docx" required>
         </div>
 
         <h2>Annex E</h2>
     
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment11">Endorsement letter from concerned Dean/Director to Medical and Dental Services Office Director (MDSO Director)</label>
             <input type="file" id="attachment11" name="attachment11" accept=".pdf,.doc,.docx" required>
         </div>
 
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment12">First Aid Kit (Type of first aid will be determined by Medical and Dental Services Office)</label>
             <input type="file" id="attachment12" name="attachment12" accept=".pdf,.doc,.docx" required>
         </div>
 
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment13">Group insurance for all participants.</label>
             <input type="file" id="attachment13" name="attachment13" accept=".pdf,.doc,.docx" required>
         </div>
 
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment14">Consent Form duly signed by the parent/guardian with attached photocopy of parent/guardian’s valid ID with wet signature.</label>
             <input type="file" id="attachment14" name="attachment14" accept=".pdf,.doc,.docx" required>
         </div>
     
         <h2>Annex F</h2>
     
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment15">Assumption of Responsibility of PIC and concerned Sector Head.</label>
             <input type="file" id="attachment15" name="attachment15" accept=".pdf,.doc,.docx" required>
         </div>
     
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment16">Request letter to show proof of advance and proper coordination with the Local Government or concerned NGOs (for curricular activity)</label>
             <input type="file" id="attachment16" name="attachment16" accept=".pdf,.doc,.docx" required>
         </div>
 
         <h2>Annex G</h2>
     
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment17">Risk Assessment Plan prepared by the Personnel-In-Charge/Adviser duly approved by the Dean/ Director.</label>
             <input type="file" id="attachment17" name="attachment17" accept=".pdf,.doc,.docx" required>
         </div>
 
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment18">Consultation conducted to concerned students and stakeholders with attached minutes prepared by personnel-in-charge with wet signature.</label>
             <input type="file" id="attachment18" name="attachment18" accept=".pdf,.doc,.docx" required>
         </div>
 
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment19">Fees/Fund (As applicable) (for curricular activity)</label>
             <input type="file" id="attachment19" name="attachment19" accept=".pdf,.doc,.docx" required>
         </div>
 
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment20">Procurement Requirements (for activities that involve procurement and/or outsourcing of equipment/machines, facilities and services).</label>
             <input type="file" id="attachment20" name="attachment20" accept=".pdf,.doc,.docx" required>
         </div>
 
         <h2>Annex H</h2>
 
-        <div class="fra-group">
+        <div class="oca-group">
             <label for="attachment21">Complied Student Requirements prepared by personnel-in-charge</label>
             <input type="file" id="attachment21" name="attachment21" accept=".pdf,.doc,.docx" required>
         </div>

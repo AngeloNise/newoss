@@ -1,5 +1,6 @@
 
 <?php $__env->startSection('content'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/faculty/applicationadd.css')); ?>">
 
 <?php if(Session::has('error')): ?>
     <script>
@@ -160,6 +161,5 @@ $(document).ready(function() {
         });
     });
 </script>
-<link rel="stylesheet" href="/css/faculty/applicationadd.css">
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/createapp/application.blade.php ENDPATH**/ ?>

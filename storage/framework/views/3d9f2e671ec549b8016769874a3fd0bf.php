@@ -1,7 +1,7 @@
 
 
 <?php $__env->startSection('content'); ?>
-
+<link rel="stylesheet" href="<?php echo e(asset('css/orgs/applicationhistory.css')); ?>">
 <div class="history-container">
     <h2>Off Campus Application History</h2>
 

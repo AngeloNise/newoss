@@ -1,12 +1,11 @@
 /* Container for the entire FRA Evaluation section */
 .fra-container {
-    width: 81%;
-    margin: 5% auto;
-    margin-left: 15%;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 70%; /* Width for the container */
+    margin: 4% auto 4% 22.5%; /* Center the container */
+    padding: 30px; /* Ample padding for spacing */
+    background-color: #ffffff; /* White background for clarity */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 /* Heading Style */

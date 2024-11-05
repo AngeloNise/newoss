@@ -1,6 +1,8 @@
 @extends('layout.orglayout')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/orgs/fraeval/details.css')}}">
+
 <div class="fra-container">
     <a href="/Pre-Evaluation-PDF" class="btn btn-primary">Back</a>
     <a href="{{ route('org.auth.sidebar.preevalfra.edit', $annexa->id) }}" class="btn btn-warning">Edit</a> <!-- Edit Button -->

@@ -1,6 +1,8 @@
 @extends('layout.adminlayout')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/faculty/applicationaddcomment.css') }}">
+
 <div class="fra-container">
     <div class="comment-container">
         <h2>Add Comment for {{ $application->name_of_project }}</h2>
@@ -46,5 +48,4 @@
         </form>
     </div>
 </div>
-<link rel="stylesheet" href="/css/faculty/applicationaddcomment.css">
 @endsection

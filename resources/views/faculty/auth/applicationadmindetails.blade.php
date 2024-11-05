@@ -1,6 +1,8 @@
 @extends('layout.adminlayout')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/faculty/applicationdetails.css') }}">
+<script src="{{ asset('js/faculty/applicationstatus.js') }}"></script>
 
 <div class="application-detail-container">
     <a href="{{ route('faculty.application.admin') }}" class="btn btn-primary">Back</a>
@@ -83,6 +85,5 @@
         <button type="button" class="btn btn-success" onclick="confirmChanges()">Save</button>
     </form>
 </div>
-<link rel="stylesheet" href="/css/faculty/applicationdetails.css">
-<script src="/js/faculty/applicationstatus.js"></script>
+
 @endsection

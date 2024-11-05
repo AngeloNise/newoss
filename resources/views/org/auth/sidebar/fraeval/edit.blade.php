@@ -1,6 +1,7 @@
 @extends('layout.orglayout')
 @section('content')
-
+<link rel="stylesheet" href="{{ asset('css/orgs/fraeval/annexa.css') }}">
+<script src="/js/org/annexa.js"></script>
 @if(Session::has('error'))
     <script>
         window.flashMessage = {
@@ -281,15 +282,15 @@
                 <div id="coordinator">
                     <div class="fra-group">
                         <label for="coordinator">6. Lists of Officials/Coordinators</label>
-                        @if (is_array(old('coordinator')))
-                            @foreach (old('coordinator') as $coordinator)
+                        @if (is_array(old('coordinator')) || !empty($annexA->coordinator))
+                            @foreach (old('coordinator', json_decode($annexA->coordinator, true)) as $coordinator)
                                 <input type="text" id="coordinator" name="coordinator[]" class="form-control" value="{{ $coordinator }}">
                             @endforeach
                         @else
                             <input type="text" id="coordinator" name="coordinator[]" class="form-control" value="">
                         @endif
                     </div>
-                </div>
+                </div>                             
             </div>
 
             <div class="button-coordinator">

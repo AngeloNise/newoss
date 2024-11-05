@@ -1,7 +1,9 @@
 @extends('layout.adminlayout')
 
 @section('content')
-    
+<link rel="stylesheet" href="{{ asset('css/faculty/application.css') }}">
+<script src="{{ asset('js/faculty/application.js') }}"></script>
+
     <div class="application-container">
         <a href="{{ route('faculty.application.create') }}" class="button">Add Application</a>
         <h2>Application List</h2>
@@ -34,6 +36,5 @@
             </table>    
         @endif
     </div>
-    <link rel="stylesheet" href="/css/faculty/application.css">
-    <script src="/js/faculty/application.js"></script>
+
 @endsection

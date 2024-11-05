@@ -1,6 +1,6 @@
 @extends('layout.orglayout')
 @section('content')
-    <link rel="stylesheet" href="/css/orgs/preeval.css">
+<link rel="stylesheet" href="{{ asset('css/orgs/preeval.css') }}">
 @if(Session::has('success'))
     <script>
         window.flashMessage = {

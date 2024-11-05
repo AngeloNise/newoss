@@ -1,5 +1,7 @@
 @extends('layout.adminlayout')
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/faculty/eval.css') }}">
+
 <div class="fra-container">
     <a href="/faculty/FRA-A-Evaluation" class="btn btn-primary">Back</a>
     <h2>Evaluation Details</h2>
@@ -249,5 +251,4 @@
         </table>
     </div>
 </div>
-<link rel="stylesheet" href="/css/faculty/eval.css">
 @endsection

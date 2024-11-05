@@ -37,13 +37,40 @@
                 </div>
         
                 <!-- Duration fields on one line -->
-                <div class="oca-group">
-                    <label for="duration_from">Start Date</label>
-                    <input type="date" id="duration_from" name="start_date" class="form-control" required>
-
-                    <label for="duration_to">End Date</label>
-                    <input type="date" id="duration_to" name="end_date" class="form-control" required>
-                </div>                
+                <div id="duration">
+                    <div class="split">
+                        <div class="oca-group">
+                            <label for="start_date">Start Date</label>
+                            <input type="date" id="start_date" name="start_date" class="form-control" value="<?php echo e(old('start_date')); ?>" required>
+                            <?php $__errorArgs = ['start_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="text-danger"><?php echo e($message); ?></div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+                        
+                        <div class="oca-group">
+                            <label for="end_date">End Date</label>
+                            <input type="date" id="end_date" name="end_date" class="form-control" value="<?php echo e(old('end_date')); ?>" required>
+                            <?php $__errorArgs = ['end_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="text-danger"><?php echo e($message); ?></div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+                    </div>
+                </div>
+                       
 
                 <!-- Number of Participants and Campus/College/Organization on one line -->
                 <div class="oca-group" style="display: flex; gap: 50px; align-items: center;">

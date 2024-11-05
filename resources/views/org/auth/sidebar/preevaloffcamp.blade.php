@@ -1,6 +1,6 @@
 @extends('layout.orglayout')
 @section('content')
-<link rel="stylesheet" href="/css/orgs/ocaeval/ocaeval.css">
+<link rel="stylesheet" href="{{ asset('css/orgs/ocaeval/ocaeval.css') }}">
 @if(Session::has('success'))
     <script>
         window.flashMessage = {

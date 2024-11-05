@@ -1,0 +1,37 @@
+.comments-container {
+    width: 50%; /* Keep your existing width */
+    margin: 4% auto 4% 32.4%; /* Adjust the left margin to nudge it right */
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.comments-container h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.comment-list {
+    list-style: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+}
+
+.comment-list li {
+    margin-bottom: 15px; /* Space between comments */
+    padding: 10px;
+    border: 1px solid #bdc3c7; /* Border for each comment */
+    border-radius: 6px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background for comments */
+}
+
+.comment-list p {
+    margin: 0; /* Remove default margin */
+    color: #34495e; /* Text color */
+}
+
+.comment-list strong {
+    color: #3498db; /* User name color */
+}

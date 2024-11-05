@@ -1,5 +1,7 @@
 @extends('layout.adminlayout')
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/faculty/preevalforms.css') }}">
+
 <div class="content-container">
     <h1>Evaluation Form</h1>
     <div class="activity-question">
@@ -10,5 +12,4 @@
         <a href="{{ url('/faculty/Off-Campus-Evaluation') }}" class="button">Off-Campus Activity</a>
     </div>
 </div>
-<link rel="stylesheet" href="/css/faculty/preevalforms.css">
 @endsection

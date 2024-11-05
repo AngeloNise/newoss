@@ -1,4 +1,6 @@
 <?php $__env->startSection('content'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/faculty/applicationdetails.css')); ?>">
+<script src="<?php echo e(asset('js/faculty/applicationstatus.js')); ?>"></script>
 
 <div class="application-detail-container">
     <a href="<?php echo e(route('faculty.application.admin')); ?>" class="btn btn-primary">Back</a>
@@ -81,8 +83,7 @@
         <button type="button" class="btn btn-success" onclick="confirmChanges()">Save</button>
     </form>
 </div>
-<link rel="stylesheet" href="/css/faculty/applicationdetails.css">
-<script src="/js/faculty/applicationstatus.js"></script>
+
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/applicationadmindetails.blade.php ENDPATH**/ ?>

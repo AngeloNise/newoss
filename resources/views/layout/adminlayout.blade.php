@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Office of the Student Services</title>
-    <link rel="stylesheet" href="/css/Login/loginuser.css">
+    <link rel="stylesheet" href="{{ asset('css/Login/loginuser.css') }}">
 
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />

@@ -1,4 +1,5 @@
 <?php $__env->startSection('content'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/faculty/preevallist.css')); ?>">
 
 <div class="fra-container">
     <a href="<?php echo e(url('/faculty/Pre-Evaluation-Status')); ?>" class="btn btn-secondary mb-3">Back</a>
@@ -32,7 +33,6 @@
         </table>    
     <?php endif; ?>
 </div>
-<link rel="stylesheet" href="/css/faculty/preevallist.css">
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/fraeval/fra-a-evaluation.blade.php ENDPATH**/ ?>

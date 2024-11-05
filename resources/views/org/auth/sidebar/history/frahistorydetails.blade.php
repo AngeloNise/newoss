@@ -1,6 +1,7 @@
 @extends('layout.orglayout')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/orgs/applicationhistorycomment.css')}}">
 <div class="comments-container">
     <h2>Comments for {{ $application->name_of_project }}</h2>
 

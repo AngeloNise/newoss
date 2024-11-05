@@ -1,6 +1,7 @@
 @extends('layout.adminlayout')
-
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/faculty/secretform.css') }}">
+
 <div class="fra-container">
     <form action="{{ route('faculty.secretform123.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -25,5 +26,4 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-<link rel="stylesheet" href="/css/faculty/secretform.css">
 @endsection

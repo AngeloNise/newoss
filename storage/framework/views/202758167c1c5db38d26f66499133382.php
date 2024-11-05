@@ -1,4 +1,6 @@
 <?php $__env->startSection('content'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/faculty/dbadmin.css')); ?>">
+
     <div class="notification-container">
         <div class="notification">
             <?php if($notifications->isEmpty()): ?>
@@ -22,7 +24,6 @@
         </button>
     </div>
 
-    <link rel="stylesheet" href="/css/faculty/dbadmin.css">
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/dbadmin.blade.php ENDPATH**/ ?>

@@ -47,6 +47,17 @@
     box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
 }
 
+.split {
+    display: flex;
+    align-items: center; /* Vertically centers items within the container */
+    gap: 50px; /* Space between label and input */
+    margin-bottom: 20px;
+}
+
+.split .oca-group {
+    flex: 1;
+}
+
 .btn {
     display: inline-block;
     padding: 12px 25px;

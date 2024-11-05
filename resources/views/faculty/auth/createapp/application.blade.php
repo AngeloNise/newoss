@@ -1,5 +1,6 @@
 @extends('layout.adminlayout')
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/faculty/applicationadd.css') }}">
 
 @if(Session::has('error'))
     <script>
@@ -146,5 +147,4 @@ $(document).ready(function() {
         });
     });
 </script>
-<link rel="stylesheet" href="/css/faculty/applicationadd.css">
 @endsection

@@ -1,5 +1,7 @@
 <?php $__env->startSection('content'); ?>
-    
+<link rel="stylesheet" href="<?php echo e(asset('css/faculty/application.css')); ?>">
+<script src="<?php echo e(asset('js/faculty/application.js')); ?>"></script>
+
     <div class="application-container">
         <a href="<?php echo e(route('faculty.application.create')); ?>" class="button">Add Application</a>
         <h2>Application List</h2>
@@ -32,8 +34,7 @@
             </table>    
         <?php endif; ?>
     </div>
-    <link rel="stylesheet" href="/css/faculty/application.css">
-    <script src="/js/faculty/application.js"></script>
+
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/applicationadmin.blade.php ENDPATH**/ ?>

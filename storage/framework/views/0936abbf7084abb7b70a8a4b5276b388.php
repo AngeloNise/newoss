@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-    <link rel="stylesheet" href="/css/orgs/preeval.css">
+<link rel="stylesheet" href="<?php echo e(asset('css/orgs/preeval.css')); ?>">
 <?php if(Session::has('success')): ?>
     <script>
         window.flashMessage = {

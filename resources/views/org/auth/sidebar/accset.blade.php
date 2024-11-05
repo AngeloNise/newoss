@@ -1,6 +1,6 @@
 @extends('layout.orglayout')
 @section('content')
-    <link rel="stylesheet" href="/css/orgs/accset.css">
+<link rel="stylesheet" href="{{ asset('css/orgs/accset.css') }}">
 @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}

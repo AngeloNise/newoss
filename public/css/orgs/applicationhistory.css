@@ -1,11 +1,10 @@
-/* Container for the history section */
 .history-container {
-    width: 80%; /* Set a width for the container */
-    margin: 20px auto; /* Center the container with some margin */
-    padding: 20px; /* Add padding */
-    background-color: #ffffff; /* White background for the container */
+    width: 70%; /* Width for the container */
+    margin: 4% auto 4% 22.5%; /* Center the container */
+    padding: 30px; /* Ample padding for spacing */
+    background-color: #ffffff; /* White background for clarity */
     border-radius: 12px; /* Rounded corners */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 /* Title styling */

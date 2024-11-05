@@ -1,6 +1,6 @@
 .suggestion-container {
-    width: 50%;
-    margin: 4% auto;
+    width: 50%; /* Keep your existing width */
+    margin: 4% auto 4% 32.4%; /* Adjust the left margin to nudge it right */
     padding: 30px;
     background-color: #ffffff;
     border-radius: 12px;

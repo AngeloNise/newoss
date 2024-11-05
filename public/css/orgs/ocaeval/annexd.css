@@ -1,0 +1,128 @@
+.oca-container {
+    width: 50%;
+    margin: 4% auto 4% 32.4%;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.oca-container h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.oca-group {
+    margin-bottom: 25px;
+}
+
+.oca-group label {
+    display: block;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 5px;
+}
+
+.oca-group input[type="text"],
+.oca-group input[type="number"],
+.oca-group input[type="date"],
+.oca-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.oca-group input[type="text"]:focus,
+.oca-group input[type="number"]:focus,
+.oca-group input[type="date"]:focus,
+.oca-group input[type="file"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+}
+
+.split {
+    display: flex;
+    align-items: center; /* Vertically centers items within the container */
+    gap: 50px; /* Space between label and input */
+    margin-bottom: 20px;
+}
+
+.split .oca-group {
+    flex: 1;
+}
+
+.oca-group[style*="display: flex;"] {
+    gap: 50px;
+    align-items: center;
+}
+
+.oca-group[style*="display: flex; gap: 20px;"] {
+    gap: 20px;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-primary:active {
+    background-color: #1f6d8d;
+}
+
+.is-invalid {
+    border-color: red;
+}
+
+.is-invalid:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.flash-message {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: white;
+    width: auto;
+    margin: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.5s ease, top 0.5s ease;
+    opacity: 1;
+}
+
+.flash-message.success {
+    background-color: #28a745;
+}
+
+.flash-message.error {
+    background-color: #dc3545;
+}
+
+.flash-message.fade-out {
+    opacity: 0;
+    top: -50px;
+}

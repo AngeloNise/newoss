@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-<link rel="stylesheet" href="/css/orgs/download.css">
+<link rel="stylesheet" href="<?php echo e(asset('css/orgs/download.css')); ?>">
 <script>
     function confirmDownload(event) {
         // Prevent the default anchor click behavior

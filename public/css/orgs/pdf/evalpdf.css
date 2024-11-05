@@ -69,11 +69,13 @@
 }
 
 .btn-secondary {
-    background-color: #6c757d; /* Secondary button color */
+    background-color: #ff4d4d; /* Bright red */
+    border-color: #ff4d4d; /* Match border color to background */
 }
 
 .btn-secondary:hover {
-    background-color: #5a6268; /* Darker gray on hover */
+    background-color: #e60000; /* Darker red on hover */
+    border-color: #e60000; /* Match border color on hover */
 }
 
 .text-muted {

@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-<link rel="stylesheet" href="/css/orgs/ocaeval/ocaeval.css">
+<link rel="stylesheet" href="<?php echo e(asset('css/orgs/ocaeval/ocaeval.css')); ?>">
 <?php if(Session::has('success')): ?>
     <script>
         window.flashMessage = {

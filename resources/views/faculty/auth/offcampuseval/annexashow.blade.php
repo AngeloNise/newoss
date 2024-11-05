@@ -1,6 +1,8 @@
 @extends('layout.adminlayout')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/faculty/offcampuseval/annex-a-view.css') }}">
+
 <div class="application-container">
     <h2>Submission Details</h2>
     
@@ -70,5 +72,4 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="/css/faculty/offcampuseval/annex-a-view.css">
 @endsection

@@ -1,6 +1,8 @@
 @extends('layout.adminlayout')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/faculty/dbadmin.css') }}">
+
     <div class="notification-container">
         <div class="notification">
             @if ($notifications->isEmpty())
@@ -24,5 +26,4 @@
         </button>
     </div>
 
-    <link rel="stylesheet" href="/css/faculty/dbadmin.css">
 @endsection

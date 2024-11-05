@@ -1,6 +1,7 @@
 @extends('layout.adminlayout')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/faculty/oamedit.css') }}">
 
 <div class="org-account-container">
     <h2>Edit Organization Account</h2>

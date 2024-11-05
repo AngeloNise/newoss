@@ -1,4 +1,5 @@
 <?php $__env->startSection('content'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/faculty/oamedit.css')); ?>">
 
 <div class="org-account-container">
     <h2>Edit Organization Account</h2>

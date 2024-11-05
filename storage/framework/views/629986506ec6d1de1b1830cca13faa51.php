@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-<link rel="stylesheet" href="/css/orgs/fraeval/annexa.css">
+<link rel="stylesheet" href="<?php echo e(asset('css/orgs/fraeval/annexa.css')); ?>">
 <script src="/js/org/annexa.js"></script>
 <?php if(Session::has('error')): ?>
     <script>
@@ -79,12 +79,13 @@ unset($__errorArgs, $__bag); ?>
                 <label for="requesting_organization">Requesting Organization</label>
                 <input type="text" id="requesting_organization" name="requesting_organization" class="form-control <?php echo e(Session::has('error_field') && Session::get('error_field') == 'requesting_organization' ? 'is-invalid' : ''); ?>" 
                     value="<?php echo e(old('requesting_organization', auth()->user()->name_of_organization)); ?>" 
-                    placeholder="<?php echo e(auth()->user()->name_of_organization ?? 'Enter your organization name'); ?>">
+                    placeholder="<?php echo e(auth()->user()->name_of_organization ?? 'Enter your organization name'); ?>" 
+                    disabled>
                 <?php if(Session::has('error_field') && Session::get('error_field') == 'requesting_organization'): ?>
                     <small class="text-danger">The requesting organization does not match our records.</small>
                 <?php endif; ?>
             </div>
-            
+
             <div class="fra-group">
                 <label for="college_branch">College/Branch/Campus</label>
                 <input type="text" id="college_branch" name="college_branch" class="form-control" value="<?php echo e(old('college_branch')); ?>" required>
@@ -346,7 +347,8 @@ unset($__errorArgs, $__bag); ?>
                 <label for="president">President of Organization</label>
                 <input type="text" id="president" name="president" class="form-control <?php echo e(Session::has('error_field') && Session::get('error_field') == 'president' ? 'is-invalid' : ''); ?>" 
                     value="<?php echo e(old('president', auth()->user()->name)); ?>" 
-                    placeholder="<?php echo e(auth()->user()->name ?? 'Enter the president\'s name'); ?>">
+                    placeholder="<?php echo e(auth()->user()->name ?? 'Enter the president\'s name'); ?>" 
+                    disabled>
                 <?php if(Session::has('error_field') && Session::get('error_field') == 'president'): ?>
                     <small class="text-danger">The president's name does not match our records.</small>
                 <?php endif; ?>
