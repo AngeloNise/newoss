@@ -1,6 +1,8 @@
 @extends('layout.deanlayout')
 
 @section('content')
+<script src="{{ asset('js/faculty/dean/annexasuggestion.js') }}"></script>
+
 <div class="suggestion-container">
     <a href="{{ route('dean.fra-a-evaluation.show', $application->id) }}" class="btn btn-primary">Back</a>
     <h2>Add Suggestion for FRA {{ $application->name_of_project }}</h2>
@@ -39,6 +41,4 @@
         <button type="submit" id="submit-both" class="btn btn-primary">Send</button>
     </form>
 </div>
-
-<script src="{{ asset('js/faculty/dean/annexasuggestion.js') }}"></script>
 @endsection

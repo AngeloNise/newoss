@@ -16,7 +16,7 @@
     <!-- Scripts -->
     <?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss', 'resources/js/app.js']); ?>
 
-    <link rel="stylesheet" href="/css/login/login.css">
+    <link rel="stylesheet" href="<?php echo e(asset('css/login/login.css')); ?>">
 </head>
 <body>
     <div id="app">

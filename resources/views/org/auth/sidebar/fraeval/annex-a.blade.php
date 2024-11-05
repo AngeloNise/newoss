@@ -1,7 +1,7 @@
 @extends('layout.orglayout')
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/orgs/fraeval/annexa.css') }}">
-<script src="/js/org/annexa.js"></script>
+<script src="{{ asset('js/org/annexa.js') }}"></script>
 @if(Session::has('error'))
     <script>
         window.flashMessage = {

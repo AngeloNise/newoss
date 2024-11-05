@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-    <link rel="stylesheet" href="/css/orgs/accset.css">
+<link rel="stylesheet" href="<?php echo e(asset('css/orgs/accset.css')); ?>">
 <?php if(session('success')): ?>
     <div class="alert alert-success">
         <?php echo e(session('success')); ?>
