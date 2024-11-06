@@ -24,6 +24,20 @@ class CreateApplicationController extends Controller
 
     public function store(Request $request)
     {
+
+        $user = auth()->user();
+
+        // Restriction: Check if the user already has a Fund Raising application with a status other than 'Returned'
+        $existingApplication = Application::where('name_of_organization', $user->name_of_organization)
+            ->where('status', '!=', 'Returned') // Exclude 'Returned' status
+            ->where('proposed_activity', 'Fund Raising') // Check if the proposed activity is 'Fund Raising'
+            ->first();
+    
+        if ($existingApplication) {
+            Session::flash('error', 'You cannot submit a new Fund Raising application unless your previous application has been returned.');
+            return redirect()->back();
+        }
+        
         // Validate the input
         $validated = $request->validate([
             'name_of_project' => 'required|string',
