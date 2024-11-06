@@ -36,7 +36,7 @@
         <!-- Check if a Fund Raising application exists and isn't returned, or if the user has a pending AnnexA application -->
         <a href="{{ url('/FRA/Annex-A') }}" class="button {{ $existingFundRaisingApplication || $existingApplication ? 'disabled' : '' }}" 
            {{ $existingFundRaisingApplication || $existingApplication ? 'onclick="return false;""' : '' }}>
-           {{ $existingFundRaisingApplication || $existingApplication ? 'Fund Raising Activity (One Pre-Evaluation at a time)' : 'Fund Raising Activity' }}
+           {{ $existingFundRaisingApplication || $existingApplication ? 'Fund Raising Activity (One FRA Application at a time)' : 'Fund Raising Activity' }}
         </a>
         <a href="{{ url('/Off-Campus-Activity') }}" class="button">Off-Campus Activity</a>
     </div>

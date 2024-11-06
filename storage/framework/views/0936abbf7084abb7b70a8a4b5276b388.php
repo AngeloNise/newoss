@@ -35,7 +35,7 @@
         <!-- Check if a Fund Raising application exists and isn't returned, or if the user has a pending AnnexA application -->
         <a href="<?php echo e(url('/FRA/Annex-A')); ?>" class="button <?php echo e($existingFundRaisingApplication || $existingApplication ? 'disabled' : ''); ?>" 
            <?php echo e($existingFundRaisingApplication || $existingApplication ? 'onclick="return false;""' : ''); ?>>
-           <?php echo e($existingFundRaisingApplication || $existingApplication ? 'Fund Raising Activity (One Pre-Evaluation at a time)' : 'Fund Raising Activity'); ?>
+           <?php echo e($existingFundRaisingApplication || $existingApplication ? 'Fund Raising Activity (One FRA Application at a time)' : 'Fund Raising Activity'); ?>
 
         </a>
         <a href="<?php echo e(url('/Off-Campus-Activity')); ?>" class="button">Off-Campus Activity</a>
