@@ -23,12 +23,12 @@
         </thead>
         <tbody>
             @foreach ($approvedApplications as $application)
-            @if ($application->frapost == 'not_submitted')
+            @if ($application->status == 'not_submitted')
             <tr>
                 <td>{{ $application->name_of_organization }}</td>
                 <td>{{ $application->name_of_project }}</td> <!-- Fix the closing </td> -->
                 <td>
-                    <span style="color: red;">Not Submitted</span>
+                    <span style="color: Green;">Approved</span>
                 </td>
                 <td>
                     <!-- Dropdown for 'frapost' status -->

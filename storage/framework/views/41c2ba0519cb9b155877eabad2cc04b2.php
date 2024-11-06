@@ -21,12 +21,12 @@
         </thead>
         <tbody>
             <?php $__currentLoopData = $approvedApplications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $application): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php if($application->frapost == 'not_submitted'): ?>
+            <?php if($application->status == 'not_submitted'): ?>
             <tr>
                 <td><?php echo e($application->name_of_organization); ?></td>
                 <td><?php echo e($application->name_of_project); ?></td> <!-- Fix the closing </td> -->
                 <td>
-                    <span style="color: red;">Not Submitted</span>
+                    <span style="color: Green;">Approved</span>
                 </td>
                 <td>
                     <!-- Dropdown for 'frapost' status -->

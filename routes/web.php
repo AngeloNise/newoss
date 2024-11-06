@@ -5,6 +5,10 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PreApprovalSubmissionController;
 use App\Http\Controllers\AnnexDSubmissionController;
+use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\Auth\LoginController;
+
 
 use App\Http\Controllers\Faculty\FacultyHomeController;
 use App\Http\Controllers\Faculty\FacultyLoginController;
@@ -169,22 +173,7 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
     });
 });
 
-Route::get('/dean/login', [DeanLoginController::class, 'index'])->name('dean.login');
-Route::post('/dean/login', [DeanLoginController::class, 'login']);
 
-/*Route::middleware(['auth', DeanMiddleware::class])->group(function () {
-    Route::get('/dean/Homepage', function () {
-        return view('dean.auth.homepage'); // Path to the dean homepage
-    })->name('dean.homepage');
-    
-    Route::get('/dean/Pre-Evaluation-Forms', [DeanFRAAnnexAController::class, 'index'])->name('dean.fra-a-evaluation.index');
-    Route::get('/dean/FRA-A-Evaluation/{id}', [DeanFRAAnnexAController::class, 'show'])->name('dean.fra-a-evaluation.show');
-    Route::get('/dean/FRA-A-Evaluation/{id}/suggestion', [DeanFRAAnnexAController::class, 'suggestion'])->name('dean.fra-a-evaluation.suggestion');
-    Route::post('/dean/FRA-A-Evaluation/{id}/suggestions', [DeanFRAAnnexAController::class, 'storeSuggestion'])->name('dean.fra-a-evaluation.store-suggestion');
-    Route::put('/dean/FRA-A-Evaluation/suggestions/{id}', [DeanFRAAnnexAController::class, 'updateSuggestion'])->name('dean.fra-a-evaluation.update-suggestion');
-    Route::put('/dean/FRA-A-Evaluation/{id}/update-status', [DeanFRAAnnexAController::class, 'updateStatus'])->name('dean.fra-a-evaluation.update-status');
-    Route::get('/dean/Dashboard', [DeanFRAAnnexAController::class, 'sidenotif'])->name('dashboard');
-});*/
 
 Route::prefix('faculty')->name('faculty.')->middleware(['auth', FacultyMiddleware::class])->group(function () {
     Route::get('/auth/managepost', [EventController::class, 'adminIndex'])->name('managePost');
@@ -197,8 +186,9 @@ Route::prefix('faculty')->name('faculty.')->middleware(['auth', FacultyMiddlewar
 });
 
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('Homepage')->middleware(UserMiddleware::class);
-Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'orgLogin'])->name('login');
+Route::get('/home', [HomeController::class, 'index'])->name('org.history.homepage')->middleware(UserMiddleware::class);
+Route::get('/login', [LoginController::class, 'orgLogin'])->name('login');
+
 
 // Organization routes
 Route::middleware(['auth', UserMiddleware::class])->group(function () {
@@ -246,14 +236,6 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
         Route::get('/Annex-A', function () {
             return view('/org/auth/sidebar/fraeval/annex-a');
         })->name('fra.annex-a');
-    
-        /*Route::get('/Annex-B', function () {
-            return view('/org/auth/sidebar/fraeval/annex-b');
-        })->name('fra.annex-b');
-    
-        Route::get('/Annex-C', function () {f
-            return view('/org/auth/sidebar/fraeval/annex-c');
-        })->name('fra.annex-c');*/
     });
 
     Route::prefix('Off-Campus')->group(function () {
@@ -273,32 +255,6 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
         Route::get('/annex-d', [AnnexDSubmissionController::class, 'showForm'])->name('org.auth.sidebar.annex.d.form');
 
         Route::post('/annex-d', [AnnexDSubmissionController::class, 'submitForm'])->name('org.auth.sidebar.annex.d.submit');
-        /*Route::get('/Annex-B', function () {
-            return view('/org/auth/sidebar/offcampus/annex-b');
-        })->name('offcampus.annex-b');
-        
-        Route::get('/Annex-C', function () {
-            return view('/org/auth/sidebar/offcampus/annex-c');
-        })->name('offcampus.annex-c');
-        
-
-        
-        Route::get('/Annex-E', function () {
-            return view('/org/auth/sidebar/offcampus/annex-e');
-        })->name('offcampus.annex-e');
-        
-        Route::get('/Annex-F', function () {
-            return view('/org/auth/sidebar/offcampus/annex-f');
-        })->name('offcampus.annex-f');
-        
-        Route::get('/Annex-G', function () {
-            return view('/org/auth/sidebar/offcampus/annex-g');
-        })->name('offcampus.annex-g');
-        
-        Route::get('/Annex-H', function () {
-            return view('/org/auth/sidebar/offcampus/annex-h');
-        })->name('offcampus.annex-h');*/
-        
     });
     
 
@@ -323,3 +279,6 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::get('/Account-Settings', [AccountSettingsController::class, 'index'])->name('accset');
     Route::post('/Account-Settings', [AccountSettingsController::class, 'update'])->name('accset.update');
 });
+
+Route::get('/dean/login', [DeanLoginController::class, 'index'])->name('dean.login');
+Route::post('/dean/login', [DeanLoginController::class, 'login']);

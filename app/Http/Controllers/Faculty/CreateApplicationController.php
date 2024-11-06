@@ -35,6 +35,7 @@ class CreateApplicationController extends Controller
             })
             ->first();
         
+        // If an application exists and it's not eligible for a new submission
         if ($existingApplication) {
             Session::flash('error', 'You cannot submit a new Fund Raising application unless your previous application has been returned or the Frapost status is "submitted".');
             return redirect()->back();

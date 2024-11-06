@@ -3,7 +3,7 @@
 <script src="<?php echo e(asset('js/faculty/application.js')); ?>"></script>
 
 <div class="application-container">
-
+    <a href="<?php echo e(route('faculty.application.create')); ?>" class="button">Add Application</a>
     <h2>Application List</h2>
 
     <!-- Search Bar -->
