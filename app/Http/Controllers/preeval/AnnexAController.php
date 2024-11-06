@@ -91,62 +91,47 @@ class AnnexAController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
-
+    
         // Check if the user already has a pending application
-        $existingPendingApplication =  AnnexA::where('email', $user->email)
+        $existingApplication = AnnexA::where('email', $user->email)
             ->where('status', 'Pending Approval')
             ->first();
-
-        if ($existingPendingApplication) {
+    
+        if ($existingApplication) {
             Session::flash('error', 'You already have a pending application and cannot submit a new one at this time.');
             return redirect()->back();
         }
-
-        // New restriction: Check if the user has any previous applications that are not 'Returned' and proposed activity is 'Fund Raising'
-        $existingApplication = Application::where('name_of_organization', $user->name_of_organization)
-            ->where('status', '!=', 'Returned') // Only check for statuses that are not 'Returned'
-            ->where('proposed_activity', 'Fund Raising') // Check if the proposed activity is 'Fund Raising'
-            ->first();
-
-        if ($existingApplication) {
-            Session::flash('error', 'You cannot submit a new application unless your previous application has been returned.');
-            return redirect()->back();
+    
+        $validated = $request->validate($this->validationRules());
+    
+        // Check if the requesting organization matches the user's organization
+        if ($user->name_of_organization !== $validated['requesting_organization']) {
+            Session::flash('error', 'Your organization name does not match your credentials.');
+            Session::flash('error_field', 'requesting_organization');
+            return redirect()->back()->withInput();
         }
-
-        // Proceed with validating the input
-        $validated = $request->validate([
-            'name_of_project' => 'required|string',
-            'name_of_organization' => 'required|string',
-            'proposed_activity' => 'required|string',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date',
-            'college_branch' => 'nullable|string',
-            'total_estimated_income' => 'nullable|numeric',
-            'place_of_activity' => 'nullable|string',
-        ]);
-
-        // Create a new application instance
-        $application = new Application();
-        $application->name_of_project = $validated['name_of_project'];
-        $application->name_of_organization = $validated['name_of_organization'];
-        $application->proposed_activity = $validated['proposed_activity'];
-        $application->status = 'Pending Approval'; 
-        $application->current_file_location = 'OSS'; 
-        $application->submission_date = now();
-
-        // Assign additional fields
-        $application->start_date = $validated['start_date'];
-        $application->end_date = $validated['end_date'];
-        $application->college_branch = $validated['college_branch'];
-        $application->total_estimated_income = $validated['total_estimated_income'];
-        $application->place_of_activity = $validated['place_of_activity'];
-
-        $application->save();
-
-        Session::flash('success', 'Application created successfully.');
-        return redirect()->route('faculty.application.admin')->with('success', 'Application created successfully!');
+    
+        // Check if the president exists in the same organization as the logged-in user
+        $presidentExists = User::where('name', $validated['president'])
+            ->where('name_of_organization', $user->name_of_organization)
+            ->exists();
+    
+        if (!$presidentExists) {
+            Session::flash('error', 'President name does not match your organization.');
+            Session::flash('error_field', 'president');
+            return redirect()->back()->withInput();
+        }
+    
+        // Proceed with saving the form data if validations pass
+        $annexA = new AnnexA($this->prepareData($validated, $user));
+        $annexA->save();
+    
+        // Show a success message
+        Session::flash('success', 'Your form has passed the first evaluation');
+        return redirect()->route('org.auth.sidebar.preeval');
     }
     
+
     public function edit($id)
     {
         // Find the AnnexA record by ID

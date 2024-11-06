@@ -79,12 +79,12 @@ unset($__errorArgs, $__bag); ?>
                 <label for="requesting_organization">Requesting Organization</label>
                 <input type="text" id="requesting_organization" name="requesting_organization" class="form-control <?php echo e(Session::has('error_field') && Session::get('error_field') == 'requesting_organization' ? 'is-invalid' : ''); ?>" 
                     value="<?php echo e(old('requesting_organization', auth()->user()->name_of_organization)); ?>" 
-                    placeholder="<?php echo e(auth()->user()->name_of_organization ?? 'Enter your organization name'); ?>" 
-                    readonly>
+                    placeholder="<?php echo e(auth()->user()->name_of_organization ?? 'Enter your organization name'); ?>">
                 <?php if(Session::has('error_field') && Session::get('error_field') == 'requesting_organization'): ?>
                     <small class="text-danger">The requesting organization does not match our records.</small>
                 <?php endif; ?>
             </div>
+            
             
 
             <div class="fra-group">
@@ -348,12 +348,11 @@ unset($__errorArgs, $__bag); ?>
                 <label for="president">President of Organization</label>
                 <input type="text" id="president" name="president" class="form-control <?php echo e(Session::has('error_field') && Session::get('error_field') == 'president' ? 'is-invalid' : ''); ?>" 
                     value="<?php echo e(old('president', auth()->user()->name)); ?>" 
-                    placeholder="<?php echo e(auth()->user()->name ?? 'Enter the president\'s name'); ?>" 
-                    readonly>
+                    placeholder="<?php echo e(auth()->user()->name ?? 'Enter the president\'s name'); ?>">
                 <?php if(Session::has('error_field') && Session::get('error_field') == 'president'): ?>
                     <small class="text-danger">The president's name does not match our records.</small>
                 <?php endif; ?>
-            </div>            
+            </div>                   
 
             <div class="fra-group">
                 <label for="treasurer">Treasurer/ Representative</label>
