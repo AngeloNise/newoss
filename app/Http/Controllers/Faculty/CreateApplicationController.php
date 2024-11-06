@@ -271,4 +271,13 @@ class CreateApplicationController extends Controller
         
         return view('org.auth.sidebar.history.frahistorydetails', compact('application', 'comments'));
     }
+
+    public function showApprovedApplications()
+    {
+        // Retrieve only approved applications
+        $approvedApplications = Application::where('status', 'Approved')->get();
+
+        // Pass the approved applications to the view
+        return view('faculty.auth.postreportfra', compact('approvedApplications'));
+    }
 }

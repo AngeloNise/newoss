@@ -20,6 +20,7 @@ class Application extends Model
         'place_of_activity',
         'status',
         'current_file_location',
+        'frapost',
         'submission_date'
     ];
 

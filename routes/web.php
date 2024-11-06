@@ -15,6 +15,7 @@ use App\Http\Controllers\Faculty\FacultyOrgAcctManagementController;
 use App\Http\Controllers\Faculty\secretformController;
 use App\Http\Controllers\faculty\CreateApplicationController;
 use App\Http\Controllers\Faculty\FacultyOffCampusAnnexAController;
+use App\Http\Controllers\Faculty\FacultyOffCampusAnnexDController;
 
 use App\Http\Controllers\Dean\DeanLoginController;
 use App\Http\Controllers\Dean\DeanFRAAnnexAController;
@@ -144,7 +145,11 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
 
         Route::get('/Post-Report', function() {
             return view('/faculty/auth/postreport');
-        })->name('dbadmin3');
+        })->name('dbadmin2');
+
+        Route::get('/Post-Activity-FRA', [CreateApplicationController::class, 'showApprovedApplications'])->name('post-activity-fra');
+
+        
         Route::get('/Pre-Evaluation-Status', function() {
             return view('/faculty/auth/preevalstatus');
         })->name('dbadmin4');
