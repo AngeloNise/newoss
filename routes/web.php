@@ -148,6 +148,7 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         })->name('dbadmin2');
 
         Route::get('/Post-Activity-FRA', [CreateApplicationController::class, 'showApprovedApplications'])->name('post-activity-fra');
+        Route::put('/application/{id}/update-frapost', [CreateApplicationController::class, 'updateFrapost'])->name('updateFrapost');
 
         
         Route::get('/Pre-Evaluation-Status', function() {

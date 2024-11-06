@@ -13,10 +13,14 @@
 <?php
     $user = auth()->user();
     
-    // Check if there is an existing Fund Raising application with status other than 'Returned'
+    // Check if there is an existing Fund Raising application with status other than 'Returned' 
+    // and 'frapost' is not 'submitted'
     $existingFundRaisingApplication = \App\Models\Application::where('name_of_organization', $user->name_of_organization)
-        ->where('status', '!=', 'Returned')
         ->where('proposed_activity', 'Fund Raising')
+        ->where(function($query) {
+            $query->where('status', '!=', 'Returned') // Exclude 'Returned' status
+                  ->where('frapost', '!=', 'submitted'); // Exclude if 'frapost' is 'submitted'
+        })
         ->exists();
         
     // Check if there is an existing pending application for AnnexA
@@ -32,9 +36,9 @@
     </div>
 
     <div class="activity-buttons">
-        <!-- Check if a Fund Raising application exists and isn't returned, or if the user has a pending AnnexA application -->
+        <!-- Check if a Fund Raising application exists and isn't returned or submitted, or if the user has a pending AnnexA application -->
         <a href="<?php echo e(url('/FRA/Annex-A')); ?>" class="button <?php echo e($existingFundRaisingApplication || $existingApplication ? 'disabled' : ''); ?>" 
-           <?php echo e($existingFundRaisingApplication || $existingApplication ? 'onclick="return false;""' : ''); ?>>
+           <?php echo e($existingFundRaisingApplication || $existingApplication ? 'onclick="return false;"' : ''); ?>>
            <?php echo e($existingFundRaisingApplication || $existingApplication ? 'Fund Raising Activity (One FRA Application at a time)' : 'Fund Raising Activity'); ?>
 
         </a>

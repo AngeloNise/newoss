@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('place_of_activity')->nullable(); // Added place_of_activity
             $table->enum('status', ['Pending Approval', 'Returned', 'Approved'])->default('Pending Approval')->nullable();
             $table->enum('current_file_location', ['Forwarded by OSS', 'Returned to OSS', 'OSS'])->default('OSS')->nullable();
-            $table->boolean('frapost')->default(1);
+            $table->enum('frapost', ['not_submitted', 'submitted'])->default('not_submitted')->nullable();
             $table->date('submission_date')->default(now());
             $table->timestamps();
         });

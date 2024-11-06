@@ -1,0 +1,98 @@
+/* Container for the approved applications */
+.content-container {
+    width: 50%; /* Keep your existing width */
+    margin: 4% auto 4% 32.4%; /* Adjust the left margin to nudge it right */
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading style */
+.content-container h1 {
+    margin-bottom: 20px;
+    font-size: 32px;
+    color: #343a40;
+    font-weight: 600;
+}
+
+/* Table styles */
+.content-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Table headers */
+.content-container th {
+    padding: 12px 15px;
+    background-color: #f8f9fa;
+    color: #495057;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Table rows */
+.content-container td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+    color: #495057;
+}
+
+/* Highlight row for approved status */
+.content-container td span {
+    color: green;
+    font-weight: bold;
+}
+
+/* Dropdown styles */
+.content-container select {
+    width: 150px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f8f9fa;
+    transition: border-color 0.3s ease;
+}
+
+/* Dropdown hover effect */
+.content-container select:hover {
+    border-color: #007bff;
+}
+
+/* Dropdown focus effect */
+.content-container select:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.search-bar {
+    width: 100%; /* Full width to match form-control */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #bdc3c7; /* Matching border */
+    border-radius: 6px; /* Rounded corners */
+    font-size: 16px;
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .content-container {
+        width: 90%;
+    }
+
+    .content-container table {
+        font-size: 14px;
+    }
+
+    .content-container th, .content-container td {
+        padding: 10px;
+    }
+
+    .content-container select {
+        width: 100%;
+    }
+}
