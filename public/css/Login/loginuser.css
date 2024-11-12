@@ -19,9 +19,14 @@ body {
     width: 100%;
     color: #555555;
 }
-.tooltip {
-    position: relative;
-    justify-content: center; /* Center the tooltip content */
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 15px;
 }
 
 /* Application text styling */
@@ -31,39 +36,6 @@ body {
     padding: 0;
 }
 
-/* Tooltip text styling */
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 150px; /* Adjust width as needed */
-    background-color: #555;
-    color: #fff;
-    text-align: center; /* Center text inside tooltip */
-    border-radius: 6px;
-    padding: 8px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%; /* Position above the tooltip container */
-    left: 50%; /* Center horizontally relative to parent */
-    transform: translateX(-50%); /* Adjust horizontal position */
-    opacity: 0;
-    transition: opacity 0s; /* Immediate appearance */
-}
-
-.tooltip .tooltiptext::after {
-    content: " ";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
 .sb{
     background-color: #a8243c;
     color: #ffffff;
@@ -87,6 +59,43 @@ body {
     align-items: center;
 }
 
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    color: #ffffff;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-header img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.sidebar-header h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Styling for sidebar links */
+.link-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.link-container ul li {
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+}
+
 .link-container p {
     text-align: left;
     vertical-align: middle;
@@ -103,31 +112,26 @@ body {
     border-radius:  5% 5% 5% 5%/  30% 30% 30% 30%;  
 }
 
-.link-container ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 30%;
-    width: 100%;
-    position: relative;
-}
-
-.link-container ul li {
-    margin: 0;
-    font-weight: bold;
-    font-size: 18px;
-    text-align: left;
-}
-
 .link-container ul li a {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center icons and text vertically */
     color: #ffffff;
     text-decoration: none;
-    display: block;
     padding: 10px;
     text-align: left;
     margin-left: 5%;
     margin-right: 5%;
-    border-radius:  5% 5% 5% 5%/  30% 30% 30% 30%;  
-    
+    border-radius: 5% 5% 5% 5% / 30% 30% 30% 30%;
+    gap: 10px; /* Add space between icon and text */
+    font-size: 18px; /* Consistent font size */
+}
+
+/* Icon size adjustment */
+.link-container ul li a i.bx {
+    font-size: 1.5em; /* Adjust icon size if necessary */
+    display: inline-block;
+    vertical-align: middle;
+    min-width: 24px; /* Ensures a consistent spacing regardless of icon width */
 }
 
 .link-container ul li p {
@@ -147,13 +151,13 @@ body {
 
 .link-container ul .dropdown {
     width: 90%;
+    padding: 1px;
     margin: 20px;
     display: none;
     list-style-type: none;
     margin: 0;
     background-color: #5c0c1a;
-    left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(5%);
     border-radius:  5% 5% 5% 5%/  20% 20% 20% 20%;   
 }
 
@@ -185,45 +189,6 @@ body {
 
 .open {
     display: none;
-}
-
-@media(max-width: 811px){
-    .link-container{
-        flex-direction: column;
-        align-items: flex-start;
-
-        position: fixed;
-        top: 0;
-        left: -100%;
-        z-index: 10;
-        width: 175px;
-        background-color: #721425;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: 0.5s ease-out;
-    }
-    .link-container ul a{
-        box-sizing:border-box;
-        height: auto;
-        width: 100%;
-        padding: 20px 30px;
-        justify-content: flex-start;
-    }
-    .open, .close{
-        padding: 20px;
-        display: block;
-        justify-content: flex-end;
-    }
-    #sidebar:checked ~ .link-container{
-        left: 0;
-    }
-    #sidebar:checked ~ #overlay{
-        height: 100%;
-        width: 100%;
-        position: fixed;
-        top: 3%;
-        right: 0;
-        z-index: 9;
-    }
 }
 
 .centerbody{
@@ -287,67 +252,9 @@ body {
     text-align: center;
 }
 
-
-@media (max-width: 858px) {
-    .contact-info {
-        flex-direction: column;
-        margin-left: 15%;
-        width: 85%;
-        padding-left: 0;
-        text-align: center;
-    }
-
-    .contact-info div {
-        width: 100%;
-        margin-bottom: 3px;
-    }
-
-    .contact-info p {
-        font-size: 13px;
-        margin-top: 0.2%
-    }
-
-    .contact-info h3 {
-        font-size: 16px;
-    }
-
-    .center h1{
-        font-size: 16px;
-    }
-
-    .center p{
-        font-size: 13px;
-    }
-}
-
-.login-option {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 25%; 
-    text-align: center;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border-radius: 8px;
-    padding: 2em;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    border: 1px solid rgba(255, 255, 255, 0.3); 
-    box-sizing: border-box; /* Ensures padding and border are included in the width */
-}
-
 .logo {
     width: 100px;
     margin-bottom: 1em;
-}
-
-.login-option h1 {
-    font-size: 2em;
-    color: #333;
-}
-
-.login-option p {
-    color: #666;
 }
 
 .buttons {
@@ -401,66 +308,4 @@ body {
 
 .terms a:hover {
     text-decoration: underline;
-}
-
-
-@media (max-width: 847px) {
-    .centerbody{
-        background-color: #f8f8f8;
-        height: 100%;
-        width: 100%;
-        margin-left: 3%;
-    }
-    .center h1 {
-        color: black;
-        font-weight: bold;
-        margin-top: 17%;
-        width: 100%;
-       
-    }
-
-    .center p {
-        margin-top: 26%;
-        margin: 0;
-        margin-left: -3%;
-    }
-
-    .login-option {
-        width: 59%;
-        height: auto;
-        top: 0;
-        bottom: auto;
-        right: 0; /* Move to the right side */
-        left: auto; /* Remove left alignment */
-        border-radius: 0;
-        padding: 1px;
-        box-shadow: none;
-        overflow: hidden;
-        position: absolute; /* Ensure it's positioned correctly */
-        background: transparent; /* Set background to transparent */
-        backdrop-filter: none; /* Remove the glass effect filter */
-    }
-
-    .logo {
-        display: none;
-    }
-
-    .login-option h1,
-    .login-option p,
-    .terms {
-        display: none;
-    }
-
-    .buttons {
-        margin: 0;
-        flex-direction: row;
-        justify-content: flex-end;
-        font-size: 10px;
-    }
-
-    .button {
-        padding: 0.5em 1em;
-        margin: 0.3em;
-        width: 20%;
-    }
 }

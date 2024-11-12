@@ -24,21 +24,25 @@ class CreateApplicationController extends Controller
 
     public function store(Request $request)
     {
-
         $user = auth()->user();
 
-        // Restriction: Check if the user already has a Fund Raising application with a status other than 'Returned'
+        // Check if the user already has a Fund Raising application with a status other than 'Returned' and 'frapost' is not 'submitted'
         $existingApplication = Application::where('name_of_organization', $user->name_of_organization)
-            ->where('status', '!=', 'Returned') // Exclude 'Returned' status
             ->where('proposed_activity', 'Fund Raising') // Check if the proposed activity is 'Fund Raising'
+            ->where(function($query) {
+                $query->where('status', '!=', 'Returned') // Exclude 'Returned' status
+                      ->where('frapost', '!=', 'submitted'); // Exclude if 'frapost' is 'submitted'
+            })
             ->first();
-    
+        
+        // If an application exists and it's not eligible for a new submission
         if ($existingApplication) {
-            Session::flash('error', 'You cannot submit a new Fund Raising application unless your previous application has been returned.');
+            Session::flash('error', 'You cannot submit a new Fund Raising application unless your previous application has been returned or the Frapost status is "submitted".');
             return redirect()->back();
         }
         
-        // Validate the input
+    
+        // If no restriction, proceed with creating the new application
         $validated = $request->validate([
             'name_of_project' => 'required|string',
             'name_of_organization' => 'required|string',
@@ -54,11 +58,11 @@ class CreateApplicationController extends Controller
         $application = new Application();
         $application->name_of_project = $validated['name_of_project'];
         $application->name_of_organization = $validated['name_of_organization'];
-        $application->proposed_activity = $validated['proposed_activity']; // Assign the validated value
+        $application->proposed_activity = $validated['proposed_activity'];
         $application->status = 'pending approval'; 
         $application->current_file_location = 'OSS'; 
         $application->submission_date = now();
-        
+    
         // Assign additional fields
         $application->start_date = $validated['start_date'];
         $application->end_date = $validated['end_date'];
@@ -70,7 +74,27 @@ class CreateApplicationController extends Controller
     
         Session::flash('success', 'Application created successfully.');
         return redirect()->route('faculty.application.admin')->with('success', 'Application created successfully!');
+    }
+    
 
+    public function updateFrapost(Request $request, $id)
+    {
+        // Find the application by its ID
+        $application = Application::findOrFail($id);
+
+        // Validate the 'frapost' field (ensure it's either 'not_submitted' or 'submitted')
+        $validated = $request->validate([
+            'frapost' => 'required|in:not_submitted,submitted', // Validate the 'frapost' field
+        ]);
+
+        // Update the 'frapost' field with the validated value
+        $application->frapost = $validated['frapost'];
+        
+        // Save the updated application
+        $application->save();
+
+        // Redirect back to the list of approved applications with a success message
+        return redirect()->route('faculty.post-activity-fra')->with('success', 'Frapost status updated successfully!');
     }
 
     public function showPdfOptions()

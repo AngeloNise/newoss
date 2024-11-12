@@ -1,6 +1,6 @@
 .application-container {
-    width: 50%; /* Keep your existing width */
-    margin: 4% auto 4% 32.4%; /* Adjust the left margin to nudge it right */
+    width: 50%;
+    margin: 4% auto 4% 32.4%;
     padding: 30px;
     background-color: #ffffff;
     border-radius: 12px;
@@ -8,80 +8,157 @@
 }
 
 .application-container h2 {
-    text-align: center; /* Centered title */
-    color: #333; /* Darker shade for the title */
-    margin-bottom: 20px; /* Space below title */
-    font-size: 26px; /* Increased font size for visibility */
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 26px;
 }
 
 .alert-success {
-    background-color: #d4edda; /* Light green background */
-    color: #155724; /* Dark green text */
-    padding: 10px; /* Padding for alerts */
-    border: 1px solid #c3e6cb; /* Light green border */
-    border-radius: 6px; /* Rounded corners */
-    margin-bottom: 20px; /* Space below alert */
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border: 1px solid #c3e6cb;
+    border-radius: 6px;
+    margin-bottom: 20px;
 }
 
 .alert-danger {
-    background-color: #f8d7da; /* Light red background */
-    color: #721c24; /* Dark red text */
-    padding: 10px; /* Padding for alerts */
-    border: 1px solid #f5c6cb; /* Light red border */
-    border-radius: 6px; /* Rounded corners */
-    margin-bottom: 20px; /* Space below alert */
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    margin-bottom: 20px;
 }
 
 .details-table, .attachments-table {
-    width: 100%; /* Full width for tables */
-    border-collapse: collapse; /* Remove gaps between cells */
-    margin-bottom: 20px; /* Space below the table */
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
 .details-table td, .attachments-table td {
-    padding: 12px; /* Consistent padding for cells */
-    border: 1px solid #bdc3c7; /* Light gray border */
-    font-size: 16px; /* Font size for table text */
+    padding: 12px;
+    border: 1px solid #bdc3c7;
+    font-size: 16px;
 }
 
 .attachments-table td {
-    text-align: left; /* Left-align attachment details */
+    text-align: left;
 }
 
 .activity-buttons {
-    text-align: center; /* Center the buttons */
+    text-align: center;
 }
 
 .activity-buttons .btn {
-    display: inline-block; /* Inline block for buttons */
-    padding: 10px 15px; /* Button padding */
-    margin: 0 5px; /* Spacing between buttons */
-    color: #fff; /* Text color */
-    background-color: #007BFF; /* Primary button color */
-    border: none; /* No border */
-    border-radius: 6px; /* Rounded corners */
-    text-align: center; /* Center text */
-    cursor: pointer; /* Pointer cursor */
-    text-decoration: none; /* Remove underline from links */
-    transition: background-color 0.3s ease; /* Smooth transition */
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 0 5px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
 }
 
 .activity-buttons .btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3;
 }
 
+/* Custom styles for Update Status and Evaluate buttons */
+.back-btn-primary {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 8px 16px;
+    background-color: #007bff; /* Blue color for back button */
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: px;
+}
+
+/* Adding margin to primary and secondary buttons for spacing */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 30px; /* Space above */
+    margin-bottom: 10px; /* Space below */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    margin-top: 30px; /* Space above */
+    margin-bottom: 10px; /* Space below */
+}
+
+.btn-secondary:hover {
+    background-color: #c82333;
+}
+/* Layout adjustments on smaller screens */
 @media (max-width: 768px) {
     .application-container {
-        width: 90%; /* Full width on smaller screens */
-        padding: 20px; /* Reduced padding */
+        width: 90%;
+        padding: 20px;
     }
 
     .application-container h2 {
-        font-size: 24px; /* Adjusted heading size */
+        font-size: 24px;
     }
 
     .details-table td, .attachments-table td {
-        font-size: 14px; /* Smaller font size for table on small screens */
-        padding: 10px; /* Reduced padding */
+        font-size: 14px;
+        padding: 10px;
     }
+}
+
+.form-control {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding for inputs */
+    font-size: 16px; /* Font size for inputs */
+    border: 1px solid #bdc3c7; /* Matching border color */
+    border-radius: 6px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding in width */
+    transition: border-color 0.3s; /* Smooth transition for border */
+}
+
+.form-control:focus {
+    border-color: #007BFF; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+}
+
+
+/* Disabled and placeholder option styling */
+.form-control option[disabled] {
+    color: #6c757d; /* Gray color for the placeholder */
+}
+
+.form-control option {
+    padding: 8px;
 }

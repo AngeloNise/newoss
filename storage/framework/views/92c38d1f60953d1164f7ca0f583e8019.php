@@ -1,6 +1,8 @@
 
 
 <?php $__env->startSection('content'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/faculty/offcampuseval/annex-a-view.css')); ?>">
+
 <div class="application-container">
     <h2>Submission Details</h2>
     
@@ -70,7 +72,6 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="/css/faculty/offcampuseval/annex-a-view.css">
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/offcampuseval/annexashow.blade.php ENDPATH**/ ?>

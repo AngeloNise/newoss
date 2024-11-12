@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PreApprovalSubmission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 
 class PreApprovalSubmissionController extends Controller
 {
@@ -30,12 +31,10 @@ class PreApprovalSubmissionController extends Controller
 
         return response()->file($filePath);
     }
-    
-    
-
-
+        
     public function submitForm(Request $request)
     {
+        // Validate the request
         $request->validate([
             'name_of_activity' => 'required|string|max:100',
             'place_of_activity' => 'required|string|max:100',
@@ -45,8 +44,8 @@ class PreApprovalSubmissionController extends Controller
             'campus_college_org' => 'required|string|max:100',
             'attachments.*' => 'required|file|mimetypes:application/pdf|max:2048'  // Ensure only PDFs are accepted
         ]);        
-        
     
+        // Prepare the data for insertion
         $submissionData = $request->only([
             'name_of_activity', 
             'place_of_activity', 
@@ -56,21 +55,26 @@ class PreApprovalSubmissionController extends Controller
             'campus_college_org'
         ]);
     
+        // Handle the file attachments
         $attachments = [];
         for ($i = 1; $i <= 7; $i++) {
             if ($request->hasFile("attachment{$i}")) {
-                // Store the file directly in 'public/attachments' directory
+                // Store the file in 'public/attachments' directory
                 $filePath = $request->file("attachment{$i}")->move(public_path('attachments'), $request->file("attachment{$i}")->getClientOriginalName());
                 $attachments["attachment{$i}_path"] = 'attachments/' . $request->file("attachment{$i}")->getClientOriginalName();
             }
         }
     
+        // Merge the attachments into the submission data
         $submissionData = array_merge($submissionData, $attachments);
     
+        // Create a new submission record in the database
         PreApprovalSubmission::create($submissionData);
     
-        return redirect()->back()->with('success', 'Form submitted successfully!');
+        // Flash success message
+        Session::flash('success', 'Your form has passed the first evaluation');
+    
+        // Redirect to the 'preeval' route
+        return redirect()->route('org.auth.sidebar.preeval');
     }
-    
-    
 }

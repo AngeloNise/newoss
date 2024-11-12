@@ -24,4 +24,11 @@ class PreApprovalSubmission extends Model
         'attachment6_path',
         'attachment7_path',
     ];
+
+    public function comments()
+    {
+        return $this->hasMany(OffcampusComment::class, 'pre_approval_submission_id');
+    }
+    
+
 }

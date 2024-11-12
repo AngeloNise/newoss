@@ -27,17 +27,19 @@
 .application-container .button,
 .application-container .btn {
     display: inline-block;
-    padding: 12px 25px; /* Adjusted padding to match btn styles */
+    padding: 12px 25px;
+    width: 150px; /* Set a specific width */
     margin-top: 20px;
     color: #fff;
-    background-color: #dc3545; /* Red color for evaluation */
+    background-color: #dc3545;
     border: none;
-    border-radius: 6px; /* Rounded corners */
+    border-radius: 6px;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s;
 }
+
 
 .application-container .button:hover,
 .application-container .btn:hover {

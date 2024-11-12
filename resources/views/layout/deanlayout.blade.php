@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Office of the Student Services</title>
-    <link rel="stylesheet" href="/css/Login/loginuser.css">
+    <link rel="stylesheet" href="/css/login/loginuser.css">
     <link rel="stylesheet" href="/css/faculty/preevallist.css">
     <link rel="stylesheet" href="/css/faculty/preevalforms.css">
     <link rel="stylesheet" href="/css/faculty/oam.css">

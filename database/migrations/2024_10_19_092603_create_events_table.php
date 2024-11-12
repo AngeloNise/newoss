@@ -6,31 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateEventsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('title'); // Event title
-            $table->text('description')->nullable(); // Event description
-            $table->string('href')->nullable(); // URL link to the Facebook post
-            $table->string('image')->nullable(); // Path to the event image
-            $table->string('category')->default('In-Campus'); // Category (In-Campus, Off-Campus, etc.)
-            $table->string('organization'); // Organization that created the event
-            $table->string('department')->nullable(); // Department column added
-            $table->timestamps(); // Created and updated timestamps
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('href')->nullable();
+            $table->string('image')->nullable();
+            $table->string('category')->default('In-Campus');
+            $table->string('organization');
+            $table->string('department')->nullable();
+            $table->dateTime('event_date')->nullable();
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('events');

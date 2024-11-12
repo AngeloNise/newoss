@@ -94,17 +94,17 @@
 
         <div class="mb-3">
             <label for="description" class="labelincampus_incampus">Event Description</label>
-            <textarea class="formincampus-control_incampus" id="description" name="description" rows="3" required></textarea>
+            <input type="text" class="formincampus-control_incampus" id="description" name="description" rows="3" required></textarea>
         </div>
 
         <div class="mb-3">
             <label for="image" class="labelincampus_incampus">Event Image</label>
-            <input type="file" class="formincampus-control_incampus" id="image" name="image" required>
-        </div>
+            <input type="file" class="formincampus-control_incampus" id="image" name="image" accept=".jpg, .jpeg, .png, .gif, .bmp" required>
+        </div>        
 
         <div class="mb-3">
             <label for="href" class="labelincampus_incampus">Event Facebook Link</label>
-            <input type="url" class="formincampus-control_incampus" id="href" placeholder="https://www.facebook.com/link(copy the url)" name="href" required>
+            <input type="url" class="formincampus-control_incampus" id="href" name="href" required>
         </div>
 
         <div class="mb-3">

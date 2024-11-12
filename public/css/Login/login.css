@@ -21,15 +21,6 @@
 .box{
     margin-top: 10%;
 }
-
-@media (max-width: 550px) {
-    .login-option {
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-        padding: 1em;
-    }
-}
 /* Style for form controls */
 .form-group {
     text-align: center; /* Centers the button horizontally within the form-group */

@@ -1,6 +1,8 @@
 
 
 <?php $__env->startSection('content'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/faculty/applicationaddcomment.css')); ?>">
+
 <div class="fra-container">
     <div class="comment-container">
         <h2>Add Comment for <?php echo e($application->name_of_project); ?></h2>
@@ -46,7 +48,6 @@
         </form>
     </div>
 </div>
-<link rel="stylesheet" href="/css/faculty/applicationaddcomment.css">
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/createapp/applicationcomment.blade.php ENDPATH**/ ?>
