@@ -140,6 +140,6 @@ class DatabaseSeeder extends Seeder
             'branch' => 'PUP-MAIN'
         ]);
 
-        $this->call(EventSeeder::class);
+        //$this->call(EventSeeder::class);
     }
 }
