@@ -77,17 +77,45 @@
         border-radius: 5px;        /* Round the corners of the alert box. Adjust for more or less rounding. */
         color: #fff;               /* Set text color for alert messages. Change hex value for different colors. */
         text-align: center;         /* Center-align text inside the alert. Change to 'left' or 'right' for different alignment. */
+        margin: 0 auto;
+    }
+    /* Alert styling */
+    .alert-overlay {
+        position: fixed;
+        top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        z-index: 1000; /* Ensure it stays on top */
+        pointer-events: none; /* Click-through for underlying elements */
+    }
+
+        .alertsuccessincampus_incampus,
+    .alerterrorincampus_incampus {
+        width: 50%; /* Adjust width as needed to center within the container */
+        margin: 20px 300px 30px auto; /* Top, Right, Bottom, Left */
+        padding: 15px; /* Padding for better readability */
+        color: #fff; /* Text color for contrast */
+        border-radius: 5px; /* Rounded corners */
+        text-align: center; /* Center the text inside the alert */
+        font-weight: bold; /* Optional: bold text for emphasis */
     }
 
     .alertsuccessincampus_incampus {
-        background-color: #4CAF50; /* Set background color for success alerts. Change hex value for different colors. */
+        background-color: #4CAF50; /* Success alert color */
     }
 
     .alerterrorincampus_incampus {
-        background-color: #f44336; /* Set background color for error alerts. Change hex value for different colors. */
+        background-color: #f44336; /* Error alert color */
+    }
+
+    .fade-out {
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
     }
 
     .cards-container {
+        margin-left: 50px;
         display: flex;            /* Use flexbox for layout */
         flex-wrap: wrap;         /* Allow wrapping of items to the next line */
         justify-content: space-between; /* Space out cards evenly */
@@ -137,6 +165,7 @@
         display: flex;
         justify-content: center;
         margin-bottom: 20px;
+        margin-right: 350px;
     }
 
     .search-bar input[type="text"] {
@@ -144,6 +173,7 @@
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
+        margin-left: 100px;
     }
 
     .search-bar button {
@@ -152,7 +182,7 @@
         color: white;
         border: none;
         border-radius: 5px;
-        margin-left: 10px;
+        margin-right: 350px;
         cursor: pointer;
     }
 
@@ -163,14 +193,6 @@
 
 <div class="container_incampus">
     <h1 class="headerincampus_incampus">Upcoming Events</h1>
-
-     <!-- Add search bar for department -->
-     <div class="search-bar">
-        <form action="<?php echo e(route('events.search')); ?>" method="GET">
-            <input type="text" name="department" placeholder="Search by Department" value="<?php echo e(request()->input('department')); ?>">
-            <button type="submit">Search</button>
-        </form>
-    </div>
 
 
     <?php if(session('success')): ?>
@@ -191,7 +213,7 @@
     <div class="cards-container"> <!-- Flexbox container for cards -->
         <?php $__currentLoopData = $events; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="cardincampus_incampus">  <!-- Event card -->
-                <img src="<?php echo e(asset('storage/' . $event->image)); ?>" class="cardimgincampus_incampus" alt="<?php echo e($event->title); ?>">
+            <img src="<?php echo e(asset('storage/' . $event->image)); ?>" alt="<?php echo e($event->title); ?>" class="cardimgincampus_incampus">
                 <div class="cardbodyincampus_incampus">
                     <h5 class="cardtitleincampus_incampus"><?php echo e($event->title); ?></h5>
                     <p class="cardtextincampus_incampus"> <?php echo e(Str::limit($event->description, 250, '...')); ?></p>
@@ -203,6 +225,26 @@
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all alert elements
+    const alerts = document.querySelectorAll('.alertsuccessincampus_incampus, .alerterrorincampus_incampus');
+
+    // Set a timeout to add the fade-out class after 2 seconds
+    setTimeout(() => {
+        alerts.forEach(alert => {
+            alert.classList.add('fade-out');
+        });
+    }, 2000);
+
+    // Set another timeout to remove the alert from the DOM completely after 2.5 seconds
+    setTimeout(() => {
+        alerts.forEach(alert => {
+            alert.style.display = 'none';
+        });
+    }, 2500);
+});
+</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.eventslayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/guest/incampusg.blade.php ENDPATH**/ ?>

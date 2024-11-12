@@ -35,7 +35,7 @@ class EventController extends Controller
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'href' => 'required|url',
-        'image' => 'required|image',
+        'image' => 'required|image|max:2048',
         'event_date' => 'required|date|after:today',
         'department' => 'required|string|max:255', // Validate the department input
     ]);
@@ -98,7 +98,7 @@ class EventController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'href' => 'required|url',
-            'image' => 'required|image',
+            'image' => 'nullable|image|max:2048',
             'event_date' => 'required|date|after:today',
             'department' => 'required|string|max:255', // Validate the department input
         ]);
@@ -158,7 +158,7 @@ public function facultyStore(Request $request)
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'href' => 'required|url',
-        'image' => 'required|image',
+        'image' => 'required|image|max:2048',
         'event_date' => 'required|date|after:today',
         'department' => 'required|string|max:255',
     ]);
@@ -199,7 +199,7 @@ public function facultyUpdate(Request $request, $id)
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'href' => 'required|url',
-        'image' => 'required|image',
+        'image' => 'nullable|image|max:2048',
         'event_date' => 'required|date|after:today',
         'department' => 'required|string|max:255',
     ]);

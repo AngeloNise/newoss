@@ -127,7 +127,11 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/offcampus-annex-a/{id}', [FacultyOffCampusAnnexAController::class, 'show'])->name('offcampus.annex.a.show');
 
         Route::get('/faculty/offcampus-annex-a/{id}/download/{attachmentNumber}', [FacultyOffCampusAnnexAController::class, 'downloadAttachment'])
-        ->name('faculty.offcampus.annex.a.download');   
+        ->name('faculty.offcampus.annex.a.download');
+
+        Route::put('/offcampus/annex-a/{id}/update-status', [FacultyOffCampusAnnexAController::class, 'updateStatus'])->name('faculty.offcampus.annex-a.update-status');
+        Route::get('/offcampus/annex-a/{id}/evaluate', [FacultyOffCampusAnnexAController::class, 'evaluate'])->name('faculty.offcampus.annex-a.evaluate');
+        Route::post('/offcampus/annex-a/{id}/evaluate', [FacultyOffCampusAnnexAController::class, 'storeEvaluation'])->name('faculty.offcampus.annex-a.store-evaluation');
 
         //Annex D
         Route::get('/offcampuseval/offcampusannexd', [FacultyOffCampusAnnexDController::class, 'index'])
@@ -222,6 +226,7 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::get('/generate-pdf/{id}', [GeneratePDFController::class, 'generatePDF'])->name('generate-pdf'); // Ensure this matches the usage
     Route::get('/download-pdf/{id}', [GeneratePDFController::class, 'downloadPDF'])->name('pdf.download');
     Route::get('/FRA-A-Evaluation/{id}', [GeneratePDFController::class, 'show'])->name('org.fra-a-evaluation.show');
+    Route::get('/pre-eval-pdf', [GeneratePDFController::class, 'showPreEvalPDF'])->name('pre-eval-pdf');
 
 
     // Route for In-Campus Activity

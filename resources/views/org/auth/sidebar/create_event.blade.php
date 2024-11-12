@@ -104,7 +104,7 @@
 
         <div class="mb-3">
             <label for="href" class="labelincampus_incampus">Event Facebook Link</label>
-            <input type="url" class="formincampus-control_incampus" id="href" placeholder="https://www.facebook.com/link(copy the url)" name="href" required>
+            <input type="url" class="formincampus-control_incampus" id="href" name="href" required>
         </div>
 
         <div class="mb-3">
