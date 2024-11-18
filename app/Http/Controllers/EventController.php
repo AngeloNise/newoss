@@ -11,14 +11,56 @@ use Illuminate\Support\Facades\Gate;
 class EventController extends Controller
 {
     // Show all In-Campus events
-    public function showInCampus()
+    public function showInCampus(Request $request)
     {
-        $events = Event::where('category', 'In-Campus')->get();
-        foreach ($events as $event) {
-            $event->image_url = Storage::url($event->image);
-        }
-        return view('org.auth.sidebar.incampus', compact('events'));
+        $currentDateTime = \Carbon\Carbon::now();
+    
+        // Define the current page for upcoming and ended events separately
+        $upcomingPage = $request->get('upcoming_page', 1);  // Default to page 1 if not present
+        $endedPage = $request->get('ended_page', 1);  // Default to page 1 if not present
+    
+        // Upcoming Events: events that are in the future but not expired (not 24 hours past the event date)
+        $upcomingEvents = Event::where('category', 'In-Campus')
+            ->where('event_date', '>', $currentDateTime)
+            ->where('event_date', '>', \Carbon\Carbon::now()->subHours(24)) // Make sure the event is not expired
+            ->paginate(12, ['*'], 'upcoming_page', $upcomingPage);
+    
+        // Ended Events: events that are in the past but less than 24 hours old
+        $endedEvents = Event::where('category', 'In-Campus')
+            ->where('event_date', '<=', $currentDateTime)
+            ->where('event_date', '>', \Carbon\Carbon::now()->subHours(24)) // Ensure it's within the 24-hour period
+            ->orderBy('event_date', 'desc') // Sort events by event_date in descending order
+            ->paginate(12, ['*'], 'ended_page', $endedPage);
+    
+        // Pass both sets of events to the view
+        return view('org.auth.sidebar.incampus', compact('upcomingEvents', 'endedEvents'));
     }
+
+    public function showGuestInCampus(Request $request)
+    {
+        $currentDateTime = \Carbon\Carbon::now();
+    
+        // Define the current page for upcoming and ended events separately
+        $upcomingPage = $request->get('upcoming_page', 1);  // Default to page 1 if not present
+        $endedPage = $request->get('ended_page', 1);  // Default to page 1 if not present
+    
+        // Upcoming Events: events that are in the future but not expired (not 24 hours past the event date)
+        $upcomingEvents = Event::where('category', 'In-Campus')
+            ->where('event_date', '>', $currentDateTime)
+            ->where('event_date', '>', \Carbon\Carbon::now()->subHours(24)) // Make sure the event is not expired
+            ->paginate(12, ['*'], 'upcoming_page', $upcomingPage);
+    
+        // Ended Events: events that are in the past but less than 24 hours old
+        $endedEvents = Event::where('category', 'In-Campus')
+            ->where('event_date', '<=', $currentDateTime)
+            ->where('event_date', '>', \Carbon\Carbon::now()->subHours(24)) // Ensure it's within the 24-hour period
+            ->orderBy('event_date', 'desc') // Sort events by event_date in descending order
+            ->paginate(12, ['*'], 'ended_page', $endedPage);
+    
+        // Return data to the guest view
+        return view('guest.incampusg', compact('upcomingEvents', 'endedEvents'));
+    }
+    
 
     // Show form to create a new event
     public function create()
@@ -33,9 +75,8 @@ class EventController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'href' => 'required|url',
-            'image' => 'required|image|mimes:jpg,jpeg,png,gif,bmp|max:2048',  // Correct validation rule for image
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif,bmp|:7000',  // Correct validation rule for image
             'event_date' => 'required|date|after:today',
-            'department' => 'required|string|max:255',
         ]);
     
         // Store the image in the public storage directory and get the file path
@@ -50,7 +91,7 @@ class EventController extends Controller
             'category' => 'In-Campus',
             'organization' => Auth::user()->name_of_organization,
             'event_date' => $request->event_date,
-            'department' => $request->department,
+            'colleges' => $request->colleges,
         ]);
     
         // Redirect the user with a success message
@@ -89,7 +130,7 @@ class EventController extends Controller
             'href' => 'required|url',
             'image' => 'nullable|image|max:2048',
             'event_date' => 'required|date|after:today',
-            'department' => 'required|string|max:255',
+            'colleges' => 'required|string|max:255',
         ]);
 
         if ($request->hasFile('image')) {
@@ -101,18 +142,18 @@ class EventController extends Controller
         $event->description = $request->description;
         $event->href = $request->href;
         $event->event_date = $request->event_date;
-        $event->department = $request->department;
+        $event->colleges = $request->colleges;
         $event->save();
 
         return redirect()->route('events.incampus')->with('success', 'Event updated successfully!');
     }
 
-    // Search for events by department
+    // Search for events by colleges
     public function search(Request $request)
     {
-        $department = $request->input('department');
-        $events = Event::when($department, function($query, $department) {
-            return $query->where('department', 'LIKE', '%' . $department . '%');
+        $colleges = $request->input('colleges');
+        $events = Event::when($colleges, function($query, $colleges) {
+            return $query->where('colleges', 'LIKE', '%' . $colleges . '%');
         })->where('category', 'In-Campus')->get();
 
         foreach ($events as $event) {
@@ -120,6 +161,21 @@ class EventController extends Controller
         }
 
         return view('guest.incampusg', compact('events'));
+    }
+
+    public function searchorg(Request $request)
+    {
+        $query = Event::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('title', 'like', '%' . $search . '%')
+                ->orWhere('colleges', 'like', '%' . $search . '%');
+        }
+
+        $events = $query->paginate(10);
+
+        return view('org.auth.sidebar.incampus', compact('events'));
     }
 
     // Admin: view all events
@@ -148,7 +204,7 @@ class EventController extends Controller
             'href' => 'required|url',
             'image' => 'required|image|max:2048',
             'event_date' => 'required|date|after:today',
-            'department' => 'required|string|max:255',
+            'colleges' => 'required|string|max:255',
         ]);
 
         $imagePath = $request->file('image')->store('events', 'public');
@@ -162,10 +218,16 @@ class EventController extends Controller
             'category' => 'In-Campus',
             'organization' => $organization,
             'event_date' => $request->event_date,
-            'department' => $request->department,
+            'colleges' => $request->colleges,
         ]);
 
         return redirect()->route('faculty.managePost')->with('success', 'Event created successfully!');
+    }
+
+    public function manageEvents()
+    {
+        $events = Event::where('organization', Auth::user()->name_of_organization)->get();
+        return view('org.auth.sidebar.manage_events', compact('events'));
     }
 
     // Faculty: show form to edit event
@@ -189,7 +251,7 @@ class EventController extends Controller
             'href' => 'required|url',
             'image' => 'nullable|image|max:2048',
             'event_date' => 'required|date|after:today',
-            'department' => 'required|string|max:255',
+            'colleges' => 'required|string|max:255',
         ]);
 
         if ($request->hasFile('image')) {
@@ -201,7 +263,7 @@ class EventController extends Controller
         $event->description = $request->description;
         $event->href = $request->href;
         $event->event_date = $request->event_date;
-        $event->department = $request->department;
+        $event->colleges = $request->colleges;
         $event->save();
 
         return redirect()->route('faculty.managePost')->with('success', 'Event updated successfully!');

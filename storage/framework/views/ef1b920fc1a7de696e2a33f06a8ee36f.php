@@ -1,6 +1,7 @@
 
-
 <?php $__env->startSection('content'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/faculty/secretform.css')); ?>">
+
 <div class="fra-container">
     <form action="<?php echo e(route('faculty.secretform123.store')); ?>" method="POST" enctype="multipart/form-data">
         <?php echo csrf_field(); ?>
@@ -25,7 +26,6 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-<link rel="stylesheet" href="/css/faculty/secretform.css">
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/secretform.blade.php ENDPATH**/ ?>

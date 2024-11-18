@@ -1,54 +1,101 @@
 <?php $__env->startSection('content'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/orgs/incampus.css')); ?>">
 
-<div class="content-container">
-    <h1 class="headerincampus_incampus">Upcoming Events</h1>
+<!-- Upcoming Events Container -->
+<div class="content-container-parent">
+    <div class="content-container">
+        <!-- Alerts -->
+        <?php if(session('success')): ?>
+            <div class="alertincampus_incampus alertsuccessincampus_incampus">
+                <?php echo e(session('success')); ?>
 
-    <?php if(session('success')): ?>
-        <div class="alertincampus_incampus alertsuccessincampus_incampus">
-            <?php echo e(session('success')); ?>
+            </div>
+        <?php endif; ?>
 
+        <?php if(session('error')): ?>
+            <div class="alertincampus_incampus alerterrorincampus_incampus">
+                <?php echo e(session('error')); ?>
+
+            </div>
+        <?php endif; ?>
+
+        <!-- Search Bar -->
+        <input type="text" id="searchBar" placeholder="Search by Title or Colleges..." class="search-bar" onkeyup="filterEvents()">
+
+        <!-- Create and Manage Buttons -->
+        <div class="buttons-container">
+            <!-- Create Event Button -->
+            <div class="create-button">
+                <a href="<?php echo e(route('events.create')); ?>" class="btnincampus-primary_incampus">Create Event</a>
+            </div>
+
+            <!-- Manage Events Button -->
+            <div class="manage-button">
+                <a href="<?php echo e(route('events.manage')); ?>" class="btnincampus-primary_incampus">Manage Events</a>
+            </div>
         </div>
-    <?php endif; ?>
 
-    <?php if(session('error')): ?>
-        <div class="alertincampus_incampus alerterrorincampus_incampus">
-            <?php echo e(session('error')); ?>
+        <!-- Upcoming Events -->
+        <h2 class="headerincampus_incampus">Upcoming Events</h2>
+        <?php if($upcomingEvents->isEmpty()): ?>
+            <p class="no-events-message">No upcoming events.</p>
+        <?php else: ?>
+            <div class="cards-container" id="upcomingEventsContainer">
+                <?php $__currentLoopData = $upcomingEvents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div 
+                        class="cardincampus_incampus" 
+                        data-title="<?php echo e(strtolower($event->title)); ?>" 
+                        data-colleges="<?php echo e(strtolower($event->colleges)); ?>"
+                    >
+                        <img src="<?php echo e(asset('storage/' . $event->image)); ?>" class="cardimgincampus_incampus" alt="<?php echo e($event->title); ?>">
+                        <div class="cardbodyincampus_incampus">
+                            <h5 class="cardtitleincampus_incampus"><?php echo e($event->title); ?></h5>
+                            <p class="cardtextincampus_incampus"><?php echo e(Str::limit($event->description, 250, '...')); ?></p>
+                            <p class="event-date"><?php echo e(\Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A')); ?></p>
+                            <a href="<?php echo e($event->href); ?>" class="btnlinkincampus_incampus text-danger">Click here for more details.</a>
+                        </div>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
 
-        </div>
-    <?php endif; ?>
+            <!-- Pagination for Upcoming Events -->
+            <div class="pagination-container">
+                <?php echo e($upcomingEvents->appends(['ended_page' => request()->get('ended_page')])->links('pagination::simple-bootstrap-4')); ?>
 
-    <!-- Create Event Button -->
-    <div class="create-button">
-        <a href="<?php echo e(route('events.create')); ?>" class="btnincampus-primary_incampus" style="width: auto; text-align: center;">Create Event</a>
+            </div>
+        <?php endif; ?>
     </div>
 
-    <div class="cards-container">
-        <?php $__currentLoopData = $events; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="cardincampus_incampus">
-                <img src="<?php echo e(asset('storage/events/' . $event->image)); ?>" class="cardimgincampus_incampus" alt="<?php echo e($event->title); ?>">
-                <div class="cardbodyincampus_incampus">
-                    <h5 class="cardtitleincampus_incampus"><?php echo e($event->title); ?></h5>
-                    <p class="cardtextincampus_incampus"><?php echo e(Str::limit($event->description, 250, '...')); ?></p>
-                    <p class="event-date"><?php echo e(\Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A')); ?></p>
-                    <a href="<?php echo e($event->href); ?>" class="btnlinkincampus_incampus text-danger">Click here for link</a>
-
-                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $event)): ?>
-                        <form action="<?php echo e(route('events.edit', $event->id)); ?>" method="GET" style="display:inline;">
-                            <button type="submit" class="btnincampus-edit_incampus">Edit</button>
-                        </form>
-                    <?php endif; ?>
-
-                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete', $event)): ?>
-                        <form action="<?php echo e(route('events.destroy', $event->id)); ?>" method="POST" style="display:inline;">
-                            <?php echo csrf_field(); ?>
-                            <?php echo method_field('DELETE'); ?>
-                            <button type="submit" class="btnincampus-delete_incampus">Delete</button>
-                        </form>
-                    <?php endif; ?>
-                </div>
+<!-- Finished Events Container -->
+    <div class="content-container-finished">
+        <h2 class="headerincampus_incampus">Finished Events</h2>
+        <?php if($endedEvents->isEmpty()): ?>
+            <p class="no-events-message">No finished events.</p>
+        <?php else: ?>
+            <div class="cards-container" id="endedEventsContainer">
+                <?php $__currentLoopData = $endedEvents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div 
+                        class="cardincampus_incampus" 
+                        data-title="<?php echo e(strtolower($event->title)); ?>" 
+                        data-colleges="<?php echo e(strtolower($event->colleges)); ?>"
+                    >
+                        <img src="<?php echo e(asset('storage/' . $event->image)); ?>" class="cardimgincampus_incampus" alt="<?php echo e($event->title); ?>">
+                        <div class="cardbodyincampus_incampus">
+                            <h5 class="cardtitleincampus_incampus"><?php echo e($event->title); ?></h5>
+                            <p class="cardtextincampus_incampus"><?php echo e(Str::limit($event->description, 250, '...')); ?></p>
+                            <p class="event-date"><?php echo e(\Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A')); ?></p>
+                            <a href="<?php echo e($event->href); ?>" class="btnlinkincampus_incampus text-danger">Click here for more details.</a>
+                        </div>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+            <!-- Pagination for Finished Events -->
+            <div class="pagination-container">
+                <?php echo e($endedEvents->appends(['upcoming_page' => request()->get('upcoming_page')])->links('pagination::simple-bootstrap-4')); ?>
+
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 
@@ -68,6 +115,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, 2500);
 });
+
+function filterEvents() {
+    const searchInput = document.getElementById('searchBar').value.toLowerCase();
+    const eventCards = document.querySelectorAll('#upcomingEventsContainer .cardincampus_incampus, #endedEventsContainer .cardincampus_incampus');
+
+    eventCards.forEach(card => {
+        const title = card.getAttribute('data-title');
+        const colleges = card.getAttribute('data-colleges');
+        
+        if (title.includes(searchInput) || colleges.includes(searchInput)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
 </script>
 
 <?php $__env->stopSection(); ?>

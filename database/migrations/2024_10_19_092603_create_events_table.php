@@ -16,7 +16,7 @@ class CreateEventsTable extends Migration
             $table->string('image')->nullable();
             $table->string('category')->default('In-Campus');
             $table->string('organization');
-            $table->string('department')->nullable();
+            $table->string('colleges')->nullable();
             $table->dateTime('event_date')->nullable();
             $table->timestamps();
         });

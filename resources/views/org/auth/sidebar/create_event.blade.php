@@ -1,75 +1,19 @@
 @extends('layout.orglayout')
 
 @section('content')
-<style>
-    .container_incampus {
-        max-width: 75%;
-        margin: 0 auto;
-        padding: 20px;
-        text-align: center;
-    }
-
-    .headerincampus_incampus {
-        text-align: center;
-        margin-top: 100px;
-        font-family: Arial, sans-serif;
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    .formincampus-control_incampus {
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 15px;
-        width: 100%;
-    }
-
-    .btnincampus-primary_incampus {
-        background-color: #ff5c5c;
-        border-color: #ff5c5c;
-        color: #fff;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-        width: 100%;
-    }
-
-    .btnincampus-primary_incampus:hover {
-        background-color: #e04e4e;
-        border-color: #e04e4e;
-    }
-
-    .alertincampus_incampus {
-        margin-bottom: 20px;
-        padding: 15px;
-        border-radius: 5px;
-        color: #fff;
-        text-align: center;
-    }
-
-    .alertsuccessincampus_incampus {
-        background-color: #4CAF50;
-    }
-
-    .alerterrorincampus_incampus {
-        background-color: #f44336;
-    }
-</style>
-
-<div class="container_incampus">
-    <h1 class="headerincampus_incampus">Create Event</h1>
+<link rel="stylesheet" href="{{ asset('css/orgs/createevent.css') }}">
+<div class="createevents-container">
+    <h1 class="header-incampus">Create Event</h1>
 
     <!-- Display Success or Error Messages -->
     @if(session('success'))
-        <div class="alertincampus_incampus alertsuccessincampus_incampus">
+        <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
 
     @if(session('error'))
-        <div class="alertincampus_incampus alerterrorincampus_incampus">
+        <div class="alert alert-error">
             {{ session('error') }}
         </div>
     @endif
@@ -85,40 +29,50 @@
         </div>
     @endif
 
-    <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
+    <!-- Event creation form -->
+    <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data" class="createevent-form" id="createEventForm">
         @csrf
-        <div class="mb-3">
-            <label for="title" class="labelincampus_incampus">Event Title</label>
-            <input type="text" class="formincampus-control_incampus" id="title" name="title" required>
+        <div class="form-group">
+            <label for="title" class="label">Event Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
         </div>
 
-        <div class="mb-3">
-            <label for="description" class="labelincampus_incampus">Event Description</label>
-            <input type="text" class="formincampus-control_incampus" id="description" name="description" rows="3" required></textarea>
+        <div class="form-group">
+            <label for="description" class="label">Event Description</label>
+            <input type="text" class="form-control" id="description" name="description" required>
         </div>
 
-        <div class="mb-3">
-            <label for="image" class="labelincampus_incampus">Event Image</label>
-            <input type="file" class="formincampus-control_incampus" id="image" name="image" accept=".jpg, .jpeg, .png, .gif, .bmp" required>
-        </div>        
-
-        <div class="mb-3">
-            <label for="href" class="labelincampus_incampus">Event Facebook Link</label>
-            <input type="url" class="formincampus-control_incampus" id="href" name="href" required>
+        <div class="form-group">
+            <label for="image" class="label">Event Image</label>
+            <input type="file" class="form-control" id="image" name="image" accept=".jpg, .jpeg, .png, .gif, .bmp" required>
+            <small class="form-text text-muted">Max: 7168kb | 7 mb</small>
         </div>
 
-        <div class="mb-3">
-            <label for="event_date" class="labelincampus_incampus">Event Date and Time</label>
-            <input type="datetime-local" class="formincampus-control_incampus" id="event_date" name="event_date" required>
+        <div class="form-group">
+            <label for="href" class="label">Event Facebook Link</label>
+            <input type="url" class="form-control" id="href" name="href" required>
         </div>
 
-        <!-- Add new Department input -->
-        <div class="mb-3">
-            <label for="department" class="labelincampus_incampus">Department</label>
-            <input type="text" class="formincampus-control_incampus" id="department" name="department" placeholder="Enter Department" required>
+        <div class="form-group">
+            <label for="event_date" class="label">Event Date and Time</label>
+            <input type="datetime-local" class="form-control" id="event_date" name="event_date" required>
         </div>
 
-        <button type="submit" class="btnincampus-primary_incampus">Save Event</button>
+        <!-- Hidden department field -->
+        <div class="form-group">
+            <input type="hidden" name="colleges" value="{{ auth()->user()->colleges }}">
+        </div>
+
+        <button type="submit" class="btn-primary" id="submitBtn">Save Event</button>
     </form>
 </div>
+
+<script>
+    // Prevent multiple submissions
+    document.getElementById('createEventForm').addEventListener('submit', function(e) {
+        var submitButton = document.getElementById('submitBtn');
+        submitButton.disabled = true;  // Disable the submit button
+        submitButton.innerHTML = "Submitting..."; // Optional: Change button text to indicate submission
+    });
+</script>
 @endsection

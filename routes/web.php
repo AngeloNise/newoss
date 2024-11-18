@@ -47,11 +47,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('/guest/welcome');
 });
-
-Route::get('/In-Campus!', function () {
-    $events = \App\Models\Event::where('category', 'In-Campus')->get(); // Fetch events
-    return view('guest.incampusg', compact('events')); // Pass events to the view
-});
+Route::get('/In-Campus!', [EventController::class, 'showGuestInCampus'])->name('guest.incampus');
 
 Route::get('/events/search', [EventController::class, 'search'])->name('events.search');
 
@@ -230,12 +226,15 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
 
 
     // Route for In-Campus Activity
-    Route::get('/In-Campus', [EventController::class, 'showInCampus'])->name('events.incampus');
+    Route::get('/Events', [EventController::class, 'showInCampus'])->name('events.incampus');
+    Route::get('/events', [EventController::class, 'searchorg'])->name('events.searchorg');
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
     Route::post('/events/store', [EventController::class, 'store'])->name('events.store');
     Route::get('/events/edit/{id}', [EventController::class, 'edit'])->name('events.edit'); 
     Route::put('/events/update/{id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/destroy/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+    Route::get('/events/manage', [EventController::class, 'manageEvents'])->name('events.manage');
+
 
     Route::prefix('FRA')->name('fra.')->group(function () {
         Route::get('/Annex-A', function () {

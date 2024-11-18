@@ -17,6 +17,6 @@ class Event extends Model
         'category',
         'organization',
         'event_date',
-        'department',
+        'colleges',
     ];
 }

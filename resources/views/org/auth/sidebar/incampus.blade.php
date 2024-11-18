@@ -2,52 +2,97 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/orgs/incampus.css') }}">
 
-<div class="content-container">
-    <h1 class="headerincampus_incampus">Upcoming Events</h1>
+<!-- Upcoming Events Container -->
+<div class="content-container-parent">
+    <div class="content-container">
+        <!-- Alerts -->
+        @if(session('success'))
+            <div class="alertincampus_incampus alertsuccessincampus_incampus">
+                {{ session('success') }}
+            </div>
+        @endif
 
-    @if(session('success'))
-        <div class="alertincampus_incampus alertsuccessincampus_incampus">
-            {{ session('success') }}
+        @if(session('error'))
+            <div class="alertincampus_incampus alerterrorincampus_incampus">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <!-- Search Bar -->
+        <input type="text" id="searchBar" placeholder="Search by Title or Colleges..." class="search-bar" onkeyup="filterEvents()">
+
+        <!-- Create and Manage Buttons -->
+        <div class="buttons-container">
+            <!-- Create Event Button -->
+            <div class="create-button">
+                <a href="{{ route('events.create') }}" class="btnincampus-primary_incampus">Create Event</a>
+            </div>
+
+            <!-- Manage Events Button -->
+            <div class="manage-button">
+                <a href="{{ route('events.manage') }}" class="btnincampus-primary_incampus">Manage Events</a>
+            </div>
         </div>
-    @endif
 
-    @if(session('error'))
-        <div class="alertincampus_incampus alerterrorincampus_incampus">
-            {{ session('error') }}
-        </div>
-    @endif
+        <!-- Upcoming Events -->
+        <h2 class="headerincampus_incampus">Upcoming Events</h2>
+        @if($upcomingEvents->isEmpty())
+            <p class="no-events-message">No upcoming events.</p>
+        @else
+            <div class="cards-container" id="upcomingEventsContainer">
+                @foreach($upcomingEvents as $event)
+                    <div 
+                        class="cardincampus_incampus" 
+                        data-title="{{ strtolower($event->title) }}" 
+                        data-colleges="{{ strtolower($event->colleges) }}"
+                    >
+                        <img src="{{ asset('storage/' . $event->image) }}" class="cardimgincampus_incampus" alt="{{ $event->title }}">
+                        <div class="cardbodyincampus_incampus">
+                            <h5 class="cardtitleincampus_incampus">{{ $event->title }}</h5>
+                            <p class="cardtextincampus_incampus">{{ Str::limit($event->description, 250, '...') }}</p>
+                            <p class="event-date">{{ \Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A') }}</p>
+                            <a href="{{ $event->href }}" class="btnlinkincampus_incampus text-danger">Click here for more details.</a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
 
-    <!-- Create Event Button -->
-    <div class="create-button">
-        <a href="{{ route('events.create') }}" class="btnincampus-primary_incampus" style="width: auto; text-align: center;">Create Event</a>
+            <!-- Pagination for Upcoming Events -->
+            <div class="pagination-container">
+                {{ $upcomingEvents->appends(['ended_page' => request()->get('ended_page')])->links('pagination::simple-bootstrap-4') }}
+            </div>
+        @endif
     </div>
 
-    <div class="cards-container">
-        @foreach($events as $event)
-            <div class="cardincampus_incampus">
-                <img src="{{ asset('storage/events/' . $event->image) }}" class="cardimgincampus_incampus" alt="{{ $event->title }}">
-                <div class="cardbodyincampus_incampus">
-                    <h5 class="cardtitleincampus_incampus">{{ $event->title }}</h5>
-                    <p class="cardtextincampus_incampus">{{ Str::limit($event->description, 250, '...') }}</p>
-                    <p class="event-date">{{ \Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A') }}</p>
-                    <a href="{{ $event->href }}" class="btnlinkincampus_incampus text-danger">Click here for link</a>
-
-                    @can('update', $event)
-                        <form action="{{ route('events.edit', $event->id) }}" method="GET" style="display:inline;">
-                            <button type="submit" class="btnincampus-edit_incampus">Edit</button>
-                        </form>
-                    @endcan
-
-                    @can('delete', $event)
-                        <form action="{{ route('events.destroy', $event->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btnincampus-delete_incampus">Delete</button>
-                        </form>
-                    @endcan
-                </div>
+<!-- Finished Events Container -->
+    <div class="content-container-finished">
+        <h2 class="headerincampus_incampus">Finished Events</h2>
+        @if($endedEvents->isEmpty())
+            <p class="no-events-message">No finished events.</p>
+        @else
+            <div class="cards-container" id="endedEventsContainer">
+                @foreach($endedEvents as $event)
+                    <div 
+                        class="cardincampus_incampus" 
+                        data-title="{{ strtolower($event->title) }}" 
+                        data-colleges="{{ strtolower($event->colleges) }}"
+                    >
+                        <img src="{{ asset('storage/' . $event->image) }}" class="cardimgincampus_incampus" alt="{{ $event->title }}">
+                        <div class="cardbodyincampus_incampus">
+                            <h5 class="cardtitleincampus_incampus">{{ $event->title }}</h5>
+                            <p class="cardtextincampus_incampus">{{ Str::limit($event->description, 250, '...') }}</p>
+                            <p class="event-date">{{ \Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A') }}</p>
+                            <a href="{{ $event->href }}" class="btnlinkincampus_incampus text-danger">Click here for more details.</a>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        @endforeach
+
+            <!-- Pagination for Finished Events -->
+            <div class="pagination-container">
+                {{ $endedEvents->appends(['upcoming_page' => request()->get('upcoming_page')])->links('pagination::simple-bootstrap-4') }}
+            </div>
+        @endif
     </div>
 </div>
 
@@ -67,6 +112,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, 2500);
 });
+
+function filterEvents() {
+    const searchInput = document.getElementById('searchBar').value.toLowerCase();
+    const eventCards = document.querySelectorAll('#upcomingEventsContainer .cardincampus_incampus, #endedEventsContainer .cardincampus_incampus');
+
+    eventCards.forEach(card => {
+        const title = card.getAttribute('data-title');
+        const colleges = card.getAttribute('data-colleges');
+        
+        if (title.includes(searchInput) || colleges.includes(searchInput)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
 </script>
 
 @endsection
