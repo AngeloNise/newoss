@@ -43,7 +43,7 @@
         <!-- Sidebar Header with Logo and Title -->
         <div class="sidebar-header">
             <img src="<?php echo e(asset('images/1730626303_OSS_LOGO.png')); ?>" alt="OSS Logo">
-            <h2>Office of Student Services</h2>
+            <h2><?php echo e(Auth::user()->name_of_organization); ?></h2>
         </div>
 
         <div class="link-container">
@@ -63,7 +63,7 @@
                     </ul>
                 </li>
                 <li><a href="<?php echo e(url('/Pre-Evaluation-PDF')); ?>"><i class="bx bx-file bx-sm"></i> Submitted Forms</a></li>
-                <li><a href="<?php echo e(url('/In-Campus')); ?>"><i class="bx bx-calendar-event bx-sm"></i> Upcoming Events</a></li>
+                <li><a href="<?php echo e(url('/Events')); ?>"><i class="bx bx-calendar-event bx-sm"></i> Upcoming Events</a></li>
                 <li><a href="<?php echo e(url('/Account-Settings')); ?>"><i class="bx bx-cog bx-sm"></i> Account Settings</a></li>
             </ul>            
         </div>   

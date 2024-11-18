@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name_of_organization',
         'is_admin',
         'branch',
+        'colleges',
     ];
 
     /**

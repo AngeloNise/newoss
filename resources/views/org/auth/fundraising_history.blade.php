@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="container">
+    might delete later
     <h2>Fund Raising History</h2>
 
     @if (session('success'))

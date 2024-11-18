@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('is_admin')->default(0);
             $table->string('branch')->nullable();
+            $table->string('colleges')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

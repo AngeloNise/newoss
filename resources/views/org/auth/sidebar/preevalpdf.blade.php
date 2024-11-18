@@ -41,6 +41,13 @@
                             <td>{{ $application->status }}</td>
                             <td>
                                 <button onclick="window.location='{{ route('org.fra-a-evaluation.show', $application->id) }}'" class="btn btn-primary">View</button>
+                                @if($application->status === 'Approved')
+                                    <a href="{{ route('generate-pdf', ['id' => $application->id]) }}" class="btn btn-secondary" target="_blank">PDF</a>
+                                @else
+                                    <div class="border p-2 text-muted" style="border-radius: 5px;">
+                                        PDF available once approved
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

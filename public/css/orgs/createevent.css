@@ -1,0 +1,120 @@
+/* General Container for the Create Event Page */
+.createevents-container {
+    width: 50%; /* Keep your existing width */
+    margin: 4% auto 4% 32.4%; /* Adjust the left margin to nudge it right */
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.header-incampus {
+    text-align: center;
+    font-size: 36px;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+/* Success & Error Messages */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.alert-success {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.alert-error {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+/* Form Layout */
+.createevent-form {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+}
+
+/* Input and Textarea fields */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-size: 16px;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+}
+
+/* Submit Button */
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 30px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .createevents-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .header-incampus {
+        font-size: 28px;  /* Slightly smaller header */
+    }
+
+    .form-control {
+        padding: 10px;
+        font-size: 14px;  /* Smaller input text on mobile */
+    }
+
+    .btn-primary {
+        font-size: 14px;  /* Smaller button on mobile */
+    }
+}

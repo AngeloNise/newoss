@@ -41,6 +41,13 @@
                             <td><?php echo e($application->status); ?></td>
                             <td>
                                 <button onclick="window.location='<?php echo e(route('org.fra-a-evaluation.show', $application->id)); ?>'" class="btn btn-primary">View</button>
+                                <?php if($application->status === 'Approved'): ?>
+                                    <a href="<?php echo e(route('generate-pdf', ['id' => $application->id])); ?>" class="btn btn-secondary" target="_blank">PDF</a>
+                                <?php else: ?>
+                                    <div class="border p-2 text-muted" style="border-radius: 5px;">
+                                        PDF available once approved
+                                    </div>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
