@@ -62,7 +62,7 @@
                         <li><a href="<?php echo e(url('/Off-Campus-History')); ?>"><i class="bx bx-map-pin bx-sm"></i> Off-Campus Activity</a></li>
                     </ul>
                 </li>
-                <li><a href="<?php echo e(url('/Pre-Evaluation-PDF')); ?>"><i class="bx bx-file bx-sm"></i> Submitted Forms</a></li>
+                <li><a href="<?php echo e(url('/Submitted-Forms')); ?>"><i class="bx bx-file bx-sm"></i> Submitted Forms</a></li>
                 <li><a href="<?php echo e(url('/Events')); ?>"><i class="bx bx-calendar-event bx-sm"></i> Upcoming Events</a></li>
                 <li><a href="<?php echo e(url('/Account-Settings')); ?>"><i class="bx bx-cog bx-sm"></i> Account Settings</a></li>
             </ul>            

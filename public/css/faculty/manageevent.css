@@ -1,0 +1,272 @@
+.content-container-parent {
+    width: 70%;
+    margin: 4% auto 4% 22.5%;
+}
+
+/* Container for the entire content */
+.content-container {
+    padding: 30px; /* Ample padding for spacing */
+    background-color: #ffffff; /* White background for clarity */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-bottom: 30px;
+}
+
+.content-container-finished {
+    padding: 30px; /* Ample padding for spacing */
+    background-color: #ffffff; /* White background for clarity */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Heading styles */
+.headerincampus_incampus {
+    text-align: center;
+    font-size: 36px;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+/* Alert styles */
+.alertincampus_incampus {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    display: block;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Success alert */
+.alertsuccessincampus_incampus {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+/* Error alert */
+.alerterrorincampus_incampus {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+/* Search bar styles */
+.search-bar {
+    width: 100%; /* Full width to match form-control */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #bdc3c7; /* Matching border */
+    border-radius: 6px; /* Rounded corners */
+    font-size: 16px;
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+/* Fade-out effect for alerts */
+.fade-out {
+    animation: fadeOut 1s forwards;
+}
+
+/* Keyframe animations for fade-in and fade-out */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.buttons-container {
+    display: flex; /* Flexbox to align buttons horizontally */
+    justify-content: flex-start; /* Align buttons to the left */
+    gap: 15px; /* Space between buttons */
+    margin-bottom: 30px;
+    margin-top: 20px; /* Space between the top of the container */
+}
+/* Create Event and Manage Events Button container (align horizontally) */
+.buttons-container {
+    display: flex; /* Flexbox to align buttons horizontally */
+    justify-content: flex-start; /* Align buttons to the left */
+    gap: 15px; /* Space between buttons */
+    margin-bottom: 30px;
+    margin-top: 20px; /* Space between the top of the container */
+}
+
+/* Individual button styles */
+.create-button, .manage-button {
+    text-align: center; /* Center the text inside buttons */
+}
+
+.btnincampus-primary_incampus {
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 12px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.btnincampus-primary_incampus:hover {
+    background-color: #2980b9;
+}
+
+/* Cards container */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px; /* Reduced gap between cards */
+    margin-top: 20px;
+}
+
+/* Event card styles */
+.cardincampus_incampus {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 200px; /* Smaller card width */
+    margin: 10px auto;
+}
+
+.cardimgincampus_incampus {
+    width: 100%;
+    height: 200px; /* Set a fixed height for the image */
+    object-fit: cover;
+    border-bottom: 2px solid #eeeeee;
+}
+
+.cardbodyincampus_incampus {
+    padding: 10px; /* Reduced padding */
+    display: flex;
+    flex-direction: column;
+}
+
+.cardtcollegeincampus_incampus {
+    font-size: 20px; /* Smaller font size */
+    font-weight: bold;
+    color: #5aabd0;
+    margin-top: -7px;
+    margin-bottom: -15px;
+}
+
+.cardtitleincampus_incampus {
+    font-size: 16px; /* Smaller font size */
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.cardtextincampus_incampus {
+    font-size: 14px; /* Smaller font size */
+    color: #7f8c8d;
+    margin-bottom: 5px;
+}
+
+.event-date {
+    font-size: 12px; /* Smaller font size */
+    color: #95a5a6;
+    margin-bottom: 10px;
+}
+
+/* Button styles inside cards */
+.btnlinkincampus_incampus {
+    font-size: 12px; /* Smaller font size */
+    color: #e74c3c;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+.btnlinkincampus_incampus:hover {
+    text-decoration: underline;
+}
+
+/* Edit and Delete buttons inside cards */
+.btnincampus-edit_incampus,
+.btnincampus-delete_incampus {
+    padding: 6px 12px; /* Smaller button padding */
+    border-radius: 4px;
+    border: none;
+    font-size: 12px; /* Smaller font size */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btnincampus-edit_incampus {
+    background-color: #f39c12;
+    color: #ffffff;
+}
+
+.btnincampus-edit_incampus:hover {
+    background-color: #e67e22;
+}
+
+.btnincampus-delete_incampus {
+    background-color: #e74c3c;
+    color: #ffffff;
+}
+
+.btnincampus-delete_incampus:hover {
+    background-color: #c0392b;
+}
+
+/* Disabled buttons */
+.button.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+button:disabled {
+    background-color: #dcdcdc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.pagination-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.pagination-container .pagination {
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.pagination-container .page-item {
+    margin: 0 5px;
+}
+
+.pagination-container .page-link {
+    padding: 4px 10px;  /* Smaller padding */
+    font-size: 12px;  /* Adjust font size */
+    color: #3498db;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.pagination-container .page-link:hover {
+    background-color: #2980b9;
+    color: #fff;
+}
+
+.pagination-container .page-item.disabled .page-link {
+    background-color: #e0e0e0;
+    color: #9e9e9e;
+    pointer-events: none;
+}

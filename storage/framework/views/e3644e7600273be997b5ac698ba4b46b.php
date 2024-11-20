@@ -54,6 +54,11 @@
         </div>
 
         <div class="form-group">
+            <label for="eligible" class="label">Eligible to attend for...</label>
+            <input type="text" class="form-control" id="eligible" name="eligible" placeholder="Ex: Everyone, COC, CCIS" required>
+        </div>
+
+        <div class="form-group">
             <label for="event_date" class="label">Event Date and Time</label>
             <input type="datetime-local" class="form-control" id="event_date" name="event_date" required>
         </div>

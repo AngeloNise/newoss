@@ -32,6 +32,7 @@ use App\Http\Controllers\preeval\AnnexAController;
 use App\Http\Controllers\preeval\AnnexBController;
 use App\Http\Controllers\preeval\AnnexCController;
 use App\Http\Controllers\preeval\GeneratePDFController;
+use App\Http\Controllers\preeval\OffCampusController;
 
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
@@ -142,9 +143,7 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/faculty/offcampus-annex-d/{id}/download/{attachmentNumber}', [FacultyOffCampusAnnexDController::class, 'downloadAttachment'])
         ->name('faculty.offcampus.annex.d.download');   
         
-        Route::get('/Organization-Account-Management', function() {
-            return view('/faculty/auth/oam');
-        })->name('dbadmin1');
+        Route::get('/Organization-Account-Management', [FacultyOrgAcctManagementController::class, 'index'])->name('orgs.index');
         
 
         Route::get('/Post-Report', function() {
@@ -177,11 +176,6 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
 
 Route::prefix('faculty')->name('faculty.')->middleware(['auth', FacultyMiddleware::class])->group(function () {
     Route::get('/auth/managepost', [EventController::class, 'adminIndex'])->name('managePost');
-
-    Route::get('/events/create', [EventController::class, 'facultyCreate'])->name('events.create');
-    Route::post('/events/store', [EventController::class, 'facultyStore'])->name('events.store');
-    Route::get('/events/edit/{id}', [EventController::class, 'facultyEdit'])->name('events.edit');
-    Route::put('/events/update/{id}', [EventController::class, 'facultyUpdate'])->name('events.update');
     Route::delete('/events/destroy/{id}', [EventController::class, 'facultyDestroy'])->name('events.destroy');
 });
 
@@ -212,13 +206,18 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
         return view('/org/auth/sidebar/preeval');
     });
 
+    Route::get('/Submitted-Forms', function () {
+        return view('/org/auth/sidebar/submittedforms');
+    });
+
     Route::get('/Fund-Raising-History', [ApplicationHistoryController::class, 'frahistory'])->name('org.history.frahistory');
     Route::get('Fund-Raising-History/applications/{id}/comments', [CreateApplicationController::class, 'showComments'])->name('fundraising.comments');
 
     Route::get('/In-Campus-History', [ApplicationHistoryController::class, 'icahistory'])->name('org.history.icahistory');
     Route::get('/Off-Campus-History', [ApplicationHistoryController::class, 'ocahistory'])->name('org.history.ocahistory');
 
-    Route::get('/Pre-Evaluation-PDF', [GeneratePDFController::class, 'index']);
+    //Route::get('/Pre-Evaluation-PDF', [GeneratePDFController::class, 'index']);
+    Route::get('/offcampus-annex-a/{id}', [FacultyOffCampusAnnexAController::class, 'show'])->name('offcampus.annex.a.show');
     Route::get('/generate-pdf/{id}', [GeneratePDFController::class, 'generatePDF'])->name('generate-pdf'); // Ensure this matches the usage
     Route::get('/download-pdf/{id}', [GeneratePDFController::class, 'downloadPDF'])->name('pdf.download');
     Route::get('/FRA-A-Evaluation/{id}', [GeneratePDFController::class, 'show'])->name('org.fra-a-evaluation.show');
@@ -230,8 +229,8 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::get('/events', [EventController::class, 'searchorg'])->name('events.searchorg');
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
     Route::post('/events/store', [EventController::class, 'store'])->name('events.store');
-    Route::get('/events/edit/{id}', [EventController::class, 'edit'])->name('events.edit'); 
-    Route::put('/events/update/{id}', [EventController::class, 'update'])->name('events.update');
+    Route::get('/events/edit/{id}', [EventController::class, 'edit'])->name('events.edit');
+    Route::put('/events/edit/{id}', [EventController::class, 'update'])->name('events.update');    
     Route::delete('/events/destroy/{id}', [EventController::class, 'destroy'])->name('events.destroy');
     Route::get('/events/manage', [EventController::class, 'manageEvents'])->name('events.manage');
 
@@ -278,6 +277,11 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::post('/annex-c', [AnnexCController::class, 'store'])->name('annexc.submit');
 
     // Other routes related to pre-evaluation status and documents
+    // Submitted Forms Routes
+    //Route::get('/Pre-Evaluation-PDF', [GeneratePDFController::class, 'index']);
+    Route::get('/Fund-Raising-SF', [GeneratePDFController::class, 'index']);
+
+    Route::get('/Off-Campus-Activity-SF', [OffCampusController::class, 'index']);
 
     // Account Settings routes
     Route::get('/Account-Settings', [AccountSettingsController::class, 'index'])->name('accset');

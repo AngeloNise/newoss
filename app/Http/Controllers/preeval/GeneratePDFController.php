@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\preeval;
 
 use App\Http\Controllers\Controller;
-use App\Models\AnnexA; // Updated the model name to match the naming convention
-use App\Models\Logo; // Ensure this is properly cased
+use App\Models\AnnexA; // Fund-Raising Model
+use App\Models\Logo; // Logo Model for PDF
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class GeneratePDFController extends Controller
@@ -12,11 +12,13 @@ class GeneratePDFController extends Controller
     public function index()
     {
         $userEmail = auth()->user()->email;
-    
+
+        // Fetch Fund-Raising (AnnexA) applications
         $applications = AnnexA::where('email', $userEmail)
             ->orderBy('updated_at', 'desc')
             ->get();
-    
+
+        // Pass all variables to the view
         return view('org.auth.sidebar.preevalpdf', compact('applications'));
     }
 

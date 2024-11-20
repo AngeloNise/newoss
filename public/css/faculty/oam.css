@@ -1,6 +1,31 @@
+.search-bar {
+    width: 100%; /* Full width to match form-control */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #bdc3c7; /* Matching border */
+    border-radius: 6px; /* Rounded corners */
+    font-size: 16px;
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.total-count {
+    font-size: 18px; /* Slightly larger font size */
+    color: #333; /* Darker text color */
+    font-weight: bold; /* Bold text */
+    padding: 12px 20px; /* Add padding for spacing around the text */
+    background-color: #f7f7f7; /* Light background color for contrast */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
+    display: inline-block; /* Prevent block-level styling */
+    margin-top: 20px; /* Space above the element */
+    text-align: center; /* Center the text inside */
+    width: auto; /* Automatically adjust width based on content */
+}
+
+
 .org-account-container {
-    width: 50%; /* Keep your existing width */
-    margin: 4% auto 4% 32.4%; /* Adjust the left margin to nudge it right */
+    width: 70%; /* Keep your existing width */
+    margin: 4% auto 4% 22.5%;
     padding: 30px;
     background-color: #ffffff;
     border-radius: 12px;

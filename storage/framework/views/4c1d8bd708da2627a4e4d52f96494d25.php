@@ -49,8 +49,10 @@
                     >
                         <img src="<?php echo e(asset('storage/' . $event->image)); ?>" class="cardimgincampus_incampus" alt="<?php echo e($event->title); ?>">
                         <div class="cardbodyincampus_incampus">
+                            <h5 class="cardtcollegeincampus_incampus"><?php echo e($event->colleges); ?></h5>
                             <h5 class="cardtitleincampus_incampus"><?php echo e($event->title); ?></h5>
                             <p class="cardtextincampus_incampus"><?php echo e(Str::limit($event->description, 250, '...')); ?></p>
+                            <h2 class="cardtextincampus_incampus">Open for: <?php echo e($event->eligible); ?></h2>
                             <p class="event-date"><?php echo e(\Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A')); ?></p>
                             <a href="<?php echo e($event->href); ?>" class="btnlinkincampus_incampus text-danger">Click here for more details.</a>
                         </div>
@@ -81,8 +83,10 @@
                     >
                         <img src="<?php echo e(asset('storage/' . $event->image)); ?>" class="cardimgincampus_incampus" alt="<?php echo e($event->title); ?>">
                         <div class="cardbodyincampus_incampus">
+                            <h5 class="cardtcollegeincampus_incampus"><?php echo e($event->colleges); ?></h5>
                             <h5 class="cardtitleincampus_incampus"><?php echo e($event->title); ?></h5>
                             <p class="cardtextincampus_incampus"><?php echo e(Str::limit($event->description, 250, '...')); ?></p>
+                            <h2 class="cardtextincampus_incampus">Open for: <?php echo e($event->eligible); ?></h2>
                             <p class="event-date"><?php echo e(\Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A')); ?></p>
                             <a href="<?php echo e($event->href); ?>" class="btnlinkincampus_incampus text-danger">Click here for more details.</a>
                         </div>

@@ -15,7 +15,6 @@
             <tr>
                 <th>Organization Name</th>
                 <th>Name of Project</th>
-                <th>Status</th>
                 <th>Activity Report</th>
             </tr>
         </thead>
@@ -25,9 +24,6 @@
             <tr>
                 <td><?php echo e($application->name_of_organization); ?></td>
                 <td><?php echo e($application->name_of_project); ?></td> <!-- Fix the closing </td> -->
-                <td>
-                    <span style="color: Green;">Approved</span>
-                </td>
                 <td>
                     <!-- Dropdown for 'frapost' status -->
                     <form action="<?php echo e(route('faculty.updateFrapost', $application->id)); ?>" method="POST">
@@ -52,7 +48,6 @@
             <tr>
                 <th>Organization Name</th>
                 <th>Name of Project</th>
-                <th>Status</th>
                 <th>Activity Report</th>
             </tr>
         </thead>
@@ -62,9 +57,6 @@
             <tr>
                 <td><?php echo e($application->name_of_organization); ?></td>
                 <td><?php echo e($application->name_of_project); ?></td> <!-- Fix the closing </td> -->
-                <td>
-                    <span style="color: green;">Submitted</span>
-                </td>
                 <td>
                     <!-- Dropdown for 'frapost' status -->
                     <form action="<?php echo e(route('faculty.updateFrapost', $application->id)); ?>" method="POST">

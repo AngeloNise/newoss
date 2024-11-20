@@ -1,11 +1,30 @@
-
-
 <?php $__env->startSection('content'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/faculty/offcampuseval/annex-a-view.css')); ?>">
 
+
+
+
 <div class="application-container">
+<a href="<?php echo e(url('/faculty/Off-Campus-Evaluation')); ?>" class="btn back-btn-primary">Back</a>
     <h2>Submission Details</h2>
-    
+
+
+<div class="org_info">
+    <form id="status-update-form" class="mb-4">
+        <div class="form-group">
+            <label for="status">Update Status</label>
+            <select id="status" class="form-control" required>
+                <option value="" disabled selected>Select new status</option>
+                <option value="Pending Approval">Pending Approval</option>
+                <option value="Approved">Approved</option>
+                <option value="Returned">Returned</option>
+            </select>
+            <div class="split">
+                <button type="button" class="btn btn-primary">Update Status</button>
+                <a href="<?php echo e(route('faculty.faculty.offcampus.annex-a.evaluate', ['id' => $submission->id])); ?>" class="btn btn-secondary">Evaluate</a>
+            </div>
+        </div>
+
     <?php if(session('success')): ?>
         <div class="alert-success"><?php echo e(session('success')); ?></div>
     <?php endif; ?>
@@ -67,10 +86,7 @@
         </tbody>
     </table>
 
-    <div class="activity-buttons">
-        <a href="<?php echo e(route('faculty.offcampus.annex.a.index')); ?>" class="btn btn-secondary">Back to Submissions</a>
-    </div>
-</div>
+
 
 <?php $__env->stopSection(); ?>
 

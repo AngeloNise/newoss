@@ -75,7 +75,8 @@ class EventController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'href' => 'required|url',
-            'image' => 'required|image|mimes:jpg,jpeg,png,gif,bmp|:7000',  // Correct validation rule for image
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif,bmp|:7000',
+            'eligible' => 'required|string|max:255',
             'event_date' => 'required|date|after:today',
         ]);
     
@@ -90,8 +91,9 @@ class EventController extends Controller
             'image' => $imagePath,  // Save the image file path (not the validation rule)
             'category' => 'In-Campus',
             'organization' => Auth::user()->name_of_organization,
-            'event_date' => $request->event_date,
+            'eligible' => $request->eligible,
             'colleges' => $request->colleges,
+            'event_date' => $request->event_date,
         ]);
     
         // Redirect the user with a success message
@@ -112,41 +114,59 @@ class EventController extends Controller
     // Show the form to edit an event
     public function edit($id)
     {
+        // Fetch the event to be edited
         $event = Event::findOrFail($id);
+    
+        // Check if the logged-in user has permission to edit the event
         if (Auth::user()->name_of_organization !== $event->organization) {
             return redirect()->route('events.incampus')->with('error', 'You do not have permission to edit this event.');
         }
+    
+        // Return the view with the event data to be edited
         return view('org.auth.sidebar.edit_event', compact('event'));
     }
-
-    // Update an event
+    
     public function update(Request $request, $id)
     {
+        // Fetch the event to be updated
         $event = Event::findOrFail($id);
-
+    
+        // Check if the logged-in user has permission to edit the event
+        if (Auth::user()->name_of_organization !== $event->organization) {
+            return redirect()->route('events.incampus')->with('error', 'You do not have permission to edit this event.');
+        }
+    
+        // Validate the incoming request
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'href' => 'required|url',
             'image' => 'nullable|image|max:2048',
+            'eligible' => 'required|string|max:255',
             'event_date' => 'required|date|after:today',
             'colleges' => 'required|string|max:255',
         ]);
-
+    
+        // Handle the image upload if there is a new image
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('events', 'public');
             $event->image = $imagePath;
         }
-
+    
+        // Update event data
         $event->title = $request->title;
         $event->description = $request->description;
         $event->href = $request->href;
+        $event->eligible = $request->eligible;
         $event->event_date = $request->event_date;
         $event->colleges = $request->colleges;
         $event->save();
-
+    
+        // Redirect to the events list with a success message
         return redirect()->route('events.incampus')->with('success', 'Event updated successfully!');
     }
+    
+    
 
     // Search for events by colleges
     public function search(Request $request)
@@ -179,11 +199,21 @@ class EventController extends Controller
     }
 
     // Admin: view all events
-    public function adminIndex()
+    public function adminIndex(Request $request)
     {
-        $events = Event::all();
-        return view('faculty.auth.managepost', compact('events'));
-    }
+        $currentDateTime = \Carbon\Carbon::now();
+    
+        // Upcoming Events: events that are in the future
+        $upcomingEvents = Event::where('event_date', '>', $currentDateTime)
+                                ->paginate(12, ['*'], 'upcoming_page', $request->get('upcoming_page', 1));
+    
+        // Ended Events: events that are in the past
+        $endedEvents = Event::where('event_date', '<=', $currentDateTime)
+                            ->orderBy('event_date', 'desc') // Sort by event_date in descending order
+                            ->paginate(12, ['*'], 'ended_page', $request->get('ended_page', 1));
+    
+        return view('faculty.auth.managepost', compact('upcomingEvents', 'endedEvents'));
+    }    
 
     // Faculty: show form to create event
     public function facultyCreate()
@@ -217,18 +247,37 @@ class EventController extends Controller
             'image' => $imagePath,
             'category' => 'In-Campus',
             'organization' => $organization,
-            'event_date' => $request->event_date,
+            'eligible' => $request->eligible,
             'colleges' => $request->colleges,
+            'event_date' => $request->event_date,
         ]);
 
         return redirect()->route('faculty.managePost')->with('success', 'Event created successfully!');
     }
 
-    public function manageEvents()
+    public function manageEvents(Request $request)
     {
-        $events = Event::where('organization', Auth::user()->name_of_organization)->get();
-        return view('org.auth.sidebar.manage_events', compact('events'));
+        $currentDateTime = \Carbon\Carbon::now();
+    
+        // Define the current page for upcoming and ended events separately
+        $upcomingPage = $request->get('upcoming_page', 1);  // Default to page 1 if not present
+        $endedPage = $request->get('ended_page', 1);  // Default to page 1 if not present
+    
+        // Upcoming Events: events that are in the future
+        $upcomingEvents = Event::where('organization', Auth::user()->name_of_organization)
+            ->where('event_date', '>', $currentDateTime)
+            ->paginate(12, ['*'], 'upcoming_page', $upcomingPage);
+    
+        // Ended Events: events that are in the past
+        $endedEvents = Event::where('organization', Auth::user()->name_of_organization)
+            ->where('event_date', '<=', $currentDateTime)
+            ->orderBy('event_date', 'desc') // Sort by event_date in descending order
+            ->paginate(12, ['*'], 'ended_page', $endedPage);
+    
+        // Pass both sets of events to the view
+        return view('org.auth.sidebar.manage_events', compact('upcomingEvents', 'endedEvents'));
     }
+    
 
     // Faculty: show form to edit event
     public function facultyEdit($id)
