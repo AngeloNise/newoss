@@ -21,7 +21,9 @@
                     >
                         <img src="{{ asset('storage/' . $event->image) }}" class="cardimgincampus_incampus" alt="{{ $event->title }}">
                         <div class="cardbodyincampus_incampus">
+                            <h5 class="cardtcollegeincampus_incampus">{{ $event->colleges }}</h5>
                             <h5 class="cardtitleincampus_incampus">{{ $event->title }}</h5>
+                            <h2 class="cardtextincampus_incampus">Open for: {{ $event->eligible }}</h2>
                             <p class="cardtextincampus_incampus">{{ Str::limit($event->description, 250, '...') }}</p>
                             <p class="event-date">{{ \Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A') }}</p>
                             <a href="{{ $event->href }}" class="btnlinkincampus_incampus text-danger">Click here for more details.</a>
@@ -52,8 +54,10 @@
                     >
                         <img src="{{ asset('storage/' . $event->image) }}" class="cardimgincampus_incampus" alt="{{ $event->title }}">
                         <div class="cardbodyincampus_incampus">
+                            <h5 class="cardtcollegeincampus_incampus">{{ $event->colleges }}</h5>
                             <h5 class="cardtitleincampus_incampus">{{ $event->title }}</h5>
                             <p class="cardtextincampus_incampus">{{ Str::limit($event->description, 250, '...') }}</p>
+                            <h2 class="cardtextincampus_incampus">Open for: {{ $event->eligible }}</h2>
                             <p class="event-date">{{ \Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A') }}</p>
                             <a href="{{ $event->href }}" class="btnlinkincampus_incampus text-danger">Click here for more details.</a>
                         </div>

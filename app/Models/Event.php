@@ -16,7 +16,8 @@ class Event extends Model
         'image',
         'category',
         'organization',
-        'event_date',
+        'eligible',
         'colleges',
+        'event_date',
     ];
 }

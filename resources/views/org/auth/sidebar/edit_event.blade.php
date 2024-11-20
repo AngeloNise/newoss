@@ -1,50 +1,9 @@
 @extends('layout.orglayout')
 
 @section('content')
-<style>
-    .container_incampus {
-        max-width: 75%;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    .headerincampus_incampus {
-        text-align: center;
-        margin-top: 100px;
-        font-family: Arial, sans-serif;
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    .formincampus-control_incampus {
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 15px;
-        width: 100%;
-    }
-
-    .btnincampus-primary_incampus {
-        background-color: #ff5c5c;
-        border-color: #ff5c5c;
-        color: #fff;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-        width: 100%;
-    }
-
-    .btnincampus-primary_incampus:hover {
-        background-color: #e04e4e;
-        border-color: #e04e4e;
-    }
-</style>
-
 <div class="container_incampus">
+    <link rel="stylesheet" href="{{ asset('css/orgs/editevent.css') }}">
     <h1 class="headerincampus_incampus">Edit Event</h1>
-
-    <!-- Display Success or Error Messages -->
     @if(session('success'))
         <div class="alertincampus_incampus alertsuccessincampus_incampus">
             {{ session('success') }}
@@ -56,43 +15,51 @@
             {{ session('error') }}
         </div>
     @endif
-
-    <form action="{{ route('events.update', $event->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ isset($event) ? route('events.update', $event->id) : route('events.store') }}" method="POST" enctype="multipart/form-data" class="createevent-form" id="createEventForm">
         @csrf
-        @method('PUT')
-        
-        <div class="mb-3">
-            <label for="title" class="labelincampus_incampus">Event Title</label>
-            <input type="text" class="formincampus-control_incampus" id="title" name="title" value="{{ $event->title }}" required>
+
+        <!-- For updating, use PUT method -->
+        @if(isset($event))
+            @method('PUT')
+        @endif
+
+        <div class="form-group">
+            <label for="title" class="label">Event Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ isset($event) ? $event->title : old('title') }}" required>
         </div>
 
-        <div class="mb-3">
-            <label for="description" class="labelincampus_incampus">Event Description</label>
-            <textarea class="formincampus-control_incampus" id="description" name="description" rows="3" required>{{ $event->description }}</textarea>
+        <div class="form-group">
+            <label for="description" class="label">Event Description</label>
+            <input type="text" class="form-control" id="description" name="description" value="{{ isset($event) ? $event->description : old('description') }}" required>
         </div>
 
-        <div class="mb-3">
-            <label for="image" class="labelincampus_incampus">Event Image (Leave empty if you don't want to change it)</label>
-            <input type="file" class="formincampus-control_incampus" id="image" name="image">
+        <div class="form-group">
+            <label for="image" class="label">Event Image (Leave empty if you don't want to change it)</label>
+            <input type="file" class="form-control" id="image" name="image" accept=".jpg, .jpeg, .png, .gif, .bmp">
+            <small class="form-text text-muted">Max: 7168kb | 7 mb</small>
         </div>
 
-        <div class="mb-3">
-            <label for="href" class="labelincampus_incampus">Event Facebook Link</label>
-            <input type="url" class="formincampus-control_incampus" id="href" name="href" value="{{ $event->href }}" required>
+        <div class="form-group">
+            <label for="href" class="label">Event Facebook Link</label>
+            <input type="url" class="form-control" id="href" name="href" value="{{ isset($event) ? $event->href : old('href') }}" required>
         </div>
 
-        <div class="mb-3">
-            <label for="event_date" class="labelincampus_incampus">Event Date and Time</label>
-            <input type="datetime-local" class="formincampus-control_incampus" id="event_date" name="event_date" value="{{ $event->event_date }}" required>
+        <div class="form-group">
+            <label for="eligible" class="label">Eligible to attend for...</label>
+            <input type="text" class="form-control" id="eligible" name="eligible" placeholder="Ex: Everyone, COC, CCIS" value="{{ isset($event) ? $event->eligible : old('eligible') }}" required>
         </div>
 
-        <!-- Add Department input for editing -->
-        <div class="mb-3">
-            <label for="department" class="labelincampus_incampus">Department</label>
-            <input type="text" class="formincampus-control_incampus" id="department" name="department" value="{{ $event->department }}" required>
+        <div class="form-group">
+            <label for="event_date" class="label">Event Date and Time</label>
+            <input type="datetime-local" class="form-control" id="event_date" name="event_date" value="{{ isset($event) ? $event->event_date : old('event_date') }}" required>
         </div>
 
-        <button type="submit" class="btnincampus-primary_incampus">Update Event</button>
+        <!-- Hidden department field -->
+        <div class="form-group">
+            <input type="hidden" name="colleges" value="{{ auth()->user()->colleges }}">
+        </div>
+
+        <button type="submit" class="btn-primary" id="submitBtn">{{ isset($event) ? 'Update Event' : 'Save Event' }}</button>
     </form>
 </div>
 @endsection

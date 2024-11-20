@@ -61,7 +61,7 @@
                         <li><a href="{{ url('/Off-Campus-History') }}"><i class="bx bx-map-pin bx-sm"></i> Off-Campus Activity</a></li>
                     </ul>
                 </li>
-                <li><a href="{{ url('/Pre-Evaluation-PDF') }}"><i class="bx bx-file bx-sm"></i> Submitted Forms</a></li>
+                <li><a href="{{ url('/Submitted-Forms') }}"><i class="bx bx-file bx-sm"></i> Submitted Forms</a></li>
                 <li><a href="{{ url('/Events') }}"><i class="bx bx-calendar-event bx-sm"></i> Upcoming Events</a></li>
                 <li><a href="{{ url('/Account-Settings') }}"><i class="bx bx-cog bx-sm"></i> Account Settings</a></li>
             </ul>            

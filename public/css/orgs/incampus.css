@@ -146,6 +146,14 @@
     flex-direction: column;
 }
 
+.cardtcollegeincampus_incampus {
+    font-size: 20px; /* Smaller font size */
+    font-weight: bold;
+    color: #5aabd0;
+    margin-top: -7px;
+    margin-bottom: -15px;
+}
+
 .cardtitleincampus_incampus {
     font-size: 16px; /* Smaller font size */
     font-weight: bold;

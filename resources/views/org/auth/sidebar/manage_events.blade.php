@@ -18,13 +18,16 @@
             {{ session('error') }}
         </div>
     @endif
+    
+    <!-- Upcoming Events Cards -->
     <div class="cards-container">
-        @forelse($events as $event)
+        @forelse($upcomingEvents as $event)
             <div class="cardincampus_incampus">
                 <img src="{{ asset('storage/' . $event->image) }}" class="cardimgincampus_incampus" alt="{{ $event->title }}">
                 <div class="cardbodyincampus_incampus">
                     <h5 class="cardtitleincampus_incampus">{{ $event->title }}</h5>
                     <p class="cardtextincampus_incampus">{{ Str::limit($event->description, 250, '...') }}</p>
+                    <h2 class="cardtextincampus_incampus">Open for: {{ $event->eligible }}</h2>
                     <p class="event-date">{{ \Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A') }}</p>
                     <!-- Edit and Delete buttons -->
                     @can('update', $event)
@@ -43,7 +46,34 @@
                 </div>
             </div>
         @empty
-            <p>No events found for your organization. Please create one.</p>
+            <p>No created events found for your organization. Please create one.</p>
+        @endforelse
+    </div>
+    
+    <!-- Finished Events Cards -->
+    <h2 class="headerincampus_incampus">Finished Events</h2>
+    <div class="cards-container">
+        @forelse($endedEvents as $event)
+            <div class="cardincampus_incampus">
+                <img src="{{ asset('storage/' . $event->image) }}" class="cardimgincampus_incampus" alt="{{ $event->title }}">
+                <div class="cardbodyincampus_incampus">
+                    <h5 class="cardtitleincampus_incampus">{{ $event->title }}</h5>
+                    <p class="cardtextincampus_incampus">{{ Str::limit($event->description, 250, '...') }}</p>
+                    <h2 class="cardtextincampus_incampus">Open for: {{ $event->eligible }}</h2>
+                    <p class="event-date">{{ \Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A') }}</p>
+                    <!-- Edit and Delete buttons -->
+
+                    @can('delete', $event)
+                        <form action="{{ route('events.destroy', $event->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btnincampus-delete_incampus">Delete</button>
+                        </form>
+                    @endcan
+                </div>
+            </div>
+        @empty
+            <p>No finished events found for your organization.</p>
         @endforelse
     </div>
 </div>
