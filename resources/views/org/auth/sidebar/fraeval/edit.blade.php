@@ -66,7 +66,7 @@
                 <label for="requesting_organization">Requesting Organization</label>
                 <input type="text" id="requesting_organization" name="requesting_organization" class="form-control {{ Session::has('error_field') && Session::get('error_field') == 'requesting_organization' ? 'is-invalid' : '' }}" 
                     value="{{ old('requesting_organization', $annexA->requesting_organization) }}" 
-                    placeholder="{{ auth()->user()->name_of_organization ?? 'Enter your organization name' }}">
+                    placeholder="{{ auth()->user()->name_of_organization ?? 'Enter your organization name' }}"readonly>
                 @if(Session::has('error_field') && Session::get('error_field') == 'requesting_organization')
                     <small class="text-danger">The requesting organization does not match our records.</small>
                 @endif
@@ -310,7 +310,7 @@
                     <label for="president">President of Organization</label>
                     <input type="text" id="president" name="president" class="form-control {{ Session::has('error_field') && Session::get('error_field') == 'president' ? 'is-invalid' : '' }}" 
                         value="{{ old('president', $annexA->president ?? auth()->user()->name) }}" 
-                        placeholder="{{ auth()->user()->name ?? 'Enter the president\'s name' }}">
+                        placeholder="{{ auth()->user()->name ?? 'Enter the president\'s name' }}" readonly>
                     @if(Session::has('error_field') && Session::get('error_field') == 'president')
                         <small class="text-danger">The president's name does not match our records.</small>
                     @endif

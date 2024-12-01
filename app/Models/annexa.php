@@ -42,6 +42,8 @@ class AnnexA extends Model // Class name is consistent with convention
         'branch',
         'proposed_activity',
         'status',
+        'section',        // The section for which the suggestion is made
+        'comment',        // The suggestion/comment made by the dean
     ];
 
     // Define the relationship with Frasuggestion

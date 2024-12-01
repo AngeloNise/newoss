@@ -19,11 +19,10 @@
             </tr>
         </thead>
         <tbody>
-            <?php $__currentLoopData = $approvedApplications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $application): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php if($application->status == 'not_submitted'): ?>
+            <?php $__currentLoopData = $notSubmittedApplications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $application): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
                 <td><?php echo e($application->name_of_organization); ?></td>
-                <td><?php echo e($application->name_of_project); ?></td> <!-- Fix the closing </td> -->
+                <td><?php echo e($application->name_of_project); ?></td>
                 <td>
                     <!-- Dropdown for 'frapost' status -->
                     <form action="<?php echo e(route('faculty.updateFrapost', $application->id)); ?>" method="POST">
@@ -36,7 +35,6 @@
                     </form>
                 </td>
             </tr>
-            <?php endif; ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
     </table>
@@ -52,11 +50,10 @@
             </tr>
         </thead>
         <tbody>
-            <?php $__currentLoopData = $approvedApplications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $application): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php if($application->frapost == 'submitted'): ?>
+            <?php $__currentLoopData = $submittedApplications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $application): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
                 <td><?php echo e($application->name_of_organization); ?></td>
-                <td><?php echo e($application->name_of_project); ?></td> <!-- Fix the closing </td> -->
+                <td><?php echo e($application->name_of_project); ?></td>
                 <td>
                     <!-- Dropdown for 'frapost' status -->
                     <form action="<?php echo e(route('faculty.updateFrapost', $application->id)); ?>" method="POST">
@@ -69,11 +66,9 @@
                     </form>
                 </td>
             </tr>
-            <?php endif; ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
     </table>
 </div>
-
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/postreportfra.blade.php ENDPATH**/ ?>

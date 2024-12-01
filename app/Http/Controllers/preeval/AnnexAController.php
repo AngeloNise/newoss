@@ -192,12 +192,14 @@ class AnnexAController extends Controller
             'total_estimated_proceeds' => $validatedData['total_estimated_proceeds'],
             'utilization_plan' => $validatedData['utilization_plan'],
             'solicitation' => $validatedData['solicitation'],
-            'coordinator' => is_array($validatedData['coordinator']) ? json_encode($validatedData['coordinator']) : null, // Updated to check if it's an array
+            'coordinator' => is_array($validatedData['coordinator']) ? json_encode($validatedData['coordinator']) : null,
             'participants' => $validatedData['participants'],
             'president' => $validatedData['president'],
             'treasurer' => $validatedData['treasurer'],
             'email' => $validatedData['email'],
+            'status' => 'Pending Approval', // Set status to "Pending Approval"
         ];        
+    
         // Update the fields using mass assignment with the prepared data
         $annexA->fill($dataToUpdate);
     

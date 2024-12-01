@@ -1,35 +1,10 @@
-.container {
+.parent-container {
     width: 50%; /* Keep your existing width */
     margin: 4% auto 4% 32.4%; /* Adjust the left margin to nudge it right */
     padding: 30px;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.container h2 {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    font-size: 24px;
-}
-
-.button-group {
-    display: flex;
-    justify-content: space-around; /* Distribute buttons evenly */
-    margin-bottom: 25px;
-}
-
-.btn {
-    display: inline-block;
-    padding: 12px 25px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 6px;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
 }
 
 .split {
@@ -43,6 +18,26 @@
     flex: 1; /* Allows the groups to grow and fill the available space */
 }
 
+
+.container h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+
+.btn {
+    display: inline-block;
+    padding: 10px 30px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
 
 .btn-primary {
     background-color: #3498db;
@@ -96,4 +91,81 @@
     border-color: #3498db;
     outline: none;
     box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+}
+
+.button-group {
+    width: 75%;
+    margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap; /* Allow elements to wrap onto a new line if needed */
+    justify-content: space-around;
+}
+
+.button-group label {
+    width: 100%;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 5px;
+    text-align: left;  /* Centers label text */
+}
+
+/* Styling the Dropdown */
+.dropdown-container {
+    display: flex;
+    width: 25%;
+    flex-direction: column; /* Stack label and dropdown vertically */
+    margin-bottom: 20px;
+}
+
+.dropdown-container label {
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 5px;
+}
+
+.dropdown-container select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #fff;
+    appearance: none; /* Remove default dropdown styling in some browsers */
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+/* Focus State */
+.dropdown-container select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+}
+
+/* Dropdown Arrow Styling */
+.dropdown-container select::-ms-expand {
+    display: none; /* Hide the default dropdown arrow in IE */
+}
+
+/* Custom Dropdown Arrow */
+.dropdown-container select {
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 10 10%22 width=%2210%22 height=%2210%22%3E%3Cpath fill=%22none%22 stroke=%22%23345f72%22 stroke-width=%222%22 d=%22M0,3 L5,7 L10,3%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+}
+
+/* Hover State */
+.dropdown-container select:hover {
+    border-color: #2980b9;
+}
+
+/* Active State */
+.dropdown-container select:active {
+    border-color: #1f6d8d;
+}
+
+/* Optional: Adding spacing between different dropdowns */
+.dropdown-container + .dropdown-container {
+    margin-top: 10px;
 }

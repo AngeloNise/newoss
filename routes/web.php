@@ -20,6 +20,8 @@ use App\Http\Controllers\Faculty\secretformController;
 use App\Http\Controllers\faculty\CreateApplicationController;
 use App\Http\Controllers\Faculty\FacultyOffCampusAnnexAController;
 use App\Http\Controllers\Faculty\FacultyOffCampusAnnexDController;
+use App\Http\Controllers\Faculty\DashboardController;
+
 
 use App\Http\Controllers\Dean\DeanLoginController;
 use App\Http\Controllers\Dean\DeanFRAAnnexAController;
@@ -38,6 +40,7 @@ use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\FacultyMiddleware;
 use App\Http\Middleware\FacultyDeanMiddleware;
 use App\Http\Middleware\DeanMiddleware;
+use App\Http\Middleware\ShareNotifications;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -76,13 +79,20 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/Application-Admin', [CreateApplicationController::class, 'applicationAdmin'])->name('application.admin'); // Correct route name
         Route::get('/Application', [CreateApplicationController::class, 'index'])->name('application.index');
         Route::get('/Applications/{id}', [CreateApplicationController::class, 'show'])->name('applications.show');
-        Route::put('/Applications/{id}', [CreateApplicationController::class, 'update'])->name('application.update'); // Ensure this matches
+        Route::put('/Applications/{id}', [CreateApplicationController::class, 'update'])->name('application.update');
         Route::get('/Applications/{id}/comments', [CreateApplicationController::class, 'createComment'])->name('applications.comments.create');
         Route::post('/Applications/{id}/comments', [CreateApplicationController::class, 'storeComment'])->name('applications.comments.store');
        // Route::post('/Application', [CreateApplicationController::class, 'store'])->name('application.store');
-        Route::get('/Application-Admin/pdf', [CreateApplicationController::class, 'generateAllApplicationsPDF'])->name('application-admin.pdf');
-        Route::get('/Application-Admin/pdf-options', [CreateApplicationController::class, 'showPdfOptions'])->name('application-admin.pdf-options');
+        Route::get('/search/organizations', [CreateApplicationController::class, 'searchOrganizations'])->name('search.organizations');
+        Route::get('/search/branches', [CreateApplicationController::class, 'searchBranches'])->name('search.branches');
+        Route::get('/Application-Admin/pdf', [CreateApplicationController::class, 'generateApplicationsPDF'])->name('application-admin.pdf');
+        Route::get('/Generate-Report', [CreateApplicationController::class, 'showPdfOptions'])->name('Generate-Report.pdf');
         Route::get('/Application-Admin/generate-pdf', [CreateApplicationController::class, 'generateApplicationsPDF'])->name('application-admin.generate-pdf');
+        Route::get('/Application-Admin/generate-pdf/in-campus', [CreateApplicationController::class, 'generateInCampusPDF'])->name('application-admin.generate-pdf.in-campus');
+        Route::get('/Application-Admin/generate-pdf/off-campus', [CreateApplicationController::class, 'generateOffCampusPDF'])->name('application-admin.generate-pdf.off-campus');
+        Route::get('/Application-Admin/generate-pdf/fund-raising', [CreateApplicationController::class, 'generateFundRaisingPDF'])->name('application-admin.generate-pdf.fund-raising');
+        
+
         
         // New Routes for Evaluation Activities
         Route::get('/FRA-A-Evaluation', [FacultyFRAAnnexAController::class, 'index'])->name('fra-a-evaluation.index');
@@ -94,12 +104,12 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::get('/search/organization', [FacultyFRAAnnexAController::class, 'searchOrganization'])->name('search.organization');
 
 
-
-
         Route::post('/FRA-A-Evaluation/{id}/suggestions', [FacultyFRAAnnexAController::class, 'storeSuggestion'])->name('fra-a-evaluation.store-suggestion');
 
-        Route::get('/Dashboard-Admin', [FacultyFRAAnnexAController::class, 'sidenotif'])->name('dbadmin');
+        //Route::get('/Dashboard-Admin', [FacultyFRAAnnexAController::class, 'sidenotif'])->name('dbadmin');
         Route::get('faculty/fraannexa/{id}', [FacultyFRAAnnexAController::class, 'show'])->name('faculty.fraannexa.show');
+
+        Route::get('/Dashboard-Admin', [DashboardController::class, 'index'])->name('dbadmin');
 
         Route::get('/FRA-B-Evaluation', [FacultyFRAAnnexBController::class, 'index'])->name('fra-b-evaluation.index');
         Route::get('/FRA-B-Evaluation/{id}', [FacultyFRAAnnexBController::class, 'show'])->name('fra-b-evaluation.show');
@@ -166,13 +176,13 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         Route::put('/Organization-Account-Management/update/{id}', [FacultyOrgAcctManagementController::class, 'update'])->name('orgs.update');
         Route::get('/Organization-Account-Management/remove/{id}', [FacultyOrgAcctManagementController::class, 'remove'])->name('orgs.remove');
 
-
         //Off-Campus download
         Route::get('/annex-a/{id}/download/{attachmentNumber}', [PreApprovalSubmissionController::class, 'viewAttachment'])->name('preApproval.download');
     });
 });
 
-
+Route::put('/organizations/{id}/update-status', [EventController::class, 'updateStatus'])->name('faculty.updateStatus');
+Route::put('/organizations/{id}/update-remarks', [EventController::class, 'updateRemarks'])->name('faculty.updateRemarks');
 
 Route::prefix('faculty')->name('faculty.')->middleware(['auth', FacultyMiddleware::class])->group(function () {
     Route::get('/auth/managepost', [EventController::class, 'adminIndex'])->name('managePost');

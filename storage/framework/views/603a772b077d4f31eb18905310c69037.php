@@ -4,43 +4,47 @@
 <link rel="stylesheet" href="<?php echo e(asset('css/orgs/fraeval/details.css')); ?>">
 
 <div class="fra-container">
-    <a href="/Pre-Evaluation-PDF" class="btn btn-primary">Back</a>
+    <a href="/Fund-Raising-SF" class="btn btn-primary">Back</a>
     <a href="<?php echo e(route('org.auth.sidebar.preevalfra.edit', $annexa->id)); ?>" class="btn btn-warning">Edit</a> <!-- Edit Button -->
     <h2>Evaluation Details</h2>
 
     <div class="org_info">
         <div class="suggestions">
             <h3>Suggestions</h3>
-            <?php if($annexa->suggestions->isEmpty()): ?>
-                <p>wait for Dean/Director to evaluate your forms.</p>
+            <?php if(empty($annexa->section) || empty($annexa->comment)): ?>
+                <p>Wait for Faculty/Director to evaluate your forms.</p>
             <?php else: ?>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>Section</th>
                             <th>Comment</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $__currentLoopData = $annexa->suggestions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $suggestion): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php
-                                $sections = json_decode($suggestion->section, true);
-                                $comments = json_decode($suggestion->comment, true);
-                            ?>
+                        <?php
+                            // Decode the JSON data for sections and comments
+                            $sections = json_decode($annexa->section, true);
+                            $comments = json_decode($annexa->comment, true);
+                        ?>
         
+                        <?php if(!empty($sections) && !empty($comments)): ?>
                             <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
                                     <td><?php echo e($section ?? 'N/A'); ?></td>
                                     <td><?php echo e($comments[$index] ?? 'N/A'); ?></td>
-                                    <td></td>
                                 </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="3">No suggestions/comments available.</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             <?php endif; ?>
         </div>
+        
         
         <h3>Project Information</h3>
         <table class="table">

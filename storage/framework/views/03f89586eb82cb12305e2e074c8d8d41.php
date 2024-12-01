@@ -2,39 +2,120 @@
 
 <?php $__env->startSection('content'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/faculty/genpdfoptions.css')); ?>">
+<div class="parent-container">
+    <div class="container">
+        <h2>Generate Applications Report</h2>
+        <form id="reportForm" action="<?php echo e(route('faculty.application-admin.generate-pdf')); ?>" method="GET">
+            <?php echo csrf_field(); ?>
 
-<div class="container">
-    <h2>Select Report Range</h2>
-    <form action="<?php echo e(route('faculty.application-admin.generate-pdf')); ?>" method="GET">
-        <?php echo csrf_field(); ?>
-
-        <div class="button-group">
-            <button type="submit" name="range" value="monthly" class="btn btn-primary">Monthly</button>
-            <button type="submit" name="range" value="quarterly" class="btn btn-primary">Quarterly</button>
-            <button type="submit" name="range" value="semi_annually" class="btn btn-primary">Semi-Annually</button>
-            <button type="submit" name="range" value="annually" class="btn btn-primary">Annually</button>
-        </div>
-
-        <div class="custom-range-container">
-            <h3>Custom Date Range</h3>
+            <!-- Dropdown to Select Activity Type -->
             <div class="split">
-                <div class="pdf-group">
-                    <label for="custom_start">Custom Start Date:(01-12-yyyy)</label>
-                    <input type="date" id="custom_start" name="custom_start" class="form-control">
+                <div class="dropdown-container">
+                    <label for="activity_type">Select Activity Type:</label>
+                    <select id="activity_type" name="activity_type" class="form-control">
+                        <option value="all" <?php echo e(request('activity_type') == 'all' ? 'selected' : ''); ?>>All Applications</option>
+                        <option value="fund raising" <?php echo e(request('activity_type') == 'fund raising' ? 'selected' : ''); ?>>Fund Raising</option>
+                        <option value="in campus" <?php echo e(request('activity_type') == 'in campus' ? 'selected' : ''); ?>>In Campus</option>
+                        <option value="off campus" <?php echo e(request('activity_type') == 'off campus' ? 'selected' : ''); ?>>Off Campus</option>
+                    </select>
                 </div>
-    
-                <div class="pdf-group">
-                    <label for="custom_end">Custom End Date: Date:(02-12-yyyy)</label>
-                    <input type="date" id="custom_end" name="custom_end" class="form-control">
+
+            <!-- Date Range Button Group -->
+                <div class="button-group">
+                    <label for="range">Select Time Period:</label>
+                    <button type="submit" name="range" value="monthly" class="btn btn-primary">Monthly</button>
+                    <button type="submit" name="range" value="quarterly" class="btn btn-primary">Quarterly</button>
+                    <button type="submit" name="range" value="semi_annually" class="btn btn-primary">Semi-Annually</button>
+                    <button type="submit" name="range" value="annually" class="btn btn-primary">Annually</button>
+                    <button type="submit" name="range" value="all" class="btn btn-primary">All</button>
                 </div>
             </div>
 
-            <button type="submit" name="range" value="custom" class="btn btn-primary">Generate Custom Range</button>
-        </div>
-        <br>
-        <button type="submit" name="range" value="all" class="btn btn-primary">Generate All Applications</button>
-    </form>
+            <!-- Custom Date Range Section -->
+            <div class="custom-range-container">
+                <h3>Custom Date Range</h3>
+                <div class="split">
+                    <div class="pdf-group">
+                        <label for="custom_start">Custom Start Date:</label>
+                        <input type="date" id="custom_start" name="custom_start" class="form-control" value="<?php echo e(request('custom_start')); ?>">
+                    </div>
+                    <div class="pdf-group">
+                        <label for="custom_end">Custom End Date:</label>
+                        <input type="date" id="custom_end" name="custom_end" class="form-control" value="<?php echo e(request('custom_end')); ?>">
+                    </div>
+                </div>
+                <button type="submit" name="range" value="custom" class="btn btn-primary">Generate Custom Range</button>
+            </div>
+
+            <!-- Search Section for Organization and College -->
+            <div class="search-section">
+                <h3>Search Filters</h3>
+                <div class="split">
+                    <div class="pdf-group">
+                        <label for="name_of_organization">Organization Name:</label>
+                        <input type="text" id="name_of_organization" name="name_of_organization" class="form-control" placeholder="Search by Organization" value="<?php echo e(request('name_of_organization')); ?>">
+                        <ul id="organization-suggestions" class="suggestions-list"></ul>
+                    </div>
+                    <div class="pdf-group">
+                        <label for="college_branch">College Branch:</label>
+                        <input type="text" id="college_branch" name="college_branch" class="form-control" placeholder="Search by College Branch" value="<?php echo e(request('college_branch')); ?>">
+                        <ul id="branch-suggestions" class="suggestions-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Handle Organization Search Input
+        $('#name_of_organization').on('input', function () {
+            var query = $(this).val();
+            if (query.length >= 2) {
+                $.get("<?php echo e(route('faculty.search.organizations')); ?>", { query: query }, function (data) {
+                    $('#organization-suggestions').empty();
+                    if (data.length > 0) {
+                        data.forEach(function (organization) {
+                            $('#organization-suggestions').append('<li>' + organization + '</li>');
+                        });
+                    }
+                });
+            } else {
+                $('#organization-suggestions').empty();
+            }
+        });
+
+        // Handle College Branch Search Input
+        $('#college_branch').on('input', function () {
+            var query = $(this).val();
+            if (query.length >= 2) {
+                $.get("<?php echo e(route('faculty.search.branches')); ?>", { query: query }, function (data) {
+                    $('#branch-suggestions').empty();
+                    if (data.length > 0) {
+                        data.forEach(function (branch) {
+                            $('#branch-suggestions').append('<li>' + branch + '</li>');
+                        });
+                    }
+                });
+            } else {
+                $('#branch-suggestions').empty();
+            }
+        });
+
+        // Handle suggestion click to fill input
+        $(document).on('click', '#organization-suggestions li', function () {
+            $('#name_of_organization').val($(this).text());
+            $('#organization-suggestions').empty();
+        });
+
+        $(document).on('click', '#branch-suggestions li', function () {
+            $('#college_branch').val($(this).text());
+            $('#branch-suggestions').empty();
+        });
+    });
+</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/generatepdf/pdfoptions.blade.php ENDPATH**/ ?>

@@ -2,17 +2,35 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/faculty/applicationdetails.css') }}">
+<link rel="stylesheet" href="{{ asset('css/faculty/applicationaddcomment.css') }}">
 <script src="{{ asset('js/faculty/applicationstatus.js') }}"></script>
 
 <div class="application-detail-container">
     <a href="{{ route('faculty.application.admin') }}" class="btn btn-primary">Back</a>
     <h2>Application Details</h2>
-    <a href="{{ route('faculty.applications.comments.create', $application->id) }}" class="btn btn-secondary">Add Comment</a>
     <form id="applicationForm" method="POST" action="{{ route('faculty.application.update', $application->id) }}">
         @csrf
         @method('PUT')
 
+
+        <div class="form-group">
+            <select name="document" id="document" class="form-control">
+                <option value="" disabled selected>Select a document</option>
+                <option value="Pre-numbered tickets">Pre-numbered tickets</option>
+                <option value="Official receipts">Official receipts</option>
+                <option value="Control sheets">Control sheets</option>
+                <option value="Reservation Slip for use of venue">Reservation Slip for use of venue</option>
+                <option value="Goods/services inspection report">Goods/services inspection report</option>
+                <option value="Statement of Projected Net Income and Expenses">Statement of Projected Net Income and Expenses</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="comment">Comment</label>
+            <input type="text" name="comment" id="comment" class="form-control" disabled>
+        </div>
         <div class="application-info">
+            <br>
             <table class="table">
                 <thead>
                     <tr>
@@ -90,6 +108,7 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Reviewed By</th>
                     <th>Field</th>
                     <th>Previous</th>
                     <th>Current</th>
@@ -108,6 +127,7 @@
 
                     @if ($startDate)
                         <tr>
+                            <td>{{ $log->updated_by ?? 'N/A' }}</td>
                             <td>Start Date</td>
                             <td>{{ $startDate['old'] ?? 'N/A' }}</td>
                             <td>{{ $startDate['new'] ?? 'N/A' }}</td>
@@ -117,6 +137,7 @@
                     
                     @if ($endDate)
                         <tr>
+                            <td>{{ $log->updated_by ?? 'N/A' }}</td>
                             <td>End Date</td>
                             <td>{{ $endDate['old'] ?? 'N/A' }}</td>
                             <td>{{ $endDate['new'] ?? 'N/A' }}</td>
@@ -126,6 +147,7 @@
 
                     @if ($totalEstimatedIncome)
                         <tr>
+                            <td>{{ $log->updated_by ?? 'N/A' }}</td>
                             <td>Total Estimated Income</td>
                             <td>{{ $totalEstimatedIncome['old'] ?? 'N/A' }}</td>
                             <td>{{ $totalEstimatedIncome['new'] ?? 'N/A' }}</td>
@@ -135,6 +157,7 @@
 
                     @if ($status)
                         <tr>
+                            <td>{{ $log->updated_by ?? 'N/A' }}</td>
                             <td>Status</td>
                             <td>{{ $status['old'] ?? 'N/A' }}</td>
                             <td>{{ $status['new'] ?? 'N/A' }}</td>
@@ -144,6 +167,7 @@
 
                     @if ($currentFileLocation)
                         <tr>
+                            <td>{{ $log->updated_by ?? 'N/A' }}</td>
                             <td>Current File Location</td>
                             <td>{{ $currentFileLocation['old'] ?? 'N/A' }}</td>
                             <td>{{ $currentFileLocation['new'] ?? 'N/A' }}</td>
@@ -159,4 +183,17 @@
 
 </div>
 
+<script>
+    // JavaScript to enable/disable comment input based on dropdown selection
+    document.getElementById('document').addEventListener('change', function() {
+        const commentField = document.getElementById('comment');
+        if (this.value) {
+            // Enable comment field if a document is selected
+            commentField.disabled = false;
+        } else {
+            // Disable comment field if no document is selected
+            commentField.disabled = true;
+        }
+    });
+</script>
 @endsection

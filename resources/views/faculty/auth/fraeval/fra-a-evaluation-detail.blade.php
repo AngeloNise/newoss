@@ -1,6 +1,9 @@
 @extends('layout.adminlayout')
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/faculty/eval.css') }}">
+<link rel="stylesheet" href="{{ asset('css/faculty/fraevalsuggestion.css') }}">
+<script src="{{ asset('js/faculty/annexasuggestion.js') }}"></script>
+
 
 <div class="fra-container">
     <a href="/faculty/FRA-A-Evaluation" class="btn btn-primary">Back</a>
@@ -18,14 +21,41 @@
                     <option value="Approved" {{ $annexa->status === 'Approved' ? 'selected' : '' }}>Approved</option>
                     <option value="Returned" {{ $annexa->status === 'Returned' ? 'selected' : '' }}>Returned</option>
                 </select>
+                
+                <div id="suggestions">
+                    <br>
+                    <div class="split suggestion-group">
+                        <div class="form-group">
+                            <label for="section">Select Section</label>
+                            <select name="section[]" class="form-control" required>
+                                <option value="" disabled selected>Select a section</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Project Information">Project Information</option>
+                                <option value="Items to be Sold">Items to be Sold</option>
+                                <option value="Other Income">Other Income</option>
+                                <option value="Expenditures">Expenditures</option>
+                                <option value="Other Information">Other Information</option>
+                                <option value="Other Concerns">Other Concerns</option>
+                            </select>
+                        </div>
+                        <div class="fra-group">
+                            <label for="comment">Your Suggestion/Comments</label>
+                            <input type="text" name="comment[]" class="form-control" required />
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="button-items">
+                    <button type="button" id="remove-suggestion" class="btn btn-danger">Remove</button>
+                    <button type="button" id="add-suggestion" class="btn btn-secondary">Add</button>
+                </div>
                 <div class="split">
                     <button type="submit" class="btn btn-primary">Update Status</button>
-                    <a href="{{ route('faculty.fra-a-evaluation.suggestion', $annexa->id) }}" class="btn btn-secondary">Evaluate</a>
                 </div>
             </div>
-
+            <br>
             <div class="suggestions">
-                @if ($annexa->suggestions->isEmpty())
+                @if (empty($annexa->section) || empty($annexa->comment))
                     <table class="table">
                         <thead>
                             <tr>
@@ -49,23 +79,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($annexa->suggestions->sortByDesc('created_at') as $suggestion)
-                                @php
-                                    $sections = json_decode($suggestion->section, true);
-                                    $comments = json_decode($suggestion->comment, true);
-                                @endphp
-        
-                                @foreach ($sections as $index => $section)
-                                    <tr>
-                                        <td>{{ $section ?? 'N/A' }}</td>
-                                        <td>{{ $comments[$index] ?? 'N/A' }}</td>
-                                    </tr>
-                                @endforeach
+                            @php
+                                $sections = json_decode($annexa->section, true);
+                                $comments = json_decode($annexa->comment, true);
+                            @endphp
+            
+                            @foreach ($sections as $index => $section)
+                                <tr>
+                                    <td>{{ $section ?? 'N/A' }}</td>
+                                    <td>{{ $comments[$index] ?? 'N/A' }}</td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
                 @endif
             </div>
+            
         </form>
         
         <h3>Project Information</h3>

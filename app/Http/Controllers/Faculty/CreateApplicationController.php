@@ -5,15 +5,115 @@ namespace App\Http\Controllers\faculty;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Application;
-use App\Models\ApplicationLog;
-use App\Models\User; // Import the User model to fetch organizations
-use Illuminate\Support\Facades\Session;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Logo;
 use Carbon\Carbon;
 
 class CreateApplicationController extends Controller
 {
+    public function showPdfOptions()
+    {
+        // Fetch distinct organizations and branches
+        $distinctOrganizations = Application::distinct()->pluck('name_of_organization');
+        $distinctBranches = Application::distinct()->pluck('college_branch');
+    
+        // Return the view with the fetched data
+        return view('faculty.generatepdf.pdfoptions', compact('distinctOrganizations', 'distinctBranches'));
+    }
+    
+    public function generateApplicationsPDF(Request $request)
+    {
+        $range = $request->input('range');
+        $activityType = $request->input('activity_type', 'all'); // Default to 'all' if not provided
+        $endDate = now();
+        $startDate = null;
+        $dateRange = 'All Application'; // Default date range description
+    
+        // Start building the query
+        $query = Application::query();
+    
+        // Apply activity type filter
+        if ($activityType !== 'all') {
+            $query->where('proposed_activity', $activityType);
+        }
+    
+        // Apply date range filter
+        switch ($range) {
+            case 'monthly':
+                $startDate = $endDate->copy()->subMonth();
+                $query->whereBetween('submission_date', [$startDate, $endDate]);
+                $dateRange = $startDate->format('M d, Y') . ' - ' . $endDate->format('M d, Y');
+                break;
+            case 'quarterly':
+                $startDate = $endDate->copy()->subMonths(3);
+                $query->whereBetween('submission_date', [$startDate, $endDate]);
+                $dateRange = $startDate->format('M d, Y') . ' - ' . $endDate->format('M d, Y');
+                break;
+            case 'semi_annually':
+                $startDate = $endDate->copy()->subMonths(6);
+                $query->whereBetween('submission_date', [$startDate, $endDate]);
+                $dateRange = $startDate->format('M d, Y') . ' - ' . $endDate->format('M d, Y');
+                break;
+            case 'annually':
+                $startDate = $endDate->copy()->subYear();
+                $query->whereBetween('submission_date', [$startDate, $endDate]);
+                $dateRange = $startDate->format('M d, Y') . ' - ' . $endDate->format('M d, Y');
+                break;
+            case 'custom':
+                $startDate = Carbon::parse($request->input('custom_start'));
+                $endDate = Carbon::parse($request->input('custom_end'));
+                $query->whereBetween('submission_date', [$startDate, $endDate]);
+                $dateRange = $startDate->format('M d, Y') . ' - ' . $endDate->format('M d, Y');
+                break;
+            case 'all':
+                // No date filtering for 'all' range
+                $dateRange = 'All Application';
+                break;
+        }
+    
+        // Apply search filters
+        if ($request->has('name_of_organization') && $request->name_of_organization) {
+            $query->where('name_of_organization', 'like', '%' . $request->name_of_organization . '%');
+        }
+    
+        if ($request->has('college_branch') && $request->college_branch) {
+            $query->where('college_branch', 'like', '%' . $request->college_branch . '%');
+        }
+    
+        // Get the filtered applications
+        $applications = $query->get();
+    
+        // Fetch the logo for the PDF
+        $logo = Logo::first();
+    
+        // Choose the correct view and filename based on the activity type
+        switch ($activityType) {
+            case 'off campus':
+                $view = 'faculty.generatepdf.offcampusapplicationspdf';
+                $filename = 'off_campus_applications.pdf';
+                break;
+            case 'fund raising':
+                $view = 'faculty.generatepdf.fundraisingapplicationspdf';
+                $filename = 'fund_raising_applications.pdf';
+                break;
+            case 'in campus':
+                $view = 'faculty.generatepdf.incampusapplicationspdf';
+                $filename = 'in_campus_applications.pdf';
+                break;
+            default:
+                $view = 'faculty.generatepdf.allapplicationspdf';
+                $filename = 'filtered_applications.pdf';
+                break;
+        }
+    
+        // Generate the PDF
+        $pdf = Pdf::loadView($view, compact('applications', 'logo', 'dateRange'));
+    
+        // Stream the PDF
+        return $pdf->stream($filename);
+    }
+
+    
     public function create()
     {
         // Fetch and sort organization names from the users table
@@ -97,53 +197,36 @@ class CreateApplicationController extends Controller
         return redirect()->route('faculty.post-activity-fra')->with('success', 'Frapost status updated successfully!');
     }
 
-    public function showPdfOptions()
+
+    // In your ApplicationController.php
+
+    public function searchOrganizations(Request $request)
     {
-        return view('faculty.generatepdf.pdfoptions');
+        $query = $request->input('query');
+        // Fetch unique organization names based on the query
+        $organizations = Application::where('name_of_organization', 'like', '%' . $query . '%')
+            ->distinct()
+            ->pluck('name_of_organization');
+        
+        return response()->json($organizations);
     }
 
-    public function generateApplicationsPDF(Request $request)
+    public function searchBranches(Request $request)
     {
-        $range = $request->input('range');
-        $endDate = now();
-        $startDate = null;
-        $applications = collect(); // Default empty collection
-
-        switch ($range) {
-            case 'monthly':
-                $startDate = $endDate->copy()->subMonth();
-                $applications = Application::whereBetween('submission_date', [$startDate, $endDate])->get();
-                break;
-            case 'quarterly':
-                $startDate = $endDate->copy()->subMonths(3);
-                $applications = Application::whereBetween('submission_date', [$startDate, $endDate])->get();
-                break;
-            case 'semi_annually':
-                $startDate = $endDate->copy()->subMonths(6);
-                $applications = Application::whereBetween('submission_date', [$startDate, $endDate])->get();
-                break;
-            case 'annually':
-                $startDate = $endDate->copy()->subYear();
-                $applications = Application::whereBetween('submission_date', [$startDate, $endDate])->get();
-                break;
-            case 'custom':
-                $startDate = Carbon::parse($request->input('custom_start'));
-                $endDate = Carbon::parse($request->input('custom_end'));
-                $applications = Application::whereBetween('submission_date', [$startDate, $endDate])->get();
-                break;
-            case 'all':
-                $applications = Application::all(); // Fetch all applications without date filtering
-                break;
-        }
-
-        // Determine date range display for the header
-        $dateRange = $range === 'all' ? 'All Applications' : $startDate->format('M d, Y') . ' - ' . $endDate->format('M d, Y');
-
-        $logo = Logo::first();
-        $pdf = PDF::loadView('faculty.generatepdf.allapplicationspdf', compact('applications', 'logo', 'dateRange'));
-        return $pdf->stream('filtered_applications.pdf');
+        $query = $request->input('query');
+        // Fetch unique college branches based on the query
+        $branches = Application::where('college_branch', 'like', '%' . $query . '%')
+            ->distinct()
+            ->pluck('college_branch');
+        
+        return response()->json($branches);
     }
-    // Method to display all applications
+
+
+
+
+
+
     public function index()
     {
         // Retrieve all applications from the database
@@ -166,7 +249,7 @@ class CreateApplicationController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validate the input
+        // Validate the input for application details
         $validated = $request->validate([
             'status' => 'required|string',
             'current_file_location' => 'required|string',
@@ -175,6 +258,8 @@ class CreateApplicationController extends Controller
             'college_branch' => 'nullable|string',
             'total_estimated_income' => 'nullable|numeric',
             'place_of_activity' => 'nullable|string',
+            'comment' => 'nullable|string|max:500', // Add validation for comment
+            'document' => 'nullable|string', // Add validation for document
         ]);
     
         // Find the application by ID or fail with a 404 error
@@ -182,6 +267,8 @@ class CreateApplicationController extends Controller
     
         // Store old values before the update
         $oldValues = [
+            'comment' => $application->comment,  // Store old comment value
+            'document' => $application->document,  // Store old document value
             'start_date' => $application->start_date,
             'end_date' => $application->end_date,
             'total_estimated_income' => $application->total_estimated_income,
@@ -197,53 +284,74 @@ class CreateApplicationController extends Controller
         $application->end_date = $validated['end_date'];
         $application->college_branch = $validated['college_branch'];
         $application->total_estimated_income = $validated['total_estimated_income'];
+        
+        // Check if 'document' is provided before updating
+        if (isset($validated['document'])) {
+            $application->document = $validated['document'];  // Update the document field
+        }
     
-        // Save the application
         $application->save();
     
         // Create an array to hold changes for logging
         $logData = [];
+        $userName = auth()->user()->name;  // Capture the logged-in user's name
     
         // Check for changes and prepare log data
+        if ($oldValues['comment'] !== $application->comment) {
+            $logData['comment'] = json_encode([
+                'old' => $oldValues['comment'],
+                'new' => $application->comment,
+            ]);
+        }
+    
+        if ($oldValues['document'] !== $application->document) {
+            $logData['document'] = json_encode([
+                'old' => $oldValues['document'],
+                'new' => $application->document,
+            ]);
+        }
+    
         if ($oldValues['start_date'] !== $application->start_date) {
             $logData['start_date'] = json_encode([
                 'old' => $oldValues['start_date'],
-                'new' => $application->start_date
+                'new' => $application->start_date,
             ]);
         }
     
         if ($oldValues['end_date'] !== $application->end_date) {
             $logData['end_date'] = json_encode([
                 'old' => $oldValues['end_date'],
-                'new' => $application->end_date
+                'new' => $application->end_date,
             ]);
         }
     
         if ($oldValues['total_estimated_income'] !== $application->total_estimated_income) {
             $logData['total_estimated_income'] = json_encode([
                 'old' => $oldValues['total_estimated_income'],
-                'new' => $application->total_estimated_income
+                'new' => $application->total_estimated_income,
             ]);
         }
     
         if ($oldValues['status'] !== $application->status) {
             $logData['status'] = json_encode([
                 'old' => $oldValues['status'],
-                'new' => $application->status
+                'new' => $application->status,
             ]);
         }
     
         if ($oldValues['current_file_location'] !== $application->current_file_location) {
             $logData['current_file_location'] = json_encode([
                 'old' => $oldValues['current_file_location'],
-                'new' => $application->current_file_location
+                'new' => $application->current_file_location,
             ]);
         }
     
         // Only create a log entry if there are any changes
         if (!empty($logData)) {
+            // Include the faculty name in the log data
             ApplicationLog::create(array_merge([
                 'application_id' => $application->id,
+                'updated_by' => $userName,  // Store the name of the user who made the update
                 'submission_date' => $oldValues['submission_date'], // Assuming submission_date does not change
                 'updated_at' => now(),
             ], $logData));
@@ -254,9 +362,8 @@ class CreateApplicationController extends Controller
     
         // Redirect back to the admin applications route
         return redirect()->route('faculty.application.admin')->with('success', 'Application updated successfully!');
-    }    
+    }
 
-    // Add the applicationAdmin method here
     public function applicationAdmin()
     {
         // Retrieve all applications from the database
@@ -266,56 +373,31 @@ class CreateApplicationController extends Controller
         return view('faculty.auth.applicationadmin', compact('applications'));
     }
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function createComment($id)
+    public function showComments($id)
     {
         // Find the application by ID or fail
         $application = Application::findOrFail($id);
-        
-        // Pass the application to the renamed comment view
-        return view('faculty.auth.createapp.applicationcomment', compact('application'));
-    }
     
-
-    public function storeComment(Request $request, $id)
-    {
-        // Validate the comment and document fields
-        $validated = $request->validate([
-            'comment' => 'required|string|max:500',
-            'document' => 'required|string', // Add validation for the document field
-        ]);
+        // Retrieve the associated comments and documents for the application
+        $comments = ApplicationLog::where('application_id', $id)
+            ->whereNotNull('comment') // Only get records with comments
+            ->get();
     
-        // Find the application by ID
-        $application = Application::findOrFail($id);
-    
-        // Save the comment
-        $application->comments()->create([
-            'comment' => $validated['comment'],
-            'document' => $validated['document'], // Include document in the creation data
-            'user_id' => auth()->id(), // Assuming user is authenticated
-        ]);
-    
-        return redirect()->route('faculty.application.admin')->with('success', 'Comment added successfully.');
-    }
-
-    public function showComments($id)
-    {
-        $application = Application::findOrFail($id);
-        $comments = $application->comments()->with('user')->get();
-        
         return view('org.auth.sidebar.history.frahistorydetails', compact('application', 'comments'));
     }
-
+    
     public function showApprovedApplications()
     {
-        // Retrieve only approved applications
-        $approvedApplications = Application::where('status', 'Approved')->get();
-
-        // Pass the approved applications to the view
-        return view('faculty.auth.postreportfra', compact('approvedApplications'));
-    }
+        // Retrieve approved applications with status 'Approved' and 'proposed_activity' as 'fund raising'
+        $approvedApplications = Application::where('status', 'Approved')
+                                           ->where('proposed_activity', 'fund raising')
+                                           ->get();
+    
+        // Separate 'Not Submitted' and 'Submitted' applications
+        $notSubmittedApplications = $approvedApplications->where('frapost', 'not_submitted');
+        $submittedApplications = $approvedApplications->where('frapost', 'submitted');
+    
+        // Pass both sets of applications to the view
+        return view('faculty.auth.postreportfra', compact('notSubmittedApplications', 'submittedApplications'));
+    }   
 }

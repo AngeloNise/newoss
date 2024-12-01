@@ -21,7 +21,9 @@ class Application extends Model
         'status',
         'current_file_location',
         'frapost',
-        'submission_date'
+        'submission_date',
+        'comment',   // Add comment
+        'document'   // Add document
     ];
 
     public function user()

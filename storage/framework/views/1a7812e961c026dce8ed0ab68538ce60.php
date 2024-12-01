@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Office of the Student Services</title>
-    <link rel="stylesheet" href="<?php echo e(asset('css/Login/loginuser.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/login/loginuser.css')); ?>">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <script src="<?php echo e(asset('js/org/orgscript.js')); ?>"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">

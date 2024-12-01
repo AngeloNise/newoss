@@ -20,64 +20,43 @@ class FacultyFRAAnnexAController extends Controller
         $annexa = annexa::findOrFail($id);
     
         return view('faculty.auth.fraeval.fra-a-evaluation-detail', compact('annexa'));
-    }    
-
-    public function sidenotif()
-    {
-        $notifications = AnnexA::orderBy('updated_at', 'desc')
-            ->get()
-            ->map(function ($application) {
-                $message = $application->created_at != $application->updated_at 
-                    ? "The {$application->requesting_organization} updated a pre-evaluation in FRA"
-                    : "The {$application->requesting_organization} submitted a pre-evaluation in FRA";
-
-                return [
-                    'id' => $application->id,
-                    'message' => $message,
-                    'time' => $application->updated_at->diffForHumans(),
-                ];
-            });
-
-        return view('faculty.auth.dbadmin', compact('notifications'));
     }
 
-    public function suggestion($id)
+    public function updateStatus(Request $request, $id)
     {
-        $application = AnnexA::findOrFail($id);
-        return view('faculty.auth.fraeval.fra-a-evaluation-suggestion', compact('application'));
-    }    
-
-    public function storeSuggestion(Request $request, $id)
-    {
+        // Validate the input
         $request->validate([
+            'new_status' => 'required|string|in:Pending Approval,Approved,Returned',
             'section' => 'required|array',
             'section.*' => 'required|string|max:255',
             'comment' => 'required|array',
             'comment.*' => 'required|string',
         ]);
-
-        Frasuggestion::create([
-            'application_id' => $id,
-            'section' => json_encode($request->section),
-            'comment' => json_encode($request->comment),
-        ]);
-
-        return redirect()->route('faculty.fra-a-evaluation.show', $id)
-                         ->with('success', 'Suggestions submitted successfully!');
-    }
-
-    public function updateStatus(Request $request, $id)
-    {
-        $request->validate([
-            'new_status' => 'required|string|in:Pending Approval,Approved,Returned',
-        ]);
-
+    
+        // Find the application by ID
         $application = AnnexA::findOrFail($id);
+    
+        // Update the status
         $application->status = $request->new_status;
+    
+        // Append new sections and comments to the existing ones
+        $existingSections = json_decode($application->section, true) ?? [];
+        $existingComments = json_decode($application->comment, true) ?? [];
+    
+        // Merge new sections and comments, placing the newest ones at the top
+        $updatedSections = array_merge($request->section, $existingSections);
+        $updatedComments = array_merge($request->comment, $existingComments);
+    
+        // Update the fields in the database
+        $application->section = json_encode($updatedSections);
+        $application->comment = json_encode($updatedComments);
+    
+        // Save the application
         $application->save();
-
+    
+        // Redirect back to the show page with a success message
         return redirect()->route('faculty.fra-a-evaluation.show', $id)
-                         ->with('success', 'Status updated successfully!');
+                         ->with('success', 'Status updated and new suggestions added!');
     }
 
     public function searchOrganization(Request $request)

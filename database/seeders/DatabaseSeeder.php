@@ -133,13 +133,25 @@ class DatabaseSeeder extends Seeder
             ]);
         }*/
 
-        User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('password1'),
-            'is_admin' => 1,
-            'branch' => 'PUP-MAIN'
-        ]);
+        $faculty = [
+            ['name' => 'Sir Jim', 'email' => 'sirjim@example.com', 'branch' => 'PUP-MAIN'],
+            ['name' => 'Sir Sean', 'email' => 'sirsean@example.com', 'branch' => 'PUP-MAIN'],
+            ['name' => 'Sir Bon', 'email' => 'sirbon@example.com', 'branch' => 'PUP-MAIN'],
+            ['name' => 'Sir Patrick', 'email' => 'sirpatrick@example.com', 'branch' => 'PUP-MAIN'],
+            ['name' => 'Sir Angelo', 'email' => 'sirangelo@example.com', 'branch' => 'PUP-MAIN'],
+        ];
+        
+        foreach ($faculty as $faculty) {
+            User::factory()->create([
+                'name' => $faculty['name'],
+                'email' => $faculty['email'],
+                'password' => bcrypt('password1'),
+                'is_admin' => 1,
+                'branch' => $faculty['branch']
+            ]);
+
+        }
+
 
         //$this->call(EventSeeder::class);
     }

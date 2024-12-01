@@ -35,6 +35,7 @@
                 <th>Department</th>
                 <th>Webmail</th>
                 <th>Status</th>
+                <th>Remarks</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -45,7 +46,26 @@
                     <td>{{ $organization->name }}</td>
                     <td>{{ $organization->colleges }}</td>
                     <td>{{ $organization->email }}</td>
-                    <td>{{ $organization->status }}</td>
+                    <td>
+                        <!-- Dropdown for Status -->
+                        <form action="{{ route('faculty.updateStatus', $organization->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <select name="status" onchange="this.form.submit()">
+                                <option value="Without Deficiencies" {{ $organization->status == 'Without Deficiencies' ? 'selected' : '' }}>Without Deficiencies</option>
+                                <option value="With Deficiencies" {{ $organization->status == 'With Deficiencies' ? 'selected' : '' }}>With Deficiencies</option>
+                            </select>
+                        </form>
+                    </td>
+                    <td>
+                        <!-- Textbox for Remarks -->
+                        <form action="{{ route('faculty.updateRemarks', $organization->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <textarea name="remarks" rows="1" class="remarks-textarea" placeholder="Add remarks...">{{ $organization->remarks }}</textarea>
+                            <button type="submit" class="org-btn org-btn-secondary">💾 Save</button>
+                        </form>
+                    </td>
                     <td>
                         <div class="org-btn-group">
                             <a href="{{ route('faculty.orgs.edit', $organization->id) }}" class="org-btn org-btn-primary">✏️</a>
