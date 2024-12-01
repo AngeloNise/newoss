@@ -1,0 +1,89 @@
+/* Notification Bell Container */
+#notif-bell {
+    font-size: 30px; /* Size of the bell icon */
+    color: black; /* Color of the bell icon set to black */
+    cursor: pointer;
+    transition: transform 0.3s, color 0.3s;
+    margin-right: 10px; /* Adds space on the right side of the bell icon */
+    position: relative; /* Ensure the bell icon is the positioning context for the count */
+}
+
+/* Hover Effect for Bell Icon */
+#notif-bell:hover {
+    color: #333; /* Change color to a dark gray on hover */
+    transform: scale(1.1); /* Slightly increase the size on hover */
+}
+
+/* Notification Count Styling (Red Dot) */
+#notif-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red; /* Red background for the notification count */
+    color: white; /* White text color */
+    border-radius: 50%; /* Circle shape */
+    padding: 3px 6px; /* Size of the count */
+    font-size: 12px; /* Font size for the count */
+    font-weight: bold; /* Make count bold */
+    min-width: 18px;
+    text-align: center;
+    display: inline-block; /* Ensure it's inline with the bell */
+}
+
+/* Notification Dropdown */
+.notification-container {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    width: 300px;
+    max-height: 400px; /* Limit height of the notification container */
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 6px; /* Optional: rounded corners for the dropdown */
+    z-index: 1000;
+    display: none; /* Hidden by default, will be shown when the bell is clicked */
+    overflow-y: auto; /* Enable vertical scroll if content exceeds max height */
+}
+
+/* Dropdown Notification List */
+.notification-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Notification List Item */
+.notification-container ul li {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f1f1; /* Light border for separation */
+    transition: background-color 0.3s;
+}
+
+/* Change background color on hover for notification items */
+.notification-container ul li:hover {
+    background-color: #f7f7f7;
+}
+
+/* Notification Message Styling */
+.notification-container ul li p {
+    margin: 0;
+    font-size: 14px;
+    color: black; /* Set the notification message text color to black */
+}
+
+/* No new notifications text */
+.notification-container p {
+    font-size: 14px;
+    color: #7f8c8d;
+    text-align: center;
+}
+
+/* Hide dropdown when there are no notifications */
+.notification-container hr {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    margin-bottom: 10px;
+}

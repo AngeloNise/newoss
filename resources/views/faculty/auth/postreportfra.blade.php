@@ -21,11 +21,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($approvedApplications as $application)
-            @if ($application->status == 'not_submitted')
+            @foreach ($notSubmittedApplications as $application)
             <tr>
                 <td>{{ $application->name_of_organization }}</td>
-                <td>{{ $application->name_of_project }}</td> <!-- Fix the closing </td> -->
+                <td>{{ $application->name_of_project }}</td>
                 <td>
                     <!-- Dropdown for 'frapost' status -->
                     <form action="{{ route('faculty.updateFrapost', $application->id) }}" method="POST">
@@ -38,7 +37,6 @@
                     </form>
                 </td>
             </tr>
-            @endif
             @endforeach
         </tbody>
     </table>
@@ -54,11 +52,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($approvedApplications as $application)
-            @if ($application->frapost == 'submitted')
+            @foreach ($submittedApplications as $application)
             <tr>
                 <td>{{ $application->name_of_organization }}</td>
-                <td>{{ $application->name_of_project }}</td> <!-- Fix the closing </td> -->
+                <td>{{ $application->name_of_project }}</td>
                 <td>
                     <!-- Dropdown for 'frapost' status -->
                     <form action="{{ route('faculty.updateFrapost', $application->id) }}" method="POST">
@@ -71,10 +68,8 @@
                     </form>
                 </td>
             </tr>
-            @endif
             @endforeach
         </tbody>
     </table>
 </div>
-
 @endsection

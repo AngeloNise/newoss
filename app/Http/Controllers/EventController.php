@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
@@ -328,4 +329,35 @@ class EventController extends Controller
         $event->delete();
         return redirect()->route('faculty.managePost')->with('success', 'Event deleted successfully!');
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|string|in:With Deficiencies,Without Deficiencies',
+        ]);
+    
+        $organization = User::findOrFail($id);
+        $organization->status = $request->status;
+        $organization->save();
+    
+        return redirect()->back()->with('success', 'Status updated successfully.');
+    }
+    
+    
+
+    public function updateRemarks(Request $request, $id)
+    {
+        $request->validate([
+            'remarks' => 'nullable|string|max:255',
+        ]);
+
+        $organization = User::findOrFail($id);
+        $organization->remarks = $request->remarks; // Save the remarks
+        $organization->save();
+
+        return redirect()->back()->with('success', 'Remarks updated successfully.');
+    }
+
+
+
 }

@@ -22,6 +22,8 @@ return new class extends Migration
             $table->enum('current_file_location', ['Forwarded by OSS', 'Returned to OSS', 'OSS'])->default('OSS')->nullable();
             $table->enum('frapost', ['not_submitted', 'submitted'])->default('not_submitted')->nullable();
             $table->date('submission_date')->default(now());
+            $table->string('comment')->nullable(); // Changed comment to string
+            $table->string('document')->nullable(); // Added document column
             $table->timestamps();
         });
     }

@@ -4,43 +4,47 @@
 <link rel="stylesheet" href="{{ asset('css/orgs/fraeval/details.css')}}">
 
 <div class="fra-container">
-    <a href="/Pre-Evaluation-PDF" class="btn btn-primary">Back</a>
+    <a href="/Fund-Raising-SF" class="btn btn-primary">Back</a>
     <a href="{{ route('org.auth.sidebar.preevalfra.edit', $annexa->id) }}" class="btn btn-warning">Edit</a> <!-- Edit Button -->
     <h2>Evaluation Details</h2>
 
     <div class="org_info">
         <div class="suggestions">
             <h3>Suggestions</h3>
-            @if ($annexa->suggestions->isEmpty())
-                <p>wait for Dean/Director to evaluate your forms.</p>
+            @if (empty($annexa->section) || empty($annexa->comment))
+                <p>Wait for Faculty/Director to evaluate your forms.</p>
             @else
                 <table class="table">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>Section</th>
                             <th>Comment</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($annexa->suggestions as $suggestion)
-                            @php
-                                $sections = json_decode($suggestion->section, true);
-                                $comments = json_decode($suggestion->comment, true);
-                            @endphp
+                        @php
+                            // Decode the JSON data for sections and comments
+                            $sections = json_decode($annexa->section, true);
+                            $comments = json_decode($annexa->comment, true);
+                        @endphp
         
+                        @if (!empty($sections) && !empty($comments))
                             @foreach ($sections as $index => $section)
                                 <tr>
                                     <td>{{ $section ?? 'N/A' }}</td>
                                     <td>{{ $comments[$index] ?? 'N/A' }}</td>
-                                    <td></td>
                                 </tr>
                             @endforeach
-                        @endforeach
+                        @else
+                            <tr>
+                                <td colspan="3">No suggestions/comments available.</td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             @endif
         </div>
+        
         
         <h3>Project Information</h3>
         <table class="table">

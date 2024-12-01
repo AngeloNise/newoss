@@ -1,16 +1,34 @@
 <?php $__env->startSection('content'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/faculty/applicationdetails.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/faculty/applicationaddcomment.css')); ?>">
 <script src="<?php echo e(asset('js/faculty/applicationstatus.js')); ?>"></script>
 
 <div class="application-detail-container">
     <a href="<?php echo e(route('faculty.application.admin')); ?>" class="btn btn-primary">Back</a>
     <h2>Application Details</h2>
-    <a href="<?php echo e(route('faculty.applications.comments.create', $application->id)); ?>" class="btn btn-secondary">Add Comment</a>
     <form id="applicationForm" method="POST" action="<?php echo e(route('faculty.application.update', $application->id)); ?>">
         <?php echo csrf_field(); ?>
         <?php echo method_field('PUT'); ?>
 
+
+        <div class="form-group">
+            <select name="document" id="document" class="form-control">
+                <option value="" disabled selected>Select a document</option>
+                <option value="Pre-numbered tickets">Pre-numbered tickets</option>
+                <option value="Official receipts">Official receipts</option>
+                <option value="Control sheets">Control sheets</option>
+                <option value="Reservation Slip for use of venue">Reservation Slip for use of venue</option>
+                <option value="Goods/services inspection report">Goods/services inspection report</option>
+                <option value="Statement of Projected Net Income and Expenses">Statement of Projected Net Income and Expenses</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="comment">Comment</label>
+            <input type="text" name="comment" id="comment" class="form-control" disabled>
+        </div>
         <div class="application-info">
+            <br>
             <table class="table">
                 <thead>
                     <tr>
@@ -88,6 +106,7 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Reviewed By</th>
                     <th>Field</th>
                     <th>Previous</th>
                     <th>Current</th>
@@ -106,6 +125,7 @@
 
                     <?php if($startDate): ?>
                         <tr>
+                            <td><?php echo e($log->updated_by ?? 'N/A'); ?></td>
                             <td>Start Date</td>
                             <td><?php echo e($startDate['old'] ?? 'N/A'); ?></td>
                             <td><?php echo e($startDate['new'] ?? 'N/A'); ?></td>
@@ -115,6 +135,7 @@
                     
                     <?php if($endDate): ?>
                         <tr>
+                            <td><?php echo e($log->updated_by ?? 'N/A'); ?></td>
                             <td>End Date</td>
                             <td><?php echo e($endDate['old'] ?? 'N/A'); ?></td>
                             <td><?php echo e($endDate['new'] ?? 'N/A'); ?></td>
@@ -124,6 +145,7 @@
 
                     <?php if($totalEstimatedIncome): ?>
                         <tr>
+                            <td><?php echo e($log->updated_by ?? 'N/A'); ?></td>
                             <td>Total Estimated Income</td>
                             <td><?php echo e($totalEstimatedIncome['old'] ?? 'N/A'); ?></td>
                             <td><?php echo e($totalEstimatedIncome['new'] ?? 'N/A'); ?></td>
@@ -133,6 +155,7 @@
 
                     <?php if($status): ?>
                         <tr>
+                            <td><?php echo e($log->updated_by ?? 'N/A'); ?></td>
                             <td>Status</td>
                             <td><?php echo e($status['old'] ?? 'N/A'); ?></td>
                             <td><?php echo e($status['new'] ?? 'N/A'); ?></td>
@@ -142,6 +165,7 @@
 
                     <?php if($currentFileLocation): ?>
                         <tr>
+                            <td><?php echo e($log->updated_by ?? 'N/A'); ?></td>
                             <td>Current File Location</td>
                             <td><?php echo e($currentFileLocation['old'] ?? 'N/A'); ?></td>
                             <td><?php echo e($currentFileLocation['new'] ?? 'N/A'); ?></td>
@@ -157,6 +181,19 @@
 
 </div>
 
+<script>
+    // JavaScript to enable/disable comment input based on dropdown selection
+    document.getElementById('document').addEventListener('change', function() {
+        const commentField = document.getElementById('comment');
+        if (this.value) {
+            // Enable comment field if a document is selected
+            commentField.disabled = false;
+        } else {
+            // Disable comment field if no document is selected
+            commentField.disabled = true;
+        }
+    });
+</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.adminlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views/faculty/auth/applicationadmindetails.blade.php ENDPATH**/ ?>

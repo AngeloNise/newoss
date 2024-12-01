@@ -43,6 +43,8 @@ return new class extends Migration
             $table->text('branch')->nullable();
             $table->string('proposed_activity')->default('FRA');
             $table->enum('status', ['Pending Approval', 'Returned', 'Approved'])->default('Pending Approval')->nullable();
+            $table->json('section')->nullable();
+            $table->json('comment')->nullable();
             $table->timestamps();
         });
     }

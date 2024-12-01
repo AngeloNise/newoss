@@ -343,10 +343,10 @@
             <div style="margin-top: -15px; font-family: 'Calibri', sans-serif;">
                 <h5 style="color: #2c3e50; font-size: 13pt; font-weight: bold; border-bottom: 2px solid #000000; padding-bottom: 45px;"></h5>
                 <div class="count-section" style="font-size: 14px">
-                    <p><strong>Total Pending Application:</strong> <span class="count">{{ $totalCounts['Pending Approval'] }}</span></p>
-                    <p><strong>Total Returned:</strong> <span class="count">{{ $totalCounts['Returned'] }}</span></p>
-                    <p><strong>Total Approved:</strong> <span class="count">{{ $totalCounts['Approved'] }}</span></p>
-                    <p><strong>Total Applications:</strong> <span class="count">{{ count($applications) }}</span></p>
+                    <p><strong>Total Pending Application:</strong> <span class="count">{{ $counts['offCampus']['Pending Approval'] }}</span></p>
+                    <p><strong>Total Returned:</strong> <span class="count">{{ $counts['offCampus']['Returned'] }}</span></p>
+                    <p><strong>Total Approved:</strong> <span class="count">{{ $counts['offCampus']['Approved'] }}</span></p>
+                    <p><strong>Total Applications:</strong> <span class="count">{{ array_sum($counts['offCampus']) }}</span></p>
                 </div>
             </div>
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; margin-top: 39px">

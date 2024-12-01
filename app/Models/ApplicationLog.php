@@ -17,7 +17,10 @@ class ApplicationLog extends Model
         'status',
         'current_file_location',
         'submission_date',
-        'updated_at' // For tracking when the update occurred
+        'updated_by',
+        'updated_at',
+        'comment',   // Added comment field
+        'document',  // Added document field
     ];
 
     public function application()

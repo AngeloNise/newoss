@@ -41,26 +41,22 @@ class GeneratePDFController extends Controller
         // Display the PDF in the browser
         return $pdf->stream('annexA-' . $id . '.pdf');
     }
-
     public function show($id)
     {
         $userEmail = auth()->user()->email;
-
+    
         // Fetch the specific AnnexA record for the authenticated user
         $annexa = AnnexA::where('id', $id)
             ->where('email', $userEmail)
             ->firstOrFail(); // This will throw a 404 if the record is not found
-
+    
         // Fetch all logo records
         $logos = Logo::all(); // Get all logo records
-
-        // Fetch related suggestions for this AnnexA record
-        $suggestions = $annexa->suggestions; // Get suggestions using the relationship defined in AnnexA
-
-        // Pass both $annexa, $logos, and suggestions to the view
-        return view('org.auth.sidebar.fraeval.fra-a-evaluation-detail', compact('annexa', 'logos', 'suggestions'));
-    } 
-
+    
+        // Pass both $annexa and $logos to the view (no need for suggestions anymore)
+        return view('org.auth.sidebar.fraeval.fra-a-evaluation-detail', compact('annexa', 'logos'));
+    }
+    
     public function downloadPDF($id) // Separate method to handle downloads
     {
         $userEmail = auth()->user()->email;

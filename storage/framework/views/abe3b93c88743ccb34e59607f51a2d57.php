@@ -1,5 +1,8 @@
 <?php $__env->startSection('content'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/faculty/eval.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/faculty/fraevalsuggestion.css')); ?>">
+<script src="<?php echo e(asset('js/faculty/annexasuggestion.js')); ?>"></script>
+
 
 <div class="fra-container">
     <a href="/faculty/FRA-A-Evaluation" class="btn btn-primary">Back</a>
@@ -17,14 +20,41 @@
                     <option value="Approved" <?php echo e($annexa->status === 'Approved' ? 'selected' : ''); ?>>Approved</option>
                     <option value="Returned" <?php echo e($annexa->status === 'Returned' ? 'selected' : ''); ?>>Returned</option>
                 </select>
+                
+                <div id="suggestions">
+                    <br>
+                    <div class="split suggestion-group">
+                        <div class="form-group">
+                            <label for="section">Select Section</label>
+                            <select name="section[]" class="form-control" required>
+                                <option value="" disabled selected>Select a section</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Project Information">Project Information</option>
+                                <option value="Items to be Sold">Items to be Sold</option>
+                                <option value="Other Income">Other Income</option>
+                                <option value="Expenditures">Expenditures</option>
+                                <option value="Other Information">Other Information</option>
+                                <option value="Other Concerns">Other Concerns</option>
+                            </select>
+                        </div>
+                        <div class="fra-group">
+                            <label for="comment">Your Suggestion/Comments</label>
+                            <input type="text" name="comment[]" class="form-control" required />
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="button-items">
+                    <button type="button" id="remove-suggestion" class="btn btn-danger">Remove</button>
+                    <button type="button" id="add-suggestion" class="btn btn-secondary">Add</button>
+                </div>
                 <div class="split">
                     <button type="submit" class="btn btn-primary">Update Status</button>
-                    <a href="<?php echo e(route('faculty.fra-a-evaluation.suggestion', $annexa->id)); ?>" class="btn btn-secondary">Evaluate</a>
                 </div>
             </div>
-
+            <br>
             <div class="suggestions">
-                <?php if($annexa->suggestions->isEmpty()): ?>
+                <?php if(empty($annexa->section) || empty($annexa->comment)): ?>
                     <table class="table">
                         <thead>
                             <tr>
@@ -48,23 +78,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $__currentLoopData = $annexa->suggestions->sortByDesc('created_at'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $suggestion): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php
-                                    $sections = json_decode($suggestion->section, true);
-                                    $comments = json_decode($suggestion->comment, true);
-                                ?>
-        
-                                <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <tr>
-                                        <td><?php echo e($section ?? 'N/A'); ?></td>
-                                        <td><?php echo e($comments[$index] ?? 'N/A'); ?></td>
-                                    </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php
+                                $sections = json_decode($annexa->section, true);
+                                $comments = json_decode($annexa->comment, true);
+                            ?>
+            
+                            <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <tr>
+                                    <td><?php echo e($section ?? 'N/A'); ?></td>
+                                    <td><?php echo e($comments[$index] ?? 'N/A'); ?></td>
+                                </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
                 <?php endif; ?>
             </div>
+            
         </form>
         
         <h3>Project Information</h3>

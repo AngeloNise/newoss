@@ -20,7 +20,7 @@
                     >
                         <img src="<?php echo e(asset('storage/' . $event->image)); ?>" class="cardimgincampus_incampus" alt="<?php echo e($event->title); ?>">
                         <div class="cardbodyincampus_incampus">
-                            <h5 class="cardtitleincampus_incampus"><?php echo e($event->colleges); ?></h5>
+                            <h5 class="cardtcollegeincampus_incampus"><?php echo e($event->colleges); ?></h5>
                             <h5 class="cardtitleincampus_incampus"><?php echo e($event->title); ?></h5>
                             <h2 class="cardtextincampus_incampus">Open for: <?php echo e($event->eligible); ?></h2>
                             <p class="cardtextincampus_incampus"><?php echo e(Str::limit($event->description, 250, '...')); ?></p>
@@ -54,7 +54,7 @@
                     >
                         <img src="<?php echo e(asset('storage/' . $event->image)); ?>" class="cardimgincampus_incampus" alt="<?php echo e($event->title); ?>">
                         <div class="cardbodyincampus_incampus">
-                            <h5 class="cardtitleincampus_incampus"><?php echo e($event->colleges); ?></h5>
+                            <h5 class="cardtcollegeincampus_incampus"><?php echo e($event->colleges); ?></h5>
                             <h5 class="cardtitleincampus_incampus"><?php echo e($event->title); ?></h5>
                             <p class="cardtextincampus_incampus"><?php echo e(Str::limit($event->description, 250, '...')); ?></p>
                             <h2 class="cardtextincampus_incampus">Open for: <?php echo e($event->eligible); ?></h2>

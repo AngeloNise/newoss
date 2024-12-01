@@ -38,20 +38,27 @@
                     </div>
     
                     <div class="form-accset">
-                        <input type="text" class="form-control" id="organization" name="organization" value="{{ old('name_of_organization', $user->name_of_organization) }}" placeholder="Organization Name" required>
+                        <label for="organization" class="form-label">Organization Name:</label>
+                        <input type="text" class="form-control" id="organization" name="organization" value="{{ old('name_of_organization', $user->name_of_organization) }}" placeholder="Organization Name" readonly>
+                    </div>
+
+                    <div class="form-accset">
+                        <label for="colleges" class="form-label">College:</label>
+                        <input type="text" class="form-control" id="colleges" name="colleges" value="{{ old('colleges', $user->colleges) }}" placeholder="college" readonly>
                     </div>
                 </div>
     
                 <!-- Right Column -->
                 <div class="form-right">
                     <div class="form-accset">
+                        <label for="old_password" class="form-label">Change Password:</label>
                         <input type="password" class="form-control" id="old_password" name="old_password" placeholder="Enter old password" required>
                     </div>
-    
+                    <br>
                     <div class="form-accset">
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password">
                     </div>
-    
+                    <br>
                     <div class="form-accset">
                         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm new password">
                     </div>

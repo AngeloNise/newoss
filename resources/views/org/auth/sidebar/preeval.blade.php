@@ -31,6 +31,9 @@
 @endphp
 
 <div class="content-container">
+    <div class="history-button">
+        <a href="{{ url('/Submitted-Forms') }}" class="btnhistory"> Pre-Evaluation History</a>
+    </div>
     <h1>Pre-Evaluation</h1>
     <div class="activity-question">
         <p>What type of Activity?</p>

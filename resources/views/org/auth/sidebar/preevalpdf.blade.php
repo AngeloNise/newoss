@@ -3,8 +3,7 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/orgs/pdf/evalpdf.css') }}">
 <div class="fra-container mt-4">
-    <h2>Your Submitted Forms</h2>
-    <br><br>
+    <br>
     <h2>Fund-Raising Applications</h2>
 
     {{-- Ongoing Applications (Pending Approval) --}}
@@ -21,7 +20,6 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col"></th>
                     <th scope="col">Name of Project</th>
                     <th scope="col">Requesting Organization</th>
                     <th scope="col">Start Date</th>
@@ -34,7 +32,6 @@
             <tbody>
                 @foreach($pendingApplications as $application)
                     <tr>
-                        <td>{{ $loop->iteration }}).</td>
                         <td>{{ $application->name_of_project }}</td>
                         <td>{{ $application->requesting_organization }}</td>
                         <td>{{ $application->start_date }}</td>
