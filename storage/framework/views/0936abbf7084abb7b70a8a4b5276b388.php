@@ -1,13 +1,19 @@
 <?php $__env->startSection('content'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/orgs/preeval.css')); ?>">
 
+
 <?php if(Session::has('success')): ?>
-    <script>
-        window.flashMessage = {
-            message: "<?php echo e(Session::get('success')); ?>",
-            type: "success"
-        };
-    </script>
+    <div class="flash-message success">
+        <?php echo e(Session::get('success')); ?>
+
+    </div>
+<?php endif; ?>
+
+<?php if(Session::has('error')): ?>
+    <div class="flash-message error">
+        <?php echo e(Session::get('error')); ?>
+
+    </div>
 <?php endif; ?>
 
 <?php
@@ -53,6 +59,22 @@
     </div>
 </div>
 
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('scripts'); ?>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Select all flash messages
+        var flashMessages = document.querySelectorAll('.flash-message');
+
+        flashMessages.forEach(function(message) {
+            // Set a timeout to fade out the flash message after 4 seconds (4000ms)
+            setTimeout(function() {
+                message.classList.add('fade-out');
+            }, 4000);
+        });
+    });
+</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.orglayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\College\oss\resources\views//org/auth/sidebar/preeval.blade.php ENDPATH**/ ?>

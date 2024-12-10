@@ -262,3 +262,39 @@ button:disabled {
     color: #9e9e9e;
     pointer-events: none;
 }
+
+.search-form {
+    display: flex;
+    align-items: center; /* Center align the elements vertically */
+    gap: 10px; /* Small margin between the text box and button */
+}
+
+.search-bar {
+    flex-grow: 1; /* Make the search bar take up the remaining space */
+    padding: 0.5rem; /* Consistent padding for the input field */
+    border: 1px solid #bdc3c7; /* Light border */
+    border-radius: 6px; /* Rounded corners for the search bar */
+    font-size: 1rem; /* Consistent font size */
+    margin: 0; /* Ensure no margin affecting the layout */
+}
+
+.search-form .btn {
+    padding: 0.5rem 1rem; /* Consistent padding for the button */
+    font-size: 1rem; /* Consistent font size */
+    border-radius: 6px; /* Match the rounded corners */
+    margin: 0; /* Remove unnecessary margins */
+    height: auto; /* Ensure button height is consistent */
+    cursor: pointer; /* Change cursor on hover */
+    background-color: #007bff; /* Primary button color */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+}
+
+.search-form .btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.search-form .btn:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.6); /* Custom focus outline */
+}

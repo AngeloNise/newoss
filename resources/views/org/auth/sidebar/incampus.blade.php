@@ -19,7 +19,16 @@
         @endif
 
         <!-- Search Bar -->
-        <input type="text" id="searchBar" placeholder="Search by Title or Colleges..." class="search-bar" onkeyup="filterEvents()">
+        <form method="GET" action="{{ route('org.auth.incampus') }}" class="search-form">
+            <input 
+                type="text" 
+                id="searchBar" 
+                name="search" 
+                value="{{ request()->get('search') }}" 
+                placeholder="Search by Title or Colleges..." 
+                class="search-bar">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
 
         <!-- Create and Manage Buttons -->
         <div class="buttons-container">
@@ -61,7 +70,7 @@
 
             <!-- Pagination for Upcoming Events -->
             <div class="pagination-container">
-                {{ $upcomingEvents->appends(['ended_page' => request()->get('ended_page')])->links('pagination::simple-bootstrap-4') }}
+                {{ $upcomingEvents->appends(['ended_page' => request()->get('ended_page'), 'search' => request()->get('search')])->links('pagination::simple-bootstrap-4') }}
             </div>
         @endif
     </div>
@@ -94,13 +103,14 @@
 
             <!-- Pagination for Finished Events -->
             <div class="pagination-container">
-                {{ $endedEvents->appends(['upcoming_page' => request()->get('upcoming_page')])->links('pagination::simple-bootstrap-4') }}
+                {{ $endedEvents->appends(['upcoming_page' => request()->get('upcoming_page'), 'search' => request()->get('search')])->links('pagination::simple-bootstrap-4') }}
             </div>
         @endif
     </div>
 </div>
 
 <script>
+// JavaScript for dynamic filtering (optional if using JavaScript search)
 document.addEventListener('DOMContentLoaded', function() {
     const alerts = document.querySelectorAll('.alertsuccessincampus_incampus, .alerterrorincampus_incampus');
 
@@ -116,22 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, 2500);
 });
-
-function filterEvents() {
-    const searchInput = document.getElementById('searchBar').value.toLowerCase();
-    const eventCards = document.querySelectorAll('#upcomingEventsContainer .cardincampus_incampus, #endedEventsContainer .cardincampus_incampus');
-
-    eventCards.forEach(card => {
-        const title = card.getAttribute('data-title');
-        const colleges = card.getAttribute('data-colleges');
-        
-        if (title.includes(searchInput) || colleges.includes(searchInput)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
-    });
-}
 </script>
 
 @endsection

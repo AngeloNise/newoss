@@ -20,7 +20,16 @@
         <?php endif; ?>
 
         <!-- Search Bar -->
-        <input type="text" id="searchBar" placeholder="Search by Title or Colleges..." class="search-bar" onkeyup="filterEvents()">
+        <form method="GET" action="<?php echo e(route('org.auth.incampus')); ?>" class="search-form">
+            <input 
+                type="text" 
+                id="searchBar" 
+                name="search" 
+                value="<?php echo e(request()->get('search')); ?>" 
+                placeholder="Search by Title or Colleges..." 
+                class="search-bar">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
 
         <!-- Create and Manage Buttons -->
         <div class="buttons-container">
@@ -62,7 +71,7 @@
 
             <!-- Pagination for Upcoming Events -->
             <div class="pagination-container">
-                <?php echo e($upcomingEvents->appends(['ended_page' => request()->get('ended_page')])->links('pagination::simple-bootstrap-4')); ?>
+                <?php echo e($upcomingEvents->appends(['ended_page' => request()->get('ended_page'), 'search' => request()->get('search')])->links('pagination::simple-bootstrap-4')); ?>
 
             </div>
         <?php endif; ?>
@@ -96,7 +105,7 @@
 
             <!-- Pagination for Finished Events -->
             <div class="pagination-container">
-                <?php echo e($endedEvents->appends(['upcoming_page' => request()->get('upcoming_page')])->links('pagination::simple-bootstrap-4')); ?>
+                <?php echo e($endedEvents->appends(['upcoming_page' => request()->get('upcoming_page'), 'search' => request()->get('search')])->links('pagination::simple-bootstrap-4')); ?>
 
             </div>
         <?php endif; ?>
@@ -104,6 +113,7 @@
 </div>
 
 <script>
+// JavaScript for dynamic filtering (optional if using JavaScript search)
 document.addEventListener('DOMContentLoaded', function() {
     const alerts = document.querySelectorAll('.alertsuccessincampus_incampus, .alerterrorincampus_incampus');
 
@@ -119,22 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, 2500);
 });
-
-function filterEvents() {
-    const searchInput = document.getElementById('searchBar').value.toLowerCase();
-    const eventCards = document.querySelectorAll('#upcomingEventsContainer .cardincampus_incampus, #endedEventsContainer .cardincampus_incampus');
-
-    eventCards.forEach(card => {
-        const title = card.getAttribute('data-title');
-        const colleges = card.getAttribute('data-colleges');
-        
-        if (title.includes(searchInput) || colleges.includes(searchInput)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
-    });
-}
 </script>
 
 <?php $__env->stopSection(); ?>

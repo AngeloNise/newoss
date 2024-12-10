@@ -127,9 +127,10 @@ class AnnexAController extends Controller
         $annexA->save();
     
         // Show a success message
-        Session::flash('success', 'Your form has passed the first evaluation');
+        Session::flash('success', 'Your form has been submitted successfully!');
+    
         return redirect()->route('org.auth.sidebar.preeval');
-    }
+    }    
     
 
     public function edit($id)

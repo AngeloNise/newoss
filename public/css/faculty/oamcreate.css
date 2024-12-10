@@ -1,0 +1,127 @@
+/* General Form Styling */
+.org-account-container {
+    width: 50%; /* Keep existing width */
+    margin: 4% auto 4% 32.4%;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.org-account-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+
+.org-alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border: 1px solid #c3e6cb;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.org-alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+/* Form Layout */
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.split {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+.form-group {
+    width: 48%; /* Adjust the width to fit the layout */
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: #007bff; /* Focused state with blue border */
+    outline: none;
+}
+
+/* Password Visibility Toggle */
+.password-container {
+    position: relative;
+}
+
+.toggle-icon {
+    position: absolute;
+    top: 67%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+/* Button */
+button[type="submit"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    width: 100%; /* Full width for button */
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .org-account-container {
+        width: 90%; /* Full width on smaller screens */
+        padding: 20px;
+    }
+
+    .split {
+        flex-direction: column; /* Stack the columns vertically */
+    }
+
+    .form-group {
+        width: 100%; /* Full width for each form element */
+    }
+
+    button[type="submit"] {
+        width: 100%; /* Full width for button */
+    }
+}

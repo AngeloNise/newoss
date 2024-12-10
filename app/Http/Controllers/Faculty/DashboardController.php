@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Faculty;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
-use App\Models\Annexa;
+use App\Models\AnnexA;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -96,7 +96,7 @@ class DashboardController extends Controller
         $stepSizeFundRaising = $this->determineStepSizeForFundRaising($maxFundRaising);
 
         // Fetch applications (annexas) for the current year
-        $annexas = Annexa::selectRaw('COUNT(*) as total, MONTH(created_at) as month, proposed_activity')
+        $annexas = AnnexA::selectRaw('COUNT(*) as total, MONTH(created_at) as month, proposed_activity')
             ->whereYear('created_at', Carbon::now()->year) // Filter for the current year
             ->groupBy('month', 'proposed_activity') // Group by month and proposed_activity
             ->orderBy('month', 'asc')
@@ -114,8 +114,10 @@ class DashboardController extends Controller
             }
         }
 
+        $totalEvaluation = $annexas->sum('total');
+
         // Fetch the status counts for the annexas
-        $statusCounts = Annexa::selectRaw('COUNT(*) as total, status')
+        $statusCounts = AnnexA::selectRaw('COUNT(*) as total, status')
             ->whereYear('created_at', Carbon::now()->year)
             ->groupBy('status')
             ->get();
@@ -136,7 +138,7 @@ class DashboardController extends Controller
         return view('faculty.auth.dbadmin', compact(
             'totalApplications', 'monthlyData', 'inCampusData', 'offCampusData', 'fundRaisingData',
             'stepSizeApplications', 'stepSizeInCampus', 'stepSizeOffCampus', 'stepSizeFundRaising',
-            'monthlyAnnexaData', 'statusData'
+            'monthlyAnnexaData', 'statusData', 'totalEvaluation'
         ));
     }
 

@@ -126,3 +126,46 @@
     transform: scale(0.98); /* Slight scale-down effect */
     border-color: #1f6d8d; /* Border color when active */
 }
+
+.flash-message {
+    position: fixed;
+    top: 20px; /* Adjust the top distance as needed */
+    left: 59%; /* Center horizontally */
+    transform: translateX(-50%); /* Offset to truly center */
+    z-index: 1000; /* Ensure it's on top of other content */
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: white;
+    width: auto; /* or set a specific width */
+    margin: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.5s ease, top 0.5s ease; /* Smooth transition */
+    opacity: 1; /* Fully visible */
+}
+
+/* Success message styling */
+.flash-message.success {
+    background-color: #28a745; /* Green background for success */
+}
+
+/* Error message styling */
+.flash-message.error {
+    background-color: #dc3545; /* Red background for error */
+}
+
+/* Animation for fading out the message */
+.flash-message.fade-out {
+    opacity: 0; /* Make it transparent */
+    top: -50px; /* Move it up out of view */
+}
+
+/* Styling for the close button inside flash messages */
+.flash-message .close {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+}

@@ -1,11 +1,37 @@
+.search-form {
+    display: flex;
+    align-items: center; /* Center align the elements vertically */
+    gap: 10px; /* Small margin between the text box and button */
+}
+
 .search-bar {
-    width: 100%; /* Full width to match form-control */
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #bdc3c7; /* Matching border */
-    border-radius: 6px; /* Rounded corners */
-    font-size: 16px;
-    box-sizing: border-box; /* Ensure padding is included in width */
+    flex-grow: 1; /* Make the search bar take up the remaining space */
+    padding: 0.5rem; /* Consistent padding for the input field */
+    border: 1px solid #bdc3c7; /* Light border */
+    border-radius: 6px; /* Rounded corners for the search bar */
+    font-size: 1rem; /* Consistent font size */
+    margin: 0; /* Ensure no margin affecting the layout */
+}
+
+.search-form .btn {
+    padding: 0.5rem 1rem; /* Consistent padding for the button */
+    font-size: 1rem; /* Consistent font size */
+    border-radius: 6px; /* Match the rounded corners */
+    margin: 0; /* Remove unnecessary margins */
+    height: auto; /* Ensure button height is consistent */
+    cursor: pointer; /* Change cursor on hover */
+    background-color: #007bff; /* Primary button color */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+}
+
+.search-form .btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.search-form .btn:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.6); /* Custom focus outline */
 }
 
 .total-count {
@@ -21,7 +47,6 @@
     text-align: center; /* Center the text inside */
     width: auto; /* Automatically adjust width based on content */
 }
-
 
 .org-account-container {
     width: 70%; /* Keep your existing width */
@@ -119,6 +144,111 @@
     background-color: #c82333; /* Darker red on hover */
 }
 
+.org-btn-secondary {
+    background-color: #28a745; /* Orange color */
+}
+
+.org-btn-secondary:hover {
+    background-color: #218838; /* Darker orange on hover */
+}
+
+.pagination-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.pagination-container .pagination {
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.pagination-container .page-item {
+    margin: 0 5px;
+}
+
+.pagination-container .page-link {
+    padding: 4px 10px;  /* Smaller padding */
+    font-size: 12px;  /* Adjust font size */
+    color: #3498db;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Highlight the active page */
+.pagination-container .page-item.active .page-link {
+    background-color: #3498db;  /* Active page color */
+    color: #fff;  /* Text color for active page */
+    border-color: #3498db;  /* Border color for active page */
+}
+
+.pagination-container .page-link:hover {
+    background-color: #2980b9;
+    color: #fff;
+}
+
+.pagination-container .page-item.disabled .page-link {
+    background-color: #e0e0e0;
+    color: #9e9e9e;
+    pointer-events: none;
+}
+
+/* Dropdown for Status */
+select {
+    width: 100%; /* Full width to match other form elements */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #bdc3c7; /* Matching border */
+    border-radius: 6px; /* Rounded corners */
+    font-size: 16px;
+    background-color: #ffffff; /* Background color */
+    color: #333; /* Text color */
+    box-sizing: border-box; /* Include padding in width */
+    appearance: none; /* Remove default dropdown arrow for better styling */
+    -webkit-appearance: none; /* For Safari */
+    -moz-appearance: none; /* For Firefox */
+}
+
+select:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Textarea for Remarks */
+/* Adjust width of Status dropdown */
+.status-dropdown {
+    width: 150px; /* Adjust the width as needed, e.g., 150px or a percentage like 50% */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Adjust width of Remarks textarea */
+.remarks-textarea {
+    width: 200px; /* Adjust the width as needed, e.g., 200px or a percentage like 60% */
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #333;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.remarks-textarea:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none; /* Remove default outline */
+}
+
 @media (max-width: 768px) {
     .org-account-container {
         width: 90%; /* Full width on smaller screens */
@@ -132,5 +262,13 @@
 
     .org-account-container h2 {
         font-size: 24px; /* Adjusted heading size */
+    }
+
+    .status-dropdown {
+        width: 100%; /* Full width on small screens */
+    }
+
+    .remarks-textarea {
+        width: 100%; /* Full width on small screens */
     }
 }

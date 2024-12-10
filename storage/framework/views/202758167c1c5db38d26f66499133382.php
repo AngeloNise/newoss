@@ -39,6 +39,7 @@
                 <canvas id="FRABreakdownChart" width="400" height="200"></canvas>
             </div>
             <h3>Breakdown: Pending Approval, Returned, Approved</h3>
+            <strong>Total:</strong> <?php echo e($totalEvaluation); ?> applications
         </div>
     </div>
 </div>

@@ -199,12 +199,11 @@
     box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5); /* Custom focus outline */
 }
 
-/* General styles for the overlay */
 .flash-message {
     position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 20px; /* Adjust the top distance as needed */
+    left: 59%; /* Center horizontally */
+    transform: translateX(-50%); /* Offset to truly center */
     z-index: 1000; /* Ensure it's on top of other content */
     padding: 15px 20px;
     border-radius: 5px;
@@ -230,6 +229,17 @@
 .flash-message.fade-out {
     opacity: 0; /* Make it transparent */
     top: -50px; /* Move it up out of view */
+}
+
+/* Styling for the close button inside flash messages */
+.flash-message .close {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
 }
 
 .is-invalid {

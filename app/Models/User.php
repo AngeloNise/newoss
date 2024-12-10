@@ -36,6 +36,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $attributes = [
+        'branch' => 'PUP-MAIN',
+    ];
     /**
      * Get the attributes that should be cast.
      *

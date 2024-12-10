@@ -20,8 +20,17 @@
         @endif
 
         <!-- Search Bar -->
-        <input type="text" id="searchBar" placeholder="Search by Title or Colleges..." class="search-bar" onkeyup="filterEvents()">
-        <!-- Upcoming Events Section -->
+        <form method="GET" action="{{ route('faculty.managepost') }}" class="search-form">
+            <input 
+                type="text" 
+                id="searchBar" 
+                name="search" 
+                value="{{ request()->get('search') }}" 
+                placeholder="Search by Title or Colleges..." 
+                class="search-bar">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>        
+        
         <h2 class="headerincampus_incampus">Upcoming Events</h2>
         @if($upcomingEvents->isEmpty())
             <p class="no-events-message">No upcoming events.</p>

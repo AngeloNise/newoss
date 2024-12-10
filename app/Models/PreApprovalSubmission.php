@@ -23,6 +23,19 @@ class PreApprovalSubmission extends Model
         'attachment5_path',
         'attachment6_path',
         'attachment7_path',
+        'attachment8_path',
+        'attachment9_path',
+        'attachment10_path',
+        'attachment11_path',
+        'attachment12_path',
+        'attachment13_path',
+        'attachment14_path',
+        'attachment15_path',
+        'attachment16_path',
+        'attachment17_path',
+        'attachment18_path',
+        'attachment19_path',
+        'attachment20_path',
     ];
 
     public function comments()

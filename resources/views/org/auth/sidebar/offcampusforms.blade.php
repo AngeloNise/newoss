@@ -3,6 +3,8 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/orgs/pdf/evalpdf.css') }}">
 <div class="fra-container mt-4">
+<a href="{{ url('/Submitted-Forms') }}" class="btn btn-primary">Back</a>
+
     <h2>Your Submitted Forms</h2>
     <br><br>
 {{-- Off-Campus Applications --}}
@@ -33,7 +35,7 @@
                               <td>{{ $submission->end_date }}</td>
                               <td>{{ $submission->number_of_participants }}</td>
                               <td>
-                                  <button onclick="window.location='{{ route('offcampus.annex.a.show', $submission->id) }}'" class="btn btn-primary">View</button>
+                              <button onclick="window.location='{{ route('user.offcampus.evaluation.detail', $submission->id) }}'" class="btn btn-primary">View</button>
                               </td>
                           </tr>
                       @endforeach

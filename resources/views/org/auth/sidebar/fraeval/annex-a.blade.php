@@ -308,4 +308,19 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Select all flash messages
+        var flashMessages = document.querySelectorAll('.flash-message');
+
+        flashMessages.forEach(function(message) {
+            // Set a timeout to fade out the flash message after 4 seconds (4000ms)
+            setTimeout(function() {
+                message.classList.add('fade-out');
+            }, 4000);
+        });
+    });
+</script>
+
 @endsection

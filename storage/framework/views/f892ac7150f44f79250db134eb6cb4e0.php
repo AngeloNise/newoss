@@ -101,6 +101,56 @@
         <button type="button" class="btn btn-success" onclick="confirmChanges()">Save</button>
     </form>
 
+    <h3>Comments Logs</h3>
+    <?php if($application->logs->isNotEmpty()): ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Reviewed By</th>
+                    <th>Document</th>
+                    <th>Comment</th>
+                    <th>Updated At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $__currentLoopData = $application->logs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $log): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php
+                        $comment = json_decode($log->comment, true);
+                        $document = json_decode($log->document, true);
+                    ?>
+                    
+                    <?php if(!empty($comment['new']) || !empty($document['new'])): ?>
+                        <tr>
+                            <td><?php echo e($log->updated_by ?? 'N/A'); ?></td>
+                            
+                            
+                            <td>
+                                <?php if(!empty($document['new'])): ?>
+                                    <span><?php echo e($document['new']); ?></span>
+                                <?php else: ?>
+                                    <span>N/A</span>
+                                <?php endif; ?>
+                            </td>
+                            
+                            
+                            <td>
+                                <?php if(!empty($comment['new'])): ?>
+                                    <span><?php echo e($comment['new']); ?></span>
+                                <?php else: ?>
+                                    <span>N/A</span>
+                                <?php endif; ?>
+                            </td>
+                            
+                            <td><?php echo e($log->updated_at); ?></td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>No comments or document updates available for this application.</p>
+    <?php endif; ?>
+    
     <h3>Application Logs</h3>
     <?php if($application->logs->isNotEmpty()): ?>
         <table class="table">
@@ -178,6 +228,7 @@
     <?php else: ?>
         <p>No logs available for this application.</p>
     <?php endif; ?>
+    
 
 </div>
 

@@ -8,9 +8,18 @@
     <h1>Post Activity Report/Untagging</h1>
 
     <!-- Search Bar -->
-    <input type="text" id="searchBar" placeholder="Search Activity Report..." class="search-bar" onkeyup="filterApplications()">
-
-    <!-- Not Submitted Section -->
+    <form method="GET" action="{{ route('faculty.application.frapost') }}" class="search-form mb-3">
+        <input 
+            type="text" 
+            id="searchBar" 
+            name="search" 
+            value="{{ request()->get('search') }}" 
+            placeholder="Search by Project Name or Organization..." 
+            class="search-bar">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    
+    <!-- Not Submitted Applications -->
     <h2>Not Submitted</h2>
     <table id="notSubmittedTable">
         <thead>
@@ -41,7 +50,12 @@
         </tbody>
     </table>
 
-    <!-- Submitted Section -->
+    <!-- Pagination for Not Submitted Applications -->
+    <div class="pagination-container">
+        {{ $notSubmittedApplications->appends(['search' => request()->get('search')])->links('pagination::simple-bootstrap-4') }}
+    </div>
+
+    <!-- Submitted Applications -->
     <h2>Submitted</h2>
     <table id="submittedTable">
         <thead>
@@ -71,5 +85,10 @@
             @endforeach
         </tbody>
     </table>
+
+    <!-- Pagination for Submitted Applications -->
+    <div class="pagination-container">
+        {{ $submittedApplications->appends(['search' => request()->get('search')])->links('pagination::simple-bootstrap-4') }}
+    </div>
 </div>
 @endsection
