@@ -9,7 +9,6 @@
     <h2>Evaluation Details</h2>
 
     <div class="org_info">
-        <div class="suggestions">
             <h3>Suggestions</h3>
             @if (empty($annexa->section) || empty($annexa->comment))
                 <p>Wait for Faculty/Director to evaluate your forms.</p>

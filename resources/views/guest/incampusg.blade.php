@@ -2,12 +2,21 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/orgs/incampus.css') }}">
 
-<!-- Upcoming Events Container -->
+<!-- Search Bar Container -->
 <div class="content-container-parent">
+    <!-- Upcoming Events Container -->
     <div class="content-container">
-        <!-- Search Bar -->
-        <input type="text" id="searchBar" placeholder="Search by Title or Colleges..." class="search-bar" onkeyup="filterEvents()">
-        <!-- Upcoming Events -->
+        <form method="GET" action="{{ route('guest.auth.incampus') }}" class="search-form">
+            <input 
+                type="text" 
+                id="searchBar" 
+                name="search" 
+                value="{{ request()->get('search') }}" 
+                placeholder="Search by Title or Colleges..." 
+                class="search-bar">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
         <h2 class="headerincampus_incampus">Upcoming Events</h2>
         @if($upcomingEvents->isEmpty())
             <p class="no-events-message">No upcoming events.</p>
@@ -34,12 +43,12 @@
 
             <!-- Pagination for Upcoming Events -->
             <div class="pagination-container">
-                {{ $upcomingEvents->appends(['ended_page' => request()->get('ended_page')])->links('pagination::simple-bootstrap-4') }}
+                {{ $upcomingEvents->appends(['ended_page' => request()->get('ended_page'), 'search' => request()->get('search')])->links('pagination::simple-bootstrap-4') }}
             </div>
         @endif
     </div>
 
-<!-- Finished Events Container -->
+    <!-- Finished Events Container -->
     <div class="content-container-finished">
         <h2 class="headerincampus_incampus">Finished Events</h2>
         @if($endedEvents->isEmpty())
@@ -67,44 +76,10 @@
 
             <!-- Pagination for Finished Events -->
             <div class="pagination-container">
-                {{ $endedEvents->appends(['upcoming_page' => request()->get('upcoming_page')])->links('pagination::simple-bootstrap-4') }}
+                {{ $endedEvents->appends(['upcoming_page' => request()->get('upcoming_page'), 'search' => request()->get('search')])->links('pagination::simple-bootstrap-4') }}
             </div>
         @endif
     </div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const alerts = document.querySelectorAll('.alertsuccessincampus_incampus, .alerterrorincampus_incampus');
-
-    setTimeout(() => {
-        alerts.forEach(alert => {
-            alert.classList.add('fade-out');
-        });
-    }, 2000);
-
-    setTimeout(() => {
-        alerts.forEach(alert => {
-            alert.style.display = 'none';
-        });
-    }, 2500);
-});
-
-function filterEvents() {
-    const searchInput = document.getElementById('searchBar').value.toLowerCase();
-    const eventCards = document.querySelectorAll('#upcomingEventsContainer .cardincampus_incampus, #endedEventsContainer .cardincampus_incampus');
-
-    eventCards.forEach(card => {
-        const title = card.getAttribute('data-title');
-        const colleges = card.getAttribute('data-colleges');
-        
-        if (title.includes(searchInput) || colleges.includes(searchInput)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
-    });
-}
-</script>
 
 @endsection

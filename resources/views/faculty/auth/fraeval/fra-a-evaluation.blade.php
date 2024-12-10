@@ -8,23 +8,16 @@
     <a href="{{ url('/faculty/Pre-Evaluation-Status') }}" class="btn btn-secondary mb-3">Back</a>
     <h2>FRA Evaluation Applications</h2>
 
-    <!-- Search Bar -->
-    <input type="text" id="searchBar" placeholder="Search..." class="search-bar" onkeyup="filterApplications()">
-
-    @php
-        // Filter applications based on their status
-        $pendingApprovalApplications = $applications->filter(function ($application) {
-            return $application->status === 'Pending Approval';
-        });
-
-        $returnedApplications = $applications->filter(function ($application) {
-            return $application->status === 'Returned';
-        });
-
-        $approvedApplications = $applications->filter(function ($application) {
-            return $application->status === 'Approved';
-        });
-    @endphp
+    <form method="GET" action="{{ url()->current() }}" class="search-form mb-3">
+        <input 
+            type="text" 
+            id="searchBar" 
+            name="search" 
+            placeholder="Search by project name or organization..." 
+            class="search-bar" 
+            value="{{ request('search') }}">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>    
 
     <!-- Pending Approval Applications -->
     <h3>Pending Approval</h3>
@@ -55,6 +48,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="pagination-container">
+            {{ $pendingApprovalApplications->appends(request()->except('pending_page'))->links('pagination::simple-bootstrap-4') }}
+        </div>
     @endif
 
     <!-- Returned Applications -->
@@ -86,6 +82,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="pagination-container">
+            {{ $returnedApplications->appends(request()->except('returned_page'))->links('pagination::simple-bootstrap-4') }}
+        </div>
     @endif
 
     <!-- Approved Applications -->
@@ -117,6 +116,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="pagination-container">
+            {{ $approvedApplications->appends(request()->except('approved_page'))->links('pagination::simple-bootstrap-4') }}
+        </div>
     @endif
 </div>
 

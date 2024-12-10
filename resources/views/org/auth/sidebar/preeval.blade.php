@@ -1,14 +1,19 @@
 @extends('layout.orglayout')
+
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/orgs/preeval.css') }}">
 
+{{-- Flash success message --}}
 @if(Session::has('success'))
-    <script>
-        window.flashMessage = {
-            message: "{{ Session::get('success') }}",
-            type: "success"
-        };
-    </script>
+    <div class="flash-message success">
+        {{ Session::get('success') }}
+    </div>
+@endif
+
+@if(Session::has('error'))
+    <div class="flash-message error">
+        {{ Session::get('error') }}
+    </div>
 @endif
 
 @php
@@ -53,4 +58,20 @@
     </div>
 </div>
 
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Select all flash messages
+        var flashMessages = document.querySelectorAll('.flash-message');
+
+        flashMessages.forEach(function(message) {
+            // Set a timeout to fade out the flash message after 4 seconds (4000ms)
+            setTimeout(function() {
+                message.classList.add('fade-out');
+            }, 4000);
+        });
+    });
+</script>
 @endsection

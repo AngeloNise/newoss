@@ -14,14 +14,40 @@
     font-size: 24px; /* Adjusted font size */
 }
 
+.search-form {
+    align-items: center; /* Center align the elements vertically */
+    gap: 10px; /* Small margin between the text box and button */
+}
+
 .search-bar {
-    width: 100%; /* Full width to match form-control */
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #bdc3c7; /* Matching border */
+    flex-grow: 1; /* Let the search bar take up the remaining space */
+    padding: 0.5rem; /* Padding */
+    border: 1px solid #bdc3c7; /* Border */
     border-radius: 6px; /* Rounded corners */
-    font-size: 16px;
-    box-sizing: border-box; /* Ensure padding is included in width */
+    font-size: 1rem; /* Font size */
+    margin: 0; /* Remove margin to ensure no unwanted space */
+    width: 81%;
+}
+
+.search-form .btn {
+    padding: 0.5rem 1rem; /* Consistent padding for the button */
+    font-size: 1rem; /* Consistent font size */
+    border-radius: 6px; /* Match the rounded corners */
+    margin: 0; /* Remove unnecessary margins */
+    height: auto; /* Ensure button height is consistent */
+    cursor: pointer; /* Change cursor on hover */
+    background-color: #007bff; /* Primary button color */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+}
+
+.search-form .btn:hover {
+    background-color: #0056b3; /* Hover effect */
+}
+
+.search-form .btn:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.6); /* Custom focus outline */
 }
 
 .application-container .button,
@@ -31,7 +57,7 @@
     width: 150px; /* Set a specific width */
     margin-top: 20px;
     color: #fff;
-    background-color: #dc3545;
+    background-color: #007bff;
     border: none;
     border-radius: 6px;
     text-align: center;
@@ -43,7 +69,7 @@
 
 .application-container .button:hover,
 .application-container .btn:hover {
-    background-color: #c82333; /* Darker red for hover */
+    background-color: #0056b3; /* Darker red for hover */
     transform: scale(1.03); /* Scale effect on hover */
 }
 
@@ -74,6 +100,48 @@
 .table tbody tr:hover {
     background-color: #e0f7fa; /* Light blue hover effect */
     cursor: pointer;
+}
+.pagination-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.pagination-container .pagination {
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.pagination-container .page-item {
+    margin: 0 5px;
+}
+
+.pagination-container .page-link {
+    padding: 4px 10px;  /* Smaller padding */
+    font-size: 12px;  /* Adjust font size */
+    color: #3498db;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Highlight the active page */
+.pagination-container .page-item.active .page-link {
+    background-color: #3498db;  /* Active page color */
+    color: #fff;  /* Text color for active page */
+    border-color: #3498db;  /* Border color for active page */
+}
+
+.pagination-container .page-link:hover {
+    background-color: #2980b9;
+    color: #fff;
+}
+
+.pagination-container .page-item.disabled .page-link {
+    background-color: #e0e0e0;
+    color: #9e9e9e;
+    pointer-events: none;
 }
 
 @media (max-width: 768px) {

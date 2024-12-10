@@ -121,3 +121,258 @@
     opacity: 0; /* Make it transparent */
     top: -50px; /* Move it up out of view */
 }
+
+/* Attachments Table */
+.attachments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.attachments-table thead {
+    background-color: #f5f5f5;
+}
+
+.attachments-table th, 
+.attachments-table td {
+    text-align: left;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.attachments-table th {
+    font-weight: bold;
+    color: #34495e;
+}
+
+.attachments-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.attachments-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.attachment-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.attachment-link:hover {
+    text-decoration: underline;
+    color: #2980b9;
+}
+
+/* Details Section */
+.org_info {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.org_info .info-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+.activity-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 16px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.activity-table th, 
+.activity-table td {
+    text-align: left;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+.activity-table th {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+.activity-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.activity-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Comments Section */
+.comments {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comments h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+.comments table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 16px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.comments table th,
+.comments table td {
+    text-align: left;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+.comments table th {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+.comments table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.comments table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.comments p {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+
+/* Back Button */
+.oca-back-btn-primary {
+    display: inline-block;
+    background-color: #3498db; /* Blue background for the back button */
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-bottom: 20px; /* Adds spacing below the button */
+}
+
+.oca-back-btn-primary:hover {
+    background-color: #2980b9; /* Slightly darker blue on hover */
+}
+
+.oca-back-btn-primary:active {
+    transform: scale(0.98); /* Slightly "pressed" effect when clicked */
+}
+
+/* oca-org-info Container */
+.oca-org-info {
+    background-color: #f9f9f9; /* Light gray background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-top: 20px;
+}
+
+.oca-org-info h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.oca-form-group {
+    margin-bottom: 20px; /* Space between form elements */
+}
+
+.oca-form-group label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #34495e;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.oca-form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.oca-form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+    outline: none;
+}
+
+/* Buttons within the form */
+.oca-split {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+.oca-btn-primary,
+.oca-btn-secondary {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.oca-btn-primary {
+    background-color: #3498db; 
+    color: #ffffff;
+    border: none;
+    margin-top: 20px;
+}
+
+.oca-btn-primary:hover {
+    background-color: #1b6596; /* Darker green on hover */
+}
+
+.oca-btn-secondary {
+    background-color: #6c757d; /* Gray for secondary button */
+    color: #ffffff;
+    border: none;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.oca-btn-secondary:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+}

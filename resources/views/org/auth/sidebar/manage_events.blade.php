@@ -37,11 +37,9 @@
                     @endcan
 
                     @can('delete', $event)
-                        <form action="{{ route('events.destroy', $event->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btnincampus-delete_incampus">Delete</button>
-                        </form>
+                        <button class="btnincampus-delete_incampus delete-button" data-event-id="{{ $event->id }}">
+                            Delete
+                        </button>
                     @endcan
                 </div>
             </div>
@@ -61,14 +59,11 @@
                     <p class="cardtextincampus_incampus">{{ Str::limit($event->description, 250, '...') }}</p>
                     <h2 class="cardtextincampus_incampus">Open for: {{ $event->eligible }}</h2>
                     <p class="event-date">{{ \Carbon\Carbon::parse($event->event_date)->format('F j, Y g:i A') }}</p>
-                    <!-- Edit and Delete buttons -->
-
+                    <!-- Delete button -->
                     @can('delete', $event)
-                        <form action="{{ route('events.destroy', $event->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btnincampus-delete_incampus">Delete</button>
-                        </form>
+                        <button class="btnincampus-delete_incampus delete-button" data-event-id="{{ $event->id }}">
+                            Delete
+                        </button>
                     @endcan
                 </div>
             </div>
@@ -78,22 +73,47 @@
     </div>
 </div>
 
+<!-- Overlay -->
+<div id="deleteOverlay" class="overlay">
+    <div class="overlay-content">
+        <div class="icon">
+            <!-- Trash icon as SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M3 6l3 18h12l3-18H3zm15 16H6l-2-14h16l-2 14zM10 2v2h4V2h-4z"/>
+            </svg>
+        </div>
+        <p>Are you sure you want to delete this event?</p>
+        <div class="overlay-buttons">
+            <button id="cancelButton" class="btn btn-secondary">Cancel</button>
+            <form id="confirmDeleteForm" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const alerts = document.querySelectorAll('.alertsuccessincampus_incampus, .alerterrorincampus_incampus');
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.delete-button');
+        const deleteOverlay = document.getElementById('deleteOverlay');
+        const confirmDeleteForm = document.getElementById('confirmDeleteForm');
+        const cancelButton = document.getElementById('cancelButton');
 
-    setTimeout(() => {
-        alerts.forEach(alert => {
-            alert.classList.add('fade-out');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const eventId = this.dataset.eventId;
+                confirmDeleteForm.action = `/events/${eventId}`;
+                deleteOverlay.style.display = 'flex';
+            });
         });
-    }, 2000);
 
-    setTimeout(() => {
-        alerts.forEach(alert => {
-            alert.style.display = 'none';
+        cancelButton.addEventListener('click', function () {
+            deleteOverlay.style.display = 'none';
         });
-    }, 2500);
-});
+    });
 </script>
 
 @endsection

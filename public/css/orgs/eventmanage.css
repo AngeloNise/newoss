@@ -1,4 +1,4 @@
-/* Container for the entire content */
+/* General container styling */
 .content-container {
     width: 70%;
     margin: 4% auto 4% 22.5%;
@@ -29,7 +29,7 @@
     margin-top: 30px;
 }
 
-/* Success alert */
+/* Success and error alerts */
 .alertsuccessincampus_incampus {
     background-color: #28a745;
     color: #ffffff;
@@ -39,7 +39,6 @@
     text-align: center;
 }
 
-/* Error alert */
 .alerterrorincampus_incampus {
     background-color: #dc3545;
     color: #ffffff;
@@ -57,7 +56,7 @@
     margin-top: 30px;
 }
 
-/* Event card styles */
+/* Event card styling */
 .cardincampus_incampus {
     background-color: #ffffff;
     border-radius: 8px;
@@ -65,7 +64,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    width: 200px; /* Smaller card width */
+    width: 200px;
     margin: 10px auto;
 }
 
@@ -100,19 +99,7 @@
     margin-bottom: 10px;
 }
 
-/* Button styles inside cards */
-.btnlinkincampus_incampus {
-    font-size: 12px;
-    color: #e74c3c;
-    text-decoration: none;
-    margin-bottom: 10px;
-}
-
-.btnlinkincampus_incampus:hover {
-    text-decoration: underline;
-}
-
-/* Edit and Delete buttons inside cards */
+/* Buttons inside cards */
 .btnincampus-edit_incampus,
 .btnincampus-delete_incampus {
     padding: 6px 12px;
@@ -141,15 +128,94 @@
     background-color: #c0392b;
 }
 
-/* Disabled buttons */
-.button.disabled {
-    pointer-events: none;
-    opacity: 0.6;
-    cursor: not-allowed;
+/* Overlay styling */
+.overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
 }
 
-button:disabled {
-    background-color: #dcdcdc;
-    cursor: not-allowed;
-    opacity: 0.6;
+.overlay-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 400px;
+}
+
+.overlay-content .icon {
+    font-size: 50px;
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+.overlay-content .icon img {
+    width: 50px;
+    height: auto;
+}
+
+.overlay-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.overlay-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.overlay-buttons .btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.overlay-buttons .btn-secondary {
+    background-color: #95a5a6;
+    color: #ffffff;
+    border: none;
+}
+
+.overlay-buttons .btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+.overlay-buttons .btn-danger {
+    background-color: #e74c3c;
+    color: #ffffff;
+    border: none;
+}
+
+.overlay-buttons .btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Icon styling for the SVG trash icon */
+.overlay-content .icon svg {
+    width: 80px; /* Increase the size of the icon */
+    height: 80px;
+    fill: #3498db; /* Blue color for the trash icon */
+    margin-bottom: 15px; /* Add some spacing below the icon */
+    transition: fill 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Change the icon color on hover */
+.overlay-content .icon svg:hover {
+    fill: #2980b9; /* Darker blue when hovered */
 }

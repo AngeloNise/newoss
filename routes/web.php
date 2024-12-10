@@ -13,11 +13,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Faculty\FacultyHomeController;
 use App\Http\Controllers\Faculty\FacultyLoginController;
 use App\Http\Controllers\Faculty\FacultyFRAAnnexAController;
-use App\Http\Controllers\Faculty\FacultyFRAAnnexBController;
-use App\Http\Controllers\Faculty\FacultyFRAAnnexCController;
 use App\Http\Controllers\Faculty\FacultyOrgAcctManagementController;
 use App\Http\Controllers\Faculty\secretformController;
-use App\Http\Controllers\faculty\CreateApplicationController;
+use App\Http\Controllers\Faculty\CreateApplicationController;
 use App\Http\Controllers\Faculty\FacultyOffCampusAnnexAController;
 use App\Http\Controllers\Faculty\FacultyOffCampusAnnexDController;
 use App\Http\Controllers\Faculty\DashboardController;
@@ -52,8 +50,7 @@ Route::get('/', function () {
     return view('/guest/welcome');
 });
 Route::get('/In-Campus!', [EventController::class, 'showGuestInCampus'])->name('guest.incampus');
-
-Route::get('/events/search', [EventController::class, 'search'])->name('events.search');
+Route::get('/incampus', [EventController::class, 'showGuestInCampus'])->name('guest.auth.incampus');
 
 // Faculty routes
 Route::prefix('faculty')->name('faculty.')->group(function () {
@@ -76,9 +73,11 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
 
         Route::get('/Application/create', [CreateApplicationController::class, 'create'])->name('application.create');
         Route::post('/Application/create', [CreateApplicationController::class, 'store'])->name('application.store');
-        Route::get('/Application-Admin', [CreateApplicationController::class, 'applicationAdmin'])->name('application.admin'); // Correct route name
+        Route::get('/Application-Admin', [CreateApplicationController::class, 'applicationAdmin'])->name('application.admin');
+
         Route::get('/Application', [CreateApplicationController::class, 'index'])->name('application.index');
         Route::get('/Applications/{id}', [CreateApplicationController::class, 'show'])->name('applications.show');
+        
         Route::put('/Applications/{id}', [CreateApplicationController::class, 'update'])->name('application.update');
         Route::get('/Applications/{id}/comments', [CreateApplicationController::class, 'createComment'])->name('applications.comments.create');
         Route::post('/Applications/{id}/comments', [CreateApplicationController::class, 'storeComment'])->name('applications.comments.store');
@@ -111,13 +110,6 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
 
         Route::get('/Dashboard-Admin', [DashboardController::class, 'index'])->name('dbadmin');
 
-        Route::get('/FRA-B-Evaluation', [FacultyFRAAnnexBController::class, 'index'])->name('fra-b-evaluation.index');
-        Route::get('/FRA-B-Evaluation/{id}', [FacultyFRAAnnexBController::class, 'show'])->name('fra-b-evaluation.show');
-
-        
-        Route::get('/FRA-C-Evaluation', [FacultyFRAAnnexCController::class, 'index'])->name('fra-c-evaluation.index');
-        Route::get('/FRA-C-Evaluation/{id}', [FacultyFRAAnnexCController::class, 'show'])->name('fra-c-evaluation.show');
-
         Route::get('/In-Campus-Evaluation', function () {
             return view('/faculty/auth/incampus-evaluation'); // Create this view
         })->name('incampus.evaluation');
@@ -135,6 +127,8 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
 
         Route::get('/faculty/offcampus-annex-a/{id}/download/{attachmentNumber}', [FacultyOffCampusAnnexAController::class, 'downloadAttachment'])
         ->name('faculty.offcampus.annex.a.download');
+
+        Route::put('/faculty/offcampus/status/update/{id}', [FacultyOffCampusAnnexAController::class, 'updateStatus'])->name('faculty.offcampus.status.update');
 
         Route::put('/offcampus/annex-a/{id}/update-status', [FacultyOffCampusAnnexAController::class, 'updateStatus'])->name('faculty.offcampus.annex-a.update-status');
         Route::get('/offcampus/annex-a/{id}/evaluate', [FacultyOffCampusAnnexAController::class, 'evaluate'])->name('faculty.offcampus.annex-a.evaluate');
@@ -154,7 +148,9 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
         ->name('faculty.offcampus.annex.d.download');   
         
         Route::get('/Organization-Account-Management', [FacultyOrgAcctManagementController::class, 'index'])->name('orgs.index');
-        
+        Route::get('/orgs/create', [FacultyOrgAcctManagementController::class, 'create'])->name('orgs.create');
+        Route::post('/orgs', [FacultyOrgAcctManagementController::class, 'store'])->name('orgs.store');
+
 
         Route::get('/Post-Report', function() {
             return view('/faculty/auth/postreport');
@@ -162,16 +158,18 @@ Route::prefix('faculty')->name('faculty.')->group(function () {
 
         Route::get('/Post-Activity-FRA', [CreateApplicationController::class, 'showApprovedApplications'])->name('post-activity-fra');
         Route::put('/application/{id}/update-frapost', [CreateApplicationController::class, 'updateFrapost'])->name('updateFrapost');
+        // In web.php
+        Route::get('/application/frapost', [CreateApplicationController::class, 'showApprovedApplications'])->name('application.frapost');
+
 
         
         Route::get('/Pre-Evaluation-Status', function() {
             return view('/faculty/auth/preevalstatus');
         })->name('dbadmin4');
-        Route::get('/Manage-Post', function() {
-            return view('/faculty/auth/managepost');
-        })->name('dbadmin5');
 
-        Route::get('/Organization-Account-Management', [FacultyOrgAcctManagementController::class, 'index'])->name('orgs.index');
+
+        Route::get('/Faculty-Manage-Post', [EventController::class, 'adminIndex'])->name('managepost');
+
         Route::get('/Organization-Account-Management/edit/{id}', [FacultyOrgAcctManagementController::class, 'edit'])->name('orgs.edit');
         Route::put('/Organization-Account-Management/update/{id}', [FacultyOrgAcctManagementController::class, 'update'])->name('orgs.update');
         Route::get('/Organization-Account-Management/remove/{id}', [FacultyOrgAcctManagementController::class, 'remove'])->name('orgs.remove');
@@ -185,9 +183,11 @@ Route::put('/organizations/{id}/update-status', [EventController::class, 'update
 Route::put('/organizations/{id}/update-remarks', [EventController::class, 'updateRemarks'])->name('faculty.updateRemarks');
 
 Route::prefix('faculty')->name('faculty.')->middleware(['auth', FacultyMiddleware::class])->group(function () {
-    Route::get('/auth/managepost', [EventController::class, 'adminIndex'])->name('managePost');
+    Route::get('/managepost', [EventController::class, 'adminIndex'])->name('managePost');
     Route::delete('/events/destroy/{id}', [EventController::class, 'facultyDestroy'])->name('events.destroy');
 });
+
+Route::get('/faculty/preApproval/download/{id}/{attachmentNumber}', [PreApprovalSubmissionController::class, 'viewAttachment'])->name('faculty.preApproval.download');
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('org.history.homepage')->middleware(UserMiddleware::class);
@@ -236,7 +236,7 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
 
     // Route for In-Campus Activity
     Route::get('/Events', [EventController::class, 'showInCampus'])->name('events.incampus');
-    Route::get('/events', [EventController::class, 'searchorg'])->name('events.searchorg');
+    Route::get('/Events/incampus', [EventController::class, 'showInCampus'])->name('org.auth.incampus');
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
     Route::post('/events/store', [EventController::class, 'store'])->name('events.store');
     Route::get('/events/edit/{id}', [EventController::class, 'edit'])->name('events.edit');
@@ -283,20 +283,20 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::post('/annex-a', [AnnexAController::class, 'store'])->name('annexa.submit');
     Route::get('/preevalfra/{id}/edit', [AnnexAController::class, 'edit'])->name('org.auth.sidebar.preevalfra.edit');
     Route::put('/annex-a/{id}', [AnnexAController::class, 'update'])->name('org.auth.sidebar.preevalfra.update');
-    //Route::post('/annex-b', [AnnexBController::class, 'store'])->name('annexb.submit');
-    Route::post('/annex-c', [AnnexCController::class, 'store'])->name('annexc.submit');
 
-    // Other routes related to pre-evaluation status and documents
-    // Submitted Forms Routes
-    //Route::get('/Pre-Evaluation-PDF', [GeneratePDFController::class, 'index']);
     Route::get('/Fund-Raising-SF', [GeneratePDFController::class, 'index']);
 
     Route::get('/Off-Campus-Activity-SF', [OffCampusController::class, 'index']);
-
+	
+    Route::get('/user/offcampus-evaluation-detail/{id}', [PreApprovalSubmissionController::class, 'showForUser'])
+        ->name('user.offcampus.evaluation.detail');
+    Route::get('/offcampus/detail/{id}', [PreApprovalSubmissionController::class, 'showForUser'])->name('org.auth.sidebar.offcampus.detail');
+    // Route for Off-Campus Edit
+    Route::get('/offcampus-annex-a/edit/{id}', [PreApprovalSubmissionController::class, 'edit'])
+        ->name('org.auth.sidebar.offcampus.edit');
+    Route::put('/offcampus-annex-a/update/{id}', [PreApprovalSubmissionController::class, 'update'])
+        ->name('org.auth.sidebar.offcampus.update');
     // Account Settings routes
     Route::get('/Account-Settings', [AccountSettingsController::class, 'index'])->name('accset');
     Route::post('/Account-Settings', [AccountSettingsController::class, 'update'])->name('accset.update');
 });
-
-Route::get('/dean/login', [DeanLoginController::class, 'index'])->name('dean.login');
-Route::post('/dean/login', [DeanLoginController::class, 'login']);

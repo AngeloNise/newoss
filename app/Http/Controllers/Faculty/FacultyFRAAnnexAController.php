@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\faculty;
+namespace App\Http\Controllers\Faculty;
 
 use App\Http\Controllers\Controller;
 use App\Models\AnnexA; // Ensure this is correct
@@ -9,11 +9,51 @@ use Illuminate\Http\Request;
 
 class FacultyFRAAnnexAController extends Controller
 {
-    public function index()
+    public function index(Request $request) 
     {
-        $applications = AnnexA::all(); // Fetch all applications without filtering by status
-        return view('faculty.auth.fraeval.fra-a-evaluation', compact('applications'));
-    }
+        $search = $request->get('search', ''); // Retrieve search query
+        $pendingPage = $request->get('pending_page', 1);
+        $returnedPage = $request->get('returned_page', 1);
+        $approvedPage = $request->get('approved_page', 1);
+    
+        // Fetch and paginate applications with search functionality
+        $pendingApprovalApplications = AnnexA::where('status', 'Pending Approval')
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('name_of_project', 'like', "%$search%")
+                      ->orWhere('requesting_organization', 'like', "%$search%");
+                });
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5, ['*'], 'pending_page', $pendingPage);
+    
+        $returnedApplications = AnnexA::where('status', 'Returned')
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('name_of_project', 'like', "%$search%")
+                      ->orWhere('requesting_organization', 'like', "%$search%");
+                });
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5, ['*'], 'returned_page', $returnedPage);
+    
+        $approvedApplications = AnnexA::where('status', 'Approved')
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('name_of_project', 'like', "%$search%")
+                      ->orWhere('requesting_organization', 'like', "%$search%");
+                });
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5, ['*'], 'approved_page', $approvedPage);
+    
+        return view('faculty.auth.fraeval.fra-a-evaluation', compact(
+            'pendingApprovalApplications',
+            'returnedApplications',
+            'approvedApplications',
+            'search'
+        ));
+    }    
 
     public function show($id)
     {

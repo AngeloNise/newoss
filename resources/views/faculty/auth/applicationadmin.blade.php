@@ -6,23 +6,24 @@
 
 <div class="application-container">
     <a href="{{ route('faculty.application.create') }}" class="button">Add Application</a>
-    <h2>Application List</h2>
 
-    <!-- Search Bar -->
-    <input type="text" id="searchBar" placeholder="Search..." class="search-bar" onkeyup="filterApplications()">
+    <form method="GET" action="{{ route('faculty.application.admin') }}" class="search-form mb-3">
+        <input 
+            type="text" 
+            id="searchBar" 
+            name="search" 
+            value="{{ request()->get('search') }}" 
+            placeholder="Search by Project Name or Organization..." 
+            class="search-bar">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>     
+
+    <h2>Application List</h2>
 
     {{-- Pending Approval Applications --}}
     <h3>Pending Approval Applications</h3>
-    @php
-        $pendingApplications = $applications->filter(function ($application) {
-            return $application->status === 'Pending Approval';
-        })->sortBy(function ($application) {
-            return [$application->created_at, $application->updated_at];
-        });
-    @endphp
-
     @if($pendingApplications->isEmpty())
-        <p>No pending approval applications.</p>
+        <p>No pending approval applications found.</p>
     @else
         <table class="table" id="pendingApplicationsTable">
             <thead>
@@ -44,20 +45,20 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="pagination-container">
+            {{ $pendingApplications->appends([
+                'search' => request()->get('search'),
+                'pending_page' => request()->get('pending_page'),
+                'returned_page' => request()->get('returned_page'),
+                'approved_page' => request()->get('approved_page')
+            ])->links('pagination::simple-bootstrap-4') }}
+        </div>
     @endif
 
     {{-- Returned Applications --}}
     <h3>Returned Applications</h3>
-    @php
-        $returnedApplications = $applications->filter(function ($application) {
-            return $application->status === 'Returned';
-        })->sortBy(function ($application) {
-            return [$application->created_at, $application->updated_at];
-        });
-    @endphp
-
     @if($returnedApplications->isEmpty())
-        <p>No returned applications.</p>
+        <p>No returned applications found.</p>
     @else
         <table class="table" id="returnedApplicationsTable">
             <thead>
@@ -79,20 +80,20 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="pagination-container">
+            {{ $returnedApplications->appends([
+                'search' => request()->get('search'),
+                'pending_page' => request()->get('pending_page'),
+                'returned_page' => request()->get('returned_page'),
+                'approved_page' => request()->get('approved_page')
+            ])->links('pagination::simple-bootstrap-4') }}
+        </div>
     @endif
 
     {{-- Approved Applications --}}
     <h3>Approved Applications</h3>
-    @php
-        $approvedApplications = $applications->filter(function ($application) {
-            return $application->status === 'Approved';
-        })->sortBy(function ($application) {
-            return [$application->created_at, $application->updated_at];
-        });
-    @endphp
-
     @if($approvedApplications->isEmpty())
-        <p>No approved applications.</p>
+        <p>No approved applications found.</p>
     @else
         <table class="table" id="approvedApplicationsTable">
             <thead>
@@ -114,6 +115,14 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="pagination-container">
+            {{ $approvedApplications->appends([
+                'search' => request()->get('search'),
+                'pending_page' => request()->get('pending_page'),
+                'returned_page' => request()->get('returned_page'),
+                'approved_page' => request()->get('approved_page')
+            ])->links('pagination::simple-bootstrap-4') }}
+        </div>
     @endif
 </div>
 

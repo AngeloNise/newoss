@@ -103,6 +103,56 @@
         <button type="button" class="btn btn-success" onclick="confirmChanges()">Save</button>
     </form>
 
+    <h3>Comments Logs</h3>
+    @if($application->logs->isNotEmpty())
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Reviewed By</th>
+                    <th>Document</th>
+                    <th>Comment</th>
+                    <th>Updated At</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($application->logs as $log)
+                    @php
+                        $comment = json_decode($log->comment, true);
+                        $document = json_decode($log->document, true);
+                    @endphp
+                    
+                    @if (!empty($comment['new']) || !empty($document['new']))
+                        <tr>
+                            <td>{{ $log->updated_by ?? 'N/A' }}</td>
+                            
+                            {{-- Document Change --}}
+                            <td>
+                                @if (!empty($document['new']))
+                                    <span>{{ $document['new'] }}</span>
+                                @else
+                                    <span>N/A</span>
+                                @endif
+                            </td>
+                            
+                            {{-- Comment Change --}}
+                            <td>
+                                @if (!empty($comment['new']))
+                                    <span>{{ $comment['new'] }}</span>
+                                @else
+                                    <span>N/A</span>
+                                @endif
+                            </td>
+                            
+                            <td>{{ $log->updated_at }}</td>
+                        </tr>
+                    @endif
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <p>No comments or document updates available for this application.</p>
+    @endif
+    
     <h3>Application Logs</h3>
     @if($application->logs->isNotEmpty())
         <table class="table">
@@ -180,6 +230,7 @@
     @else
         <p>No logs available for this application.</p>
     @endif
+    
 
 </div>
 

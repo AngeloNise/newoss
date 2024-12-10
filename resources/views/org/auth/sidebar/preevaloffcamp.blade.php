@@ -14,9 +14,6 @@
     <div class="activity-buttons">
         <h1>Pre-Approval Requirements</h1>
         <a href="{{ url('/Off-Campus/Annex-A') }}" class="button">Annex A-C</a>
-        <h1>Upon-Approval Requirements</h1>
-        <a href="{{ url('/Off-Campus/Annex-D') }}" class="button">Annex D-H</a>
-        <br>
     </div>
 </div>
 @endsection

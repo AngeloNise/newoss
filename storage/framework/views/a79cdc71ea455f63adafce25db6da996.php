@@ -1,8 +1,8 @@
-
-
 <?php $__env->startSection('content'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/orgs/pdf/evalpdf.css')); ?>">
 <div class="fra-container mt-4">
+<a href="<?php echo e(url('/Submitted-Forms')); ?>" class="btn btn-primary">Back</a>
+
     <h2>Your Submitted Forms</h2>
     <br><br>
 
@@ -33,7 +33,7 @@
                               <td><?php echo e($submission->end_date); ?></td>
                               <td><?php echo e($submission->number_of_participants); ?></td>
                               <td>
-                                  <button onclick="window.location='<?php echo e(route('offcampus.annex.a.show', $submission->id)); ?>'" class="btn btn-primary">View</button>
+                              <button onclick="window.location='<?php echo e(route('user.offcampus.evaluation.detail', $submission->id)); ?>'" class="btn btn-primary">View</button>
                               </td>
                           </tr>
                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

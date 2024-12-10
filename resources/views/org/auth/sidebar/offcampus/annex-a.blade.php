@@ -74,10 +74,13 @@
         </div>
 
     <!-- Attachment Fields with Custom Labels -->
-    <h2>Annex B</h2>
+    <h2>Pre-Approval Requirements</h2>
+    <label style="font-weight: bold; font-size: 25px;">Max PDF FILE: 2048kb | 2 mb</label>
 
-    <div class="oca-group">
-        <label for="attachment1">Letter of Intent (Addressed to Sector Head and Recommended by Director/Dean)</label>
+    
+    <br>
+    <br><div class="oca-group">
+        <label for="attachment1">Annex B: Letter of Intent (Addressed to Sector Head and Recommended by Director/Dean)</label>
         <input type="file" id="attachment1" name="attachment1" accept=".pdf,.doc,.docx" required>
     </div>
 
@@ -96,10 +99,8 @@
         <input type="file" id="attachment4" name="attachment4" accept=".pdf,.doc,.docx" required>
     </div>
 
-    <h2>Annex C</h2>
-
     <div class="oca-group">
-        <label for="attachment5">Summary List of Participants (With College Indicated)</label>
+        <label for="attachment5">Annex C: Summary List of Participants (With College Indicated)</label>
         <input type="file" id="attachment5" name="attachment5" accept=".pdf,.doc,.docx" required>
     </div>
 
@@ -113,6 +114,73 @@
         <input type="file" id="attachment7" name="attachment7" accept=".pdf,.doc,.docx" required>
     </div>
 
+    <h2>Upon Approval Requirements</h2>
+
+    <div class="oca-group">
+        <label for="attachment8">ANNEX D: Individual Itinerary of Travel (Reviewed by PIC and Approved by Dean/Director)</label>
+        <input type="file" id="attachment8" name="attachment8" accept=".pdf,.doc,.docx" required>
+    </div>
+
+    <div class="oca-group">
+        <label for="attachment9">Scanned Copy/Photocopy of Passport of Participants (For Activity Outside the Country)</label>
+        <input type="file" id="attachment9" name="attachment9" accept=".pdf,.doc,.docx" required>
+    </div>
+
+    <div class="oca-group">
+        <label for="attachment10">Medical Clearance (Office Memorandum Order No. 13 Series 2022)</label>
+        <input type="file" id="attachment10" name="attachment10" accept=".pdf,.doc,.docx" required>
+    </div>
+
+    <div class="oca-group">
+        <label for="attachment11">ANNEX E: Endorsement Letter from Dean/Director to Medical and Dental Services Office Director (MDSO Director)</label>
+        <input type="file" id="attachment11" name="attachment11" accept=".pdf,.doc,.docx" required>
+    </div>
+
+    <div class="oca-group">
+        <label for="attachment12">First Aid Kit (Type Determined by Medical and Dental Services Office)</label>
+        <input type="file" id="attachment12" name="attachment12" accept=".pdf,.doc,.docx" required>
+    </div>
+
+    <div class="oca-group">
+        <label for="attachment13">Group Insurance for All Participants</label>
+        <input type="file" id="attachment13" name="attachment13" accept=".pdf,.doc,.docx" required>
+    </div>
+
+    <div class="oca-group">
+        <label for="attachment14">Consent Form (Signed by Parent/Guardian with Photocopy of Valid ID and Wet Signature)</label>
+        <input type="file" id="attachment14" name="attachment14" accept=".pdf,.doc,.docx" required>
+    </div>
+
+    <div class="oca-group">
+        <label for="attachment15">ANNEX F: Assumption of Responsibility of PIC and Concerned Sector Head</label>
+        <input type="file" id="attachment15" name="attachment15" accept=".pdf,.doc,.docx" required>
+    </div>
+
+    <div class="oca-group">
+        <label for="attachment16">Request Letter for Advance Coordination with Local Government/NGOs (For Curricular Activity)</label>
+        <input type="file" id="attachment16" name="attachment16" accept=".pdf,.doc,.docx" required>
+    </div>
+
+    <div class="oca-group">
+        <label for="attachment17">ANNEX G: Risk Assessment Plan (Prepared by PIC/Adviser, Approved by Dean/Director)</label>
+        <input type="file" id="attachment17" name="attachment17" accept=".pdf,.doc,.docx" required>
+    </div>
+
+    <div class="oca-group">
+        <label for="attachment18">Consultation Minutes (With Stakeholders, Signed by PIC)</label>
+        <input type="file" id="attachment18" name="attachment18" accept=".pdf,.doc,.docx" required>
+    </div>
+
+    <div class="oca-group">
+        <label for="attachment19">Fees/Funds (As Applicable for Curricular Activity)</label>
+        <input type="file" id="attachment19" name="attachment19" accept=".pdf,.doc,.docx" required>
+    </div>
+
+    <div class="oca-group">
+        <label for="attachment20">Procurement Requirements (For Equipment/Machines, Facilities, Services)</label>
+        <input type="file" id="attachment20" name="attachment20" accept=".pdf,.doc,.docx" required>
+    </div>        
+
     <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
@@ -122,27 +190,25 @@
     function validateAttachments() {
         // Get all file inputs in the form
         const fileInputs = document.querySelectorAll('input[type="file"]');
-        
+
         for (let i = 0; i < fileInputs.length; i++) {
-            // Check if the file input has a file selected
-            if (!fileInputs[i].files.length) {
-                alert("Please upload all required attachments.");
-                return false;
-            }
-            
-            // Get the file and its extension
-            const file = fileInputs[i].files[0];
-            const fileType = file.type;
-            const validExtensions = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-            
-            // Check if the file type is allowed
-            if (!validExtensions.includes(fileType)) {
-                alert("Only PDF, DOC, and DOCX files are allowed.");
-                return false;
+            // Only validate if a file is selected
+            if (fileInputs[i].files.length > 0) {
+                const file = fileInputs[i].files[0];
+                const fileType = file.type;
+                const validExtensions = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                
+                // Check if the file type is allowed
+                if (!validExtensions.includes(fileType)) {
+                    alert("Only PDF, DOC, and DOCX files are allowed.");
+                    return false;
+                }
             }
         }
-        return true; // Proceed with form submission if all checks pass
+        // No restrictions, allow form submission
+        return true;
     }
 </script>
+
 
 @endsection

@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\faculty;
+namespace App\Http\Controllers\Faculty;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use App\Models\Logo;
+use App\Models\ApplicationLog;
+use App\Models\User;
 use App\Models\Application;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Models\Logo;
 use Carbon\Carbon;
 
 class CreateApplicationController extends Controller
@@ -222,11 +225,6 @@ class CreateApplicationController extends Controller
         return response()->json($branches);
     }
 
-
-
-
-
-
     public function index()
     {
         // Retrieve all applications from the database
@@ -261,22 +259,22 @@ class CreateApplicationController extends Controller
             'comment' => 'nullable|string|max:500', // Add validation for comment
             'document' => 'nullable|string', // Add validation for document
         ]);
-    
+
         // Find the application by ID or fail with a 404 error
         $application = Application::findOrFail($id);
-    
+
         // Store old values before the update
         $oldValues = [
-            'comment' => $application->comment,  // Store old comment value
-            'document' => $application->document,  // Store old document value
             'start_date' => $application->start_date,
             'end_date' => $application->end_date,
             'total_estimated_income' => $application->total_estimated_income,
             'status' => $application->status,
             'current_file_location' => $application->current_file_location,
             'submission_date' => $application->submission_date, // Assuming submission_date does not change
+            'comment' => $application->comment, // Add the old comment value to the oldValues array
+            'document' => $application->document, // Add the old document value to the oldValues array
         ];
-    
+
         // Update fields with new values
         $application->status = $validated['status'];
         $application->current_file_location = $validated['current_file_location'];
@@ -284,68 +282,72 @@ class CreateApplicationController extends Controller
         $application->end_date = $validated['end_date'];
         $application->college_branch = $validated['college_branch'];
         $application->total_estimated_income = $validated['total_estimated_income'];
-        
-        // Check if 'document' is provided before updating
-        if (isset($validated['document'])) {
-            $application->document = $validated['document'];  // Update the document field
+
+        // Update the document if provided
+        if (isset($validated['document']) && $validated['document'] !== null) {
+            $application->document = $validated['document']; // Update the document field
         }
-    
+
+        // Update the comment if provided
+        if (isset($validated['comment']) && $validated['comment'] !== null) {
+            $application->comment = $validated['comment']; // Update the comment field
+        }
+
+        // Save the updated application
         $application->save();
-    
+
         // Create an array to hold changes for logging
         $logData = [];
         $userName = auth()->user()->name;  // Capture the logged-in user's name
-    
+
         // Check for changes and prepare log data
         if ($oldValues['comment'] !== $application->comment) {
             $logData['comment'] = json_encode([
-                'old' => $oldValues['comment'],
                 'new' => $application->comment,
             ]);
         }
-    
+
         if ($oldValues['document'] !== $application->document) {
             $logData['document'] = json_encode([
-                'old' => $oldValues['document'],
                 'new' => $application->document,
             ]);
         }
-    
+
         if ($oldValues['start_date'] !== $application->start_date) {
             $logData['start_date'] = json_encode([
                 'old' => $oldValues['start_date'],
                 'new' => $application->start_date,
             ]);
         }
-    
+
         if ($oldValues['end_date'] !== $application->end_date) {
             $logData['end_date'] = json_encode([
                 'old' => $oldValues['end_date'],
                 'new' => $application->end_date,
             ]);
         }
-    
+
         if ($oldValues['total_estimated_income'] !== $application->total_estimated_income) {
             $logData['total_estimated_income'] = json_encode([
                 'old' => $oldValues['total_estimated_income'],
                 'new' => $application->total_estimated_income,
             ]);
         }
-    
+
         if ($oldValues['status'] !== $application->status) {
             $logData['status'] = json_encode([
                 'old' => $oldValues['status'],
                 'new' => $application->status,
             ]);
         }
-    
+
         if ($oldValues['current_file_location'] !== $application->current_file_location) {
             $logData['current_file_location'] = json_encode([
                 'old' => $oldValues['current_file_location'],
                 'new' => $application->current_file_location,
             ]);
         }
-    
+
         // Only create a log entry if there are any changes
         if (!empty($logData)) {
             // Include the faculty name in the log data
@@ -356,23 +358,61 @@ class CreateApplicationController extends Controller
                 'updated_at' => now(),
             ], $logData));
         }
-    
+
         // Flash success message
         Session::flash('success', 'Application updated successfully.');
-    
+
         // Redirect back to the admin applications route
-        return redirect()->route('faculty.application.admin')->with('success', 'Application updated successfully!');
+        return redirect()->route('faculty.applications.show', ['id' => $application->id])->with('success', 'Application updated successfully!');
     }
+    
 
-    public function applicationAdmin()
+    public function applicationAdmin(Request $request)
     {
-        // Retrieve all applications from the database
-        $applications = Application::all();
+        // Initialize the query for each status
+        $searchTerm = strtolower($request->input('search', '')); // Normalize the search term
         
-        // Return the view with the applications data
-        return view('faculty.auth.applicationadmin', compact('applications'));
+        $pendingApplicationsQuery = Application::where('status', 'Pending Approval');
+        $returnedApplicationsQuery = Application::where('status', 'Returned');
+        $approvedApplicationsQuery = Application::where('status', 'Approved');
+        
+        // Apply the search filter if there's a search term
+        if (!empty($searchTerm)) {
+            $searchFilter = function ($query) use ($searchTerm) {
+                $query->whereRaw('LOWER(name_of_project) LIKE ?', ["%{$searchTerm}%"])
+                      ->orWhereRaw('LOWER(name_of_organization) LIKE ?', ["%{$searchTerm}%"]);
+            };
+    
+            $pendingApplicationsQuery->where($searchFilter);
+            $returnedApplicationsQuery->where($searchFilter);
+            $approvedApplicationsQuery->where($searchFilter);
+        }
+        
+        // Set the current page for each section (Pending, Returned, Approved)
+        $pendingPage = $request->get('pending_page', 1); // Default to page 1 if not present
+        $returnedPage = $request->get('returned_page', 1); // Default to page 1 if not present
+        $approvedPage = $request->get('approved_page', 1); // Default to page 1 if not present
+        
+        // Paginate the results with separate page parameters for each section
+        $pendingApplications = $pendingApplicationsQuery->orderBy('created_at', 'desc')
+            ->paginate(5, ['*'], 'pending_page', $pendingPage);
+        
+        $returnedApplications = $returnedApplicationsQuery->orderBy('created_at', 'desc')
+            ->paginate(5, ['*'], 'returned_page', $returnedPage);
+        
+        $approvedApplications = $approvedApplicationsQuery->orderBy('created_at', 'desc')
+            ->paginate(5, ['*'], 'approved_page', $approvedPage);
+    
+        // Return the view with the applications and search term
+        return view('faculty.auth.applicationadmin', compact(
+            'pendingApplications',
+            'returnedApplications',
+            'approvedApplications',
+            'searchTerm'
+        ));
     }
-
+    
+    
     public function showComments($id)
     {
         // Find the application by ID or fail
@@ -386,18 +426,35 @@ class CreateApplicationController extends Controller
         return view('org.auth.sidebar.history.frahistorydetails', compact('application', 'comments'));
     }
     
-    public function showApprovedApplications()
+    public function showApprovedApplications(Request $request)
     {
-        // Retrieve approved applications with status 'Approved' and 'proposed_activity' as 'fund raising'
-        $approvedApplications = Application::where('status', 'Approved')
-                                           ->where('proposed_activity', 'fund raising')
-                                           ->get();
+        // Get the search term from the request
+        $search = $request->get('search');
+        
+        // Base query to get approved applications with status 'Approved' and 'proposed_activity' as 'fund raising'
+        $approvedApplicationsQuery = Application::where('status', 'Approved')
+            ->where('proposed_activity', 'fund raising'); 
     
-        // Separate 'Not Submitted' and 'Submitted' applications
-        $notSubmittedApplications = $approvedApplications->where('frapost', 'not_submitted');
-        $submittedApplications = $approvedApplications->where('frapost', 'submitted');
+        // Apply search filter if search term is provided
+        if ($search) {
+            $approvedApplicationsQuery->where(function($query) use ($search) {
+                $query->where('name_of_organization', 'like', '%' . $search . '%')
+                      ->orWhere('name_of_project', 'like', '%' . $search . '%');
+            });
+        }
     
-        // Pass both sets of applications to the view
-        return view('faculty.auth.postreportfra', compact('notSubmittedApplications', 'submittedApplications'));
-    }   
+        // Paginate 'Not Submitted' applications
+        $notSubmittedApplications = $approvedApplicationsQuery->clone()
+            ->where('frapost', 'not_submitted')
+            ->paginate(5, ['*'], 'not_submitted_page', $request->get('not_submitted_page', 1));
+    
+        // Paginate 'Submitted' applications
+        $submittedApplications = $approvedApplicationsQuery->clone()
+            ->where('frapost', 'submitted')
+            ->paginate(5, ['*'], 'submitted_page', $request->get('submitted_page', 1));
+    
+        // Pass both sets of applications and search term to the view
+        return view('faculty.auth.postreportfra', compact('notSubmittedApplications', 'submittedApplications', 'search'));
+    }
+    
 }

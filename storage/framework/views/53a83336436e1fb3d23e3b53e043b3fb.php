@@ -114,55 +114,52 @@
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const notifDropdown = document.getElementById('notif-dropdown');
-        const notifBell = document.getElementById('notif-bell');
-        const notifCountElement = document.getElementById('notif-count');
-        
-        // Get the last seen timestamp from localStorage
-        const lastSeen = localStorage.getItem('notificationsSeenAt');
-        
-        // Get notifications passed from Blade (ensure you pass these in your Blade template)
-        const notifications = <?php echo json_encode($organization_notifications, 15, 512) ?>; // Array of notifications from the backend
-        const newNotificationsCount = <?php echo e($new_notifications_count); ?>; // Count of new notifications
+        // Handle Application History Dropdown Toggle
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const dropdownMenu = document.getElementById('application-dropdown');
 
-        // Toggle the notification dropdown visibility on bell click
-        notifBell.addEventListener('click', function () {
-            notifDropdown.style.display = notifDropdown.style.display === 'none' ? 'block' : 'none';
+        // Event listener for the Application History dropdown
+    dropdownToggle.addEventListener('click', function (event) {
+        // Prevents event propagation to avoid interference with other click handlers
+        event.stopPropagation();
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
 
-            // If the dropdown is opened, mark notifications as seen
-            if (notifDropdown.style.display === 'block') {
-                // Remove the notification count visually
-                if (notifCountElement) {
-                    notifCountElement.remove();
-                }
+        // Handle Notification Bell Dropdown
+    const notifDropdown = document.getElementById('notif-dropdown');
+    const notifBell = document.getElementById('notif-bell');
+    const notifCountElement = document.getElementById('notif-count');
+    
+    notifBell.addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevent the click from bubbling to the document
+        notifDropdown.style.display = notifDropdown.style.display === 'none' ? 'block' : 'none';
 
-                // Store the current timestamp in localStorage to mark when the notifications were seen
-                localStorage.setItem('notificationsSeenAt', new Date().toISOString());
+        // If the dropdown is opened, mark notifications as seen
+        if (notifDropdown.style.display === 'block') {
+            // Remove the notification count visually
+            if (notifCountElement) {
+                notifCountElement.remove();
             }
-        });
 
-        // Handle the notification count display on page load
-        if (newNotificationsCount > 0) {
-            // If the notification count element does not exist, create it
-            if (!notifCountElement) {
-                const newNotifCountElement = document.createElement('span');
-                newNotifCountElement.id = 'notif-count';
-                newNotifCountElement.style = 'position: absolute; top: -5px; right: 5px; background-color: red; color: white; border-radius: 50%; padding: 3px 6px; font-size: 12px;';
-                newNotifCountElement.textContent = newNotificationsCount;
-                notifBell.appendChild(newNotifCountElement);
-            } else {
-                // If it already exists, update the count
-                notifCountElement.textContent = newNotificationsCount;
-            }
+            // Store the current timestamp in localStorage to mark when the notifications were seen
+            localStorage.setItem('notificationsSeenAt', new Date().toISOString());
         }
+    });
 
-        // Close the dropdown if clicking outside
+        // Close the dropdowns if clicking outside
         document.addEventListener('click', function (event) {
+            // Check if the click is outside the notification dropdown and bell
             if (!notifDropdown.contains(event.target) && event.target !== notifBell) {
                 notifDropdown.style.display = 'none';
             }
+
+            // Check if the click is outside the application dropdown
+            if (!dropdownMenu.contains(event.target) && event.target !== dropdownToggle) {
+                dropdownMenu.style.display = 'none';
+            }
         });
     });
+
 
     window.addEventListener('load', function () {
         const lastSeen = localStorage.getItem('notificationsSeenAt'); // Get the timestamp of the last time notifications were seen
